@@ -1,0 +1,47 @@
+{
+  "name": "xjoin-search",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -r dist",
+    "compile": "npm run generate && tsc",
+    "generate": "graphql-codegen --config codegen.yml",
+    "lint": "eslint 'src/**/*.ts'",
+    "start": "tsc && LOG_PRETTY=true ts-node-dev --respawn src/app.ts",
+    "verify": "npm-run-all lint"
+  },
+  "author": "Jozef Hartinger",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.7.0",
+    "@graphql-codegen/introspection": "1.7.0",
+    "@graphql-codegen/typescript": "1.7.0",
+    "@graphql-codegen/typescript-resolvers": "1.7.0",
+    "@types/bluebird": "^3.5.27",
+    "@types/convict": "^4.2.1",
+    "@types/lodash": "^4.14.138",
+    "@types/pino": "^5.8.10",
+    "@typescript-eslint/eslint-plugin": "^2.1.0",
+    "@typescript-eslint/parser": "^2.1.0",
+    "eslint": "^6.3.0",
+    "eslint-plugin-jest": "^22.16.0",
+    "eslint-plugin-security": "^1.4.0",
+    "install": "^0.13.0",
+    "npm": "^6.11.2",
+    "npm-run-all": "^4.1.5",
+    "ts-node-dev": "^1.0.0-pre.42",
+    "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.3.0",
+    "@godaddy/terminus": "^4.2.0",
+    "apollo-server-express": "^2.9.3",
+    "bluebird": "^3.5.5",
+    "convict": "^5.1.0",
+    "express": "^4.17.1",
+    "graphql": "^14.5.4",
+    "lodash": "^4.17.15",
+    "pino": "^5.13.2",
+    "pino-pretty": "^3.2.1"
+  }
+}

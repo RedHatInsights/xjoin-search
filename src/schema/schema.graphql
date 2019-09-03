@@ -1,0 +1,32 @@
+input KeyValueInput {
+    key: String!
+    value: String!
+}
+
+input HostFilter {
+    AND: [HostFilter!]
+    OR: [HostFilter!]
+    NOT: HostFilter
+
+    system_profile_fact: KeyValueInput
+}
+
+type Host {
+    id: ID!
+    account: String!
+    display_name: String
+}
+
+type CollectionMeta {
+    count: Int!
+    total: Int!
+}
+
+type Hosts {
+    data: [Host]!
+    meta: CollectionMeta!
+}
+
+type Query {
+    hosts (filter: HostFilter, limit: Int = 10, offset: Int = 0): Hosts!
+}
