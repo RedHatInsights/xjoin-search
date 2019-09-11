@@ -1,0 +1,67 @@
+[
+    {
+        "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+        "account": "901578",
+        "display_name": "test02.rhel7.jharting.local",
+        "system_profile_facts": {
+            "last_boot_time": "2019-08-07T08:45:13",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "os_release": "7.5",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "arch": "x86_64",
+            "satellite_managed": false,
+            "infrastructure_vendor": "virtualbox"
+        }
+    },
+    {
+        "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
+        "account": "901578",
+        "display_name": "test01.rhel7.jharting.local",
+        "system_profile_facts": {
+            "last_boot_time": "2019-08-07T08:45:02",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "os_release": "7.5",
+            "infrastructure_type": "virtual",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "os_kernel_version": "3.10.0",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "arch": "x86_64",
+            "satellite_managed": false,
+            "infrastructure_vendor": "virtualbox"
+        }
+    },
+    {
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "account": "901578",
+        "display_name": "test03.rhel7.jharting.local",
+        "system_profile_facts": {
+            "last_boot_time": "2019-08-07T08:46:16",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "os_release": "7.5",
+            "infrastructure_type": "virtual",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "os_kernel_version": "3.10.0",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "arch": "x86_64",
+            "satellite_managed": false,
+            "infrastructure_vendor": "virtualbox"
+        }
+    }
+]
