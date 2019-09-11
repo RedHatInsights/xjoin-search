@@ -41,6 +41,15 @@ const config = convict({
             default: 'xjoin_search_',
             env: 'METRICS_PREFIX'
         }
+    },
+    queries: {
+        hosts: {
+            index: {
+                format: String,
+                default: 'test.hosts',
+                env: 'HOSTS_INDEX'
+            }
+        }
     }
 });
 

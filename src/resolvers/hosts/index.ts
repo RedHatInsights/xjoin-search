@@ -4,6 +4,7 @@ import { QueryHostsArgs, HostFilter, KeyValueInput } from '../../generated/graph
 import client from '../../es';
 import * as common from '../common';
 import log from '../../util/log';
+import config from '../../config';
 
 export function resolveFilter(filter: HostFilter): any[] {
     return _.transform(filter, (acc: any[], value: any, key: string) => {
@@ -60,7 +61,7 @@ export default async function hosts (parent: any, args: QueryHostsArgs) {
 
     const body = buildESQuery(args);
     const query = {
-        index: 'inventory.public.hosts',
+        index: config.queries.hosts.index,
         body
     };
 
