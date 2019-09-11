@@ -10,6 +10,7 @@ import schema from './schema';
 import resolvers from './resolvers';
 import log from './util/log';
 import client from './es';
+import playground from './playground';
 
 process.on('unhandledRejection', (reason: any) => {
     log.fatal(reason);
@@ -24,7 +25,11 @@ async function run () {
     log.debug('connected to Elasticsearch');
 
     const app = express();
-    const apollo = new ApolloServer({ typeDefs: schema, resolvers });
+    const apollo = new ApolloServer({
+        typeDefs: schema,
+        resolvers,
+        playground
+    });
     apollo.applyMiddleware({ app });
     const server: any = promisifyAll(createServer(app));
 
