@@ -1,0 +1,25 @@
+version: '2'
+services:
+  xjoin-search:
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+    command: sh -c "echo 'Waiting 15s for dependencies to start' && sleep 15 && exec node dist/src/app.js"
+    links:
+      - elasticsearch
+    ports:
+      - 4000:4000
+    environment:
+      ES_NODES: http://elasticsearch:9200
+      LOG_LEVEL: debug
+      LOG_PRETTY: "true"
+      NODE_ENV: development
+    restart: unless-stopped
+
+  elasticsearch:
+    image: elasticsearch:7.3.1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: "single-node"
