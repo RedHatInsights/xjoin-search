@@ -46,6 +46,7 @@
     "graphql-type-json": "^0.3.0",
     "lodash": "^4.17.15",
     "pino": "^5.13.2",
-    "pino-pretty": "^3.2.1"
+    "pino-pretty": "^3.2.1",
+    "prom-client": "^11.5.3"
   }
 }

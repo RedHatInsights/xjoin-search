@@ -18,6 +18,8 @@ Search server that exposes Elasticsearch indexes via GraphQL API.
 1. ```npm start```
 1. open http://localhost:4000/graphql
 
+Metrics can be found at http://localhost:4000/metrics
+
 ### Testing
 
 To run the linter, unit and integration tests run:

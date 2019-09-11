@@ -34,6 +34,13 @@ const config = convict({
             default: 'http://localhost:9200',
             env: 'ES_NODES'
         }
+    },
+    metrics: {
+        prefix: {
+            format: String,
+            default: 'xjoin_search_',
+            env: 'METRICS_PREFIX'
+        }
     }
 });
 

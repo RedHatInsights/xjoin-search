@@ -11,6 +11,7 @@ import resolvers from './resolvers';
 import log from './util/log';
 import client from './es';
 import playground from './playground';
+import metrics from './metrics';
 
 process.on('unhandledRejection', (reason: any) => {
     log.fatal(reason);
@@ -30,6 +31,8 @@ async function run () {
         resolvers,
         playground
     });
+
+    metrics(app);
     apollo.applyMiddleware({ app });
     const server: any = promisifyAll(createServer(app));
 
