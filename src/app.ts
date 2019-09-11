@@ -18,7 +18,7 @@ process.on('unhandledRejection', (reason: any) => {
     throw reason;
 });
 
-async function run () {
+export default async function start () {
     log.info({env: config.env}, `${version.full} starting`);
     log.debug(sanitized, 'configuration');
 
@@ -56,6 +56,19 @@ async function run () {
 
     await server.listenAsync(config.port);
     log.info({ url: `http://localhost:${config.port}${apollo.graphqlPath}` }, 'accepting connections');
+
+    return {
+        apollo,
+        async stop () {
+            try {
+                await server.closeAsync();
+            } finally {
+                await client.close();
+            }
+        }
+    };
 }
 
-run();
+if (require.main === module) {
+    start();
+}

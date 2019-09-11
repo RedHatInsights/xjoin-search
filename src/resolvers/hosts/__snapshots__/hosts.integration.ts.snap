@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hosts query fetch hosts 1`] = `
+Object {
+  "data": Object {
+    "hosts": Object {
+      "data": Array [
+        Object {
+          "account": "901578",
+          "display_name": "test01.rhel7.jharting.local",
+          "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
