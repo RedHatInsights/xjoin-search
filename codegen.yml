@@ -3,9 +3,9 @@ schema: "./src/schema/schema.graphql"
 documents: null
 generates:
   src/generated/graphql.ts:
+    config:
+      scalars:
+        JSONObject: '{ [key: string]: any }'
     plugins:
       - "typescript"
       - "typescript-resolvers"
-  ./graphql.schema.json:
-    plugins:
-      - "introspection"

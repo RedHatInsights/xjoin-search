@@ -1,3 +1,6 @@
+scalar JSON
+scalar JSONObject
+
 input KeyValueInput {
     key: String!
     value: String!
@@ -15,6 +18,7 @@ type Host {
     id: ID!
     account: String!
     display_name: String
+    system_profile_facts: JSONObject
 }
 
 type CollectionMeta {
