@@ -4,9 +4,15 @@ import { createTestClient } from 'apollo-server-testing';
 let ctx: any = null;
 
 beforeAll(async () => {
-    const app = await start();
-    const { query } = createTestClient(app.apollo);
-    ctx = { app, query };
+    try {
+        const app = await start();
+        const { query } = createTestClient(app.apollo);
+        ctx = { app, query };
+    } catch (e) {
+        // workaround for https://github.com/facebook/jest/issues/8688
+        console.log(e);
+        throw e;
+    }
 });
 
 afterAll(async () => {
