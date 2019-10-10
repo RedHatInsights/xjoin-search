@@ -43,7 +43,15 @@ function buildESQuery(args: QueryHostsArgs) {
     const query: any = {
         from: args.offset,
         size: args.limit,
-        _source: ['id', 'account', 'display_name', 'tags', 'system_profile_facts'] // TODO: infer from info.selectionSet
+
+        sort: [{
+            [String(args.order_by)]: String(args.order_how)
+        }, {
+            id: 'ASC' // for deterministic sort order
+        }],
+
+        _source: ['id', 'account', 'display_name', 'created_on', 'modified_on',
+            'ansible_host', 'system_profile_facts'] // TODO: infer from info.selectionSet
     };
 
     if (args.filter) {

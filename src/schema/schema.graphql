@@ -1,9 +1,30 @@
+#
+# Common types
+#
 scalar JSON
 scalar JSONObject
+
+enum ORDER_DIR {
+    ASC,
+    DESC
+}
 
 input KeyValueInput {
     key: String!
     value: String!
+}
+
+type CollectionMeta {
+    count: Int!
+    total: Int!
+}
+
+#
+# Input types
+#
+enum HOSTS_ORDER_BY {
+    display_name,
+    modified_on
 }
 
 input HostFilter {
@@ -14,16 +35,16 @@ input HostFilter {
     system_profile_fact: KeyValueInput
 }
 
+#
+# Output types
+#
 type Host {
     id: ID!
     account: String!
     display_name: String
+    created_on: String
+    modified_on: String
     system_profile_facts: JSONObject
-}
-
-type CollectionMeta {
-    count: Int!
-    total: Int!
 }
 
 type Hosts {
@@ -31,6 +52,15 @@ type Hosts {
     meta: CollectionMeta!
 }
 
+#
+# Queries
+#
 type Query {
-    hosts (filter: HostFilter, limit: Int = 10, offset: Int = 0): Hosts!
+    hosts (
+        filter: HostFilter,
+        limit: Int = 10,
+        offset: Int = 0,
+        order_by: HOSTS_ORDER_BY = display_name,
+        order_how: ORDER_DIR = ASC
+    ): Hosts!
 }
