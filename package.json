@@ -6,12 +6,12 @@
   "scripts": {
     "clean": "rm -r dist",
     "compile": "npm run generate && tsc",
-    "coverage": "npm run compile && NODE_ENV=test LOG_LEVEL=fatal jest -i --coverage",
+    "coverage": "npm run compile && npm run seed && NODE_ENV=test LOG_LEVEL=fatal jest -i --coverage",
     "generate": "graphql-codegen --config codegen.yml",
     "lint": "eslint 'src/**/*.ts'",
     "seed": "ts-node test/seed.js",
     "start": "tsc && LOG_PRETTY=true ts-node-dev --respawn src/app.ts",
-    "test": "npm run compile && NODE_ENV=test LOG_LEVEL=fatal jest -i",
+    "test": "npm run compile && npm run seed && NODE_ENV=test LOG_LEVEL=fatal jest -i",
     "verify": "npm-run-all lint coverage"
   },
   "author": "Jozef Hartinger",

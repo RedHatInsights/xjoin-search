@@ -5,7 +5,10 @@ const P = require('bluebird');
 async function run () {
     const index = 'test.hosts';
 
-    await client.indices.delete({ index });
+    try {
+        await client.indices.delete({ index });
+    } catch (ignored) { } // eslint-disable-line no-empty
+
     await client.indices.create({ index });
 
     await client.indices.putMapping({
