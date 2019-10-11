@@ -1,0 +1,117 @@
+# OpenShift deployment used in CI to run integration tests
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+  selfLink: /apis/apps.openshift.io/v1/namespaces/xjoin-search-pr/deploymentconfigs/elasticsearch
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: elasticsearch
+    deploymentconfig: elasticsearch
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        app: elasticsearch
+        deploymentconfig: elasticsearch
+    spec:
+      containers:
+      - image: elasticsearch@sha256:510e4ab19b644660dbb15a31ca919131edd293e633bf4a4458aed0cf0f671705
+        imagePullPolicy: IfNotPresent
+        name: elasticsearch
+        ports:
+        - containerPort: 9200
+          protocol: TCP
+        - containerPort: 9300
+          protocol: TCP
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        env:
+        - name: discovery.type
+          value: single-node
+        resources:
+          limits:
+            cpu: 500m
+            memory: 2000Mi
+          requests:
+            cpu: 500m
+            memory: 2000Mi
+        readinessProbe:
+          httpGet:
+            path: /_cluster/health
+            port: 9200
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /_cluster/health
+            port: 9200
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+          periodSeconds: 30
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - elasticsearch
+      from:
+        kind: ImageStreamTag
+        name: elasticsearch:7.3.1
+        namespace: xjoin-search-pr
+    type: ImageChange
+status:
+  availableReplicas: 0
+  latestVersion: 0
+  observedGeneration: 0
+  replicas: 0
+  unavailableReplicas: 0
+  updatedReplicas: 0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+spec:
+  ports:
+  - name: 9200-tcp
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  - name: 9300-tcp
+    port: 9300
+    protocol: TCP
+    targetPort: 9300
+  selector:
+    app: elasticsearch
+status:
+  loadBalancer: {}
