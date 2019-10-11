@@ -20,6 +20,41 @@ Search server that exposes Elasticsearch indexes via GraphQL API.
 
 Metrics can be found at http://localhost:4000/metrics
 
+### Sample queries
+
+Use the following query to display names of systems whose name matches "jharting" substring:
+```
+{
+  hosts (
+    filter: {
+      display_name: "*jharting*"
+    }
+  ) {
+    data { id display_name }
+  }
+}
+```
+
+Multiple filters can be combined together using logical operations AND, OR and NOT
+```
+{
+  hosts (
+    filter: {
+      OR: [{
+        display_name: "*7*"
+      }, {
+        id: "*7*"
+      }],
+      NOT: {
+        display_name: "test03*"
+      }
+    }
+  ) {
+    data { id display_name }
+  }
+}
+```
+
 ### Testing
 
 To run the linter, unit and integration tests run:

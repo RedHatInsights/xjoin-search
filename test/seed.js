@@ -14,13 +14,29 @@ async function run () {
     await client.indices.putMapping({
         index,
         body: {
+            dynamic: false,
             properties: {
                 id: { type: 'keyword' },
                 account: { type: 'keyword' },
                 display_name: { type: 'keyword' },
                 created_on: { type: 'keyword' },
                 modified_on: { type: 'keyword' },
-                ansible_host: { type: 'keyword' }
+                ansible_host: { type: 'keyword' },
+                canonical_facts: {
+                    type: 'object',
+                    properties: {
+                        fqdn: { type: 'keyword'},
+                        insights_id: { type: 'keyword'},
+                        satellite_id: { type: 'keyword'}
+                    }
+                },
+                system_profile_facts: {
+                    properties: {
+                        os_release: { type: 'keyword' },
+                        arch: { type: 'keyword' },
+                        infrastructure_vendor: { type: 'keyword' }
+                    }
+                }
             }
         }
     });

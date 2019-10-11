@@ -6,6 +6,11 @@
         "created_on": "2019-01-10 08:07:03.354307",
         "modified_on": "2019-01-10 08:07:03.354312",
         "ansible_host": "test02.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test02.rhel7.jharting.local",
+            "insights_id": "17c52679-f0b9-4e9b-9bac-a3c7fae5070c",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
+        },
         "system_profile_facts": {
             "last_boot_time": "2019-08-07T08:45:13",
             "number_of_sockets": 1,
@@ -28,6 +33,11 @@
         "created_on": "2019-02-10 08:07:03.354307",
         "modified_on": "2019-02-10 08:07:03.354312",
         "ansible_host": "test01.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test01.rhel7.jharting.local",
+            "insights_id": "a58c53e0-8000-4384-b902-c70b69faacc5",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
+        },
         "system_profile_facts": {
             "last_boot_time": "2019-08-07T08:45:02",
             "number_of_sockets": 1,
@@ -54,6 +64,11 @@
         "created_on": "2019-03-10 08:07:03.354307",
         "modified_on": "2019-03-10 08:07:03.354312",
         "ansible_host": "test03.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test03.rhel7.jharting.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
+        },
         "system_profile_facts": {
             "last_boot_time": "2019-08-07T08:46:16",
             "number_of_sockets": 1,

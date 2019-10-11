@@ -1,3 +1,4 @@
+import 'should';
 import start from '../src/app';
 import { createTestClient } from 'apollo-server-testing';
 

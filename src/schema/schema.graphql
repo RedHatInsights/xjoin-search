@@ -14,24 +14,45 @@ input KeyValueInput {
     value: String!
 }
 
+"Metadata about a collection of entities"
 type CollectionMeta {
+    "number of returned results"
     count: Int!
+    "total number of entities matching the query"
     total: Int!
 }
 
 #
 # Input types
 #
+
 enum HOSTS_ORDER_BY {
     display_name,
     modified_on
 }
 
+"""
+Defines criteria by which the hosts are filtered.
+
+Some filters support wildcards.
+Those that do can be used for exact matches (`fqdn: example.com`) or with wildcards (`fqdn: *.example.co?`)
+"""
 input HostFilter {
     AND: [HostFilter!]
     OR: [HostFilter!]
     NOT: HostFilter
 
+    "Filter by host id. This filter supports wildcards"
+    id: String,
+    "Filter by insights id. This filter supports wildcards"
+    insights_id: String,
+    "Filter by display_name. This filter supports wildcards"
+    display_name: String,
+    "Filter by fqdn. This filter supports wildcards"
+    fqdn: String,
+
+
+    "EXPERIMENTAL - do not use!"
     system_profile_fact: KeyValueInput
 }
 
@@ -44,6 +65,9 @@ type Host {
     display_name: String
     created_on: String
     modified_on: String
+    canonical_facts: HostCanonicalFacts,
+
+    "EXPERIMENTAL - do not use!"
     system_profile_facts: JSONObject
 }
 
@@ -52,10 +76,18 @@ type Hosts {
     meta: CollectionMeta!
 }
 
+type HostCanonicalFacts {
+    fqdn: String,
+    insights_id: String,
+    satellite_id: String
+}
+
 #
 # Queries
 #
 type Query {
+
+    "Fetches a list of hosts based on the given filtering, ordering and pagination criteria."
     hosts (
         filter: HostFilter,
         limit: Int = 10,
