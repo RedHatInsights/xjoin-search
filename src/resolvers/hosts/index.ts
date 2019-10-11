@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { QueryHostsArgs, HostFilter, KeyValueInput } from '../../generated/graphql';
+import { QueryHostsArgs, HostFilter } from '../../generated/graphql';
 import client from '../../es';
 import * as common from '../common';
 import log from '../../util/log';
@@ -28,16 +28,16 @@ function wildcardResolver (field: string) {
 const RESOLVERS: {
     [key: string]: (value: any) => any;
 } = {
-    system_profile_fact: ({ key, value }: KeyValueInput) => ({
-        term: {
-            [`system_profile_facts.${key}`]: value
-        }
-    }),
-
     id: wildcardResolver('id'),
     insights_id: wildcardResolver('canonical_facts.insights_id'),
     display_name: wildcardResolver('display_name'),
     fqdn: wildcardResolver('canonical_facts.fqdn'),
+
+    spf_arch: wildcardResolver('system_profile_facts.arch'),
+    spf_os_release: wildcardResolver('system_profile_facts.os_release'),
+    spf_os_kernel_version: wildcardResolver('system_profile_facts.os_kernel_version'),
+    spf_infrastructure_type: wildcardResolver('system_profile_facts.infrastructure_type'),
+    spf_infrastructure_vendor: wildcardResolver('system_profile_facts.infrastructure_vendor'),
 
     OR: common.or(resolveFilters),
     AND: common.and(resolveFilters),

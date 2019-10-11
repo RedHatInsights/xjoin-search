@@ -32,8 +32,10 @@ async function run () {
                 },
                 system_profile_facts: {
                     properties: {
-                        os_release: { type: 'keyword' },
                         arch: { type: 'keyword' },
+                        os_release: { type: 'keyword' },
+                        os_kernel_version: { type: 'keyword'},
+                        infrastructure_type: { type: 'keyword' },
                         infrastructure_vendor: { type: 'keyword' }
                     }
                 }

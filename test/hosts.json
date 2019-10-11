@@ -12,18 +12,20 @@
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
         },
         "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.3",
+            "os_kernel_version": "4.18.0",
+            "infrastructure_type": "virtual",
+            "infrastructure_vendor": "virtualbox",
             "last_boot_time": "2019-08-07T08:45:13",
             "number_of_sockets": 1,
             "insights_egg_version": "3.0.115-1",
             "bios_release_date": "12/01/2006",
-            "os_release": "7.3",
             "bios_vendor": "innotek GmbH",
             "number_of_cpus": 1,
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
-            "arch": "x86_64",
-            "satellite_managed": false,
-            "infrastructure_vendor": "virtualbox"
+            "satellite_managed": false
         }
     },
     {
@@ -39,22 +41,22 @@
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
         },
         "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.4",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "virtual",
+            "infrastructure_vendor": "kvm",
             "last_boot_time": "2019-08-07T08:45:02",
             "number_of_sockets": 1,
             "insights_egg_version": "3.0.115-1",
             "bios_release_date": "12/01/2006",
-            "os_release": "7.4",
-            "infrastructure_type": "virtual",
             "cores_per_socket": 1,
             "bios_version": "VirtualBox",
-            "os_kernel_version": "3.10.0",
             "bios_vendor": "innotek GmbH",
             "number_of_cpus": 1,
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
-            "arch": "x86_64",
-            "satellite_managed": false,
-            "infrastructure_vendor": "virtualbox"
+            "satellite_managed": false
         }
     },
     {
@@ -70,22 +72,22 @@
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
         },
         "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.5",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "physical",
+            "infrastructure_vendor": "baremetal",
             "last_boot_time": "2019-08-07T08:46:16",
             "number_of_sockets": 1,
             "insights_egg_version": "3.0.115-1",
             "bios_release_date": "12/01/2006",
-            "os_release": "7.5",
-            "infrastructure_type": "virtual",
             "cores_per_socket": 1,
             "bios_version": "VirtualBox",
-            "os_kernel_version": "3.10.0",
             "bios_vendor": "innotek GmbH",
             "number_of_cpus": 1,
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
-            "arch": "x86_64",
-            "satellite_managed": false,
-            "infrastructure_vendor": "virtualbox"
+            "satellite_managed": false
         }
     }
 ]

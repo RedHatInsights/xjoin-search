@@ -21,14 +21,7 @@ function runBasicQuery (variables: Record<string, any>) {
 
 describe('hosts query', function () {
     test('fetch hosts', async () => {
-        const data = await runBasicQuery({
-            filter: {
-                system_profile_fact: {
-                    key: 'os_release',
-                    value: '7.4'
-                }
-            }
-        });
+        const data = await runBasicQuery({});
 
         expect(data).toMatchSnapshot();
     });
@@ -112,6 +105,42 @@ describe('hosts query', function () {
                 }
             });
             expect(result).toMatchSnapshot();
+        });
+
+        describe('system_profile', function () {
+            test('arch', async () => {
+                const result = await runBasicQuery({ filter: { spf_arch: 'x86_64' }});
+                expect(result).toMatchSnapshot();
+            });
+
+            test('os_release', async () => {
+                const result = await runBasicQuery({
+                    filter: {
+                        spf_os_release: '7.*',
+                        NOT: {
+                            spf_os_release: '7.4'
+                        }
+                    }
+                });
+                expect(result).toMatchSnapshot();
+            });
+
+            test('os_kernel_release', async () => {
+                const result = await runBasicQuery({ filter: { spf_os_kernel_version: '4.18.*' }});
+                result.data.hosts.data.should.have.length(1);
+                result.data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+            });
+
+            test('os_infrastructure_type', async () => {
+                const result = await runBasicQuery({ filter: { spf_infrastructure_type: 'virtual' }});
+                expect(result).toMatchSnapshot();
+            });
+
+            test('os_infrastructure_vendor', async () => {
+                const result = await runBasicQuery({ filter: { spf_infrastructure_vendor: 'baremetal' }});
+                result.data.hosts.data.should.have.length(1);
+                result.data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
         });
     });
 });
