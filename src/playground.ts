@@ -15,13 +15,24 @@ const playground = {
           key: "os_release"
           value: "7.5"
         }
-      }]
+      }],
+      display_name: "*jharting*"
     },
     order_by: display_name,
-    order_how: ASC
+    order_how: ASC,
+    limit: 10,
+    offset: 0
   ) {
     meta { count, total }
-    data { id account display_name modified_on system_profile_facts }
+    data {
+      id
+      account
+      display_name
+      modified_on
+      canonical_facts {
+        fqdn, insights_id
+      }
+    }
   }
 }`
     }]

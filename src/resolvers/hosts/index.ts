@@ -17,6 +17,14 @@ export function resolveFilters(filters: HostFilter[]) {
     return _.flatMap(filters, resolveFilter);
 }
 
+function wildcardResolver (field: string) {
+    return (value: string) => ({
+        wildcard: {
+            [field]: value
+        }
+    });
+}
+
 const RESOLVERS: {
     [key: string]: (value: any) => any;
 } = {
@@ -25,6 +33,11 @@ const RESOLVERS: {
             [`system_profile_facts.${key}`]: value
         }
     }),
+
+    id: wildcardResolver('id'),
+    insights_id: wildcardResolver('canonical_facts.insights_id'),
+    display_name: wildcardResolver('display_name'),
+    fqdn: wildcardResolver('canonical_facts.fqdn'),
 
     OR: common.or(resolveFilters),
     AND: common.and(resolveFilters),
@@ -51,7 +64,7 @@ function buildESQuery(args: QueryHostsArgs) {
         }],
 
         _source: ['id', 'account', 'display_name', 'created_on', 'modified_on',
-            'ansible_host', 'system_profile_facts'] // TODO: infer from info.selectionSet
+            'ansible_host', 'system_profile_facts', 'canonical_facts'] // TODO: infer from info.selectionSet
     };
 
     if (args.filter) {
