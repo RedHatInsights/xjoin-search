@@ -55,6 +55,8 @@ Multiple filters can be combined together using logical operations AND, OR and N
 }
 ```
 
+See [the documentation](./docs/schema.md) for more information.
+
 ### Testing
 
 To run the linter, unit and integration tests run:
