@@ -9,11 +9,6 @@ enum ORDER_DIR {
     DESC
 }
 
-input KeyValueInput {
-    key: String!
-    value: String!
-}
-
 "Metadata about a collection of entities"
 type CollectionMeta {
     "number of returned results"
@@ -51,9 +46,11 @@ input HostFilter {
     "Filter by fqdn. This filter supports wildcards"
     fqdn: String,
 
-
-    "EXPERIMENTAL - do not use!"
-    system_profile_fact: KeyValueInput
+    spf_arch: String,
+    spf_os_release: String,
+    spf_os_kernel_version: String,
+    spf_infrastructure_type: String,
+    spf_infrastructure_vendor: String
 }
 
 #

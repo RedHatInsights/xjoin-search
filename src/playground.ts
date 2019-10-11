@@ -6,15 +6,11 @@ const playground = {
   hosts (
     filter: {
       OR: [{
-        system_profile_fact: {
-          key: "os_release"
-          value: "7.4"
-        }
+        spf_infrastructure_vendor: "kvm",
+        spf_os_kernel_version: "3.11.0"
       }, {
-        system_profile_fact: {
-          key: "os_release"
-          value: "7.5"
-        }
+        spf_infrastructure_vendor: "virtualbox",
+        spf_os_release: "7.3"
       }],
       display_name: "*jharting*"
     },
@@ -29,12 +25,9 @@ const playground = {
       account
       display_name
       modified_on
-      canonical_facts {
-        fqdn, insights_id
-      }
     }
   }
-}`
+        }`
     }]
 };
 

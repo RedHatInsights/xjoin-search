@@ -11,7 +11,6 @@
     * [Hosts](#hosts)
   * [Inputs](#inputs)
     * [HostFilter](#hostfilter)
-    * [KeyValueInput](#keyvalueinput)
   * [Enums](#enums)
     * [HOSTS_ORDER_BY](#hosts_order_by)
     * [ORDER_DIR](#order_dir)
@@ -289,36 +288,28 @@ Filter by fqdn. This filter supports wildcards
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>system_profile_fact</strong></td>
-<td valign="top"><a href="#keyvalueinput">KeyValueInput</a></td>
-<td>
-
-EXPERIMENTAL - do not use!
-
-</td>
-</tr>
-</tbody>
-</table>
-
-### KeyValueInput
-
-<table>
-<thead>
-<tr>
-<th colspan="2" align="left">Field</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="2" valign="top"><strong>key</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td colspan="2" valign="top"><strong>spf_arch</strong></td>
+<td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>value</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td colspan="2" valign="top"><strong>spf_os_release</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_os_kernel_version</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_infrastructure_type</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_infrastructure_vendor</strong></td>
+<td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>
 </tbody>
