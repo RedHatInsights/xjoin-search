@@ -62,7 +62,7 @@ type Host {
     display_name: String
     created_on: String
     modified_on: String
-    canonical_facts: HostCanonicalFacts,
+    canonical_facts: JSONObject,
 
     "EXPERIMENTAL - do not use!"
     system_profile_facts: JSONObject
@@ -71,12 +71,6 @@ type Host {
 type Hosts {
     data: [Host]!
     meta: CollectionMeta!
-}
-
-type HostCanonicalFacts {
-    fqdn: String,
-    insights_id: String,
-    satellite_id: String
 }
 
 #

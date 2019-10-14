@@ -69,7 +69,8 @@
         "canonical_facts": {
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
-            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",
