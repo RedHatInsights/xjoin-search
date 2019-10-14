@@ -12,6 +12,8 @@ import log from './util/log';
 import client from './es';
 import playground from './playground';
 import metrics from './metrics';
+import identity from './middleware/identity/impl';
+import identityFallback from './middleware/identity/fallback';
 
 process.on('unhandledRejection', (reason: any) => {
     log.fatal(reason);
@@ -26,6 +28,14 @@ export default async function start () {
     log.debug('connected to Elasticsearch');
 
     const app = express();
+
+    if (config.env === 'development') {
+        app.use(identityFallback);
+        log.warn('Identity fallback enabled, unsafe for production!');
+    }
+
+    app.use(identity);
+
     const apollo = new ApolloServer({
         typeDefs: schema,
         resolvers,
