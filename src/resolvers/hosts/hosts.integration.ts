@@ -26,6 +26,24 @@ describe('hosts query', function () {
         expect(data).toMatchSnapshot();
     });
 
+    test('fetch host with canonical facts', async () => {
+        const data = await getQuery()({ query: `
+            {
+                hosts (
+                    filter: {
+                        id: "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee"
+                    }
+                ) {
+                    data {
+                        id, canonical_facts
+                    }
+                }
+            }`
+        });
+
+        expect(data).toMatchSnapshot();
+    });
+
     describe ('ordering', function () {
 
         test('display_name ASC', async () => {

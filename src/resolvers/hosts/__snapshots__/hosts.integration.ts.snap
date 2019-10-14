@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`hosts query fetch host with canonical facts 1`] = `
+Object {
+  "data": Object {
+    "hosts": Object {
+      "data": Array [
+        Object {
+          "canonical_facts": Object {
+            "fqdn": "fqdn.test03.rhel7.jharting.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
+          },
+          "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        },
+      ],
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`hosts query fetch hosts 1`] = `
 Object {
   "data": Object {
