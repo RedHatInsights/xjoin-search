@@ -38,6 +38,6 @@ export default function createIdentityHeader(
             }
         }
     };
-
-    return encode(modify_data(data));
+    const modified_data = modify_data(data);
+    return encode(modified_data);
 }
