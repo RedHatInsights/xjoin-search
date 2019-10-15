@@ -15,12 +15,17 @@ export default function identity(req: express.Request, res: express.Response, ne
         const value = Buffer.from(raw, 'base64').toString('utf8');
         const identity = JSON.parse(value).identity;
 
+        req.account_number = identity.account_number;
+        if (req.account_number === undefined || req.account_number === null) {
+            log.info('rejecting request for undefined "account_number"');
+            return next(new HttpErrorBadRequest());
+        }
+
         if (identity.type !== 'User') {
             log.info('rejecting request for identity.type: ' + identity.type);
             return next(new HttpErrorForbidden());
         }
 
-        req.account_number = identity.account_number;
         req.username = identity.user.username;
         req.is_internal = identity.user.is_internal;
 

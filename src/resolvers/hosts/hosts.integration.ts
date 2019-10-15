@@ -1,4 +1,6 @@
-import { runQuery } from '../../../test';
+import { runQuery, runQueryCatchError } from '../../../test';
+import * as constants from '../../constants';
+import createIdentityHeader from '../../middleware/identity/utils';
 
 const BASIC_QUERY = `
     query hosts ($filter: HostFilter, $order_by: HOSTS_ORDER_BY, $order_how: ORDER_DIR) {
@@ -157,6 +159,47 @@ describe('hosts query', function () {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_infrastructure_vendor: 'baremetal' }});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
+        });
+
+        describe('identity header', function () {
+            test('correct identity header', async () => {
+                const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader()};
+                const err = await runQueryCatchError(headers);
+                expect(err).toBeNull();
+            });
+
+            test('no identity header', async () => {
+                const err = await runQueryCatchError({});
+                expect(err.response.status).toEqual(401);
+            });
+
+            test('no account number', async () => {
+                const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
+                    data => { delete data.identity.account_number; return data; })};
+                const err = await runQueryCatchError(headers);
+                expect(err.response.status).toEqual(400);
+            });
+
+            test('null account number', async () => {
+                const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
+                    data => { data.identity.account_number = null; return data; })};
+                const err = await runQueryCatchError(headers);
+                expect(err.response.status).toEqual(400);
+            });
+
+            test('wrong identity type', async () => {
+                const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
+                    data => { data.identity.type = 'foo'; return data; })};
+                const err = await runQueryCatchError(headers);
+                expect(err.response.status).toEqual(403);
+            });
+
+            test('missing user obj', async () => {
+                const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
+                    data => { delete data.identity.user; return data; })};
+                const err = await runQueryCatchError(headers);
+                expect(err.response.status).toEqual(400);
             });
         });
     });

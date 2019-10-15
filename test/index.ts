@@ -20,8 +20,20 @@ afterAll(async () => {
     await app.stop();
 });
 
-export async function runQuery(query: string, variables: Record<string, any>, modify_identity_hdr_data = (d: any) => d) {
-    const headers = { headers: { [constants.IDENTITY_HEADER]: createIdentityHeader(modify_identity_hdr_data)}};
-    const client = new GraphQLClient('http://localhost:4000/graphql', headers);
+export async function runQuery(query: string, variables: Record<string, any>,
+    headers: any = { [constants.IDENTITY_HEADER]: createIdentityHeader()}) {
+
+    const client = new GraphQLClient('http://localhost:4000/graphql', { headers });
     return client.rawRequest(query, variables);
+}
+
+export async function runQueryCatchError(headers: any, query = '{ hosts { data { id }}}') {
+    let err = null;
+    try {
+        await runQuery(query, {}, headers);
+    } catch (e) {
+        err = e;
+    }
+
+    return err;
 }
