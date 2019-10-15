@@ -1,5 +1,6 @@
 import express from 'express';
 import log from '../../util/log';
+import {HttpErrorBadRequest, HttpErrorForbidden, HttpErrorUnauthorized} from '../../errors';
 
 const IDENTITY_HEADER = 'x-rh-identity';
 
@@ -8,18 +9,16 @@ export default function identity(req: express.Request, res: express.Response, ne
 
     if (raw === undefined) {
         log.info('rejecting request due to missing identity header');
-        return next(new Error('Unauthorized'));
+        return next(new HttpErrorUnauthorized());
     }
 
     try {
         const value = Buffer.from(raw, 'base64').toString('utf8');
         const identity = JSON.parse(value).identity;
-        if (!identity.account_number) {
-            return next(new Error('Unauthorized')); // TODO
-        }
 
         if (identity.type !== 'User') {
-            return next(new Error('Unauthorized')); // TODO
+            log.info('rejecting request for identity.type: ' + identity.type);
+            return next(new HttpErrorForbidden());
         }
 
         req.account_number = identity.account_number;
@@ -29,6 +28,6 @@ export default function identity(req: express.Request, res: express.Response, ne
         next();
     } catch (e) {
         log.error(e);
-        next(new Error('IDENTITY_HEADER - Invalid identity header'));
+        return next(new HttpErrorBadRequest());
     }
 }
