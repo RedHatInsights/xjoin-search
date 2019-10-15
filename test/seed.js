@@ -3,7 +3,7 @@ const data = require('./hosts.json');
 const P = require('bluebird');
 
 async function run () {
-    const index = 'test.hosts';
+    const index = 'test.hosts.v1';
 
     try {
         await client.indices.delete({ index });
@@ -40,6 +40,14 @@ async function run () {
                     }
                 }
             }
+        }
+    });
+
+    await client.indices.putAlias({
+        index: 'test.hosts.v1',
+        name: 'test.hosts',
+        body: {
+            is_write_index: false
         }
     });
 
