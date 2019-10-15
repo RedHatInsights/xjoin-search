@@ -22,6 +22,7 @@ function encode(data: any) {
 }
 
 export default function createIdentityHeader(
+    modify_data = (d: any) => d,
     username = DEFAULTS.user.username,
     account_number = DEFAULTS.account_number,
     is_internal = true) {
@@ -38,5 +39,5 @@ export default function createIdentityHeader(
         }
     };
 
-    return encode(data);
+    return encode(modify_data(data));
 }

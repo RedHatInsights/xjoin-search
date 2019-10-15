@@ -1,11 +1,10 @@
 import express from 'express';
 import createIdentityHeader from './utils';
-
-const IDENTITY_HEADER = 'x-rh-identity';
+import * as constants from '../../constants';
 
 export default function identityFallback(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if (req.header(IDENTITY_HEADER) === undefined) {
-        req.headers[IDENTITY_HEADER] = createIdentityHeader(); // eslint-disable-line security/detect-object-injection
+    if (req.header(constants.IDENTITY_HEADER) === undefined) {
+        req.headers[constants.IDENTITY_HEADER] = createIdentityHeader(); // eslint-disable-line security/detect-object-injection
     }
 
     next();

@@ -1,11 +1,10 @@
 import express from 'express';
 import log from '../../util/log';
+import * as constants from '../../constants';
 import {HttpErrorBadRequest, HttpErrorForbidden, HttpErrorUnauthorized} from '../../errors';
 
-const IDENTITY_HEADER = 'x-rh-identity';
-
 export default function identity(req: express.Request, res: express.Response, next: express.NextFunction) {
-    const raw = req.header(IDENTITY_HEADER);
+    const raw = req.header(constants.IDENTITY_HEADER);
 
     if (raw === undefined) {
         log.info('rejecting request due to missing identity header');
