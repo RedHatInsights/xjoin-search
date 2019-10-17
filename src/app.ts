@@ -39,6 +39,7 @@ export default async function start () {
     const apollo = new ApolloServer({
         typeDefs: schema,
         resolvers,
+        context: ({ req }) => ({ account_number: req.account_number }),
         playground
     });
 
