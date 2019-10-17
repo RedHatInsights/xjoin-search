@@ -53,18 +53,6 @@ function getResolver (key: string) {
 }
 
 /**
- * Connect "hard filter" using account_number with user-defined filter.
- */
-function buildFilter(account_number: string, user_filter: any) {
-    let query_filter = [{term: {account: account_number}}];
-    if (user_filter) {
-        query_filter = query_filter.concat(resolveFilter(user_filter));
-    }
-
-    return query_filter;
-}
-
-/**
  * Build query for Elasticsearch based on GraphQL query.
  */
 function buildESQuery(args: QueryHostsArgs, account_number: string) {
@@ -84,7 +72,10 @@ function buildESQuery(args: QueryHostsArgs, account_number: string) {
 
     query.query = {
         bool: {
-            filter: buildFilter(account_number, args.filter)
+            filter: [
+                {term: {account: account_number}}, // implicit filter based on x-rh-identity
+                ...(args.filter ? resolveFilter(args.filter) : [])
+            ]
         }
     };
 
