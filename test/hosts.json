@@ -1,7 +1,7 @@
 [
     {
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
-        "account": "901578",
+        "account": "test",
         "display_name": "test02.rhel7.jharting.local",
         "created_on": "2019-01-10 08:07:03.354307",
         "modified_on": "2019-01-10 08:07:03.354312",
@@ -30,7 +30,7 @@
     },
     {
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
-        "account": "901578",
+        "account": "test",
         "display_name": "test01.rhel7.jharting.local",
         "created_on": "2019-02-10 08:07:03.354307",
         "modified_on": "2019-02-10 08:07:03.354312",
@@ -61,7 +61,39 @@
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
-        "account": "901578",
+        "account": "test",
+        "display_name": "test03.rhel7.jharting.local",
+        "created_on": "2019-03-10 08:07:03.354307",
+        "modified_on": "2019-03-10 08:07:03.354312",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test03.rhel7.jharting.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
+        },
+        "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.5",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "physical",
+            "infrastructure_vendor": "baremetal",
+            "last_boot_time": "2019-08-07T08:46:16",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "satellite_managed": false
+        }
+    },
+    {
+        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcea",
+        "account": "12345",
         "display_name": "test03.rhel7.jharting.local",
         "created_on": "2019-03-10 08:07:03.354307",
         "modified_on": "2019-03-10 08:07:03.354312",

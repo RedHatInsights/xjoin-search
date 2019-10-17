@@ -52,7 +52,22 @@ function getResolver (key: string) {
     throw new Error(`unknown key ${key}`);
 }
 
-function buildESQuery(args: QueryHostsArgs) {
+/**
+ * Connect "hard filter" using account_number with user-defined filter.
+ */
+function buildFilter(account_number: string, user_filter: any) {
+    let query_filter = [{term: {account: account_number}}];
+    if (user_filter) {
+        query_filter = query_filter.concat(resolveFilter(user_filter));
+    }
+
+    return query_filter;
+}
+
+/**
+ * Build query for Elasticsearch based on GraphQL query.
+ */
+function buildESQuery(args: QueryHostsArgs, account_number: string) {
     const query: any = {
         from: args.offset,
         size: args.limit,
@@ -67,20 +82,18 @@ function buildESQuery(args: QueryHostsArgs) {
             'ansible_host', 'system_profile_facts', 'canonical_facts'] // TODO: infer from info.selectionSet
     };
 
-    if (args.filter) {
-        query.query = {
-            bool: {
-                filter: resolveFilter(args.filter)
-            }
-        };
-    }
+    query.query = {
+        bool: {
+            filter: buildFilter(account_number, args.filter)
+        }
+    };
 
     return query;
 }
 
-export default async function hosts (parent: any, args: QueryHostsArgs) {
+export default async function hosts(parent: any, args: QueryHostsArgs, context: any) {
 
-    const body = buildESQuery(args);
+    const body = buildESQuery(args, context.account_number);
     const query = {
         index: config.queries.hosts.index,
         body
