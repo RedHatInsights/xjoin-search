@@ -24,6 +24,17 @@ describe('hosts query', function () {
         expect(data).toMatchSnapshot();
     });
 
+    test('account isolation', async () => {
+        const headers = {
+            [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', false)
+        };
+
+        const { data, status } = await runQuery(BASIC_QUERY, {}, headers);
+        expect(status).toEqual(200);
+        data.hosts.data.should.have.length(1);
+        data.hosts.data[0].id.should.equal('a5ac67e1-ad65-4b62-bc27-845cc6d4bcea');
+    });
+
     test('fetch host with canonical facts', async () => {
         const { data, status } = await runQuery(`
             {
