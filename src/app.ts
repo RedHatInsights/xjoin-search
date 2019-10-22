@@ -29,6 +29,8 @@ export default async function start () {
 
     const app = express();
 
+    metrics(app);
+
     if (config.env === 'development') {
         app.use(identityFallback);
         log.warn('Identity fallback enabled, unsafe for production!');
@@ -43,7 +45,6 @@ export default async function start () {
         playground
     });
 
-    metrics(app);
     apollo.applyMiddleware({ app });
     const server: any = promisifyAll(createServer(app));
 
