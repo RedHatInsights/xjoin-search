@@ -3,6 +3,7 @@ import express from 'express';
 import { createServer } from 'http';
 import { createTerminus } from '@godaddy/terminus';
 import { promisifyAll } from 'bluebird';
+import pinoLogger from 'express-pino-logger';
 
 import config, { sanitized } from './config';
 import version from './util/version';
@@ -14,6 +15,8 @@ import playground from './playground';
 import metrics from './metrics';
 import identity from './middleware/identity/impl';
 import identityFallback from './middleware/identity/fallback';
+
+const pinoMiddleware = pinoLogger({ logger: log });
 
 process.on('unhandledRejection', (reason: any) => {
     log.fatal(reason);
@@ -30,6 +33,7 @@ export default async function start () {
     const app = express();
 
     metrics(app);
+    app.use(pinoMiddleware);
 
     if (config.env === 'development') {
         app.use(identityFallback);
