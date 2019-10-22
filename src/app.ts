@@ -9,14 +9,17 @@ import config, { sanitized } from './config';
 import version from './util/version';
 import schema from './schema';
 import resolvers from './resolvers';
-import log from './util/log';
+import log, { serializers } from './util/log';
 import client from './es';
 import playground from './playground';
 import metrics from './metrics';
 import identity from './middleware/identity/impl';
 import identityFallback from './middleware/identity/fallback';
 
-const pinoMiddleware = pinoLogger({ logger: log });
+const pinoMiddleware = pinoLogger({
+    logger: log,
+    serializers
+});
 
 process.on('unhandledRejection', (reason: any) => {
     log.fatal(reason);
@@ -33,7 +36,6 @@ export default async function start () {
     const app = express();
 
     metrics(app);
-    app.use(pinoMiddleware);
 
     if (config.env === 'development') {
         app.use(identityFallback);
@@ -41,6 +43,7 @@ export default async function start () {
     }
 
     app.use(identity);
+    app.use(pinoMiddleware);
 
     const apollo = new ApolloServer({
         typeDefs: schema,
