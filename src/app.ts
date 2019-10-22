@@ -3,23 +3,18 @@ import express from 'express';
 import { createServer } from 'http';
 import { createTerminus } from '@godaddy/terminus';
 import { promisifyAll } from 'bluebird';
-import pinoLogger from 'express-pino-logger';
 
 import config, { sanitized } from './config';
 import version from './util/version';
 import schema from './schema';
 import resolvers from './resolvers';
-import log, { serializers } from './util/log';
+import log from './util/log';
+import logMiddleware from './middleware/log';
 import client from './es';
 import playground from './playground';
 import metrics from './metrics';
 import identity from './middleware/identity/impl';
 import identityFallback from './middleware/identity/fallback';
-
-const pinoMiddleware = pinoLogger({
-    logger: log,
-    serializers
-});
 
 process.on('unhandledRejection', (reason: any) => {
     log.fatal(reason);
@@ -43,7 +38,7 @@ export default async function start () {
     }
 
     app.use(identity);
-    app.use(pinoMiddleware);
+    app.use(logMiddleware);
 
     const apollo = new ApolloServer({
         typeDefs: schema,
