@@ -33,6 +33,17 @@ const config = convict({
             format: String,
             default: 'http://localhost:9200',
             env: 'ES_NODES'
+        },
+        username: {
+            format: String,
+            default: '',
+            env: 'ES_USERNAME'
+        },
+        password: {
+            format: String,
+            default: '',
+            env: 'ES_PASSWORD',
+            sensitive: true
         }
     },
     metrics: {
