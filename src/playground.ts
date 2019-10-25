@@ -1,7 +1,26 @@
 const playground = {
     tabs: [{
+        // this tab is here for convenient querying of the unfiltered host list
         endpoint: '',
         name: 'hosts',
+        query: `{
+  hosts (
+    limit: 10,
+    offset: 0
+  ) {
+    meta { count, total }
+    data {
+      id
+      account
+      display_name
+      modified_on
+    }
+  }
+}`
+    }, {
+        // this tab demostrates host filtering capabilities
+        endpoint: '',
+        name: 'filter',
         query: `{
   hosts (
     filter: {
@@ -27,7 +46,7 @@ const playground = {
       modified_on
     }
   }
-        }`
+}`
     }]
 };
 
