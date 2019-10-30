@@ -13,7 +13,7 @@
     "seed": "ts-node test/seed.js",
     "start": "tsc && LOG_PRETTY=true ts-node-dev --respawn src/app.ts",
     "test": "npm run compile && npm run seed && NODE_ENV=test LOG_LEVEL=fatal jest -i",
-    "verify": "npm-run-all lint coverage"
+    "verify": "npm-run-all docs lint coverage"
   },
   "author": "Jozef Hartinger",
   "devDependencies": {

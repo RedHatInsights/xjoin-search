@@ -7,7 +7,6 @@
   * [Objects](#objects)
     * [CollectionMeta](#collectionmeta)
     * [Host](#host)
-    * [HostCanonicalFacts](#hostcanonicalfacts)
     * [Hosts](#hosts)
   * [Inputs](#inputs)
     * [HostFilter](#hostfilter)
@@ -148,7 +147,7 @@ total number of entities matching the query
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>canonical_facts</strong></td>
-<td valign="top"><a href="#hostcanonicalfacts">HostCanonicalFacts</a></td>
+<td valign="top"><a href="#jsonobject">JSONObject</a></td>
 <td></td>
 </tr>
 <tr>
@@ -159,36 +158,6 @@ total number of entities matching the query
 EXPERIMENTAL - do not use!
 
 </td>
-</tr>
-</tbody>
-</table>
-
-### HostCanonicalFacts
-
-<table>
-<thead>
-<tr>
-<th align="left">Field</th>
-<th align="right">Argument</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="2" valign="top"><strong>fqdn</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>insights_id</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>satellite_id</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
 </tr>
 </tbody>
 </table>
