@@ -64,5 +64,36 @@ To run the linter, unit and integration tests run:
 npm run verify
 ```
 
+### FAQ
+
+1. Installing or upgrading nodeJs on Fedora >= 30
+    ```
+    sudo dnf install -y gcc-c++ make
+    curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
+    sudo dnf remove -y nodejs npm
+    sudo dnf install nodejs
+    ```
+    Then checking the version
+    ```
+    node -v
+    v12.13.0
+    ```
+    
+1. Error: ENOSPC: System limit for number of file watchers reached, watch 'xjoin-search/src/app.ts'
+   
+   You can check the current max_user_watches from your system:
+   
+   ```
+    cat /proc/sys/fs/inotify/max_user_watches
+   ```
+   
+   Then it should fix:
+    
+   ```
+   echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+   ```
+   reference: [Increasing the amount of inotify watchers](https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers) 
+
+
 ## Contact
 For questions or comments join **#platform-xjoin** at ansible.slack.com or contact [Jozef Hartinger](https://github.com/jharting) directly.
