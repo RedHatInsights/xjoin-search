@@ -62,6 +62,7 @@ type Host {
     display_name: String
     created_on: String
     modified_on: String
+    stale_timestamp: String
     canonical_facts: JSONObject,
 
     "EXPERIMENTAL - do not use!"
