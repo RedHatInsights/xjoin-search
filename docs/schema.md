@@ -146,6 +146,11 @@ total number of entities matching the query
 <td></td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>canonical_facts</strong></td>
 <td valign="top"><a href="#jsonobject">JSONObject</a></td>
 <td></td>

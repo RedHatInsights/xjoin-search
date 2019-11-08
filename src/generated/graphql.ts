@@ -28,6 +28,7 @@ export type Host = {
   display_name?: Maybe<Scalars['String']>,
   created_on?: Maybe<Scalars['String']>,
   modified_on?: Maybe<Scalars['String']>,
+  stale_timestamp?: Maybe<Scalars['String']>,
   canonical_facts?: Maybe<Scalars['JSONObject']>,
   /** EXPERIMENTAL - do not use! */
   system_profile_facts?: Maybe<Scalars['JSONObject']>,
@@ -205,6 +206,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   display_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   created_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   canonical_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
 };
