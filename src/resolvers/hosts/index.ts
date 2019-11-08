@@ -5,6 +5,7 @@ import client from '../../es';
 import * as common from '../common';
 import log from '../../util/log';
 import config from '../../config';
+import {HttpErrorBadRequest} from '../../errors';
 
 export function resolveFilter(filter: HostFilter): any[] {
     return _.transform(filter, (acc: any[], value: any, key: string) => {
@@ -25,15 +26,29 @@ function wildcardResolver (field: string) {
     });
 }
 
-function timestampFilterResolver(field: string) {
-    return (value: TimestampFilter) => ({
-        range: {
-            [field]: {
-                gte: value.gte,
-                lte: value.lte
-            }
+function validateTimestamp(timestamp: string | null | undefined) {
+    if (typeof timestamp === 'string') {
+        const newTimestamp = new Date(timestamp).getTime();
+        if (isNaN(newTimestamp)) {
+            throw new HttpErrorBadRequest(`invalid timestamp format '${timestamp}'`);
         }
-    });
+    }
+}
+
+function timestampFilterResolver(field: string) {
+    return (value: TimestampFilter) => {
+        validateTimestamp(value.gte);
+        validateTimestamp(value.lte);
+
+        return {
+            range: {
+                [field]: {
+                    gte: value.gte,
+                    lte: value.lte
+                }
+            }
+        };
+    };
 }
 
 const RESOLVERS: {

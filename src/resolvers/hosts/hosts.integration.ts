@@ -246,6 +246,17 @@ describe('hosts query', function () {
                 });
                 expect(data).toMatchSnapshot();
             });
+            test('not valid gte', async () => {
+                const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader()};
+                const err = await runQueryCatchError(headers, BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            gte: 'xxx'
+                        }
+                    }
+                });
+                expect(err.message.startsWith('invalid timestamp format')).toBeTruthy();
+            });
         });
     });
 });
