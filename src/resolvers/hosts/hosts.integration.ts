@@ -11,7 +11,7 @@ const BASIC_QUERY = `
         )
         {
             data {
-                id, account, display_name, modified_on
+                id, account, display_name, modified_on, stale_timestamp
             }
         }
     }
@@ -211,6 +211,40 @@ describe('hosts query', function () {
                     data => { delete data.identity.user; return data; })};
                 const err = await runQueryCatchError(headers);
                 expect(err.response.status).toEqual(400);
+            });
+        });
+
+        describe('stale_timestamp', function () {
+            test('basic', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            gte: '2020-01-10T08:07:03.354307Z',
+                            lte: '2020-02-10T08:07:03.354307Z'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+            test('gte only', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            gte: '2020-02-10T08:07:03.354307Z'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+            test('lte only', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            lte: '2020-02-10T08:07:03.354307Z'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
             });
         });
     });
