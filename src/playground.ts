@@ -47,6 +47,31 @@ const playground = {
     }
   }
 }`
+    }, {
+        // this tab demostrates host filtering capabilities
+        endpoint: '',
+        name: 'stale_timestamp',
+        query: `{
+  hosts (
+    filter: {
+      stale_timestamp: {
+        gte: "2020-01-10T08:07:03.354307Z",
+        lte: "2020-02-10T08:07:03.354307Z"
+      }
+    },
+    order_by: display_name,
+    order_how: ASC,
+    limit: 10,
+    offset: 0
+  ) {
+    meta { count, total }
+    data {
+      id
+      stale_timestamp
+      created_on
+    }
+  }
+}`
     }]
 };
 
