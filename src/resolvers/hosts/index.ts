@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { QueryHostsArgs, HostFilter } from '../../generated/graphql';
+import {QueryHostsArgs, HostFilter, TimestampFilter} from '../../generated/graphql';
 import client from '../../es';
 import * as common from '../common';
 import log from '../../util/log';
@@ -25,6 +25,17 @@ function wildcardResolver (field: string) {
     });
 }
 
+function timestampFilterResolver(field: string) {
+    return (value: TimestampFilter) => ({
+        range: {
+            [field]: {
+                gte: value.gte,
+                lte: value.lte
+            }
+        }
+    });
+}
+
 const RESOLVERS: {
     [key: string]: (value: any) => any;
 } = {
@@ -38,6 +49,8 @@ const RESOLVERS: {
     spf_os_kernel_version: wildcardResolver('system_profile_facts.os_kernel_version'),
     spf_infrastructure_type: wildcardResolver('system_profile_facts.infrastructure_type'),
     spf_infrastructure_vendor: wildcardResolver('system_profile_facts.infrastructure_vendor'),
+
+    stale_timestamp: timestampFilterResolver('stale_timestamp'),
 
     OR: common.or(resolveFilters),
     AND: common.and(resolveFilters),

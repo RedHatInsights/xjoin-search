@@ -57,6 +57,7 @@ export type HostFilter = {
   spf_os_kernel_version?: Maybe<Scalars['String']>,
   spf_infrastructure_type?: Maybe<Scalars['String']>,
   spf_infrastructure_vendor?: Maybe<Scalars['String']>,
+  stale_timestamp?: Maybe<TimestampFilter>,
 };
 
 export type Hosts = {
@@ -86,10 +87,17 @@ export type Query = {
 
 export type QueryHostsArgs = {
   filter?: Maybe<HostFilter>,
+  timestamp_filter?: Maybe<TimestampFilter>,
   limit?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
   order_by?: Maybe<Hosts_Order_By>,
   order_how?: Maybe<Order_Dir>
+};
+
+/** Defines criteria by which the timestamp fields are filtered. */
+export type TimestampFilter = {
+  lte?: Maybe<Scalars['String']>,
+  gte?: Maybe<Scalars['String']>,
 };
 
 
@@ -166,6 +174,7 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   HostFilter: HostFilter,
   String: ResolverTypeWrapper<Scalars['String']>,
+  TimestampFilter: TimestampFilter,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
@@ -183,6 +192,7 @@ export type ResolversParentTypes = {
   Query: {},
   HostFilter: HostFilter,
   String: Scalars['String'],
+  TimestampFilter: TimestampFilter,
   Int: Scalars['Int'],
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
