@@ -27,7 +27,24 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
-        }
+        },
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-2"
+        }, {
+            "namespace": "insights-client",
+            "key": "web",
+            "value": null
+        }, {
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }]
     },
     {
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
@@ -59,7 +76,20 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
-        }
+        },
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-1"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
@@ -92,7 +122,24 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
-        }
+        },
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-3"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }, {
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcea",

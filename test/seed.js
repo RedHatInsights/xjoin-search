@@ -39,6 +39,20 @@ async function run () {
                         infrastructure_type: { type: 'keyword' },
                         infrastructure_vendor: { type: 'keyword' }
                     }
+                },
+                tags_structured: {
+                    type: 'nested',
+                    properties: {
+                        namespace: {
+                            type: 'keyword',
+                            null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
+                        },
+                        key: { type: 'keyword' },
+                        value: {
+                            type: 'keyword',
+                            null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
+                        }
+                    }
                 }
             }
         }
