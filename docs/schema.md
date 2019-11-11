@@ -10,6 +10,7 @@
     * [Hosts](#hosts)
   * [Inputs](#inputs)
     * [HostFilter](#hostfilter)
+    * [TimestampFilter](#timestampfilter)
   * [Enums](#enums)
     * [HOSTS_ORDER_BY](#hosts_order_by)
     * [ORDER_DIR](#order_dir)
@@ -46,6 +47,11 @@ Fetches a list of hosts based on the given filtering, ordering and pagination cr
 <tr>
 <td colspan="2" align="right" valign="top">filter</td>
 <td valign="top"><a href="#hostfilter">HostFilter</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">timestamp_filter</td>
+<td valign="top"><a href="#timestampfilter">TimestampFilter</a></td>
 <td></td>
 </tr>
 <tr>
@@ -142,6 +148,11 @@ total number of entities matching the query
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>modified_on</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
 <td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>
@@ -278,6 +289,37 @@ Filter by fqdn. This filter supports wildcards
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_infrastructure_vendor</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
+<td valign="top"><a href="#timestampfilter">TimestampFilter</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### TimestampFilter
+
+Defines criteria by which the timestamp fields are filtered.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>lte</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>gte</strong></td>
 <td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>

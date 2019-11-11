@@ -28,6 +28,7 @@ export type Host = {
   display_name?: Maybe<Scalars['String']>,
   created_on?: Maybe<Scalars['String']>,
   modified_on?: Maybe<Scalars['String']>,
+  stale_timestamp?: Maybe<Scalars['String']>,
   canonical_facts?: Maybe<Scalars['JSONObject']>,
   /** EXPERIMENTAL - do not use! */
   system_profile_facts?: Maybe<Scalars['JSONObject']>,
@@ -56,6 +57,7 @@ export type HostFilter = {
   spf_os_kernel_version?: Maybe<Scalars['String']>,
   spf_infrastructure_type?: Maybe<Scalars['String']>,
   spf_infrastructure_vendor?: Maybe<Scalars['String']>,
+  stale_timestamp?: Maybe<TimestampFilter>,
 };
 
 export type Hosts = {
@@ -85,10 +87,17 @@ export type Query = {
 
 export type QueryHostsArgs = {
   filter?: Maybe<HostFilter>,
+  timestamp_filter?: Maybe<TimestampFilter>,
   limit?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
   order_by?: Maybe<Hosts_Order_By>,
   order_how?: Maybe<Order_Dir>
+};
+
+/** Defines criteria by which the timestamp fields are filtered. */
+export type TimestampFilter = {
+  lte?: Maybe<Scalars['String']>,
+  gte?: Maybe<Scalars['String']>,
 };
 
 
@@ -165,6 +174,7 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   HostFilter: HostFilter,
   String: ResolverTypeWrapper<Scalars['String']>,
+  TimestampFilter: TimestampFilter,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
@@ -182,6 +192,7 @@ export type ResolversParentTypes = {
   Query: {},
   HostFilter: HostFilter,
   String: Scalars['String'],
+  TimestampFilter: TimestampFilter,
   Int: Scalars['Int'],
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
@@ -205,6 +216,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   display_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   created_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   canonical_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
 };

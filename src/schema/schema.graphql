@@ -50,7 +50,17 @@ input HostFilter {
     spf_os_release: String,
     spf_os_kernel_version: String,
     spf_infrastructure_type: String,
-    spf_infrastructure_vendor: String
+    spf_infrastructure_vendor: String,
+
+    stale_timestamp: TimestampFilter
+}
+
+"""
+Defines criteria by which the timestamp fields are filtered.
+"""
+input TimestampFilter {
+    lte: String
+    gte: String
 }
 
 #
@@ -62,6 +72,7 @@ type Host {
     display_name: String
     created_on: String
     modified_on: String
+    stale_timestamp: String
     canonical_facts: JSONObject,
 
     "EXPERIMENTAL - do not use!"
@@ -81,6 +92,7 @@ type Query {
     "Fetches a list of hosts based on the given filtering, ordering and pagination criteria."
     hosts (
         filter: HostFilter,
+        timestamp_filter: TimestampFilter
         limit: Int = 10,
         offset: Int = 0,
         order_by: HOSTS_ORDER_BY = display_name,

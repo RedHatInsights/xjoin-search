@@ -19,8 +19,9 @@ async function run () {
                 id: { type: 'keyword' },
                 account: { type: 'keyword' },
                 display_name: { type: 'keyword' },
-                created_on: { type: 'keyword' },
-                modified_on: { type: 'keyword' },
+                created_on: { type: 'date' },
+                modified_on: { type: 'date' },
+                stale_timestamp: { type: 'date' },
                 ansible_host: { type: 'keyword' },
                 canonical_facts: {
                     type: 'object',
