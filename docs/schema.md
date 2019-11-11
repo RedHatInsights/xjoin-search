@@ -8,8 +8,11 @@
     * [CollectionMeta](#collectionmeta)
     * [Host](#host)
     * [Hosts](#hosts)
+    * [StructuredTag](#structuredtag)
+    * [Tags](#tags)
   * [Inputs](#inputs)
     * [HostFilter](#hostfilter)
+    * [TagFilter](#tagfilter)
     * [TimestampFilter](#timestampfilter)
   * [Enums](#enums)
     * [HOSTS_ORDER_BY](#hosts_order_by)
@@ -170,6 +173,11 @@ EXPERIMENTAL - do not use!
 
 </td>
 </tr>
+<tr>
+<td colspan="2" valign="top"><strong>tags</strong></td>
+<td valign="top"><a href="#tags">Tags</a></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 
@@ -188,6 +196,61 @@ EXPERIMENTAL - do not use!
 <tr>
 <td colspan="2" valign="top"><strong>data</strong></td>
 <td valign="top">[<a href="#host">Host</a>]!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>meta</strong></td>
+<td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### StructuredTag
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>namespace</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>key</strong></td>
+<td valign="top"><a href="#string">String</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>value</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### Tags
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>data</strong></td>
+<td valign="top">[<a href="#structuredtag">StructuredTag</a>]!</td>
 <td></td>
 </tr>
 <tr>
@@ -295,6 +358,44 @@ Filter by fqdn. This filter supports wildcards
 <tr>
 <td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
 <td valign="top"><a href="#timestampfilter">TimestampFilter</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>tag</strong></td>
+<td valign="top"><a href="#tagfilter">TagFilter</a></td>
+<td>
+
+Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### TagFilter
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>namespace</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>key</strong></td>
+<td valign="top"><a href="#string">String</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>value</strong></td>
+<td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>
 </tbody>

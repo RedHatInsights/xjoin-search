@@ -72,6 +72,44 @@ const playground = {
     }
   }
 }`
+    }, {
+        // this tab demostrates host filtering capabilities
+        endpoint: '',
+        name: 'tags',
+        query: `{
+  hosts (
+    filter: {
+      AND: [{
+        tag: {
+          namespace: "insights-client",
+          key: "os",
+          value: "fedora"
+        }
+      }, {
+        tag: {
+          namespace: "insights-client",
+          key: "database",
+          value: null
+        }
+      }]
+    }
+  ) {
+    data {
+      id
+      display_name
+      tags {
+        meta {
+          total
+        }
+        data {
+          namespace
+          key
+          value
+        }
+      }
+    }
+  }
+}`
     }]
 };
 

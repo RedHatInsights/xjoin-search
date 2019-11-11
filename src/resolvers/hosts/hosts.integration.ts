@@ -17,6 +17,30 @@ const BASIC_QUERY = `
     }
 `;
 
+const TAG_QUERY = `
+    query hosts ($filter: HostFilter) {
+        hosts (
+            filter: $filter
+        )
+        {
+            data {
+                id,
+                display_name,
+                tags {
+                    meta {
+                        total
+                    },
+                    data {
+                        namespace,
+                        key,
+                        value
+                    }
+                }
+            }
+        }
+    }
+`;
+
 describe('hosts query', function () {
     test('fetch hosts', async () => {
         const { data, status } = await runQuery(BASIC_QUERY, {});
@@ -256,6 +280,103 @@ describe('hosts query', function () {
                     }
                 });
                 expect(err.message.startsWith('invalid timestamp format')).toBeTruthy();
+            });
+        });
+
+        describe('tags', function () {
+            test('simple output', async () => {
+                const { data } = await runQuery(TAG_QUERY, {});
+                expect(data).toMatchSnapshot();
+            });
+
+            test('null tags', async () => {
+                const headers = {
+                    [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', false)
+                };
+
+                const { data, status } = await runQuery(TAG_QUERY, {}, headers);
+                expect(status).toEqual(200);
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].tags.meta.total.should.eql(0);
+                data.hosts.data[0].tags.data.should.eql([]);
+            });
+
+            test('simple tag filter with value', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: 'aws',
+                            key: 'region',
+                            value: 'us-east-1'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
+            test('simple tag filter with no value', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: 'insights-client',
+                            key: 'web'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
+            test('simple tag filter with explicit null value', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: 'insights-client',
+                            key: 'web',
+                            value: null
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
+            test('tag filter union', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        OR: [{
+                            tag: {
+                                namespace: 'insights-client',
+                                key: 'web'
+                            }
+                        }, {
+                            tag: {
+                                namespace: 'aws',
+                                key: 'region',
+                                value: 'us-east-1'
+                            }
+                        }]
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
+            test('tag filter intersection', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        AND: [{
+                            tag: {
+                                namespace: 'insights-client',
+                                key: 'os',
+                                value: 'fedora'
+                            }
+                        }, {
+                            tag: {
+                                namespace: 'insights-client',
+                                key: 'database'
+                            }
+                        }]
+                    }
+                });
+                expect(data).toMatchSnapshot();
             });
         });
     });
