@@ -7,6 +7,7 @@ import log from '../../util/log';
 import config from '../../config';
 import {HttpErrorBadRequest} from '../../errors';
 import {ES_NULL_VALUE} from '../../constants';
+import {esResponseHistogram} from '../../metrics';
 
 export function resolveFilter(filter: HostFilter): any[] {
     return _.transform(filter, (acc: any[], value: any, key: string) => {
@@ -142,6 +143,8 @@ export default async function hosts(parent: any, args: QueryHostsArgs, context: 
     log.trace(query, 'executing query');
     const result = await client.search(query);
     log.trace(result, 'query finished');
+
+    esResponseHistogram.labels('hosts').observe(result.body.took / 1000); // ms -> seconds
 
     const data = _.map(result.body.hits.hits, result => {
         const item = result._source;

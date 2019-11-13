@@ -5,6 +5,15 @@ import promBundle from 'express-prom-bundle';
 
 export { client };
 
+const prefix = config.metrics.prefix;
+
+export const esResponseHistogram = new client.Histogram({
+    name: `${prefix}es_request_duration_seconds`,
+    help: 'Elasticsearch query duration according to query type.',
+    labelNames: ['query_type'],
+    buckets: [0.003, 0.03, 0.1, 0.3, 1.5, 10]
+});
+
 export default function start (app: Application) {
     app.get('/metrics', (req: Request, res: Response) => {
         res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -12,7 +21,6 @@ export default function start (app: Application) {
         res.end();
     });
 
-    const prefix = config.metrics.prefix;
     const opts = {
         httpDurationMetricName: `${prefix}http_request_duration_seconds`,
         includeUp: false,
