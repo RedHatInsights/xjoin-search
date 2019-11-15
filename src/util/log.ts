@@ -1,5 +1,24 @@
 import pino from 'pino';
 import config from '../config';
+import {buildMultistream} from './msbuilder';
+
+function buildDestination () {
+    if (!config.logging.cloudwatch.enabled) {
+        return pino.destination(1); // stdout
+    }
+
+    const cwOptions = {
+        group: 'xjoin-search',
+        prefix: config.logging.cloudwatch.prefix,
+        interval: config.logging.cloudwatch.intervalMs,
+        aws_access_key_id: config.logging.cloudwatch.key,
+        aws_secret_access_key: config.logging.cloudwatch.secret,
+        aws_region: config.logging.cloudwatch.region
+    };
+
+    const ms = buildMultistream(config.logging.level, cwOptions);
+    return ms;
+}
 
 const logger: pino.Logger = pino({
     name: 'xjoin-search',
@@ -7,7 +26,7 @@ const logger: pino.Logger = pino({
     prettyPrint: config.logging.pretty ? {
         errorProps: '*'
     } : false
-});
+}, buildDestination());
 
 export const serializers = {
     req: (value: any) => {

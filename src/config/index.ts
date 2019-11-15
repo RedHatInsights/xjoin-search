@@ -1,5 +1,4 @@
 import convict from 'convict';
-import { Level } from 'pino';
 
 const config = convict({
     env: {
@@ -28,35 +27,37 @@ const config = convict({
             default: false,
             env: 'LOG_PRETTY'
         },
-        cw_enabled: {
-            format: Boolean,
-            default: false,
-            env: 'LOG_CW_ENABLED'
-        },
-        cw_prefix: {
-            format: String,
-            default: 'xjoin-search-',
-            env: 'LOG_CW_PREFIX'
-        },
-        cw_interval_ms: {
-            format: Number,
-            default: 1000,
-            env: 'LOG_CW_INTERVAL_MS'
-        },
-        cw_key: {
-            format: String,
-            default: undefined,
-            env: 'LOG_CW_KEY'
-        },
-        cw_secret: {
-            format: String,
-            default: undefined,
-            env: 'LOG_CW_SECRET'
-        },
-        cw_region: {
-            format: String,
-            default: 'us-east-1',
-            env: 'LOG_CW_REGION'
+        cloudwatch: {
+            enabled: {
+                format: Boolean,
+                default: false,
+                env: 'LOG_CW_ENABLED'
+            },
+            prefix: {
+                format: String,
+                default: 'xjoin-search-',
+                env: 'LOG_CW_PREFIX'
+            },
+            intervalMs: {
+                format: Number,
+                default: 1000,
+                env: 'LOG_CW_INTERVAL_MS'
+            },
+            key: {
+                format: String,
+                default: undefined,
+                env: 'LOG_CW_KEY'
+            },
+            secret: {
+                format: String,
+                default: undefined,
+                env: 'LOG_CW_SECRET'
+            },
+            region: {
+                format: String,
+                default: 'us-east-1',
+                env: 'LOG_CW_REGION'
+            }
         }
     },
     es: {
