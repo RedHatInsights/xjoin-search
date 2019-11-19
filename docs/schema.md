@@ -53,11 +53,6 @@ Fetches a list of hosts based on the given filtering, ordering and pagination cr
 <td></td>
 </tr>
 <tr>
-<td colspan="2" align="right" valign="top">timestamp_filter</td>
-<td valign="top"><a href="#timestampfilter">TimestampFilter</a></td>
-<td></td>
-</tr>
-<tr>
 <td colspan="2" align="right" valign="top">limit</td>
 <td valign="top"><a href="#int">Int</a></td>
 <td></td>
