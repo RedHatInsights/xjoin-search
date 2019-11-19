@@ -66,8 +66,16 @@ async function run () {
         }
     });
 
+    await client.indices.putAlias({
+        index: 'test.hosts.v1',
+        name: 'test.hosts.sink',
+        body: {
+            is_write_index: true
+        }
+    });
+
     await P.map(data, item => client.index({
-        index,
+        index: 'test.hosts.sink',
         type: '_doc',
         id: item.id,
         body: item
