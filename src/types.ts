@@ -5,3 +5,7 @@ declare namespace Express { // eslint-disable-line @typescript-eslint/no-namespa
         is_internal: boolean;
     }
 }
+
+declare module 'pino-cloudwatch' {
+    export default function build (options: any): any;
+}
