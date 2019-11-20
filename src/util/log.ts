@@ -9,7 +9,7 @@ function buildDestination () {
     }
 
     const cwOptions = {
-        group: 'xjoin-search',
+        group: config.logging.cloudwatch.group,
         prefix: config.logging.cloudwatch.prefix,
         interval: config.logging.cloudwatch.intervalMs,
         aws_access_key_id: config.logging.cloudwatch.key,
@@ -29,7 +29,7 @@ function buildDestination () {
 const logger: pino.Logger = pino({
     name: 'xjoin-search',
     level: config.logging.level,
-    prettyPrint: config.logging.pretty ? {
+    prettyPrint: config.logging.pretty && !config.logging.cloudwatch.enabled ? {
         errorProps: '*'
     } : false
 }, buildDestination());

@@ -33,6 +33,11 @@ const config = convict({
                 default: false,
                 env: 'LOG_CW_ENABLED'
             },
+            group: {
+                format: String,
+                default: 'xjoin-ci',
+                env: 'LOG_CW_GROUP'
+            },
             prefix: {
                 format: String,
                 default: 'xjoin-search-',
