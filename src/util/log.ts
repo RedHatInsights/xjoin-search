@@ -1,6 +1,7 @@
-import pino from 'pino';
+import pino, { Level } from 'pino';
 import config from '../config';
-import {buildMultistream} from './msbuilder';
+import pinoms from 'pino-multi-stream';
+import pinoCW from 'pino-cloudwatch';
 
 function buildDestination () {
     if (!config.logging.cloudwatch.enabled) {
@@ -16,8 +17,13 @@ function buildDestination () {
         aws_region: config.logging.cloudwatch.region
     };
 
-    const ms = buildMultistream(config.logging.level, cwOptions);
-    return ms;
+    return pinoms.multistream([{
+        stream: pino.destination(1),
+        level: config.logging.level as Level
+    }, {
+        stream: pinoCW(cwOptions),
+        level: config.logging.level as Level
+    }]);
 }
 
 const logger: pino.Logger = pino({
