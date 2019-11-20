@@ -114,7 +114,6 @@ type Query {
     "Fetches a list of hosts based on the given filtering, ordering and pagination criteria."
     hosts (
         filter: HostFilter,
-        timestamp_filter: TimestampFilter
         limit: Int = 10,
         offset: Int = 0,
         order_by: HOSTS_ORDER_BY = display_name,

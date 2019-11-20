@@ -90,7 +90,6 @@ export type Query = {
 
 export type QueryHostsArgs = {
   filter?: Maybe<HostFilter>,
-  timestamp_filter?: Maybe<TimestampFilter>,
   limit?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
   order_by?: Maybe<Hosts_Order_By>,
