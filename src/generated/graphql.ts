@@ -35,6 +35,11 @@ export type Host = {
   tags?: Maybe<Tags>,
 };
 
+export enum Host_Tags_Order_By {
+  Tag = 'tag',
+  Count = 'count'
+}
+
 /** 
  * Defines criteria by which the hosts are filtered.
  * 
@@ -74,6 +79,12 @@ export enum Hosts_Order_By {
   ModifiedOn = 'modified_on'
 }
 
+export type HostTags = {
+   __typename?: 'HostTags',
+  data: Array<Maybe<TagInfo>>,
+  meta: CollectionMeta,
+};
+
 
 
 export enum Order_Dir {
@@ -85,6 +96,15 @@ export type Query = {
    __typename?: 'Query',
   /** Fetches a list of hosts based on the given filtering, ordering and pagination criteria. */
   hosts: Hosts,
+  /** 
+ * Fetches a list of unique tags and the number of their occurenes in the given set of systems.
+   * 
+   * By default the query operates on all known systems that are registered with the given account.
+   * This can be altered using the `hostFilter` parameter.
+   * 
+   * The tags themselves can be filtered further using the `filter` parameter.
+ **/
+  hostTags?: Maybe<HostTags>,
 };
 
 
@@ -96,6 +116,16 @@ export type QueryHostsArgs = {
   order_how?: Maybe<Order_Dir>
 };
 
+
+export type QueryHostTagsArgs = {
+  hostFilter?: Maybe<HostFilter>,
+  filter?: Maybe<TagAggregationFilter>,
+  limit?: Maybe<Scalars['Int']>,
+  order_by?: Maybe<Host_Tags_Order_By>,
+  order_how?: Maybe<Order_Dir>
+};
+
+/** Structured representation of a tag */
 export type StructuredTag = {
    __typename?: 'StructuredTag',
   namespace?: Maybe<Scalars['String']>,
@@ -103,10 +133,33 @@ export type StructuredTag = {
   value?: Maybe<Scalars['String']>,
 };
 
+/** Defines the criteria by which tags are filtered in the `hostTags` query. */
+export type TagAggregationFilter = {
+  /** 
+ * Defines a tag name filter.
+   * A tag name filter is a regular exression that operates on percent-encoded tag namespace, key and value at the same time.
+   * In order to match the query regular expression needs to match percent-encoded strings.
+   * 
+   * For example, to match tags with `Δwithčhars!` suffix the tag name query should look like:
+   * ```
+   * {
+   *     tagName: ".*%CE%94with%C4%8Dhars%21"
+   * }
+   * ```
+ **/
+  name?: Maybe<Scalars['String']>,
+};
+
 export type TagFilter = {
   namespace?: Maybe<Scalars['String']>,
   key: Scalars['String'],
   value?: Maybe<Scalars['String']>,
+};
+
+export type TagInfo = {
+   __typename?: 'TagInfo',
+  tag: StructuredTag,
+  count: Scalars['Int'],
 };
 
 export type Tags = {
@@ -207,6 +260,10 @@ export type ResolversTypes = {
   Tags: ResolverTypeWrapper<Tags>,
   StructuredTag: ResolverTypeWrapper<StructuredTag>,
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>,
+  TagAggregationFilter: TagAggregationFilter,
+  HOST_TAGS_ORDER_BY: Host_Tags_Order_By,
+  HostTags: ResolverTypeWrapper<HostTags>,
+  TagInfo: ResolverTypeWrapper<TagInfo>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   JSON: ResolverTypeWrapper<Scalars['JSON']>,
 };
@@ -228,6 +285,10 @@ export type ResolversParentTypes = {
   Tags: Tags,
   StructuredTag: StructuredTag,
   CollectionMeta: CollectionMeta,
+  TagAggregationFilter: TagAggregationFilter,
+  HOST_TAGS_ORDER_BY: Host_Tags_Order_By,
+  HostTags: HostTags,
+  TagInfo: TagInfo,
   Boolean: Scalars['Boolean'],
   JSON: Scalars['JSON'],
 };
@@ -254,6 +315,11 @@ export type HostsResolvers<ContextType = any, ParentType extends ResolversParent
   meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>,
 };
 
+export type HostTagsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostTags'] = ResolversParentTypes['HostTags']> = {
+  data?: Resolver<Array<Maybe<ResolversTypes['TagInfo']>>, ParentType, ContextType>,
+  meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>,
+};
+
 export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
   name: 'JSON'
 }
@@ -264,12 +330,18 @@ export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<Resolver
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hosts?: Resolver<ResolversTypes['Hosts'], ParentType, ContextType, RequireFields<QueryHostsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
+  hostTags?: Resolver<Maybe<ResolversTypes['HostTags']>, ParentType, ContextType, RequireFields<QueryHostTagsArgs, 'limit' | 'order_by' | 'order_how'>>,
 };
 
 export type StructuredTagResolvers<ContextType = any, ParentType extends ResolversParentTypes['StructuredTag'] = ResolversParentTypes['StructuredTag']> = {
   namespace?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   key?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+};
+
+export type TagInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['TagInfo'] = ResolversParentTypes['TagInfo']> = {
+  tag?: Resolver<ResolversTypes['StructuredTag'], ParentType, ContextType>,
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
 };
 
 export type TagsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Tags'] = ResolversParentTypes['Tags']> = {
@@ -281,10 +353,12 @@ export type Resolvers<ContextType = any> = {
   CollectionMeta?: CollectionMetaResolvers<ContextType>,
   Host?: HostResolvers<ContextType>,
   Hosts?: HostsResolvers<ContextType>,
+  HostTags?: HostTagsResolvers<ContextType>,
   JSON?: GraphQLScalarType,
   JSONObject?: GraphQLScalarType,
   Query?: QueryResolvers<ContextType>,
   StructuredTag?: StructuredTagResolvers<ContextType>,
+  TagInfo?: TagInfoResolvers<ContextType>,
   Tags?: TagsResolvers<ContextType>,
 };
 

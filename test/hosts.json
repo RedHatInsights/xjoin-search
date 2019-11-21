@@ -44,7 +44,18 @@
             "namespace": "insights-client",
             "key": "os",
             "value": "fedora"
-        }]
+        }, {
+            "namespace": "insights-client",
+            "key": "special/keyΔwithčhars",
+            "value": "special/valueΔwithčhars!"
+        }],
+        "tags_string": [
+            "Sat/env/prod",
+            "aws/region/us-east-2",
+            "insights-client/web/",
+            "insights-client/os/fedora",
+            "insights-client/special%2Fkey%CE%94with%C4%8Dhars/special%2Fvalue%CE%94with%C4%8Dhars%21"
+        ]
     },
     {
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
@@ -89,7 +100,12 @@
             "namespace": "insights-client",
             "key": "database",
             "value": null
-        }]
+        }],
+        "tags_string": [
+            "Sat/env/prod",
+            "aws/region/us-east-1",
+            "insights-client/database/"
+        ]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
@@ -139,7 +155,13 @@
             "namespace": "insights-client",
             "key": "os",
             "value": "fedora"
-        }]
+        }],
+        "tags_string": [
+            "Sat/env/prod",
+            "aws/region/us-east-3",
+            "insights-client/database/",
+            "insights-client/os/fedora"
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcea",

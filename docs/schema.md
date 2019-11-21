@@ -7,15 +7,19 @@
   * [Objects](#objects)
     * [CollectionMeta](#collectionmeta)
     * [Host](#host)
+    * [HostTags](#hosttags)
     * [Hosts](#hosts)
     * [StructuredTag](#structuredtag)
+    * [TagInfo](#taginfo)
     * [Tags](#tags)
   * [Inputs](#inputs)
     * [HostFilter](#hostfilter)
+    * [TagAggregationFilter](#tagaggregationfilter)
     * [TagFilter](#tagfilter)
     * [TimestampFilter](#timestampfilter)
   * [Enums](#enums)
     * [HOSTS_ORDER_BY](#hosts_order_by)
+    * [HOST_TAGS_ORDER_BY](#host_tags_order_by)
     * [ORDER_DIR](#order_dir)
   * [Scalars](#scalars)
     * [Boolean](#boolean)
@@ -65,6 +69,45 @@ Fetches a list of hosts based on the given filtering, ordering and pagination cr
 <tr>
 <td colspan="2" align="right" valign="top">order_by</td>
 <td valign="top"><a href="#hosts_order_by">HOSTS_ORDER_BY</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_how</td>
+<td valign="top"><a href="#order_dir">ORDER_DIR</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>hostTags</strong></td>
+<td valign="top"><a href="#hosttags">HostTags</a></td>
+<td>
+
+Fetches a list of unique tags and the number of their occurenes in the given set of systems.
+
+By default the query operates on all known systems that are registered with the given account.
+This can be altered using the `hostFilter` parameter.
+
+The tags themselves can be filtered further using the `filter` parameter.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">hostFilter</td>
+<td valign="top"><a href="#hostfilter">HostFilter</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top"><a href="#tagaggregationfilter">TagAggregationFilter</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">limit</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_by</td>
+<td valign="top"><a href="#host_tags_order_by">HOST_TAGS_ORDER_BY</a></td>
 <td></td>
 </tr>
 <tr>
@@ -176,6 +219,31 @@ EXPERIMENTAL - do not use!
 </tbody>
 </table>
 
+### HostTags
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>data</strong></td>
+<td valign="top">[<a href="#taginfo">TagInfo</a>]!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>meta</strong></td>
+<td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
 ### Hosts
 
 <table>
@@ -203,6 +271,8 @@ EXPERIMENTAL - do not use!
 
 ### StructuredTag
 
+Structured representation of a tag
+
 <table>
 <thead>
 <tr>
@@ -226,6 +296,31 @@ EXPERIMENTAL - do not use!
 <tr>
 <td colspan="2" valign="top"><strong>value</strong></td>
 <td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### TagInfo
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>tag</strong></td>
+<td valign="top"><a href="#structuredtag">StructuredTag</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>count</strong></td>
+<td valign="top"><a href="#int">Int</a>!</td>
 <td></td>
 </tr>
 </tbody>
@@ -367,6 +462,40 @@ Filter by host tag. The tag namespace/key/value must match exactly what the host
 </tbody>
 </table>
 
+### TagAggregationFilter
+
+Defines the criteria by which tags are filtered in the `hostTags` query.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>name</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Defines a tag name filter.
+A tag name filter is a regular exression that operates on percent-encoded tag namespace, key and value at the same time.
+In order to match the query regular expression needs to match percent-encoded strings.
+
+For example, to match tags with `Δwithčhars!` suffix the tag name query should look like:
+```
+{
+    tagName: ".*%CE%94with%C4%8Dhars%21"
+}
+```
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### TagFilter
 
 <table>
@@ -438,6 +567,25 @@ Defines criteria by which the timestamp fields are filtered.
 </tr>
 <tr>
 <td valign="top"><strong>modified_on</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### HOST_TAGS_ORDER_BY
+
+<table>
+<thead>
+<th align="left">Value</th>
+<th align="left">Description</th>
+</thead>
+<tbody>
+<tr>
+<td valign="top"><strong>tag</strong></td>
+<td></td>
+</tr>
+<tr>
+<td valign="top"><strong>count</strong></td>
 <td></td>
 </tr>
 </tbody>
