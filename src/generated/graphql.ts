@@ -28,9 +28,11 @@ export type Host = {
   display_name?: Maybe<Scalars['String']>,
   created_on?: Maybe<Scalars['String']>,
   modified_on?: Maybe<Scalars['String']>,
+  stale_timestamp?: Maybe<Scalars['String']>,
   canonical_facts?: Maybe<Scalars['JSONObject']>,
   /** EXPERIMENTAL - do not use! */
   system_profile_facts?: Maybe<Scalars['JSONObject']>,
+  tags?: Maybe<Tags>,
 };
 
 /** 
@@ -56,6 +58,9 @@ export type HostFilter = {
   spf_os_kernel_version?: Maybe<Scalars['String']>,
   spf_infrastructure_type?: Maybe<Scalars['String']>,
   spf_infrastructure_vendor?: Maybe<Scalars['String']>,
+  stale_timestamp?: Maybe<TimestampFilter>,
+  /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
+  tag?: Maybe<TagFilter>,
 };
 
 export type Hosts = {
@@ -89,6 +94,31 @@ export type QueryHostsArgs = {
   offset?: Maybe<Scalars['Int']>,
   order_by?: Maybe<Hosts_Order_By>,
   order_how?: Maybe<Order_Dir>
+};
+
+export type StructuredTag = {
+   __typename?: 'StructuredTag',
+  namespace?: Maybe<Scalars['String']>,
+  key: Scalars['String'],
+  value?: Maybe<Scalars['String']>,
+};
+
+export type TagFilter = {
+  namespace?: Maybe<Scalars['String']>,
+  key: Scalars['String'],
+  value?: Maybe<Scalars['String']>,
+};
+
+export type Tags = {
+   __typename?: 'Tags',
+  data: Array<Maybe<StructuredTag>>,
+  meta: CollectionMeta,
+};
+
+/** Defines criteria by which the timestamp fields are filtered. */
+export type TimestampFilter = {
+  lte?: Maybe<Scalars['String']>,
+  gte?: Maybe<Scalars['String']>,
 };
 
 
@@ -165,6 +195,8 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   HostFilter: HostFilter,
   String: ResolverTypeWrapper<Scalars['String']>,
+  TimestampFilter: TimestampFilter,
+  TagFilter: TagFilter,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
@@ -172,6 +204,8 @@ export type ResolversTypes = {
   Host: ResolverTypeWrapper<Host>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>,
+  Tags: ResolverTypeWrapper<Tags>,
+  StructuredTag: ResolverTypeWrapper<StructuredTag>,
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   JSON: ResolverTypeWrapper<Scalars['JSON']>,
@@ -182,6 +216,8 @@ export type ResolversParentTypes = {
   Query: {},
   HostFilter: HostFilter,
   String: Scalars['String'],
+  TimestampFilter: TimestampFilter,
+  TagFilter: TagFilter,
   Int: Scalars['Int'],
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
@@ -189,6 +225,8 @@ export type ResolversParentTypes = {
   Host: Host,
   ID: Scalars['ID'],
   JSONObject: Scalars['JSONObject'],
+  Tags: Tags,
+  StructuredTag: StructuredTag,
   CollectionMeta: CollectionMeta,
   Boolean: Scalars['Boolean'],
   JSON: Scalars['JSON'],
@@ -205,8 +243,10 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   display_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   created_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   canonical_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
+  tags?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType>,
 };
 
 export type HostsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Hosts'] = ResolversParentTypes['Hosts']> = {
@@ -226,6 +266,17 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   hosts?: Resolver<ResolversTypes['Hosts'], ParentType, ContextType, RequireFields<QueryHostsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
 };
 
+export type StructuredTagResolvers<ContextType = any, ParentType extends ResolversParentTypes['StructuredTag'] = ResolversParentTypes['StructuredTag']> = {
+  namespace?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  key?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+};
+
+export type TagsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Tags'] = ResolversParentTypes['Tags']> = {
+  data?: Resolver<Array<Maybe<ResolversTypes['StructuredTag']>>, ParentType, ContextType>,
+  meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>,
+};
+
 export type Resolvers<ContextType = any> = {
   CollectionMeta?: CollectionMetaResolvers<ContextType>,
   Host?: HostResolvers<ContextType>,
@@ -233,6 +284,8 @@ export type Resolvers<ContextType = any> = {
   JSON?: GraphQLScalarType,
   JSONObject?: GraphQLScalarType,
   Query?: QueryResolvers<ContextType>,
+  StructuredTag?: StructuredTagResolvers<ContextType>,
+  Tags?: TagsResolvers<ContextType>,
 };
 
 

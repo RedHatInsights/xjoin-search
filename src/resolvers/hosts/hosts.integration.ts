@@ -11,7 +11,31 @@ const BASIC_QUERY = `
         )
         {
             data {
-                id, account, display_name, modified_on
+                id, account, display_name, modified_on, stale_timestamp
+            }
+        }
+    }
+`;
+
+const TAG_QUERY = `
+    query hosts ($filter: HostFilter) {
+        hosts (
+            filter: $filter
+        )
+        {
+            data {
+                id,
+                display_name,
+                tags {
+                    meta {
+                        total
+                    },
+                    data {
+                        namespace,
+                        key,
+                        value
+                    }
+                }
             }
         }
     }
@@ -211,6 +235,148 @@ describe('hosts query', function () {
                     data => { delete data.identity.user; return data; })};
                 const err = await runQueryCatchError(headers);
                 expect(err.response.status).toEqual(400);
+            });
+        });
+
+        describe('stale_timestamp', function () {
+            test('basic', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            gte: '2020-01-10T08:07:03.354307Z',
+                            lte: '2020-02-10T08:07:03.354307Z'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+            test('gte only', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            gte: '2020-02-10T08:07:03.354307Z'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+            test('lte only', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            lte: '2020-02-10T08:07:03.354307Z'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+            test('not valid gte', async () => {
+                const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader()};
+                const err = await runQueryCatchError(headers, BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            gte: 'xxx'
+                        }
+                    }
+                });
+                expect(err.message.startsWith('invalid timestamp format')).toBeTruthy();
+            });
+        });
+
+        describe('tags', function () {
+            test('simple output', async () => {
+                const { data } = await runQuery(TAG_QUERY, {});
+                expect(data).toMatchSnapshot();
+            });
+
+            test('null tags', async () => {
+                const headers = {
+                    [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', false)
+                };
+
+                const { data, status } = await runQuery(TAG_QUERY, {}, headers);
+                expect(status).toEqual(200);
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].tags.meta.total.should.eql(0);
+                data.hosts.data[0].tags.data.should.eql([]);
+            });
+
+            test('simple tag filter with value', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: 'aws',
+                            key: 'region',
+                            value: 'us-east-1'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
+            test('simple tag filter with no value', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: 'insights-client',
+                            key: 'web'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
+            test('simple tag filter with explicit null value', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: 'insights-client',
+                            key: 'web',
+                            value: null
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
+            test('tag filter union', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        OR: [{
+                            tag: {
+                                namespace: 'insights-client',
+                                key: 'web'
+                            }
+                        }, {
+                            tag: {
+                                namespace: 'aws',
+                                key: 'region',
+                                value: 'us-east-1'
+                            }
+                        }]
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
+            test('tag filter intersection', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        AND: [{
+                            tag: {
+                                namespace: 'insights-client',
+                                key: 'os',
+                                value: 'fedora'
+                            }
+                        }, {
+                            tag: {
+                                namespace: 'insights-client',
+                                key: 'database'
+                            }
+                        }]
+                    }
+                });
+                expect(data).toMatchSnapshot();
             });
         });
     });

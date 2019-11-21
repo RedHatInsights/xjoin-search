@@ -27,10 +27,10 @@ export async function runQuery(query: string, variables: Record<string, any>,
     return client.rawRequest(query, variables);
 }
 
-export async function runQueryCatchError(headers: any, query = '{ hosts { data { id }}}') {
+export async function runQueryCatchError(headers: any, query = '{ hosts { data { id }}}', variables = {}) {
     let err = null;
     try {
-        await runQuery(query, {}, headers);
+        await runQuery(query, variables, headers);
     } catch (e) {
         err = e;
     }

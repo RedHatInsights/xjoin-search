@@ -9,8 +9,8 @@ export default class HttpError extends Error {
 }
 
 export class HttpErrorBadRequest extends HttpError {
-    constructor() {
-        super(400, 'BadRequest');
+    constructor(message = 'BadRequest') {
+        super(400, message);
     }
 }
 

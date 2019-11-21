@@ -50,7 +50,26 @@ input HostFilter {
     spf_os_release: String,
     spf_os_kernel_version: String,
     spf_infrastructure_type: String,
-    spf_infrastructure_vendor: String
+    spf_infrastructure_vendor: String,
+
+    stale_timestamp: TimestampFilter
+
+    "Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with"
+    tag: TagFilter
+}
+
+"""
+Defines criteria by which the timestamp fields are filtered.
+"""
+input TimestampFilter {
+    lte: String
+    gte: String
+}
+
+input TagFilter {
+    namespace: String,
+    key: String!,
+    value: String
 }
 
 #
@@ -62,14 +81,28 @@ type Host {
     display_name: String
     created_on: String
     modified_on: String
+    stale_timestamp: String
     canonical_facts: JSONObject,
 
     "EXPERIMENTAL - do not use!"
     system_profile_facts: JSONObject
+
+    tags: Tags
 }
 
 type Hosts {
     data: [Host]!
+    meta: CollectionMeta!
+}
+
+type StructuredTag {
+    namespace: String,
+    key: String!,
+    value: String
+}
+
+type Tags {
+    data: [StructuredTag]!
     meta: CollectionMeta!
 }
 

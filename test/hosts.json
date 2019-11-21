@@ -3,8 +3,9 @@
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
         "account": "test",
         "display_name": "test02.rhel7.jharting.local",
-        "created_on": "2019-01-10 08:07:03.354307",
-        "modified_on": "2019-01-10 08:07:03.354312",
+        "created_on": "2019-01-10T08:07:03.354307Z",
+        "modified_on": "2019-01-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-01-10T08:07:03.354307Z",
         "ansible_host": "test02.rhel7.jharting.local",
         "canonical_facts": {
             "fqdn": "fqdn.test02.rhel7.jharting.local",
@@ -26,14 +27,32 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
-        }
+        },
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-2"
+        }, {
+            "namespace": "insights-client",
+            "key": "web",
+            "value": null
+        }, {
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }]
     },
     {
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
         "account": "test",
         "display_name": "test01.rhel7.jharting.local",
-        "created_on": "2019-02-10 08:07:03.354307",
-        "modified_on": "2019-02-10 08:07:03.354312",
+        "created_on": "2019-02-10T08:07:03.354307Z",
+        "modified_on": "2019-02-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-02-10T08:07:03.354307Z",
         "ansible_host": "test01.rhel7.jharting.local",
         "canonical_facts": {
             "fqdn": "fqdn.test01.rhel7.jharting.local",
@@ -57,14 +76,28 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
-        }
+        },
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-1"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "account": "test",
         "display_name": "test03.rhel7.jharting.local",
-        "created_on": "2019-03-10 08:07:03.354307",
-        "modified_on": "2019-03-10 08:07:03.354312",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "ansible_host": "test03.rhel7.jharting.local",
         "canonical_facts": {
             "fqdn": "fqdn.test03.rhel7.jharting.local",
@@ -89,14 +122,32 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
-        }
+        },
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-3"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }, {
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcea",
         "account": "12345",
         "display_name": "test03.rhel7.jharting.local",
-        "created_on": "2019-03-10 08:07:03.354307",
-        "modified_on": "2019-03-10 08:07:03.354312",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "ansible_host": "test03.rhel7.jharting.local",
         "canonical_facts": {
             "fqdn": "fqdn.test03.rhel7.jharting.local",
