@@ -53,6 +53,9 @@ async function run () {
                             null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
                         }
                     }
+                },
+                tags_string: {
+                    type: 'keyword'
                 }
             }
         }

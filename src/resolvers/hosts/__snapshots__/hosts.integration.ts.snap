@@ -361,9 +361,14 @@ Object {
               "namespace": "insights-client",
               "value": "fedora",
             },
+            Object {
+              "key": "special/keyΔwithčhars",
+              "namespace": "insights-client",
+              "value": "special/valueΔwithčhars!",
+            },
           ],
           "meta": Object {
-            "total": 4,
+            "total": 5,
           },
         },
       },
@@ -432,9 +437,14 @@ Object {
               "namespace": "insights-client",
               "value": "fedora",
             },
+            Object {
+              "key": "special/keyΔwithčhars",
+              "namespace": "insights-client",
+              "value": "special/valueΔwithčhars!",
+            },
           ],
           "meta": Object {
-            "total": 4,
+            "total": 5,
           },
         },
       },
@@ -472,9 +482,14 @@ Object {
               "namespace": "insights-client",
               "value": "fedora",
             },
+            Object {
+              "key": "special/keyΔwithčhars",
+              "namespace": "insights-client",
+              "value": "special/valueΔwithčhars!",
+            },
           ],
           "meta": Object {
-            "total": 4,
+            "total": 5,
           },
         },
       },
@@ -613,9 +628,14 @@ Object {
               "namespace": "insights-client",
               "value": "fedora",
             },
+            Object {
+              "key": "special/keyΔwithčhars",
+              "namespace": "insights-client",
+              "value": "special/valueΔwithčhars!",
+            },
           ],
           "meta": Object {
-            "total": 4,
+            "total": 5,
           },
         },
       },

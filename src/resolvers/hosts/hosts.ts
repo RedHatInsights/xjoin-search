@@ -1,13 +1,12 @@
 import * as _ from 'lodash';
 
 import {QueryHostsArgs, HostFilter, TimestampFilter, TagFilter} from '../../generated/graphql';
-import client from '../../es';
+
+import {runQuery} from '../common';
 import * as common from '../common';
-import log from '../../util/log';
 import config from '../../config';
 import {HttpErrorBadRequest} from '../../errors';
 import {ES_NULL_VALUE} from '../../constants';
-import {esResponseHistogram} from '../../metrics';
 
 export function resolveFilter(filter: HostFilter): any[] {
     return _.transform(filter, (acc: any[], value: any, key: string) => {
@@ -102,6 +101,17 @@ function getResolver (key: string) {
     throw new Error(`unknown key ${key}`);
 }
 
+export function buildFilterQuery(filter: HostFilter | null | undefined, account_number: string) {
+    return {
+        bool: {
+            filter: [
+                {term: {account: account_number}}, // implicit filter based on x-rh-identity
+                ...(filter ? resolveFilter(filter) : [])
+            ]
+        }
+    };
+}
+
 /**
  * Build query for Elasticsearch based on GraphQL query.
  */
@@ -120,14 +130,7 @@ function buildESQuery(args: QueryHostsArgs, account_number: string) {
             'ansible_host', 'system_profile_facts', 'canonical_facts', 'tags_structured'] // TODO: infer from info.selectionSet
     };
 
-    query.query = {
-        bool: {
-            filter: [
-                {term: {account: account_number}}, // implicit filter based on x-rh-identity
-                ...(args.filter ? resolveFilter(args.filter) : [])
-            ]
-        }
-    };
+    query.query = buildFilterQuery(args.filter, account_number);
 
     return query;
 }
@@ -140,11 +143,7 @@ export default async function hosts(parent: any, args: QueryHostsArgs, context: 
         body
     };
 
-    log.trace(query, 'executing query');
-    const result = await client.search(query);
-    log.trace(result, 'query finished');
-
-    esResponseHistogram.labels('hosts').observe(result.body.took / 1000); // ms -> seconds
+    const result = await runQuery(query, 'hosts');
 
     const data = _.map(result.body.hits.hits, result => {
         const item = result._source;
@@ -168,3 +167,4 @@ export default async function hosts(parent: any, args: QueryHostsArgs, context: 
         }
     };
 }
+

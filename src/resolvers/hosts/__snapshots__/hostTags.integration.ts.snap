@@ -1,0 +1,449 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`host tags basic query 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 3,
+        "tag": Object {
+          "key": "env",
+          "namespace": "Sat",
+          "value": "prod",
+        },
+      },
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "database",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "os",
+          "namespace": "insights-client",
+          "value": "fedora",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-1",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-2",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-3",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "special/keyΔwithčhars",
+          "namespace": "insights-client",
+          "value": "special/valueΔwithčhars!",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "web",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 8,
+    },
+  },
+}
+`;
+
+exports[`host tags host filters by id 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "env",
+          "namespace": "Sat",
+          "value": "prod",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-2",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "os",
+          "namespace": "insights-client",
+          "value": "fedora",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "special/keyΔwithčhars",
+          "namespace": "insights-client",
+          "value": "special/valueΔwithčhars!",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "web",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 5,
+    },
+  },
+}
+`;
+
+exports[`host tags host filters by tag 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "env",
+          "namespace": "Sat",
+          "value": "prod",
+        },
+      },
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "database",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-1",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-3",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "os",
+          "namespace": "insights-client",
+          "value": "fedora",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 5,
+    },
+  },
+}
+`;
+
+exports[`host tags host filters by tag intersection 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "env",
+          "namespace": "Sat",
+          "value": "prod",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-3",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "database",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "os",
+          "namespace": "insights-client",
+          "value": "fedora",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 4,
+    },
+  },
+}
+`;
+
+exports[`host tags limit 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 3,
+        "tag": Object {
+          "key": "env",
+          "namespace": "Sat",
+          "value": "prod",
+        },
+      },
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "database",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 2,
+    },
+  },
+}
+`;
+
+exports[`host tags ordering 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 3,
+        "tag": Object {
+          "key": "env",
+          "namespace": "Sat",
+          "value": "prod",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-1",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-2",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-3",
+        },
+      },
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "database",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "os",
+          "namespace": "insights-client",
+          "value": "fedora",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "special/keyΔwithčhars",
+          "namespace": "insights-client",
+          "value": "special/valueΔwithčhars!",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "web",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 8,
+    },
+  },
+}
+`;
+
+exports[`host tags tag filters by tag name 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-1",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 1,
+    },
+  },
+}
+`;
+
+exports[`host tags tag filters by tag name prefix 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "database",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "os",
+          "namespace": "insights-client",
+          "value": "fedora",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "special/keyΔwithčhars",
+          "namespace": "insights-client",
+          "value": "special/valueΔwithčhars!",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "web",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 4,
+    },
+  },
+}
+`;
+
+exports[`host tags tag filters by tag name substring 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-1",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-2",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-3",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 3,
+    },
+  },
+}
+`;
+
+exports[`host tags tag filters by tag name suffix 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "special/keyΔwithčhars",
+          "namespace": "insights-client",
+          "value": "special/valueΔwithčhars!",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 1,
+    },
+  },
+}
+`;

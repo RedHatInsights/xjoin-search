@@ -1,3 +1,7 @@
+import client from '../es';
+import log from '../util/log';
+import {esResponseHistogram} from '../metrics';
+
 export function or <T> (resolver: (items: T[]) => object) {
     return (items: T[]) => ({
         bool: {
@@ -20,4 +24,14 @@ export function not <T> (resolver: (item: T) => object) {
             must_not: resolver(item)
         }
     });
+}
+
+export async function runQuery (query: any, id: string): Promise<any> {
+    log.trace(query, 'executing query');
+    const result = await client.search(query);
+    log.trace(result, 'query finished');
+
+    esResponseHistogram.labels(id).observe(result.body.took / 1000); // ms -> seconds
+
+    return result;
 }
