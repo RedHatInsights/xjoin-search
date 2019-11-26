@@ -4,6 +4,7 @@ import { QueryHostTagsArgs } from '../../generated/graphql';
 import { buildFilterQuery } from './hosts';
 import {runQuery} from '../common';
 import config from '../../config';
+import { checkLimit } from '../validation';
 
 const ORDER_BY_MAPPING: { [key: string]: string } = {
     count: '_count',
@@ -11,6 +12,8 @@ const ORDER_BY_MAPPING: { [key: string]: string } = {
 };
 
 export default async function hostTags(parent: any, args: QueryHostTagsArgs, context: any) {
+    checkLimit(args.limit);
+
     const body: any = {
         size: 0,
         _source: []
