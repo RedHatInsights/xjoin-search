@@ -5,8 +5,8 @@ import {QueryHostsArgs, HostFilter, TimestampFilter, TagFilter} from '../../gene
 import {runQuery} from '../common';
 import * as common from '../common';
 import config from '../../config';
-import {HttpErrorBadRequest} from '../../errors';
 import {ES_NULL_VALUE} from '../../constants';
+import { checkTimestamp, checkLimit, checkOffset } from '../validation';
 
 export function resolveFilter(filter: HostFilter): any[] {
     return _.transform(filter, (acc: any[], value: any, key: string) => {
@@ -27,19 +27,10 @@ function wildcardResolver (field: string) {
     });
 }
 
-function validateTimestamp(timestamp: string | null | undefined) {
-    if (typeof timestamp === 'string') {
-        const newTimestamp = new Date(timestamp).getTime();
-        if (isNaN(newTimestamp)) {
-            throw new HttpErrorBadRequest(`invalid timestamp format '${timestamp}'`);
-        }
-    }
-}
-
 function timestampFilterResolver(field: string) {
     return (value: TimestampFilter) => {
-        validateTimestamp(value.gte);
-        validateTimestamp(value.lte);
+        checkTimestamp(value.gte);
+        checkTimestamp(value.lte);
 
         return {
             range: {
@@ -136,6 +127,8 @@ function buildESQuery(args: QueryHostsArgs, account_number: string) {
 }
 
 export default async function hosts(parent: any, args: QueryHostsArgs, context: any) {
+    checkLimit(args.limit);
+    checkOffset(args.offset);
 
     const body = buildESQuery(args, context.account_number);
     const query = {

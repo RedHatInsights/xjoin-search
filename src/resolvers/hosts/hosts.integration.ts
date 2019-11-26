@@ -3,11 +3,18 @@ import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
 
 const BASIC_QUERY = `
-    query hosts ($filter: HostFilter, $order_by: HOSTS_ORDER_BY, $order_how: ORDER_DIR) {
+    query hosts (
+        $filter: HostFilter,
+        $order_by: HOSTS_ORDER_BY,
+        $order_how: ORDER_DIR,
+        $limit: Int,
+        $offset: Int) {
         hosts (
             filter: $filter,
             order_by: $order_by,
-            order_how: $order_how
+            order_how: $order_how,
+            limit: $limit,
+            offset: $offset
         )
         {
             data {
@@ -107,6 +114,23 @@ describe('hosts query', function () {
 
             expect(status).toEqual(200);
             expect(data).toMatchSnapshot();
+        });
+    });
+
+    describe('limit/offset', function () {
+        test('limit too low', async () => {
+            const err = await runQueryCatchError(undefined, BASIC_QUERY, { limit: -1 });
+            expect(err.message.startsWith('value must be 0 or greater (was -1)')).toBeTruthy();
+        });
+
+        test('limit too high', async () => {
+            const err = await runQueryCatchError(undefined, BASIC_QUERY, { limit: 101 });
+            expect(err.message.startsWith('value must be 100 or less (was 101)')).toBeTruthy();
+        });
+
+        test('offset too low', async () => {
+            const err = await runQueryCatchError(undefined, BASIC_QUERY, { offset: -5 });
+            expect(err.message.startsWith('value must be 0 or greater (was -5)')).toBeTruthy();
         });
     });
 
