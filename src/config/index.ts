@@ -56,7 +56,8 @@ const config = convict({
             secret: {
                 format: String,
                 default: undefined,
-                env: 'LOG_CW_SECRET'
+                env: 'LOG_CW_SECRET',
+                sensitive: true
             },
             region: {
                 format: String,
