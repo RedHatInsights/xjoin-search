@@ -38,10 +38,10 @@ const config = convict({
                 default: 'xjoin-ci',
                 env: 'LOG_CW_GROUP'
             },
-            prefix: {
+            stream: {
                 format: String,
-                default: 'xjoin-search-',
-                env: 'LOG_CW_PREFIX'
+                default: 'xjoin-ci',
+                env: 'LOG_CW_STREAM'
             },
             intervalMs: {
                 format: Number,

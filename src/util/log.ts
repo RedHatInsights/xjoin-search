@@ -10,7 +10,7 @@ function buildDestination () {
 
     const cwOptions = {
         group: config.logging.cloudwatch.group,
-        prefix: config.logging.cloudwatch.prefix,
+        stream: config.logging.cloudwatch.stream,
         interval: config.logging.cloudwatch.intervalMs,
         aws_access_key_id: config.logging.cloudwatch.key,
         aws_secret_access_key: config.logging.cloudwatch.secret,
