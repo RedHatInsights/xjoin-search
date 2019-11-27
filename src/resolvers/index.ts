@@ -1,9 +1,11 @@
 import GraphQLJSON, { GraphQLJSONObject } from 'graphql-type-json';
-import hosts from './hosts';
+import hosts from './hosts/hosts';
+import hostTags from './hosts/hostTags';
 
 const resolvers = {
     Query: {
-        hosts
+        hosts,
+        hostTags
     },
 
     JSON: GraphQLJSON,

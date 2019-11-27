@@ -110,6 +110,24 @@ const playground = {
     }
   }
 }`
+    }, {
+        endpoint: '',
+        name: 'hostTags',
+        query: `{
+  hostTags {
+    meta {
+      count
+    }
+    data {
+      tag {
+        namespace,
+        key,
+        value
+      },
+      count
+    }
+  }
+}`
     }]
 };
 
