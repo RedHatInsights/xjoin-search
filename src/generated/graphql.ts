@@ -121,6 +121,7 @@ export type QueryHostTagsArgs = {
   hostFilter?: Maybe<HostFilter>,
   filter?: Maybe<TagAggregationFilter>,
   limit?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
   order_by?: Maybe<Host_Tags_Order_By>,
   order_how?: Maybe<Order_Dir>
 };
@@ -330,7 +331,7 @@ export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<Resolver
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hosts?: Resolver<ResolversTypes['Hosts'], ParentType, ContextType, RequireFields<QueryHostsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
-  hostTags?: Resolver<Maybe<ResolversTypes['HostTags']>, ParentType, ContextType, RequireFields<QueryHostTagsArgs, 'limit' | 'order_by' | 'order_how'>>,
+  hostTags?: Resolver<Maybe<ResolversTypes['HostTags']>, ParentType, ContextType, RequireFields<QueryHostTagsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
 };
 
 export type StructuredTagResolvers<ContextType = any, ParentType extends ResolversParentTypes['StructuredTag'] = ResolversParentTypes['StructuredTag']> = {

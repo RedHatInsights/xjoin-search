@@ -167,6 +167,7 @@ type Query {
         hostFilter: HostFilter,
         filter: TagAggregationFilter,
         limit: Int = 10,
+        offset: Int = 0,
         order_by: HOST_TAGS_ORDER_BY = count,
         order_how: ORDER_DIR = DESC
     ): HostTags

@@ -11,11 +11,22 @@ const ORDER_BY_MAPPING: { [key: string]: string } = {
     tag: '_key'
 };
 
+function defaultValue (value: number | undefined | null, def: number) {
+    if (value === undefined || value === null) {
+        return def;
+    }
+
+    return value;
+}
+
+function extractPage(list: any, limit: number, offset: number) {
+    return list.slice(offset, offset + limit);
+}
+
 export default async function hostTags(parent: any, args: QueryHostTagsArgs, context: any) {
     checkLimit(args.limit);
 
     const body: any = {
-        size: 0,
         _source: []
     };
 
@@ -27,7 +38,6 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         tags: {
             terms: {
                 field: 'tags_string',
-                size: args.limit,
                 order: [{
                     [ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
                 }, {
@@ -47,7 +57,13 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         body
     }, 'hostTags');
 
-    const data = _.map(result.body.aggregations.tags.buckets, bucket => {
+    const page = extractPage(
+        result.body.aggregations.tags.buckets,
+        defaultValue(args.limit, 10),
+        defaultValue(args.offset, 0)
+    );
+
+    const data = _.map(page, bucket => {
         let segments = bucket.key.split('/').map(decodeURIComponent);
 
         if (segments.length !== 3) {
@@ -77,7 +93,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
     return {
         data,
         meta: {
-            count: result.body.aggregations.tags.buckets.length,
+            count: data.length,
             total: result.body.aggregations.tags.buckets.length
         }
     };

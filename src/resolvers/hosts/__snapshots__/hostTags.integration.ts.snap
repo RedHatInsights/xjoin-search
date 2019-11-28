@@ -71,6 +71,7 @@ Object {
     ],
     "meta": Object {
       "count": 8,
+      "total": 8,
     },
   },
 }
@@ -123,6 +124,7 @@ Object {
     ],
     "meta": Object {
       "count": 5,
+      "total": 5,
     },
   },
 }
@@ -175,6 +177,7 @@ Object {
     ],
     "meta": Object {
       "count": 5,
+      "total": 5,
     },
   },
 }
@@ -219,6 +222,36 @@ Object {
     ],
     "meta": Object {
       "count": 4,
+      "total": 4,
+    },
+  },
+}
+`;
+
+exports[`host tags limit + offset 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "database",
+          "namespace": "insights-client",
+          "value": null,
+        },
+      },
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "os",
+          "namespace": "insights-client",
+          "value": "fedora",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 2,
+      "total": 8,
     },
   },
 }
@@ -247,6 +280,7 @@ Object {
     ],
     "meta": Object {
       "count": 2,
+      "total": 8,
     },
   },
 }
@@ -323,6 +357,7 @@ Object {
     ],
     "meta": Object {
       "count": 8,
+      "total": 8,
     },
   },
 }
@@ -343,6 +378,7 @@ Object {
     ],
     "meta": Object {
       "count": 1,
+      "total": 1,
     },
   },
 }
@@ -387,6 +423,7 @@ Object {
     ],
     "meta": Object {
       "count": 4,
+      "total": 4,
     },
   },
 }
@@ -423,6 +460,7 @@ Object {
     ],
     "meta": Object {
       "count": 3,
+      "total": 3,
     },
   },
 }
@@ -443,6 +481,7 @@ Object {
     ],
     "meta": Object {
       "count": 1,
+      "total": 1,
     },
   },
 }
