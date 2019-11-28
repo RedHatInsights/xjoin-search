@@ -6,17 +6,20 @@ const TAG_FILTERS_QUERY = `
         $filter: TagAggregationFilter,
         $order_by: HOST_TAGS_ORDER_BY,
         $order_how: ORDER_DIR,
-        $limit: Int) {
+        $limit: Int,
+        $offset: Int) {
         hostTags (
             hostFilter: $hostFilter,
             filter: $filter,
             order_by: $order_by,
             order_how: $order_how,
-            limit: $limit
+            limit: $limit,
+            offset: $offset
         )
         {
             meta {
-                count
+                count,
+                total
             }
             data {
                 tag {
@@ -38,6 +41,16 @@ describe('host tags', function () {
     test('limit', async () => {
         const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
             limit: 2
+        });
+
+        expect(status).toEqual(200);
+        expect(data).toMatchSnapshot();
+    });
+
+    test('limit + offset', async () => {
+        const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+            limit: 2,
+            offset: 1
         });
 
         expect(status).toEqual(200);

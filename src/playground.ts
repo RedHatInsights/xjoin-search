@@ -116,7 +116,8 @@ const playground = {
         query: `{
   hostTags {
     meta {
-      count
+      count,
+      total
     }
     data {
       tag {

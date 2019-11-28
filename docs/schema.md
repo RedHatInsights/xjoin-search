@@ -106,6 +106,11 @@ The tags themselves can be filtered further using the `filter` parameter.
 <td></td>
 </tr>
 <tr>
+<td colspan="2" align="right" valign="top">offset</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" align="right" valign="top">order_by</td>
 <td valign="top"><a href="#host_tags_order_by">HOST_TAGS_ORDER_BY</a></td>
 <td></td>
