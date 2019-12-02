@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import { QueryHostTagsArgs } from '../../generated/graphql';
-import { buildFilterQuery } from './hosts';
+import { buildFilterQuery } from '../hosts';
 import {runQuery} from '../common';
 import config from '../../config';
 import { checkLimit } from '../validation';
