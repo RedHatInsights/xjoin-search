@@ -27,23 +27,19 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
     checkLimit(args.limit);
 
     const body: any = {
-        _source: []
-    };
-
-    if (args.hostFilter) {
-        body.query = buildFilterQuery(args.hostFilter, context.account_number);
-    }
-
-    body.aggs = {
-        tags: {
-            terms: {
-                field: 'tags_string',
-                order: [{
-                    [ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
-                }, {
-                    _key: 'ASC' // for deterministic sort order
-                }],
-                show_term_doc_count_error: true
+        _source: [],
+        query: buildFilterQuery(args.hostFilter, context.account_number),
+        aggs: {
+            tags: {
+                terms: {
+                    field: 'tags_string',
+                    order: [{
+                        [ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
+                    }, {
+                        _key: 'ASC' // for deterministic sort order
+                    }],
+                    show_term_doc_count_error: true
+                }
             }
         }
     };
