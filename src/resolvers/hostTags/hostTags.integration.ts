@@ -1,4 +1,6 @@
 import { runQuery } from '../../../test';
+import * as constants from '../../constants';
+import createIdentityHeader from '../../middleware/identity/utils';
 
 const TAG_FILTERS_QUERY = `
     query hostTags (
@@ -36,6 +38,16 @@ describe('host tags', function () {
         const { data, status } = await runQuery(TAG_FILTERS_QUERY, {});
         expect(status).toEqual(200);
         expect(data).toMatchSnapshot();
+    });
+
+    test('account isolation', async () => {
+        const headers = {
+            [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', false)
+        };
+
+        const { data, status } = await runQuery(TAG_FILTERS_QUERY, {}, headers);
+        expect(status).toEqual(200);
+        data.hostTags.data.should.have.length(0);
     });
 
     test('limit', async () => {
