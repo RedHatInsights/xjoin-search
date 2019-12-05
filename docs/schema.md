@@ -492,7 +492,7 @@ In order to match the query regular expression needs to match percent-encoded st
 For example, to match tags with `Δwithčhars!` suffix the tag name query should look like:
 ```
 {
-    tagName: ".*%CE%94with%C4%8Dhars%21"
+    name: ".*%CE%94with%C4%8Dhars%21"
 }
 ```
 
