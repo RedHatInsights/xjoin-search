@@ -106,6 +106,7 @@ type Host {
     created_on: String
     modified_on: String
     stale_timestamp: String,
+    reporter: String,
     ansible_host: String,
     canonical_facts: JSONObject,
 

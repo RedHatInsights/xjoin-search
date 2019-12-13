@@ -18,7 +18,13 @@ const BASIC_QUERY = `
         )
         {
             data {
-                id, account, display_name, modified_on, stale_timestamp, ansible_host
+                id,
+                account,
+                display_name,
+                modified_on,
+                stale_timestamp,
+                reporter,
+                ansible_host
             }
         }
     }

@@ -203,6 +203,11 @@ total number of entities matching the query
 <td></td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>reporter</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>ansible_host</strong></td>
 <td valign="top"><a href="#string">String</a></td>
 <td></td>

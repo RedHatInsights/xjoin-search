@@ -29,6 +29,7 @@ export type Host = {
   created_on?: Maybe<Scalars['String']>,
   modified_on?: Maybe<Scalars['String']>,
   stale_timestamp?: Maybe<Scalars['String']>,
+  reporter?: Maybe<Scalars['String']>,
   ansible_host?: Maybe<Scalars['String']>,
   canonical_facts?: Maybe<Scalars['JSONObject']>,
   /** EXPERIMENTAL - do not use! */
@@ -307,6 +308,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   created_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   ansible_host?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   canonical_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
