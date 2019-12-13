@@ -105,7 +105,8 @@ type Host {
     display_name: String
     created_on: String
     modified_on: String
-    stale_timestamp: String
+    stale_timestamp: String,
+    ansible_host: String,
     canonical_facts: JSONObject,
 
     "EXPERIMENTAL - do not use!"
