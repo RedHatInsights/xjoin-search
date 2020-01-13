@@ -31,12 +31,16 @@ function timestampFilterResolver(field: string) {
     return (value: TimestampFilter) => {
         checkTimestamp(value.gte);
         checkTimestamp(value.lte);
+        checkTimestamp(value.gt);
+        checkTimestamp(value.lt);
 
         return {
             range: {
                 [field]: {
                     gte: value.gte,
-                    lte: value.lte
+                    lte: value.lte,
+                    gt: value.gt,
+                    lt: value.lt
                 }
             }
         };

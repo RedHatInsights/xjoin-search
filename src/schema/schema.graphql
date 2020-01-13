@@ -69,6 +69,8 @@ Defines criteria by which the timestamp fields are filtered.
 input TimestampFilter {
     lte: String
     gte: String
+    lt: String
+    gt: String
 }
 
 input TagFilter {
