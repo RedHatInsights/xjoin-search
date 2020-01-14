@@ -563,6 +563,16 @@ Defines criteria by which the timestamp fields are filtered.
 <td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>
+<tr>
+<td colspan="2" valign="top"><strong>lt</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>gt</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 
