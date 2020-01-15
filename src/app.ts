@@ -44,7 +44,8 @@ export default async function start () {
         typeDefs: schema,
         resolvers,
         context: ({ req }) => ({ account_number: req.account_number }),
-        playground
+        playground,
+        introspection: true
     });
 
     apollo.applyMiddleware({ app });
