@@ -117,7 +117,10 @@ type Host {
     "System profile of a host. The subset of keys can be requested using `filter`."
     system_profile_facts (filter: [String!]): JSONObject
 
-    tags: Tags
+    tags: Tags,
+
+    "Facts of a host. The subset of keys can be requested using `filter`."
+    facts (filter: [String!]): JSONObject
 }
 
 type Hosts {

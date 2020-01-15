@@ -36,6 +36,8 @@ export type Host = {
   /** System profile of a host. The subset of keys can be requested using `filter`. */
   system_profile_facts?: Maybe<Scalars['JSONObject']>,
   tags?: Maybe<Tags>,
+  /** Facts of a host. The subset of keys can be requested using `filter`. */
+  facts?: Maybe<Scalars['JSONObject']>,
 };
 
 
@@ -45,6 +47,11 @@ export type HostCanonical_FactsArgs = {
 
 
 export type HostSystem_Profile_FactsArgs = {
+  filter?: Maybe<Array<Scalars['String']>>
+};
+
+
+export type HostFactsArgs = {
   filter?: Maybe<Array<Scalars['String']>>
 };
 
@@ -326,6 +333,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   canonical_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, HostCanonical_FactsArgs>,
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, HostSystem_Profile_FactsArgs>,
   tags?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType>,
+  facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, HostFactsArgs>,
 };
 
 export type HostsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Hosts'] = ResolversParentTypes['Hosts']> = {

@@ -429,6 +429,52 @@ describe('hosts query', function () {
                 expect(data).toMatchSnapshot();
             });
         });
+
+        describe('facts', function () {
+            const QUERY = `
+                query hosts (
+                    $filter: HostFilter,
+                    $fact_filter: [String!],
+                ) {
+                    hosts (
+                        filter: $filter,
+                    )
+                    {
+                        data {
+                            id,
+                            account,
+                            display_name,
+                            facts(filter: $fact_filter)
+                        }
+                    }
+                }
+            `;
+
+            test('all facts', async () => {
+                const { data } = await runQuery(QUERY, { filter: {
+                    id: '22cd8e39-13bb-4d02-8316-84b850dc5136'
+                }});
+
+                expect(data).toMatchSnapshot();
+            });
+
+            test('specific fact key', async () => {
+                const { data } = await runQuery(QUERY, {
+                    filter: { id: '22cd8e39-13bb-4d02-8316-84b850dc5136' },
+                    fact_filter: ['bios']
+                });
+
+                expect(data).toMatchSnapshot();
+            });
+
+            test('facts not available', async () => {
+                const { data } = await runQuery(QUERY, { filter: {
+                    id: '6e7b6317-0a2d-4552-a2f2-b7da0aece49d'
+                }});
+
+                expect(data).toMatchSnapshot();
+            });
+        });
     });
 
     describe('JSONObjectFilter', function () {

@@ -56,7 +56,17 @@
             "insights-client/web/",
             "insights-client/os/fedora",
             "insights-client/special%2Fkey%CE%94with%C4%8Dhars/special%2Fvalue%CE%94with%C4%8Dhars%21"
-        ]
+        ],
+        "facts": {
+            "os": {
+                "os.release": "Red Hat Enterprise Linux Server"
+            },
+            "bios": {
+                "bios.vendor":"SeaBIOS",
+                "bios.version":"1.11.0-2.el7",
+                "bios.release_date":"2014-04-01"
+            }
+        }
     },
     {
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
