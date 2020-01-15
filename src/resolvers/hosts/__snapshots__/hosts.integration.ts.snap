@@ -270,6 +270,66 @@ Object {
 }
 `;
 
+exports[`hosts query queries facts all facts 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "display_name": "test02.rhel7.jharting.local",
+        "facts": Object {
+          "bios": Object {
+            "bios.release_date": "2014-04-01",
+            "bios.vendor": "SeaBIOS",
+            "bios.version": "1.11.0-2.el7",
+          },
+          "os": Object {
+            "os.release": "Red Hat Enterprise Linux Server",
+          },
+        },
+        "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query queries facts facts not available 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "display_name": "test01.rhel7.jharting.local",
+        "facts": null,
+        "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query queries facts specific fact key 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "display_name": "test02.rhel7.jharting.local",
+        "facts": Object {
+          "bios": Object {
+            "bios.release_date": "2014-04-01",
+            "bios.vendor": "SeaBIOS",
+            "bios.version": "1.11.0-2.el7",
+          },
+        },
+        "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+      },
+    ],
+  },
+}
+`;
+
 exports[`hosts query queries stale_timestamp basic 1`] = `
 Object {
   "hosts": Object {

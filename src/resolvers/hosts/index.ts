@@ -123,7 +123,8 @@ function buildESQuery(args: QueryHostsArgs, account_number: string) {
 
         _source: [
             'id', 'account', 'display_name', 'created_on', 'modified_on', 'stale_timestamp',
-            'ansible_host', 'system_profile_facts', 'reporter', 'canonical_facts', 'tags_structured'
+            'ansible_host', 'system_profile_facts', 'reporter', 'canonical_facts', 'tags_structured',
+            'facts'
         ] // TODO: infer from info.selectionSet
     };
 

@@ -245,6 +245,20 @@ System profile of a host. The subset of keys can be requested using `filter`.
 <td valign="top"><a href="#tags">Tags</a></td>
 <td></td>
 </tr>
+<tr>
+<td colspan="2" valign="top"><strong>facts</strong></td>
+<td valign="top"><a href="#jsonobject">JSONObject</a></td>
+<td>
+
+Facts of a host. The subset of keys can be requested using `filter`.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top">[<a href="#string">String</a>!]</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 
