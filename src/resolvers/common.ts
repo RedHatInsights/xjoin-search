@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import client from '../es';
 import log from '../util/log';
 import {esResponseHistogram} from '../metrics';
@@ -34,4 +36,16 @@ export async function runQuery (query: any, id: string): Promise<any> {
     esResponseHistogram.labels(id).observe(result.body.took / 1000); // ms -> seconds
 
     return result;
+}
+
+export function jsonObjectFilter (fieldName: string) {
+    return function (parent: any, args: any) {
+        const dict = _.get(parent, fieldName);
+
+        if (dict && args.filter) {
+            return _.pick(dict, args.filter);
+        }
+
+        return dict;
+    };
 }

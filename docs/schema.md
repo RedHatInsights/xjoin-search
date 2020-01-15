@@ -215,6 +215,15 @@ total number of entities matching the query
 <tr>
 <td colspan="2" valign="top"><strong>canonical_facts</strong></td>
 <td valign="top"><a href="#jsonobject">JSONObject</a></td>
+<td>
+
+Canonical facts of a host. The subset of keys can be requested using `filter`.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top">[<a href="#string">String</a>!]</td>
 <td></td>
 </tr>
 <tr>
@@ -222,9 +231,14 @@ total number of entities matching the query
 <td valign="top"><a href="#jsonobject">JSONObject</a></td>
 <td>
 
-EXPERIMENTAL - do not use!
+System profile of a host. The subset of keys can be requested using `filter`.
 
 </td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top">[<a href="#string">String</a>!]</td>
+<td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>tags</strong></td>

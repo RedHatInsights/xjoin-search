@@ -430,4 +430,54 @@ describe('hosts query', function () {
             });
         });
     });
+
+    describe('JSONObjectFilter', function () {
+        const QUERY = `
+            query hosts (
+                $filter: HostFilter,
+                $system_profile_filter: [String!],
+                $canonical_fact_filter: [String!]
+            ) {
+                hosts (
+                    filter: $filter,
+                )
+                {
+                    data {
+                        id,
+                        account,
+                        display_name,
+                        system_profile_facts(filter: $system_profile_filter),
+                        canonical_facts(filter: $canonical_fact_filter)
+                    }
+                }
+            }
+        `;
+
+        test('simple system profile query', async () => {
+            const { data } = await runQuery(QUERY, {
+                filter: { id: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' },
+                system_profile_filter: ['arch', 'os_release']
+            });
+
+            expect(data).toMatchSnapshot();
+        });
+
+        test('simple canonical fact query', async () => {
+            const { data } = await runQuery(QUERY, {
+                filter: { id: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' },
+                canonical_fact_filter: ['insights_id', 'satellite_id']
+            });
+
+            expect(data).toMatchSnapshot();
+        });
+
+        test('empty', async () => {
+            const { data } = await runQuery(QUERY, {
+                filter: { id: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' },
+                system_profile_filter: []
+            });
+
+            expect(data).toMatchSnapshot();
+        });
+    });
 });
