@@ -300,6 +300,26 @@ describe('hosts query', function () {
                 });
                 expect(data).toMatchSnapshot();
             });
+            test('gt only', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            gt: '2020-02-10T08:07:03.354307Z'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+            test('lt only', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: {
+                        stale_timestamp: {
+                            lt: '2020-02-10T08:07:03.354307Z'
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
             test('not valid gte', async () => {
                 const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader()};
                 const err = await runQueryCatchError(headers, BASIC_QUERY, {

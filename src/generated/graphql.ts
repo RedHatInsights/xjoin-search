@@ -175,6 +175,8 @@ export type Tags = {
 export type TimestampFilter = {
   lte?: Maybe<Scalars['String']>,
   gte?: Maybe<Scalars['String']>,
+  lt?: Maybe<Scalars['String']>,
+  gt?: Maybe<Scalars['String']>,
 };
 
 
