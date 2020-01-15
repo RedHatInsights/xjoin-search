@@ -13,7 +13,12 @@ const playground = {
       id
       account
       display_name
-      modified_on
+      modified_on,
+      system_profile_facts (filter: [
+        "os_kernel_version",
+        "os_release",
+        "number_of_cpus"
+      ])
     }
   }
 }`
