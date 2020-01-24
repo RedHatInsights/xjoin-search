@@ -8,8 +8,6 @@ import config from '../../config';
 import {ES_NULL_VALUE} from '../../constants';
 import { checkTimestamp, checkLimit, checkOffset } from '../validation';
 
-import log from '../../util/log';
-
 export function resolveFilter(filter: HostFilter): any[] {
     return _.transform(filter, (acc: any[], value: any, key: string) => {
         const resolver = getResolver(key); // eslint-disable-line @typescript-eslint/no-use-before-define
@@ -116,15 +114,16 @@ export function buildFilterQuery(filter: HostFilter | null | undefined, account_
 function buildSourceList(selectionSet: any) {
     let dataSelectionSet;
 
-    for (let i = 0; i < selectionSet.length; i++) {
-        if (selectionSet[i].name.value === 'data')
-        {dataSelectionSet = selectionSet[i].selectionSet.selections;}
+    for (const set of selectionSet) {
+        if (set.name.value === 'data') {
+            dataSelectionSet = set.selectionSet.selections;
+        }
     }
 
     const sourceList: string[] = [];
-    for (let i = 0; i < dataSelectionSet.length; i++) {
-        log.info(dataSelectionSet[i].name.value);
-        sourceList.push(dataSelectionSet[i].name.value);
+
+    for (const field of dataSelectionSet) {
+        sourceList.push(field.name.value);
     }
 
     //change graphql names to elastic search names where they differ
