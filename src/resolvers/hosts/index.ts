@@ -109,21 +109,37 @@ export function buildFilterQuery(filter: HostFilter | null | undefined, account_
     };
 }
 
+// function translateFilterName(name: string) {
+
+// }
+
+function buildSourceList(selectionSet: any) {
+    let dataSelectionSet;
+
+    for (let i = 0; i < selectionSet.length; i++) {
+        if (selectionSet[i].name.value === 'data')
+        {dataSelectionSet = selectionSet[i].selectionSet.selections;}
+    }
+
+    const sourceList: string[] = [];
+    for (let i = 0; i < dataSelectionSet.length; i++) {
+        log.info(dataSelectionSet[i].name.value);
+        sourceList.push(dataSelectionSet[i].name.value);
+    }
+
+    //change graphql names to elastic search names where they differ
+    sourceList[sourceList.indexOf('tags')] = 'tags_structured';
+
+    return sourceList;
+}
+
 /**
  * Build query for Elasticsearch based on GraphQL query.
  */
 function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
 
-    // log.info("WIP>> :")
-    // log.info(info.fieldNodes[0].selectionSet.selections[1].selectionSet.selections)
-    const dataSelectionSet = info.fieldNodes[0].selectionSet.selections[1].selectionSet.selections;
-    const sourceList: string[] = [];
-    for (let i = 0; i < dataSelectionSet.length; i++) {
-        // log.info(dataSelectionSet[i].name.value);
-        sourceList.push(dataSelectionSet[i].name.value);
-    }
-
-    log.info(sourceList);
+    const selectionSet = info.fieldNodes[0].selectionSet.selections;
+    const sourceList: string[] = buildSourceList(selectionSet);
 
     const query: any = {
         from: args.offset,
@@ -134,7 +150,6 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
         }, {
             id: 'ASC' // for deterministic sort order
         }],
-
         _source: sourceList
     };
 
