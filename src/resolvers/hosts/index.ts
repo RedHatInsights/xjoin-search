@@ -8,6 +8,8 @@ import config from '../../config';
 import {ES_NULL_VALUE} from '../../constants';
 import { checkTimestamp, checkLimit, checkOffset } from '../validation';
 
+import log from '../../util/log';
+
 export function resolveFilter(filter: HostFilter): any[] {
     return _.transform(filter, (acc: any[], value: any, key: string) => {
         const resolver = getResolver(key); // eslint-disable-line @typescript-eslint/no-use-before-define
@@ -110,7 +112,19 @@ export function buildFilterQuery(filter: HostFilter | null | undefined, account_
 /**
  * Build query for Elasticsearch based on GraphQL query.
  */
-function buildESQuery(args: QueryHostsArgs, account_number: string) {
+function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
+
+    // log.info("WIP>> :")
+    // log.info(info.fieldNodes[0].selectionSet.selections[1].selectionSet.selections)
+    const dataSelectionSet = info.fieldNodes[0].selectionSet.selections[1].selectionSet.selections;
+    const sourceList: string[] = [];
+    for (let i = 0; i < dataSelectionSet.length; i++) {
+        // log.info(dataSelectionSet[i].name.value);
+        sourceList.push(dataSelectionSet[i].name.value);
+    }
+
+    log.info(sourceList);
+
     const query: any = {
         from: args.offset,
         size: args.limit,
@@ -121,11 +135,7 @@ function buildESQuery(args: QueryHostsArgs, account_number: string) {
             id: 'ASC' // for deterministic sort order
         }],
 
-        _source: [
-            'id', 'account', 'display_name', 'created_on', 'modified_on', 'stale_timestamp',
-            'ansible_host', 'system_profile_facts', 'reporter', 'canonical_facts', 'tags_structured',
-            'facts'
-        ] // TODO: infer from info.selectionSet
+        _source: sourceList
     };
 
     query.query = buildFilterQuery(args.filter, account_number);
@@ -133,11 +143,11 @@ function buildESQuery(args: QueryHostsArgs, account_number: string) {
     return query;
 }
 
-export default async function hosts(parent: any, args: QueryHostsArgs, context: any) {
+export default async function hosts(parent: any, args: QueryHostsArgs, context: any, info: any) {
     checkLimit(args.limit);
     checkOffset(args.offset);
 
-    const body = buildESQuery(args, context.account_number);
+    const body = buildESQuery(args, context.account_number, info);
     const query = {
         index: config.queries.hosts.index,
         body
