@@ -121,11 +121,6 @@ function translateFilterName(name: string) {
 
 function buildSourceList(selectionSet: any) {
     const dataSelectionSet = _.find(selectionSet, s => s.name.value === 'data');
-    const sourceList: string[] = [];
-
-    for (const field of dataSelectionSet.selectionSet.selections) {
-        sourceList.push(field.name.value);
-    }
 
     return dataSelectionSet.selectionSet.selections.map((o: any) => o.name.value).map(translateFilterName);
 }
