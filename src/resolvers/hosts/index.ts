@@ -107,29 +107,27 @@ export function buildFilterQuery(filter: HostFilter | null | undefined, account_
     };
 }
 
-// function translateFilterName(name: string) {
-
-// }
+/**
+ * change graphql names to elastic search names where they differ
+ */
+function translateFilterName(name: string) {
+    switch (name) {
+        case 'tags':
+            return 'tags_structured';
+        default:
+            return name;
+    }
+}
 
 function buildSourceList(selectionSet: any) {
-    let dataSelectionSet;
-
-    for (const set of selectionSet) {
-        if (set.name.value === 'data') {
-            dataSelectionSet = set.selectionSet.selections;
-        }
-    }
-
+    const dataSelectionSet = _.find(selectionSet, s => s.name.value === 'data');
     const sourceList: string[] = [];
 
-    for (const field of dataSelectionSet) {
+    for (const field of dataSelectionSet.selectionSet.selections) {
         sourceList.push(field.name.value);
     }
 
-    //change graphql names to elastic search names where they differ
-    sourceList[sourceList.indexOf('tags')] = 'tags_structured';
-
-    return sourceList;
+    return sourceList.map(translateFilterName);
 }
 
 /**
