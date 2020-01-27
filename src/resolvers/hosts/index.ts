@@ -127,7 +127,7 @@ function buildSourceList(selectionSet: any) {
         sourceList.push(field.name.value);
     }
 
-    return sourceList.map(translateFilterName);
+    return dataSelectionSet.selectionSet.selections.map((o: any) => o.name.value).map(translateFilterName);
 }
 
 /**
