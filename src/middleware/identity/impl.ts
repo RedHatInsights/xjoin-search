@@ -21,7 +21,7 @@ export default function identity(req: express.Request, res: express.Response, ne
             return next(new HttpErrorBadRequest());
         }
 
-        if (identity.type !== 'User') {
+        if (identity.type !== 'User' && identity.type !== 'System') {
             log.info('rejecting request for identity.type: ' + identity.type);
             return next(new HttpErrorForbidden());
         }
