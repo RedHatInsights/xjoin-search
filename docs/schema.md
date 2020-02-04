@@ -215,6 +215,15 @@ total number of entities matching the query
 <tr>
 <td colspan="2" valign="top"><strong>canonical_facts</strong></td>
 <td valign="top"><a href="#jsonobject">JSONObject</a></td>
+<td>
+
+Canonical facts of a host. The subset of keys can be requested using `filter`.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top">[<a href="#string">String</a>!]</td>
 <td></td>
 </tr>
 <tr>
@@ -222,13 +231,32 @@ total number of entities matching the query
 <td valign="top"><a href="#jsonobject">JSONObject</a></td>
 <td>
 
-EXPERIMENTAL - do not use!
+System profile of a host. The subset of keys can be requested using `filter`.
 
 </td>
 </tr>
 <tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top">[<a href="#string">String</a>!]</td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>tags</strong></td>
 <td valign="top"><a href="#tags">Tags</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>facts</strong></td>
+<td valign="top"><a href="#jsonobject">JSONObject</a></td>
+<td>
+
+Facts of a host. The subset of keys can be requested using `filter`.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top">[<a href="#string">String</a>!]</td>
 <td></td>
 </tr>
 </tbody>
@@ -560,6 +588,16 @@ Defines criteria by which the timestamp fields are filtered.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>gte</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>lt</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>gt</strong></td>
 <td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>

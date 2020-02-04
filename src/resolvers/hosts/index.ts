@@ -108,9 +108,31 @@ export function buildFilterQuery(filter: HostFilter | null | undefined, account_
 }
 
 /**
+ * change graphql names to elastic search names where they differ
+ */
+function translateFilterName(name: string) {
+    switch (name) {
+        case 'tags':
+            return 'tags_structured';
+        default:
+            return name;
+    }
+}
+
+function buildSourceList(selectionSet: any) {
+    const dataSelectionSet = _.find(selectionSet, s => s.name.value === 'data');
+
+    return dataSelectionSet.selectionSet.selections.map((o: any) => o.name.value).map(translateFilterName);
+}
+
+/**
  * Build query for Elasticsearch based on GraphQL query.
  */
-function buildESQuery(args: QueryHostsArgs, account_number: string) {
+function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
+
+    const selectionSet = info.fieldNodes[0].selectionSet.selections;
+    const sourceList: string[] = buildSourceList(selectionSet);
+
     const query: any = {
         from: args.offset,
         size: args.limit,
@@ -120,11 +142,7 @@ function buildESQuery(args: QueryHostsArgs, account_number: string) {
         }, {
             id: 'ASC' // for deterministic sort order
         }],
-
-        _source: [
-            'id', 'account', 'display_name', 'created_on', 'modified_on', 'stale_timestamp',
-            'ansible_host', 'system_profile_facts', 'reporter', 'canonical_facts', 'tags_structured'
-        ] // TODO: infer from info.selectionSet
+        _source: sourceList
     };
 
     query.query = buildFilterQuery(args.filter, account_number);
@@ -132,11 +150,11 @@ function buildESQuery(args: QueryHostsArgs, account_number: string) {
     return query;
 }
 
-export default async function hosts(parent: any, args: QueryHostsArgs, context: any) {
+export default async function hosts(parent: any, args: QueryHostsArgs, context: any, info: any) {
     checkLimit(args.limit);
     checkOffset(args.offset);
 
-    const body = buildESQuery(args, context.account_number);
+    const body = buildESQuery(args, context.account_number, info);
     const query = {
         index: config.queries.hosts.index,
         body

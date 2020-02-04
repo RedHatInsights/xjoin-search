@@ -110,12 +110,17 @@ type Host {
     stale_timestamp: String,
     reporter: String,
     ansible_host: String,
-    canonical_facts: JSONObject,
 
-    "EXPERIMENTAL - do not use!"
-    system_profile_facts: JSONObject
+    "Canonical facts of a host. The subset of keys can be requested using `filter`."
+    canonical_facts (filter: [String!]): JSONObject,
 
-    tags: Tags
+    "System profile of a host. The subset of keys can be requested using `filter`."
+    system_profile_facts (filter: [String!]): JSONObject
+
+    tags: Tags,
+
+    "Facts of a host. The subset of keys can be requested using `filter`."
+    facts (filter: [String!]): JSONObject
 }
 
 type Hosts {

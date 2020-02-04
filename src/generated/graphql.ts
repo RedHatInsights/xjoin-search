@@ -31,10 +31,28 @@ export type Host = {
   stale_timestamp?: Maybe<Scalars['String']>,
   reporter?: Maybe<Scalars['String']>,
   ansible_host?: Maybe<Scalars['String']>,
+  /** Canonical facts of a host. The subset of keys can be requested using `filter`. */
   canonical_facts?: Maybe<Scalars['JSONObject']>,
-  /** EXPERIMENTAL - do not use! */
+  /** System profile of a host. The subset of keys can be requested using `filter`. */
   system_profile_facts?: Maybe<Scalars['JSONObject']>,
   tags?: Maybe<Tags>,
+  /** Facts of a host. The subset of keys can be requested using `filter`. */
+  facts?: Maybe<Scalars['JSONObject']>,
+};
+
+
+export type HostCanonical_FactsArgs = {
+  filter?: Maybe<Array<Scalars['String']>>
+};
+
+
+export type HostSystem_Profile_FactsArgs = {
+  filter?: Maybe<Array<Scalars['String']>>
+};
+
+
+export type HostFactsArgs = {
+  filter?: Maybe<Array<Scalars['String']>>
 };
 
 export enum Host_Tags_Order_By {
@@ -312,9 +330,10 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   ansible_host?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  canonical_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
-  system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType>,
+  canonical_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, HostCanonical_FactsArgs>,
+  system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, HostSystem_Profile_FactsArgs>,
   tags?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType>,
+  facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, HostFactsArgs>,
 };
 
 export type HostsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Hosts'] = ResolversParentTypes['Hosts']> = {

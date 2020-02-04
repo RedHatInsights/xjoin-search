@@ -1,5 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`hosts query JSONObjectFilter empty 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "canonical_facts": Object {
+          "fqdn": "fqdn.test03.rhel7.jharting.local",
+          "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+          "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+          "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
+        },
+        "display_name": "test03.rhel7.jharting.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "system_profile_facts": Object {},
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query JSONObjectFilter simple canonical fact query 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "canonical_facts": Object {
+          "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+          "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+        },
+        "display_name": "test03.rhel7.jharting.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "system_profile_facts": Object {
+          "arch": "x86_64",
+          "bios_release_date": "12/01/2006",
+          "bios_vendor": "innotek GmbH",
+          "bios_version": "VirtualBox",
+          "cores_per_socket": 1,
+          "infrastructure_type": "physical",
+          "infrastructure_vendor": "baremetal",
+          "insights_client_version": "3.0.6-2.el7_6",
+          "insights_egg_version": "3.0.115-1",
+          "last_boot_time": "2019-08-07T08:46:16",
+          "number_of_cpus": 1,
+          "number_of_sockets": 1,
+          "os_kernel_version": "3.10.0",
+          "os_release": "7.5",
+          "satellite_managed": false,
+          "system_memory_bytes": 511451136,
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query JSONObjectFilter simple system profile query 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "canonical_facts": Object {
+          "fqdn": "fqdn.test03.rhel7.jharting.local",
+          "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+          "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+          "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
+        },
+        "display_name": "test03.rhel7.jharting.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "system_profile_facts": Object {
+          "arch": "x86_64",
+          "os_release": "7.5",
+        },
+      },
+    ],
+  },
+}
+`;
+
 exports[`hosts query fetch host with canonical facts 1`] = `
 Object {
   "hosts": Object {
@@ -189,6 +270,66 @@ Object {
 }
 `;
 
+exports[`hosts query queries facts all facts 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "display_name": "test02.rhel7.jharting.local",
+        "facts": Object {
+          "bios": Object {
+            "bios.release_date": "2014-04-01",
+            "bios.vendor": "SeaBIOS",
+            "bios.version": "1.11.0-2.el7",
+          },
+          "os": Object {
+            "os.release": "Red Hat Enterprise Linux Server",
+          },
+        },
+        "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query queries facts facts not available 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "display_name": "test01.rhel7.jharting.local",
+        "facts": null,
+        "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query queries facts specific fact key 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "display_name": "test02.rhel7.jharting.local",
+        "facts": Object {
+          "bios": Object {
+            "bios.release_date": "2014-04-01",
+            "bios.vendor": "SeaBIOS",
+            "bios.version": "1.11.0-2.el7",
+          },
+        },
+        "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+      },
+    ],
+  },
+}
+`;
+
 exports[`hosts query queries stale_timestamp basic 1`] = `
 Object {
   "hosts": Object {
@@ -216,6 +357,24 @@ Object {
 }
 `;
 
+exports[`hosts query queries stale_timestamp gt only 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "display_name": "test03.rhel7.jharting.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+      },
+    ],
+  },
+}
+`;
+
 exports[`hosts query queries stale_timestamp gte only 1`] = `
 Object {
   "hosts": Object {
@@ -237,6 +396,24 @@ Object {
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "reporter": "puptoo",
         "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query queries stale_timestamp lt only 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.jharting.local",
+        "display_name": "test02.rhel7.jharting.local",
+        "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+        "modified_on": "2019-01-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2020-01-10T08:07:03.354307Z",
       },
     ],
   },
