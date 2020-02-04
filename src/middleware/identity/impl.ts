@@ -26,8 +26,10 @@ export default function identity(req: express.Request, res: express.Response, ne
             return next(new HttpErrorForbidden());
         }
 
-        req.username = identity.user.username;
-        req.is_internal = identity.user.is_internal;
+        if (identity.type == 'User') {
+            req.username = identity.user.username;
+            req.is_internal = identity.user.is_internal;
+        }
 
         next();
     } catch (e) {
