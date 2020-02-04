@@ -271,7 +271,7 @@ describe('hosts query', function () {
                 const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
                     data => {
                         data.identity.type = 'System';
-                        data.user = null;
+                        delete data.identity.user;
                         data.system = {cn: 'cert_name'};
                         return data; })};
                 const err = await runQueryCatchError(headers);
