@@ -26,7 +26,7 @@ export default function identity(req: express.Request, res: express.Response, ne
             return next(new HttpErrorForbidden());
         }
 
-        if (identity.type == 'User') {
+        if (identity.type === 'User') {
             req.username = identity.user.username;
             req.is_internal = identity.user.is_internal;
         }
