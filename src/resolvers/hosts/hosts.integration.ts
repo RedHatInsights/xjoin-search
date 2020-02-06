@@ -266,6 +266,17 @@ describe('hosts query', function () {
                 const err = await runQueryCatchError(headers);
                 expect(err.response.status).toEqual(400);
             });
+
+            test('System identity type', async () => {
+                const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
+                    data => {
+                        data.identity.type = 'System';
+                        delete data.identity.user;
+                        data.system = {cn: 'cert_name'};
+                        return data; })};
+                const err = await runQueryCatchError(headers);
+                expect(err).toBeNull();
+            });
         });
 
         describe('stale_timestamp', function () {
