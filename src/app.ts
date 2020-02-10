@@ -49,6 +49,10 @@ export default async function start () {
     });
 
     apollo.applyMiddleware({ app });
+
+    app.get('/version', (req: express.Request, res: express.Response) =>
+        res.json({ version: version.version, commit: version.short }).end());
+
     const server: any = promisifyAll(createServer(app));
 
     createTerminus(server, {
