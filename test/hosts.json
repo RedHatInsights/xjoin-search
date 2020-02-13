@@ -209,5 +209,141 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         }
+    },
+    {
+        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
+        "account": "test",
+        "display_name": "A",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test03.rhel7.jharting.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
+        },
+        "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.5",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "physical",
+            "infrastructure_vendor": "some_vendor",
+            "last_boot_time": "2019-08-07T08:46:16",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "satellite_managed": false
+        }
+    },
+    {
+        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
+        "account": "test",
+        "display_name": "B",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test03.rhel7.jharting.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
+        },
+        "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.5",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "physical",
+            "infrastructure_vendor": "some_vendor",
+            "last_boot_time": "2019-08-07T08:46:16",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "satellite_managed": false
+        }
+    },
+    {
+        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
+        "account": "test",
+        "display_name": "a",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test03.rhel7.jharting.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
+        },
+        "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.5",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "physical",
+            "infrastructure_vendor": "some_vendor",
+            "last_boot_time": "2019-08-07T08:46:16",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "satellite_managed": false
+        }
+    },
+    {
+        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
+        "account": "test",
+        "display_name": "b",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test03.rhel7.jharting.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
+        },
+        "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.5",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "physical",
+            "infrastructure_vendor": "some_vendor",
+            "last_boot_time": "2019-08-07T08:46:16",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "satellite_managed": false
+        }
     }
 ]
