@@ -123,6 +123,42 @@ describe('hosts query', function () {
         });
     });
 
+    describe ('case insensitive ordering', function () {
+
+        test('display_name ASC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'display_name',
+                order_how: 'ASC'}, {
+                [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
+            });
+
+            expect(status).toEqual(200);
+            const hostArray = data.hosts.data;
+
+            expect(hostArray[0].display_name).toEqual('A');
+            expect(hostArray[1].display_name).toEqual('a');
+            expect(hostArray[2].display_name).toEqual('b');
+            expect(hostArray[3].display_name).toEqual('B');
+        });
+
+        test('display_name DESC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'display_name',
+                order_how: 'ASC'}, {
+                [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
+            });
+
+            expect(status).toEqual(200);
+            const hostArray = data.hosts.data;
+
+            expect(hostArray[3].display_name).toEqual('B');
+            expect(hostArray[2].display_name).toEqual('b');
+            expect(hostArray[1].display_name).toEqual('a');
+            expect(hostArray[0].display_name).toEqual('A');
+        });
+
+    });
+
     describe('limit/offset', function () {
         test('limit too low', async () => {
             const err = await runQueryCatchError(undefined, BASIC_QUERY, { limit: -1 });

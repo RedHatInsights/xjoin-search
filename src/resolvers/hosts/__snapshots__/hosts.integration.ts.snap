@@ -105,42 +105,6 @@ Object {
     "data": Array [
       Object {
         "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
         "display_name": "test01.rhel7.jharting.local",
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
@@ -175,42 +139,6 @@ exports[`hosts query ordering display_name ASC 1`] = `
 Object {
   "hosts": Object {
     "data": Array [
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
       Object {
         "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
@@ -274,42 +202,6 @@ Object {
         "reporter": "puptoo",
         "stale_timestamp": "2020-02-10T08:07:03.354307Z",
       },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
     ],
   },
 }
@@ -319,42 +211,6 @@ exports[`hosts query ordering modified_on DESC 1`] = `
 Object {
   "hosts": Object {
     "data": Array [
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
       Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
@@ -391,42 +247,6 @@ exports[`hosts query queries compound 1`] = `
 Object {
   "hosts": Object {
     "data": Array [
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
       Object {
         "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
@@ -544,42 +364,6 @@ Object {
       Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
@@ -595,42 +379,6 @@ exports[`hosts query queries stale_timestamp gte only 1`] = `
 Object {
   "hosts": Object {
     "data": Array [
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
       Object {
         "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
@@ -705,42 +453,6 @@ Object {
     "data": Array [
       Object {
         "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
         "display_name": "test01.rhel7.jharting.local",
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
@@ -804,42 +516,6 @@ Object {
     "data": Array [
       Object {
         "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "reporter": "puptoo",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
         "display_name": "test02.rhel7.jharting.local",
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
@@ -865,46 +541,6 @@ exports[`hosts query queries tags simple output 1`] = `
 Object {
   "hosts": Object {
     "data": Array [
-      Object {
-        "display_name": "A",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
-        "tags": Object {
-          "data": Array [],
-          "meta": Object {
-            "total": 0,
-          },
-        },
-      },
-      Object {
-        "display_name": "a",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
-        "tags": Object {
-          "data": Array [],
-          "meta": Object {
-            "total": 0,
-          },
-        },
-      },
-      Object {
-        "display_name": "b",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
-        "tags": Object {
-          "data": Array [],
-          "meta": Object {
-            "total": 0,
-          },
-        },
-      },
-      Object {
-        "display_name": "B",
-        "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
-        "tags": Object {
-          "data": Array [],
-          "meta": Object {
-            "total": 0,
-          },
-        },
-      },
       Object {
         "display_name": "test01.rhel7.jharting.local",
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
