@@ -42,7 +42,12 @@ async function run () {
                     account: { type: 'keyword' },
                     "display_name": {
                         "type": "keyword",
-                        "normalizer": "case_insensitive"
+                        "fields": {
+                            "lowercase": {
+                                "type": "keyword",
+                                "normalizer": "case_insensitive",
+                            }
+                        }
                     },
                     created_on: { type: 'date' },
                     modified_on: { type: 'date' },

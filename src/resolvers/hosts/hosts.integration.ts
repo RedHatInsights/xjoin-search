@@ -159,6 +159,19 @@ describe('hosts query', function () {
 
     });
 
+    describe('case sensitive search', function () {
+        describe('display_name', function () {
+            test('substring', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: { display_name: 'B' }}, {
+                    [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
+                });
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].display_name.should.equal('B');
+            });
+        });
+    });
+
     describe('limit/offset', function () {
         test('limit too low', async () => {
             const err = await runQueryCatchError(undefined, BASIC_QUERY, { limit: -1 });
