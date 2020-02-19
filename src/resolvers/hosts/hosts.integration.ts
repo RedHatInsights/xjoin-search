@@ -144,17 +144,17 @@ describe('hosts query', function () {
         test('display_name DESC', async () => {
             const { data, status } = await runQuery(BASIC_QUERY, {
                 order_by: 'display_name',
-                order_how: 'ASC'}, {
+                order_how: 'DESC'}, {
                 [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
             });
 
             expect(status).toEqual(200);
             const hostArray = data.hosts.data;
 
-            expect(hostArray[3].display_name).toEqual('B');
-            expect(hostArray[2].display_name).toEqual('b');
-            expect(hostArray[1].display_name).toEqual('a');
-            expect(hostArray[0].display_name).toEqual('A');
+            expect(hostArray[0].display_name).toEqual('b');
+            expect(hostArray[1].display_name).toEqual('B');
+            expect(hostArray[2].display_name).toEqual('A');
+            expect(hostArray[3].display_name).toEqual('a');
         });
 
     });
