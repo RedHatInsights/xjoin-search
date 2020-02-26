@@ -135,10 +135,11 @@ describe('hosts query', function () {
             expect(status).toEqual(200);
             const hostArray = data.hosts.data;
 
-            expect(hostArray[0].display_name).toEqual('A');
-            expect(hostArray[1].display_name).toEqual('a');
-            expect(hostArray[2].display_name).toEqual('b');
-            expect(hostArray[3].display_name).toEqual('B');
+            expect(hostArray[0].display_name).toEqual('aa');
+            expect(hostArray[1].display_name).toEqual('Ab');
+            expect(hostArray[2].display_name).toEqual('aC');
+            expect(hostArray[3].display_name).toEqual('Ba');
+            expect(hostArray[4].display_name).toEqual('bb');
         });
 
         test('display_name DESC', async () => {
@@ -151,10 +152,11 @@ describe('hosts query', function () {
             expect(status).toEqual(200);
             const hostArray = data.hosts.data;
 
-            expect(hostArray[0].display_name).toEqual('b');
-            expect(hostArray[1].display_name).toEqual('B');
-            expect(hostArray[2].display_name).toEqual('A');
-            expect(hostArray[3].display_name).toEqual('a');
+            expect(hostArray[0].display_name).toEqual('bb');
+            expect(hostArray[1].display_name).toEqual('Ba');
+            expect(hostArray[2].display_name).toEqual('aC');
+            expect(hostArray[3].display_name).toEqual('Ab');
+            expect(hostArray[4].display_name).toEqual('aa');
         });
 
     });
@@ -163,11 +165,11 @@ describe('hosts query', function () {
         describe('display_name', function () {
             test('substring', async () => {
                 const { data } = await runQuery(BASIC_QUERY, {
-                    filter: { display_name: 'B' }}, {
+                    filter: { display_name: 'Ba' }}, {
                     [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
                 });
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].display_name.should.equal('B');
+                data.hosts.data[0].display_name.should.equal('Ba');
             });
         });
     });
