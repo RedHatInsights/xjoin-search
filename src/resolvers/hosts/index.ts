@@ -125,6 +125,16 @@ function buildSourceList(selectionSet: any) {
     return dataSelectionSet.selectionSet.selections.map((o: any) => o.name.value).map(translateFilterName);
 }
 
+function processOrderBy(order_by: any) {
+    let string_order_by = String(order_by);
+
+    if (string_order_by === 'display_name') {
+        string_order_by = 'display_name.lowercase';
+    }
+
+    return string_order_by;
+}
+
 /**
  * Build query for Elasticsearch based on GraphQL query.
  */
@@ -138,7 +148,7 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
         size: args.limit,
 
         sort: [{
-            [String(args.order_by)]: String(args.order_how)
+            [processOrderBy(args.order_by)]: String(args.order_how)
         }, {
             id: 'ASC' // for deterministic sort order
         }],
