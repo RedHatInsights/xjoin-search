@@ -123,6 +123,61 @@ describe('hosts query', function () {
         });
     });
 
+    describe ('case insensitive ordering', function () {
+
+        test('display_name ASC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'display_name',
+                order_how: 'ASC'}, {
+                [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
+            });
+
+            expect(status).toEqual(200);
+            const hostArray = data.hosts.data;
+
+            expect(hostArray[0].display_name).toEqual('aa');
+            expect(hostArray[1].display_name).toEqual('Ab');
+            expect(hostArray[2].display_name).toEqual('aC');
+            expect(hostArray[3].display_name).toEqual('Ba');
+            expect(hostArray[4].display_name).toEqual('bb');
+            expect(hostArray[5].display_name).toEqual('RHIQE.db-64.brady.biz');
+            expect(hostArray[6].display_name).toEqual('RHIQE.db3fb396-ef98-4481-9d67-900256ffc823.lt-28.freeman-mejia.com');
+        });
+
+        test('display_name DESC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'display_name',
+                order_how: 'DESC'}, {
+                [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
+            });
+
+            expect(status).toEqual(200);
+            const hostArray = data.hosts.data;
+
+            expect(hostArray[0].display_name).toEqual('RHIQE.db3fb396-ef98-4481-9d67-900256ffc823.lt-28.freeman-mejia.com');
+            expect(hostArray[1].display_name).toEqual('RHIQE.db-64.brady.biz');
+            expect(hostArray[2].display_name).toEqual('bb');
+            expect(hostArray[3].display_name).toEqual('Ba');
+            expect(hostArray[4].display_name).toEqual('aC');
+            expect(hostArray[5].display_name).toEqual('Ab');
+            expect(hostArray[6].display_name).toEqual('aa');
+        });
+
+    });
+
+    describe('case sensitive search', function () {
+        describe('display_name', function () {
+            test('substring', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: { display_name: 'Ba' }}, {
+                    [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
+                });
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].display_name.should.equal('Ba');
+            });
+        });
+    });
+
     describe('limit/offset', function () {
         test('limit too low', async () => {
             const err = await runQueryCatchError(undefined, BASIC_QUERY, { limit: -1 });
