@@ -11,6 +11,23 @@ async function run () {
 
     await client.indices.create({ index });
 
+    await client.indices.close({
+        index
+    });
+
+    await client.indices.putSettings({
+        index,
+        body: {
+            analysis: {
+                normalizer: {
+                    case_insensitive: {
+                        filter: 'lowercase'
+                    }
+                }
+            }
+        }
+    });
+
     await client.indices.putMapping({
         index,
         body: {
@@ -18,7 +35,15 @@ async function run () {
             properties: {
                 id: { type: 'keyword' },
                 account: { type: 'keyword' },
-                display_name: { type: 'keyword' },
+                display_name: {
+                    type: 'keyword',
+                    fields: {
+                        lowercase: {
+                            type: 'keyword',
+                            normalizer: 'case_insensitive'
+                        }
+                    }
+                },
                 created_on: { type: 'date' },
                 modified_on: { type: 'date' },
                 stale_timestamp: { type: 'date' },
@@ -59,6 +84,10 @@ async function run () {
                 }
             }
         }
+    });
+
+    await client.indices.open({
+        index
     });
 
     await client.indices.putAlias({
