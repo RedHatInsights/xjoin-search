@@ -140,6 +140,8 @@ describe('hosts query', function () {
             expect(hostArray[2].display_name).toEqual('aC');
             expect(hostArray[3].display_name).toEqual('Ba');
             expect(hostArray[4].display_name).toEqual('bb');
+            expect(hostArray[5].display_name).toEqual('RHIQE.db-64.brady.biz');
+            expect(hostArray[6].display_name).toEqual('RHIQE.db3fb396-ef98-4481-9d67-900256ffc823.lt-28.freeman-mejia.com');
         });
 
         test('display_name DESC', async () => {
@@ -152,11 +154,13 @@ describe('hosts query', function () {
             expect(status).toEqual(200);
             const hostArray = data.hosts.data;
 
-            expect(hostArray[0].display_name).toEqual('bb');
-            expect(hostArray[1].display_name).toEqual('Ba');
-            expect(hostArray[2].display_name).toEqual('aC');
-            expect(hostArray[3].display_name).toEqual('Ab');
-            expect(hostArray[4].display_name).toEqual('aa');
+            expect(hostArray[0].display_name).toEqual('RHIQE.db3fb396-ef98-4481-9d67-900256ffc823.lt-28.freeman-mejia.com');
+            expect(hostArray[1].display_name).toEqual('RHIQE.db-64.brady.biz');
+            expect(hostArray[2].display_name).toEqual('bb');
+            expect(hostArray[3].display_name).toEqual('Ba');
+            expect(hostArray[4].display_name).toEqual('aC');
+            expect(hostArray[5].display_name).toEqual('Ab');
+            expect(hostArray[6].display_name).toEqual('aa');
         });
 
     });

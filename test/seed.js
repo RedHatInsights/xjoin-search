@@ -21,7 +21,7 @@ async function run () {
             analysis: {
                 normalizer: {
                     case_insensitive: {
-                        filter: 'lowercase'
+                        filter: ['lowercase', 'asciifolding']
                     }
                 }
             }
