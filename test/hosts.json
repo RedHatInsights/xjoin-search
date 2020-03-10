@@ -379,5 +379,107 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         }
+    },
+    {
+        "id": "6e7b6339-0a2d-4552-a2f2-b7da0aece49d",
+        "account": "timestamp_sorting_test",
+        "display_name": "WhenDESC_After",
+        "created_on": "2020-02-26T04:04:33.807208Z",
+        "modified_on": "2020-02-26T04:04:33.807208Z",
+        "stale_timestamp": "2020-02-26T04:04:33.807208Z",
+        "reporter": "puptoo",
+        "ansible_host": "test01.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test01.rhel7.jharting.local",
+            "insights_id": "a58c53e0-8000-4384-b902-c70b69faacc5",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
+        },
+        "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.4",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "virtual",
+            "infrastructure_vendor": "kvm",
+            "last_boot_time": "2019-08-07T08:45:02",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "satellite_managed": false
+        },
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-1"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }],
+        "tags_string": [
+            "Sat/env/prod",
+            "aws/region/us-east-1",
+            "insights-client/database/"
+        ]
+    },
+    {
+        "id": "6e7b6339-9y2d-4552-a2f2-b7da0aece49d",
+        "account": "timestamp_sorting_test",
+        "display_name": "WhenDESC_Before",
+        "created_on": "2020-02-26T04:04:33.807212Z",
+        "modified_on": "2020-02-26T04:04:33.807212Z",
+        "stale_timestamp": "2020-02-26T04:04:33.807212Z",
+        "reporter": "puptoo",
+        "ansible_host": "test01.rhel7.jharting.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test01.rhel7.jharting.local",
+            "insights_id": "a58c53e0-8000-4384-b902-c70b69faacc5",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
+        },
+        "system_profile_facts": {
+            "arch": "x86_64",
+            "os_release": "7.4",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "virtual",
+            "infrastructure_vendor": "kvm",
+            "last_boot_time": "2019-08-07T08:45:02",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
+            "bios_release_date": "12/01/2006",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "satellite_managed": false
+        },
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-1"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }],
+        "tags_string": [
+            "Sat/env/prod",
+            "aws/region/us-east-1",
+            "insights-client/database/"
+        ]
     }
 ]

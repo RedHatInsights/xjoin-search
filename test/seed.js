@@ -21,7 +21,7 @@ async function run () {
             analysis: {
                 normalizer: {
                     case_insensitive: {
-                        filter: 'lowercase'
+                        filter: ['lowercase', 'asciifolding']
                     }
                 }
             }
@@ -44,9 +44,9 @@ async function run () {
                         }
                     }
                 },
-                created_on: { type: 'date' },
-                modified_on: { type: 'date' },
-                stale_timestamp: { type: 'date' },
+                created_on: { type: 'date_nanos' },
+                modified_on: { type: 'date_nanos' },
+                stale_timestamp: { type: 'date_nanos' },
                 ansible_host: { type: 'keyword' },
                 canonical_facts: {
                     type: 'object',
