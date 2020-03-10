@@ -81,7 +81,9 @@ describe('hosts query', function () {
             {
                 hosts (
                     filter: {
-                        id: "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee"
+                        id: {
+                            eq: "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee"
+                        }
                     }
                 ) {
                     data {
@@ -172,7 +174,7 @@ describe('hosts query', function () {
         describe('display_name', function () {
             test('substring', async () => {
                 const { data } = await runQuery(BASIC_QUERY,
-                    { filter: { display_name: 'Ba' }},
+                    { filter: { display_name: { eq: 'Ba' } }},
                     createHeaders('sorting_test', 'sorting_test'));
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].display_name.should.equal('Ba');
@@ -234,7 +236,7 @@ describe('hosts query', function () {
     describe('queries', function () {
         describe('display_name', function () {
             test('substring', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { display_name: '*est03.*' }});
+                const { data } = await runQuery(BASIC_QUERY, { filter: { display_name: { matches: '*est03.*' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
@@ -242,7 +244,7 @@ describe('hosts query', function () {
 
         describe('fqdn', function () {
             test('substring', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { fqdn: '*dn.test02.*' }});
+                const { data } = await runQuery(BASIC_QUERY, { filter: { fqdn: { matches: '*dn.test02.*' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
@@ -250,18 +252,20 @@ describe('hosts query', function () {
 
         describe('insights_id', function () {
             test('exact match', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { insights_id: '17c52679-f0b9-4e9b-9bac-a3c7fae5070c' }});
+                const { data } = await runQuery(BASIC_QUERY, { filter: { insights_id: {
+                    eq: '17c52679-f0b9-4e9b-9bac-a3c7fae5070c'
+                }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
 
             test('substring no wildcards', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { insights_id: 'a3c7fae507' }});
+                const { data } = await runQuery(BASIC_QUERY, { filter: { insights_id: { eq: 'a3c7fae507' }}});
                 data.hosts.data.should.have.length(0);
             });
 
             test('substring', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { insights_id: '*a3c7fae507*' }});
+                const { data } = await runQuery(BASIC_QUERY, { filter: { insights_id: { matches: '*a3c7fae507*' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
@@ -271,11 +275,11 @@ describe('hosts query', function () {
             const { data } = await runQuery(BASIC_QUERY, {
                 filter: {
                     OR: [{
-                        fqdn: '*dn.test02.rhel7.jharting.local',
-                        display_name: '*est02*'
+                        fqdn: { matches: '*dn.test02.rhel7.jharting.local'},
+                        display_name: { matches: '*est02*'}
                     }, {
-                        id: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee',
-                        insights_id: '*7d934aad983d'
+                        id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' },
+                        insights_id: { matches: '*7d934aad983d' }
                     }]
                 }
             });
@@ -284,16 +288,16 @@ describe('hosts query', function () {
 
         describe('system_profile', function () {
             test('arch', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { spf_arch: 'x86_64' }});
+                const { data } = await runQuery(BASIC_QUERY, { filter: { spf_arch: { eq: 'x86_64' }}});
                 expect(data).toMatchSnapshot();
             });
 
             test('os_release', async () => {
                 const { data } = await runQuery(BASIC_QUERY, {
                     filter: {
-                        spf_os_release: '7.*',
+                        spf_os_release: { matches: '7.*'},
                         NOT: {
-                            spf_os_release: '7.4'
+                            spf_os_release: { eq: '7.4'}
                         }
                     }
                 });
@@ -301,18 +305,18 @@ describe('hosts query', function () {
             });
 
             test('os_kernel_release', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { spf_os_kernel_version: '4.18.*' }});
+                const { data } = await runQuery(BASIC_QUERY, { filter: { spf_os_kernel_version: { matches: '4.18.*' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
 
             test('os_infrastructure_type', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { spf_infrastructure_type: 'virtual' }});
+                const { data } = await runQuery(BASIC_QUERY, { filter: { spf_infrastructure_type: { eq: 'virtual' }}});
                 expect(data).toMatchSnapshot();
             });
 
             test('os_infrastructure_vendor', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { spf_infrastructure_vendor: 'baremetal' }});
+                const { data } = await runQuery(BASIC_QUERY, { filter: { spf_infrastructure_vendor: { eq: 'baremetal' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
@@ -454,9 +458,9 @@ describe('hosts query', function () {
                 const { data } = await runQuery(TAG_QUERY, {
                     filter: {
                         tag: {
-                            namespace: 'aws',
-                            key: 'region',
-                            value: 'us-east-1'
+                            namespace: {eq: 'aws'},
+                            key: {eq: 'region'},
+                            value: {eq: 'us-east-1'}
                         }
                     }
                 });
@@ -467,8 +471,8 @@ describe('hosts query', function () {
                 const { data } = await runQuery(TAG_QUERY, {
                     filter: {
                         tag: {
-                            namespace: 'insights-client',
-                            key: 'web'
+                            namespace: {eq: 'insights-client'},
+                            key: {eq: 'web'}
                         }
                     }
                 });
@@ -479,9 +483,9 @@ describe('hosts query', function () {
                 const { data } = await runQuery(TAG_QUERY, {
                     filter: {
                         tag: {
-                            namespace: 'insights-client',
-                            key: 'web',
-                            value: null
+                            namespace: {eq: 'insights-client'},
+                            key: {eq: 'web'},
+                            value: {eq: null}
                         }
                     }
                 });
@@ -493,14 +497,14 @@ describe('hosts query', function () {
                     filter: {
                         OR: [{
                             tag: {
-                                namespace: 'insights-client',
-                                key: 'web'
+                                namespace: {eq: 'insights-client'},
+                                key: {eq: 'web'}
                             }
                         }, {
                             tag: {
-                                namespace: 'aws',
-                                key: 'region',
-                                value: 'us-east-1'
+                                namespace: {eq: 'aws'},
+                                key: {eq: 'region'},
+                                value: {eq: 'us-east-1'}
                             }
                         }]
                     }
@@ -513,14 +517,14 @@ describe('hosts query', function () {
                     filter: {
                         AND: [{
                             tag: {
-                                namespace: 'insights-client',
-                                key: 'os',
-                                value: 'fedora'
+                                namespace: {eq: 'insights-client'},
+                                key: {eq: 'os'},
+                                value: {eq: 'fedora'}
                             }
                         }, {
                             tag: {
-                                namespace: 'insights-client',
-                                key: 'database'
+                                namespace: {eq: 'insights-client'},
+                                key: {eq: 'database'}
                             }
                         }]
                     }
@@ -551,7 +555,7 @@ describe('hosts query', function () {
 
             test('all facts', async () => {
                 const { data } = await runQuery(QUERY, { filter: {
-                    id: '22cd8e39-13bb-4d02-8316-84b850dc5136'
+                    id: { eq: '22cd8e39-13bb-4d02-8316-84b850dc5136' }
                 }});
 
                 expect(data).toMatchSnapshot();
@@ -559,7 +563,7 @@ describe('hosts query', function () {
 
             test('specific fact key', async () => {
                 const { data } = await runQuery(QUERY, {
-                    filter: { id: '22cd8e39-13bb-4d02-8316-84b850dc5136' },
+                    filter: { id: { eq: '22cd8e39-13bb-4d02-8316-84b850dc5136' }},
                     fact_filter: ['bios']
                 });
 
@@ -568,7 +572,7 @@ describe('hosts query', function () {
 
             test('facts not available', async () => {
                 const { data } = await runQuery(QUERY, { filter: {
-                    id: '6e7b6317-0a2d-4552-a2f2-b7da0aece49d'
+                    id: { eq: '6e7b6317-0a2d-4552-a2f2-b7da0aece49d' }
                 }});
 
                 expect(data).toMatchSnapshot();
@@ -600,7 +604,7 @@ describe('hosts query', function () {
 
         test('simple system profile query', async () => {
             const { data } = await runQuery(QUERY, {
-                filter: { id: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' },
+                filter: { id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' }},
                 system_profile_filter: ['arch', 'os_release']
             });
 
@@ -609,7 +613,7 @@ describe('hosts query', function () {
 
         test('simple canonical fact query', async () => {
             const { data } = await runQuery(QUERY, {
-                filter: { id: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' },
+                filter: { id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' }},
                 canonical_fact_filter: ['insights_id', 'satellite_id']
             });
 
@@ -618,11 +622,148 @@ describe('hosts query', function () {
 
         test('empty', async () => {
             const { data } = await runQuery(QUERY, {
-                filter: { id: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' },
+                filter: { id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' }},
                 system_profile_filter: []
             });
 
             expect(data).toMatchSnapshot();
+        });
+    });
+
+    describe('string filters', function () {
+        const QUERY = `
+            query hosts (
+                $filter: HostFilter
+            ) {
+                hosts (
+                    filter: $filter,
+                )
+                {
+                    data {
+                        id
+                    }
+                }
+            }
+        `;
+
+        const headers = createHeaders('user', 'filter_test');
+
+        function expectId (data: any, id: string) {
+            data.hosts.data.should.eql([{id}]);
+        }
+
+        test('eq with value', async () => {
+            const { data } = await runQuery(QUERY, {
+                filter: { id: { eq: 'd1119a66-ffb7-4529-a8ca-15439aed29ad' }}
+            }, headers);
+
+            expectId(data, 'd1119a66-ffb7-4529-a8ca-15439aed29ad');
+        });
+
+        test('eq with null', async () => {
+            const { data } = await runQuery(QUERY, {
+                filter: { spf_arch: { eq: null }}
+            }, headers);
+
+            expectId(data, '5212d66b-62bf-49ee-8f96-dbb5d866fa2a');
+        });
+
+        test('eq with not null', async () => {
+            const { data } = await runQuery(QUERY, {
+                filter: { NOT: {spf_arch: { eq: null }}}
+            }, headers);
+
+            expectId(data, 'd1119a66-ffb7-4529-a8ca-15439aed29ad');
+        });
+
+        test('matches possitive', async () => {
+            const { data } = await runQuery(QUERY, {
+                filter: {display_name: { matches: '*DD02' }}
+            }, headers);
+
+            expectId(data, '5212d66b-62bf-49ee-8f96-dbb5d866fa2a');
+        });
+
+        test('matches negative', async () => {
+            const { data } = await runQuery(QUERY, {
+                filter: {display_name: { matches: '*dd02' }}
+            }, headers);
+
+            data.hosts.data.should.be.empty();
+        });
+
+        test('matches null', async () => {
+            const error = await runQueryCatchError(headers, QUERY, {
+                filter: {display_name: { matches: null }}
+            });
+
+            expect(error.response.errors[0].extensions.code).toEqual('BAD_USER_INPUT');
+        });
+
+        describe('lowercase', function () {
+            test('eq lowercase input', async () => {
+                const { data } = await runQuery(QUERY, {
+                    filter: {display_name: { eq_lc: 'aabbccdd01' }}
+                }, headers);
+
+                expectId(data, 'd1119a66-ffb7-4529-a8ca-15439aed29ad');
+            });
+
+            test('eq uppercase input', async () => {
+                const { data } = await runQuery(QUERY, {
+                    filter: {display_name: { eq_lc: 'AABBCCDD01' }}
+                }, headers);
+
+                expectId(data, 'd1119a66-ffb7-4529-a8ca-15439aed29ad');
+            });
+
+            test('eq null', async () => {
+                const error = await runQueryCatchError(headers, QUERY, {
+                    filter: {display_name: { eq_lc: null }}
+                });
+
+                expect(error.response.errors[0].extensions.code).toEqual('BAD_USER_INPUT');
+            });
+
+            test('eq negative', async () => {
+                const { data } = await runQuery(QUERY, {
+                    filter: {display_name: { eq_lc: 'aabbccdd*' }}
+                }, headers);
+
+                data.hosts.data.should.be.empty();
+            });
+
+            test('matches lowercase input', async () => {
+                const { data } = await runQuery(QUERY, {
+                    filter: {display_name: { matches_lc: '*cdd01' }}
+                }, headers);
+
+                expectId(data, 'd1119a66-ffb7-4529-a8ca-15439aed29ad');
+            });
+
+            test('matches uppercase input', async () => {
+                const { data } = await runQuery(QUERY, {
+                    filter: {display_name: { matches_lc: '*D01' }}
+                }, headers);
+
+                expectId(data, 'd1119a66-ffb7-4529-a8ca-15439aed29ad');
+            });
+
+            test('matches negative', async () => {
+                const { data } = await runQuery(QUERY, {
+                    filter: {display_name: { matches_lc: '*03' }}
+                }, headers);
+
+                data.hosts.data.should.be.empty();
+            });
+
+            test('matches null', async () => {
+                const error = await runQueryCatchError(headers, QUERY, {
+                    filter: {display_name: { matches_lc: null }}
+                });
+
+                expect(error.response.errors[0].extensions.code).toEqual('BAD_USER_INPUT');
+            });
         });
     });
 });

@@ -21,6 +21,94 @@ export type CollectionMeta = {
   total: Scalars['Int'],
 };
 
+/** Basic filter for string fields that allows filtering based on exact match. */
+export type FilterString = {
+  /** 
+ * Compares the document field with the provided value.
+   * If `null` is provided then documents where the given field does not exist are returned.
+ **/
+  eq?: Maybe<Scalars['String']>,
+};
+
+/** String field filter that allows filtering based on exact match or using regular expression. */
+export type FilterStringWithRegex = {
+  /** 
+ * Compares the document field with the provided value.
+   * If `null` is provided then documents where the given field does not exist are returned.
+ **/
+  eq?: Maybe<Scalars['String']>,
+  /** Matches the document field against the provided regular expression. */
+  regex?: Maybe<Scalars['String']>,
+};
+
+/** String field filter that allows filtering based on exact match or using wildcards. */
+export type FilterStringWithWildcard = {
+  /** 
+ * Compares the document field with the provided value.
+   * If `null` is provided then documents where the given field does not exist are returned.
+ **/
+  eq?: Maybe<Scalars['String']>,
+  /** 
+ * Compares the document field with the provided value.
+   * Wildcards may be used in the query (e.g. `ki*y`).
+   * Two types of wildcard operators are supported:
+   * * `?`, which matches any single character
+   * * `*`, which can match zero or more characters, including an empty one
+   * 
+   * See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html)
+   * for more details.
+ **/
+  matches?: Maybe<Scalars['String']>,
+};
+
+/** 
+ * String field filter that allows filtering based on exact match or using wildcards.
+ * In both cases the case of a letter can be ignored (case-insensitive matching) using the `_lc` suffixed operators.
+ **/
+export type FilterStringWithWildcardWithLowercase = {
+  /** 
+ * Compares the document field with the provided value.
+   * If `null` is provided then documents where the given field does not exist are returned.
+ **/
+  eq?: Maybe<Scalars['String']>,
+  /** 
+ * This operator is like [FilterStringWithWildcard.eq](#filterstring) except that it performs case-insensitive matching.
+   * Furthermore, unlike for `eq`, `null` is not an allowed value.
+ **/
+  eq_lc?: Maybe<Scalars['String']>,
+  /** 
+ * Compares the document field with the provided value.
+   * Wildcards may be used in the query (e.g. `ki*y`).
+   * Two types of wildcard operators are supported:
+   * * `?`, which matches any single character
+   * * `*`, which can match zero or more characters, including an empty one
+   * 
+   * See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html)
+   * for more details.
+ **/
+  matches?: Maybe<Scalars['String']>,
+  /** 
+ * This operator is like
+   * [FilterStringWithWildcard.matches](#filterstringwithwildcard) except that it
+   * performs case-insensitive matching.
+ **/
+  matches_lc?: Maybe<Scalars['String']>,
+};
+
+export type FilterTag = {
+  namespace?: Maybe<FilterString>,
+  key: FilterString,
+  value?: Maybe<FilterString>,
+};
+
+/** Defines criteria by which the timestamp fields are filtered. */
+export type FilterTimestamp = {
+  lte?: Maybe<Scalars['String']>,
+  gte?: Maybe<Scalars['String']>,
+  lt?: Maybe<Scalars['String']>,
+  gt?: Maybe<Scalars['String']>,
+};
+
 export type Host = {
    __typename?: 'Host',
   id: Scalars['ID'],
@@ -60,32 +148,27 @@ export enum Host_Tags_Order_By {
   Count = 'count'
 }
 
-/** 
- * Defines criteria by which the hosts are filtered.
- * 
- * Some filters support wildcards.
- * Those that do can be used for exact matches (`fqdn: example.com`) or with wildcards (`fqdn: *.example.co?`)
- **/
+/** Defines criteria by which the hosts are filtered. */
 export type HostFilter = {
   AND?: Maybe<Array<HostFilter>>,
   OR?: Maybe<Array<HostFilter>>,
   NOT?: Maybe<HostFilter>,
   /** Filter by host id. This filter supports wildcards */
-  id?: Maybe<Scalars['String']>,
+  id?: Maybe<FilterStringWithWildcard>,
   /** Filter by insights id. This filter supports wildcards */
-  insights_id?: Maybe<Scalars['String']>,
+  insights_id?: Maybe<FilterStringWithWildcard>,
   /** Filter by display_name. This filter supports wildcards */
-  display_name?: Maybe<Scalars['String']>,
+  display_name?: Maybe<FilterStringWithWildcardWithLowercase>,
   /** Filter by fqdn. This filter supports wildcards */
-  fqdn?: Maybe<Scalars['String']>,
-  spf_arch?: Maybe<Scalars['String']>,
-  spf_os_release?: Maybe<Scalars['String']>,
-  spf_os_kernel_version?: Maybe<Scalars['String']>,
-  spf_infrastructure_type?: Maybe<Scalars['String']>,
-  spf_infrastructure_vendor?: Maybe<Scalars['String']>,
-  stale_timestamp?: Maybe<TimestampFilter>,
+  fqdn?: Maybe<FilterStringWithWildcard>,
+  spf_arch?: Maybe<FilterStringWithWildcard>,
+  spf_os_release?: Maybe<FilterStringWithWildcard>,
+  spf_os_kernel_version?: Maybe<FilterStringWithWildcard>,
+  spf_infrastructure_type?: Maybe<FilterStringWithWildcard>,
+  spf_infrastructure_vendor?: Maybe<FilterStringWithWildcard>,
+  stale_timestamp?: Maybe<FilterTimestamp>,
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
-  tag?: Maybe<TagFilter>,
+  tag?: Maybe<FilterTag>,
 };
 
 export type Hosts = {
@@ -168,13 +251,7 @@ export type TagAggregationFilter = {
    * }
    * ```
  **/
-  name?: Maybe<Scalars['String']>,
-};
-
-export type TagFilter = {
-  namespace?: Maybe<Scalars['String']>,
-  key: Scalars['String'],
-  value?: Maybe<Scalars['String']>,
+  search?: Maybe<FilterStringWithRegex>,
 };
 
 export type TagInfo = {
@@ -187,14 +264,6 @@ export type Tags = {
    __typename?: 'Tags',
   data: Array<Maybe<StructuredTag>>,
   meta: CollectionMeta,
-};
-
-/** Defines criteria by which the timestamp fields are filtered. */
-export type TimestampFilter = {
-  lte?: Maybe<Scalars['String']>,
-  gte?: Maybe<Scalars['String']>,
-  lt?: Maybe<Scalars['String']>,
-  gt?: Maybe<Scalars['String']>,
 };
 
 
@@ -270,9 +339,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   HostFilter: HostFilter,
+  FilterStringWithWildcard: FilterStringWithWildcard,
   String: ResolverTypeWrapper<Scalars['String']>,
-  TimestampFilter: TimestampFilter,
-  TagFilter: TagFilter,
+  FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase,
+  FilterTimestamp: FilterTimestamp,
+  FilterTag: FilterTag,
+  FilterString: FilterString,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
@@ -284,6 +356,7 @@ export type ResolversTypes = {
   StructuredTag: ResolverTypeWrapper<StructuredTag>,
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>,
   TagAggregationFilter: TagAggregationFilter,
+  FilterStringWithRegex: FilterStringWithRegex,
   HOST_TAGS_ORDER_BY: Host_Tags_Order_By,
   HostTags: ResolverTypeWrapper<HostTags>,
   TagInfo: ResolverTypeWrapper<TagInfo>,
@@ -295,9 +368,12 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Query: {},
   HostFilter: HostFilter,
+  FilterStringWithWildcard: FilterStringWithWildcard,
   String: Scalars['String'],
-  TimestampFilter: TimestampFilter,
-  TagFilter: TagFilter,
+  FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase,
+  FilterTimestamp: FilterTimestamp,
+  FilterTag: FilterTag,
+  FilterString: FilterString,
   Int: Scalars['Int'],
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
@@ -309,6 +385,7 @@ export type ResolversParentTypes = {
   StructuredTag: StructuredTag,
   CollectionMeta: CollectionMeta,
   TagAggregationFilter: TagAggregationFilter,
+  FilterStringWithRegex: FilterStringWithRegex,
   HOST_TAGS_ORDER_BY: Host_Tags_Order_By,
   HostTags: HostTags,
   TagInfo: TagInfo,

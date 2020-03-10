@@ -13,10 +13,14 @@
     * [TagInfo](#taginfo)
     * [Tags](#tags)
   * [Inputs](#inputs)
+    * [FilterString](#filterstring)
+    * [FilterStringWithRegex](#filterstringwithregex)
+    * [FilterStringWithWildcard](#filterstringwithwildcard)
+    * [FilterStringWithWildcardWithLowercase](#filterstringwithwildcardwithlowercase)
+    * [FilterTag](#filtertag)
+    * [FilterTimestamp](#filtertimestamp)
     * [HostFilter](#hostfilter)
     * [TagAggregationFilter](#tagaggregationfilter)
-    * [TagFilter](#tagfilter)
-    * [TimestampFilter](#timestampfilter)
   * [Enums](#enums)
     * [HOSTS_ORDER_BY](#hosts_order_by)
     * [HOST_TAGS_ORDER_BY](#host_tags_order_by)
@@ -396,12 +400,267 @@ Structured representation of a tag
 
 ## Inputs
 
+### FilterString
+
+Basic filter for string fields that allows filtering based on exact match.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>eq</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Compares the document field with the provided value.
+If `null` is provided then documents where the given field does not exist are returned.
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterStringWithRegex
+
+String field filter that allows filtering based on exact match or using regular expression.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>eq</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Compares the document field with the provided value.
+If `null` is provided then documents where the given field does not exist are returned.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>regex</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Matches the document field against the provided regular expression.
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterStringWithWildcard
+
+String field filter that allows filtering based on exact match or using wildcards.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>eq</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Compares the document field with the provided value.
+If `null` is provided then documents where the given field does not exist are returned.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>matches</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Compares the document field with the provided value.
+Wildcards may be used in the query (e.g. `ki*y`).
+Two types of wildcard operators are supported:
+* `?`, which matches any single character
+* `*`, which can match zero or more characters, including an empty one
+
+See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html) for more details.
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterStringWithWildcardWithLowercase
+
+String field filter that allows filtering based on exact match or using wildcards.
+In both cases the case of a letter can be ignored (case-insensitive matching) using the `_lc` suffixed operators.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>eq</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Compares the document field with the provided value.
+If `null` is provided then documents where the given field does not exist are returned.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>eq_lc</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+This operator is like [FilterStringWithWildcard.eq](#filterstring) except that it performs case-insensitive matching.
+Furthermore, unlike for `eq`, `null` is not an allowed value.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>matches</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Compares the document field with the provided value.
+Wildcards may be used in the query (e.g. `ki*y`).
+Two types of wildcard operators are supported:
+* `?`, which matches any single character
+* `*`, which can match zero or more characters, including an empty one
+
+See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html) for more details.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>matches_lc</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+This operator is like [FilterStringWithWildcard.matches](#filterstringwithwildcard) except that it performs case-insensitive matching.
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterTag
+
+Filters hosts by the presence of a host tag
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>namespace</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Tag namespace
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>key</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a>!</td>
+<td>
+
+Tag key
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>value</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Tag value
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterTimestamp
+
+Timestamp field filter with support for common operations.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>lt</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Less than
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>lte</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Less than or equal to
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>gt</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Greater than
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>gte</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+Greater than or equal to
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### HostFilter
 
 Defines criteria by which the hosts are filtered.
-
-Some filters support wildcards.
-Those that do can be used for exact matches (`fqdn: example.com`) or with wildcards (`fqdn: *.example.co?`)
 
 <table>
 <thead>
@@ -429,7 +688,7 @@ Those that do can be used for exact matches (`fqdn: example.com`) or with wildca
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>id</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
 Filter by host id. This filter supports wildcards
@@ -438,7 +697,7 @@ Filter by host id. This filter supports wildcards
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>insights_id</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
 Filter by insights id. This filter supports wildcards
@@ -447,7 +706,7 @@ Filter by insights id. This filter supports wildcards
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>display_name</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#filterstringwithwildcardwithlowercase">FilterStringWithWildcardWithLowercase</a></td>
 <td>
 
 Filter by display_name. This filter supports wildcards
@@ -456,7 +715,7 @@ Filter by display_name. This filter supports wildcards
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>fqdn</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
 Filter by fqdn. This filter supports wildcards
@@ -465,37 +724,37 @@ Filter by fqdn. This filter supports wildcards
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_arch</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_os_release</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_os_kernel_version</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_infrastructure_type</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_infrastructure_vendor</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
-<td valign="top"><a href="#timestampfilter">TimestampFilter</a></td>
+<td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
 <td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>tag</strong></td>
-<td valign="top"><a href="#tagfilter">TagFilter</a></td>
+<td valign="top"><a href="#filtertag">FilterTag</a></td>
 <td>
 
 Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with
@@ -519,12 +778,12 @@ Defines the criteria by which tags are filtered in the `hostTags` query.
 </thead>
 <tbody>
 <tr>
-<td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td colspan="2" valign="top"><strong>search</strong></td>
+<td valign="top"><a href="#filterstringwithregex">FilterStringWithRegex</a></td>
 <td>
 
-Defines a tag name filter.
-A tag name filter is a regular exression that operates on percent-encoded tag namespace, key and value at the same time.
+Limits the aggregation to tags that match the given search term.
+The search term is a regular exression that operates on percent-encoded tag namespace, key and value at the same time.
 In order to match the query regular expression needs to match percent-encoded strings.
 
 For example, to match tags with `Δwithčhars!` suffix the tag name query should look like:
@@ -535,71 +794,6 @@ For example, to match tags with `Δwithčhars!` suffix the tag name query should
 ```
 
 </td>
-</tr>
-</tbody>
-</table>
-
-### TagFilter
-
-<table>
-<thead>
-<tr>
-<th colspan="2" align="left">Field</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="2" valign="top"><strong>namespace</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>key</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>value</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-### TimestampFilter
-
-Defines criteria by which the timestamp fields are filtered.
-
-<table>
-<thead>
-<tr>
-<th colspan="2" align="left">Field</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="2" valign="top"><strong>lte</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>gte</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>lt</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>gt</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
 </tr>
 </tbody>
 </table>

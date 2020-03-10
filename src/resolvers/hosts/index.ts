@@ -1,22 +1,29 @@
 import * as _ from 'lodash';
 
-import {QueryHostsArgs, HostFilter, TimestampFilter, TagFilter} from '../../generated/graphql';
+import {QueryHostsArgs, HostFilter} from '../../generated/graphql';
 
-import {runQuery} from '../common';
-import * as common from '../common';
+import {runQuery} from '../es';
+import * as common from '../inputBooleanOperators';
 import config from '../../config';
-import {ES_NULL_VALUE} from '../../constants';
-import { checkTimestamp, checkLimit, checkOffset } from '../validation';
 
-type HostFilterResolver = (filter: HostFilter) => any;
+import { checkLimit, checkOffset } from '../validation';
+import {
+    filterStringWithWildcard,
+    filterStringWithWildcardWithLowercase
+} from '../inputString';
+import { FilterResolver } from '../common';
+import { filterTimestamp } from '../inputTimestamp';
+import { filterTag } from '../inputTag';
 
-export function resolveFilter(filter: HostFilter): any[] {
+type HostFilterResolver = FilterResolver<HostFilter>;
+
+export function resolveFilter(filter: HostFilter): Record<string, any>[] {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define, no-use-before-define
     return _.reduce(RESOLVERS, function (acc: any[], resolver: HostFilterResolver): any {
-        const value: any = resolver(filter);
+        const value: Record<string, any>[] = resolver(filter);
 
-        if (value) {
-            acc.push(value);
+        if (value.length) {
+            return [...acc, ...value];
         }
 
         return acc;
@@ -27,59 +34,12 @@ export function resolveFilters(filters: HostFilter[]) {
     return _.flatMap(filters, resolveFilter);
 }
 
-function wildcardResolver (field: string) {
-    return (value: string) => ({
-        wildcard: {
-            [field]: value
-        }
-    });
-}
-
-function timestampFilterResolver(field: string) {
-    return (value: TimestampFilter) => {
-        checkTimestamp(value.gte);
-        checkTimestamp(value.lte);
-        checkTimestamp(value.gt);
-        checkTimestamp(value.lt);
-
-        return {
-            range: {
-                [field]: {
-                    gte: value.gte,
-                    lte: value.lte,
-                    gt: value.gt,
-                    lt: value.lt
-                }
-            }
-        };
-    };
-}
-
-function tagResolver (value: TagFilter) {
-    return {
-        nested: {
-            path: 'tags_structured',
-            query: {
-                bool: {
-                    filter: [{
-                        term: { 'tags_structured.namespace': value.namespace || ES_NULL_VALUE }
-                    }, {
-                        term: { 'tags_structured.key': value.key }
-                    }, {
-                        term: { 'tags_structured.value': value.value || ES_NULL_VALUE }
-                    }]
-                }
-            }
-        }
-    };
-}
-
 function optional<FILTER, TYPE, TYPE_NULLABLE extends TYPE | null | undefined> (
-    accessor: (filter: FILTER) => TYPE_NULLABLE, resolver: (value: TYPE) => any) {
+    accessor: (filter: FILTER) => TYPE_NULLABLE, resolver: FilterResolver<TYPE>) {
     return function (filter: FILTER) {
         const value = accessor(filter);
         if (value === null || value === undefined) {
-            return null;
+            return []; // TODO
         }
 
         return resolver(value as TYPE);
@@ -87,21 +47,27 @@ function optional<FILTER, TYPE, TYPE_NULLABLE extends TYPE | null | undefined> (
 }
 
 const RESOLVERS: HostFilterResolver[] = [
-    optional((filter: HostFilter) => filter.id, wildcardResolver('id')),
-    optional((filter: HostFilter) => filter.insights_id, wildcardResolver('canonical_facts.insights_id')),
-    optional((filter: HostFilter) => filter.display_name, wildcardResolver('display_name')),
-    optional((filter: HostFilter) => filter.fqdn, wildcardResolver('canonical_facts.fqdn')),
-
-    optional((filter: HostFilter) => filter.spf_arch, wildcardResolver('system_profile_facts.arch')),
-    optional((filter: HostFilter) => filter.spf_os_release, wildcardResolver('system_profile_facts.os_release')),
-    optional((filter: HostFilter) => filter.spf_os_kernel_version, wildcardResolver('system_profile_facts.os_kernel_version')),
+    optional((filter: HostFilter) => filter.id, _.partial(filterStringWithWildcard, 'id')),
     optional((filter: HostFilter) =>
-        filter.spf_infrastructure_type, wildcardResolver('system_profile_facts.infrastructure_type')),
+        filter.insights_id, _.partial(filterStringWithWildcard, 'canonical_facts.insights_id')),
     optional((filter: HostFilter) =>
-        filter.spf_infrastructure_vendor, wildcardResolver('system_profile_facts.infrastructure_vendor')),
+        filter.display_name, _.partial(filterStringWithWildcardWithLowercase, 'display_name')),
+    optional((filter: HostFilter) => filter.fqdn, _.partial(filterStringWithWildcard, 'canonical_facts.fqdn')),
 
-    optional((filter: HostFilter) => filter.stale_timestamp, timestampFilterResolver('stale_timestamp')),
-    optional((filter: HostFilter) => filter.tag, tagResolver),
+    optional((filter: HostFilter) => filter.spf_arch, _.partial(filterStringWithWildcard, 'system_profile_facts.arch')),
+    optional((filter: HostFilter) =>
+        filter.spf_os_release, _.partial(filterStringWithWildcard, 'system_profile_facts.os_release')),
+    optional((filter: HostFilter) =>
+        filter.spf_os_kernel_version, _.partial(filterStringWithWildcard, 'system_profile_facts.os_kernel_version')),
+    optional((filter: HostFilter) =>
+        filter.spf_infrastructure_type, _.partial(filterStringWithWildcard, 'system_profile_facts.infrastructure_type')),
+    optional(
+        (filter: HostFilter) => filter.spf_infrastructure_vendor,
+        _.partial(filterStringWithWildcard, 'system_profile_facts.infrastructure_vendor')
+    ),
+
+    optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
+    optional((filter: HostFilter) => filter.tag, filterTag),
 
     optional((filter: HostFilter) => filter.OR, common.or(resolveFilters)),
     optional((filter: HostFilter) => filter.AND, common.and(resolveFilters)),

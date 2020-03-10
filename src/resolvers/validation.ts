@@ -1,4 +1,5 @@
 import {HttpErrorBadRequest} from '../errors';
+import { UserInputError } from 'apollo-server-express';
 
 export function checkMin (min: number, value: number | null | undefined) {
     if (value === null || value === undefined) {
@@ -35,5 +36,11 @@ export function checkTimestamp (timestamp: string | null | undefined) {
         if (isNaN(newTimestamp)) {
             throw new HttpErrorBadRequest(`invalid timestamp format '${timestamp}'`);
         }
+    }
+}
+
+export function checkNotNull (value: any) {
+    if (value === null) {
+        throw new UserInputError('value may not be null');
     }
 }
