@@ -8,10 +8,18 @@ import config from '../../config';
 import {ES_NULL_VALUE} from '../../constants';
 import { checkTimestamp, checkLimit, checkOffset } from '../validation';
 
+type HostFilterResolver = (filter: HostFilter) => any;
+
 export function resolveFilter(filter: HostFilter): any[] {
-    return _.transform(filter, (acc: any[], value: any, key: string) => {
-        const resolver = getResolver(key); // eslint-disable-line @typescript-eslint/no-use-before-define
-        acc.push(resolver(value));
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define, no-use-before-define
+    return _.reduce(RESOLVERS, function (acc: any[], resolver: HostFilterResolver): any {
+        const value: any = resolver(filter);
+
+        if (value) {
+            acc.push(value);
+        }
+
+        return acc;
     }, []);
 }
 
@@ -66,35 +74,39 @@ function tagResolver (value: TagFilter) {
     };
 }
 
-const RESOLVERS: {
-    [key: string]: (value: any) => any;
-} = {
-    id: wildcardResolver('id'),
-    insights_id: wildcardResolver('canonical_facts.insights_id'),
-    display_name: wildcardResolver('display_name'),
-    fqdn: wildcardResolver('canonical_facts.fqdn'),
+function optional<FILTER, TYPE, TYPE_NULLABLE extends TYPE | null | undefined> (
+    accessor: (filter: FILTER) => TYPE_NULLABLE, resolver: (value: TYPE) => any) {
+    return function (filter: FILTER) {
+        const value = accessor(filter);
+        if (value === null || value === undefined) {
+            return null;
+        }
 
-    spf_arch: wildcardResolver('system_profile_facts.arch'),
-    spf_os_release: wildcardResolver('system_profile_facts.os_release'),
-    spf_os_kernel_version: wildcardResolver('system_profile_facts.os_kernel_version'),
-    spf_infrastructure_type: wildcardResolver('system_profile_facts.infrastructure_type'),
-    spf_infrastructure_vendor: wildcardResolver('system_profile_facts.infrastructure_vendor'),
-
-    stale_timestamp: timestampFilterResolver('stale_timestamp'),
-    tag: tagResolver,
-
-    OR: common.or(resolveFilters),
-    AND: common.and(resolveFilters),
-    NOT: common.not(resolveFilter)
-};
-
-function getResolver (key: string) {
-    if (_.has(RESOLVERS, key)) {
-        return RESOLVERS[key]; // eslint-disable-line security/detect-object-injection
-    }
-
-    throw new Error(`unknown key ${key}`);
+        return resolver(value as TYPE);
+    };
 }
+
+const RESOLVERS: HostFilterResolver[] = [
+    optional((filter: HostFilter) => filter.id, wildcardResolver('id')),
+    optional((filter: HostFilter) => filter.insights_id, wildcardResolver('canonical_facts.insights_id')),
+    optional((filter: HostFilter) => filter.display_name, wildcardResolver('display_name')),
+    optional((filter: HostFilter) => filter.fqdn, wildcardResolver('canonical_facts.fqdn')),
+
+    optional((filter: HostFilter) => filter.spf_arch, wildcardResolver('system_profile_facts.arch')),
+    optional((filter: HostFilter) => filter.spf_os_release, wildcardResolver('system_profile_facts.os_release')),
+    optional((filter: HostFilter) => filter.spf_os_kernel_version, wildcardResolver('system_profile_facts.os_kernel_version')),
+    optional((filter: HostFilter) =>
+        filter.spf_infrastructure_type, wildcardResolver('system_profile_facts.infrastructure_type')),
+    optional((filter: HostFilter) =>
+        filter.spf_infrastructure_vendor, wildcardResolver('system_profile_facts.infrastructure_vendor')),
+
+    optional((filter: HostFilter) => filter.stale_timestamp, timestampFilterResolver('stale_timestamp')),
+    optional((filter: HostFilter) => filter.tag, tagResolver),
+
+    optional((filter: HostFilter) => filter.OR, common.or(resolveFilters)),
+    optional((filter: HostFilter) => filter.AND, common.and(resolveFilters)),
+    optional((filter: HostFilter) => filter.NOT, common.not(resolveFilter))
+];
 
 export function buildFilterQuery(filter: HostFilter | null | undefined, account_number: string) {
     return {
