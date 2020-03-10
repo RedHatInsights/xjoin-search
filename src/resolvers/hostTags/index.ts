@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import { QueryHostTagsArgs } from '../../generated/graphql';
 import { buildFilterQuery } from '../hosts';
-import {runQuery} from '../common';
+import {runQuery} from '../es';
 import config from '../../config';
 import { checkLimit } from '../validation';
 
@@ -44,8 +44,13 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         }
     };
 
-    if (args.filter && args.filter.name) {
-        body.aggs.tags.terms.include = args.filter.name;
+    if (args.filter && args.filter.search) {
+        const search = args.filter.search;
+        if (search.eq) {
+            body.aggs.tags.terms.include = [search.eq];
+        } else if (search.regex) {
+            body.aggs.tags.terms.include = search.regex;
+        }
     }
 
     const result = await runQuery({

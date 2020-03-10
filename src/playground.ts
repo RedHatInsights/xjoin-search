@@ -30,13 +30,13 @@ const playground = {
   hosts (
     filter: {
       OR: [{
-        spf_infrastructure_vendor: "kvm",
-        spf_os_kernel_version: "3.11.0"
+        spf_infrastructure_vendor: { eq: "kvm" },
+        spf_os_kernel_version: { eq: "3.11.0" }
       }, {
-        spf_infrastructure_vendor: "virtualbox",
-        spf_os_release: "7.3"
+        spf_infrastructure_vendor: { eq: "virtualbox" },
+        spf_os_release: { eq: "7.3" }
       }],
-      display_name: "*jharting*"
+      display_name: { matches: "*jharting*" }
     },
     order_by: display_name,
     order_how: ASC,
@@ -86,15 +86,15 @@ const playground = {
     filter: {
       AND: [{
         tag: {
-          namespace: "insights-client",
-          key: "os",
-          value: "fedora"
+          namespace: { eq: "insights-client" },
+          key: { eq: "os" },
+          value: { eq: "fedora" }
         }
       }, {
         tag: {
-          namespace: "insights-client",
-          key: "database",
-          value: null
+          namespace: { eq: "insights-client" },
+          key: { eq: "database" },
+          value: { eq: null }
         }
       }]
     }

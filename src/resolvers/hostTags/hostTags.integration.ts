@@ -82,9 +82,7 @@ describe('host tags', function () {
     describe('host filters', function () {
         test('by id', async () => {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
-                hostFilter: {
-                    id: '22cd8e39-13bb-4d02-8316-84b850dc5136'
-                }
+                hostFilter: { id: { eq: '22cd8e39-13bb-4d02-8316-84b850dc5136' }}
             });
 
             expect(status).toEqual(200);
@@ -95,8 +93,8 @@ describe('host tags', function () {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
                 hostFilter: {
                     tag: {
-                        namespace: 'insights-client',
-                        key: 'database'
+                        namespace: {eq: 'insights-client'},
+                        key: {eq: 'database'}
                     }
                 }
             });
@@ -110,14 +108,14 @@ describe('host tags', function () {
                 hostFilter: {
                     AND: [{
                         tag: {
-                            namespace: 'insights-client',
-                            key: 'os',
-                            value: 'fedora'
+                            namespace: {eq: 'insights-client'},
+                            key: {eq: 'os'},
+                            value: {eq: 'fedora'}
                         }
                     }, {
                         tag: {
-                            namespace: 'insights-client',
-                            key: 'database'
+                            namespace: {eq: 'insights-client'},
+                            key: {eq: 'database'}
                         }
                     }]
                 }
@@ -132,7 +130,9 @@ describe('host tags', function () {
         test('by tag name', async () => {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
                 filter: {
-                    name: 'aws/region/us-east-1'
+                    search: {
+                        eq: 'aws/region/us-east-1'
+                    }
                 }
             });
 
@@ -140,10 +140,25 @@ describe('host tags', function () {
             expect(data).toMatchSnapshot();
         });
 
+        test('by tag name negative', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                filter: {
+                    search: {
+                        eq: '.*aws.*'
+                    }
+                }
+            });
+
+            expect(status).toEqual(200);
+            data.hostTags.data.should.be.empty();
+        });
+
         test('by tag name prefix', async () => {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
                 filter: {
-                    name: 'insights-client.*'
+                    search: {
+                        regex: 'insights-client.*'
+                    }
                 }
             });
 
@@ -154,7 +169,9 @@ describe('host tags', function () {
         test('by tag name substring', async () => {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
                 filter: {
-                    name: '.*region.*'
+                    search: {
+                        regex: '.*region.*'
+                    }
                 }
             });
 
@@ -165,7 +182,9 @@ describe('host tags', function () {
         test('by tag name suffix', async () => {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
                 filter: {
-                    name: '.*%CE%94with%C4%8Dhars%21'
+                    search: {
+                        regex: '.*%CE%94with%C4%8Dhars%21'
+                    }
                 }
             });
 

@@ -481,5 +481,37 @@
             "aws/region/us-east-1",
             "insights-client/database/"
         ]
+    },
+    {
+        "id": "d1119a66-ffb7-4529-a8ca-15439aed29ad",
+        "account": "filter_test",
+        "display_name": "aaBBccDD01",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "aaBBccDD01.local",
+        "canonical_facts": {
+            "fqdn": "aaBBccDD01.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d"
+        },
+        "system_profile_facts": {
+            "arch": "x86_64"
+        }
+    },
+    {
+        "id": "5212d66b-62bf-49ee-8f96-dbb5d866fa2a",
+        "account": "filter_test",
+        "display_name": "aaBBccDD02",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "aaBBccDD02.local",
+        "canonical_facts": {
+            "fqdn": "aaBBccDD02.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d"
+        },
+        "system_profile_facts": {}
     }
 ]

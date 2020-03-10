@@ -33,9 +33,6 @@ enum HOST_TAGS_ORDER_BY {
 
 """
 Defines criteria by which the hosts are filtered.
-
-Some filters support wildcards.
-Those that do can be used for exact matches (`fqdn: example.com`) or with wildcards (`fqdn: *.example.co?`)
 """
 input HostFilter {
     AND: [HostFilter!]
@@ -43,40 +40,138 @@ input HostFilter {
     NOT: HostFilter
 
     "Filter by host id. This filter supports wildcards"
-    id: String,
+    id: FilterStringWithWildcard,
     "Filter by insights id. This filter supports wildcards"
-    insights_id: String,
+    insights_id: FilterStringWithWildcard,
     "Filter by display_name. This filter supports wildcards"
-    display_name: String,
+    display_name: FilterStringWithWildcardWithLowercase,
     "Filter by fqdn. This filter supports wildcards"
-    fqdn: String,
+    fqdn: FilterStringWithWildcard,
 
-    spf_arch: String,
-    spf_os_release: String,
-    spf_os_kernel_version: String,
-    spf_infrastructure_type: String,
-    spf_infrastructure_vendor: String,
+    spf_arch: FilterStringWithWildcard,
+    spf_os_release: FilterStringWithWildcard,
+    spf_os_kernel_version: FilterStringWithWildcard,
+    spf_infrastructure_type: FilterStringWithWildcard,
+    spf_infrastructure_vendor: FilterStringWithWildcard,
 
-    stale_timestamp: TimestampFilter
+    stale_timestamp: FilterTimestamp
 
     "Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with"
-    tag: TagFilter
+    tag: FilterTag
 }
 
 """
-Defines criteria by which the timestamp fields are filtered.
+Basic filter for string fields that allows filtering based on exact match.
 """
-input TimestampFilter {
-    lte: String
-    gte: String
+input FilterString {
+    """
+    Compares the document field with the provided value.
+    If `null` is provided then documents where the given field does not exist are returned.
+    """
+    eq: String
+}
+
+"""
+String field filter that allows filtering based on exact match or using wildcards.
+"""
+input FilterStringWithWildcard {
+    """
+    Compares the document field with the provided value.
+    If `null` is provided then documents where the given field does not exist are returned.
+    """
+    eq: String
+
+    """
+    Compares the document field with the provided value.
+    Wildcards may be used in the query (e.g. `ki*y`).
+    Two types of wildcard operators are supported:
+    * `?`, which matches any single character
+    * `*`, which can match zero or more characters, including an empty one
+
+    See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html) for more details.
+    """
+    matches: String
+}
+
+"""
+String field filter that allows filtering based on exact match or using wildcards.
+In both cases the case of a letter can be ignored (case-insensitive matching) using the `_lc` suffixed operators.
+"""
+input FilterStringWithWildcardWithLowercase {
+    """
+    Compares the document field with the provided value.
+    If `null` is provided then documents where the given field does not exist are returned.
+    """
+    eq: String
+
+    """
+    This operator is like [FilterStringWithWildcard.eq](#filterstring) except that it performs case-insensitive matching.
+    Furthermore, unlike for `eq`, `null` is not an allowed value.
+    """
+    eq_lc: String
+
+    """
+    Compares the document field with the provided value.
+    Wildcards may be used in the query (e.g. `ki*y`).
+    Two types of wildcard operators are supported:
+    * `?`, which matches any single character
+    * `*`, which can match zero or more characters, including an empty one
+
+    See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html) for more details.
+    """
+    matches: String
+
+    """
+    This operator is like [FilterStringWithWildcard.matches](#filterstringwithwildcard) except that it performs case-insensitive matching.
+    """
+    matches_lc: String
+}
+
+"""
+String field filter that allows filtering based on exact match or using regular expression.
+"""
+input FilterStringWithRegex {
+    """
+    Compares the document field with the provided value.
+    If `null` is provided then documents where the given field does not exist are returned.
+    """
+    eq: String
+
+    """
+    Matches the document field against the provided regular expression.
+    """
+    regex: String
+}
+
+"""
+Timestamp field filter with support for common operations.
+"""
+input FilterTimestamp {
+    "Less than"
     lt: String
+
+    "Less than or equal to"
+    lte: String
+
+    "Greater than"
     gt: String
+
+    "Greater than or equal to"
+    gte: String
 }
 
-input TagFilter {
-    namespace: String,
-    key: String!,
-    value: String
+"""
+Filters hosts by the presence of a host tag
+"""
+input FilterTag {
+    "Tag namespace"
+    namespace: FilterString,
+
+    "Tag key"
+    key: FilterString!,
+
+    "Tag value"
+    value: FilterString
 }
 
 """
@@ -84,8 +179,8 @@ Defines the criteria by which tags are filtered in the `hostTags` query.
 """
 input TagAggregationFilter {
     """
-    Defines a tag name filter.
-    A tag name filter is a regular exression that operates on percent-encoded tag namespace, key and value at the same time.
+    Limits the aggregation to tags that match the given search term.
+    The search term is a regular exression that operates on percent-encoded tag namespace, key and value at the same time.
     In order to match the query regular expression needs to match percent-encoded strings.
 
     For example, to match tags with `Δwithčhars!` suffix the tag name query should look like:
@@ -95,7 +190,7 @@ input TagAggregationFilter {
     }
     ```
     """
-    name: String
+    search: FilterStringWithRegex
 }
 
 #
