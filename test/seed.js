@@ -11,6 +11,23 @@ async function run () {
 
     await client.indices.create({ index });
 
+    await client.indices.close({
+        index
+    });
+
+    await client.indices.putSettings({
+        index,
+        body: {
+            analysis: {
+                normalizer: {
+                    case_insensitive: {
+                        filter: ['lowercase', 'asciifolding']
+                    }
+                }
+            }
+        }
+    });
+
     await client.indices.putMapping({
         index,
         body: {
@@ -18,10 +35,18 @@ async function run () {
             properties: {
                 id: { type: 'keyword' },
                 account: { type: 'keyword' },
-                display_name: { type: 'keyword' },
-                created_on: { type: 'date' },
-                modified_on: { type: 'date' },
-                stale_timestamp: { type: 'date' },
+                display_name: {
+                    type: 'keyword',
+                    fields: {
+                        lowercase: {
+                            type: 'keyword',
+                            normalizer: 'case_insensitive'
+                        }
+                    }
+                },
+                created_on: { type: 'date_nanos' },
+                modified_on: { type: 'date_nanos' },
+                stale_timestamp: { type: 'date_nanos' },
                 ansible_host: { type: 'keyword' },
                 canonical_facts: {
                     type: 'object',
@@ -59,6 +84,10 @@ async function run () {
                 }
             }
         }
+    });
+
+    await client.indices.open({
+        index
     });
 
     await client.indices.putAlias({

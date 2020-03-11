@@ -123,6 +123,92 @@ describe('hosts query', function () {
         });
     });
 
+    describe ('case insensitive ordering', function () {
+
+        test('display_name ASC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'display_name',
+                order_how: 'ASC'}, {
+                [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
+            });
+
+            expect(status).toEqual(200);
+            const hostArray = data.hosts.data;
+
+            expect(hostArray[0].display_name).toEqual('aa');
+            expect(hostArray[1].display_name).toEqual('Ab');
+            expect(hostArray[2].display_name).toEqual('aC');
+            expect(hostArray[3].display_name).toEqual('Ba');
+            expect(hostArray[4].display_name).toEqual('bb');
+        });
+
+        test('display_name DESC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'display_name',
+                order_how: 'DESC'}, {
+                [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
+            });
+
+            expect(status).toEqual(200);
+            const hostArray = data.hosts.data;
+
+            expect(hostArray[0].display_name).toEqual('bb');
+            expect(hostArray[1].display_name).toEqual('Ba');
+            expect(hostArray[2].display_name).toEqual('aC');
+            expect(hostArray[3].display_name).toEqual('Ab');
+            expect(hostArray[4].display_name).toEqual('aa');
+        });
+
+    });
+
+    describe('case sensitive search', function () {
+        describe('display_name', function () {
+            test('substring', async () => {
+                const { data } = await runQuery(BASIC_QUERY, {
+                    filter: { display_name: 'Ba' }}, {
+                    [constants.IDENTITY_HEADER]:
+                        createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
+                });
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].display_name.should.equal('Ba');
+            });
+        });
+    });
+
+    describe('timestamp_ordering', function () {
+        test('timestamps DESC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'modified_on',
+                order_how: 'DESC'}, {
+                [constants.IDENTITY_HEADER]:
+                createIdentityHeader(data => { return data; },
+                    'timestamp_sorting_test', 'timestamp_sorting_test')
+            });
+
+            expect(status).toEqual(200);
+            const hostArray = data.hosts.data;
+
+            expect(hostArray[0].display_name).toEqual('WhenDESC_Before');
+            expect(hostArray[1].display_name).toEqual('WhenDESC_After');
+        });
+
+        test('timestamps ASC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'modified_on',
+                order_how: 'ASC'}, {
+                [constants.IDENTITY_HEADER]:
+                createIdentityHeader(data => { return data; },
+                    'timestamp_sorting_test', 'timestamp_sorting_test')
+            });
+
+            expect(status).toEqual(200);
+            const hostArray = data.hosts.data;
+
+            expect(hostArray[0].display_name).toEqual('WhenDESC_After');
+            expect(hostArray[1].display_name).toEqual('WhenDESC_Before');
+        });
+    });
+
     describe('limit/offset', function () {
         test('limit too low', async () => {
             const err = await runQueryCatchError(undefined, BASIC_QUERY, { limit: -1 });
