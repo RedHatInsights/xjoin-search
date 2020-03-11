@@ -54,6 +54,12 @@ const TAG_QUERY = `
     }
 `;
 
+function createHeaders (username: string, account: string, is_internal = true) {
+    return {
+        [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, username, account, is_internal)
+    };
+}
+
 describe('hosts query', function () {
     test('fetch hosts', async () => {
         const { data, status } = await runQuery(BASIC_QUERY, {});
@@ -62,9 +68,7 @@ describe('hosts query', function () {
     });
 
     test('account isolation', async () => {
-        const headers = {
-            [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', false)
-        };
+        const headers = createHeaders('customer', '12345', false);
 
         const { data, status } = await runQuery(BASIC_QUERY, {}, headers);
         expect(status).toEqual(200);
@@ -124,13 +128,15 @@ describe('hosts query', function () {
     });
 
     describe ('case insensitive ordering', function () {
+        const headers = createHeaders('sorting_test', 'sorting_test');
 
         test('display_name ASC', async () => {
-            const { data, status } = await runQuery(BASIC_QUERY, {
-                order_by: 'display_name',
-                order_how: 'ASC'}, {
-                [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
-            });
+            const { data, status } = await runQuery(BASIC_QUERY,
+                {
+                    order_by: 'display_name',
+                    order_how: 'ASC'
+                },
+                headers);
 
             expect(status).toEqual(200);
             const hostArray = data.hosts.data;
@@ -143,11 +149,12 @@ describe('hosts query', function () {
         });
 
         test('display_name DESC', async () => {
-            const { data, status } = await runQuery(BASIC_QUERY, {
-                order_by: 'display_name',
-                order_how: 'DESC'}, {
-                [constants.IDENTITY_HEADER]: createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
-            });
+            const { data, status } = await runQuery(BASIC_QUERY,
+                {
+                    order_by: 'display_name',
+                    order_how: 'DESC'
+                },
+                headers);
 
             expect(status).toEqual(200);
             const hostArray = data.hosts.data;
@@ -164,11 +171,9 @@ describe('hosts query', function () {
     describe('case sensitive search', function () {
         describe('display_name', function () {
             test('substring', async () => {
-                const { data } = await runQuery(BASIC_QUERY, {
-                    filter: { display_name: 'Ba' }}, {
-                    [constants.IDENTITY_HEADER]:
-                        createIdentityHeader(data => { return data; }, 'sorting_test', 'sorting_test')
-                });
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { display_name: 'Ba' }},
+                    createHeaders('sorting_test', 'sorting_test'));
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].display_name.should.equal('Ba');
             });
@@ -176,14 +181,15 @@ describe('hosts query', function () {
     });
 
     describe('timestamp_ordering', function () {
+        const headers = createHeaders('timestamp_sorting_test', 'timestamp_sorting_test');
+
         test('timestamps DESC', async () => {
-            const { data, status } = await runQuery(BASIC_QUERY, {
-                order_by: 'modified_on',
-                order_how: 'DESC'}, {
-                [constants.IDENTITY_HEADER]:
-                createIdentityHeader(data => { return data; },
-                    'timestamp_sorting_test', 'timestamp_sorting_test')
-            });
+            const { data, status } = await runQuery(BASIC_QUERY,
+                {
+                    order_by: 'modified_on',
+                    order_how: 'DESC'
+                },
+                headers);
 
             expect(status).toEqual(200);
             const hostArray = data.hosts.data;
@@ -193,13 +199,12 @@ describe('hosts query', function () {
         });
 
         test('timestamps ASC', async () => {
-            const { data, status } = await runQuery(BASIC_QUERY, {
-                order_by: 'modified_on',
-                order_how: 'ASC'}, {
-                [constants.IDENTITY_HEADER]:
-                createIdentityHeader(data => { return data; },
-                    'timestamp_sorting_test', 'timestamp_sorting_test')
-            });
+            const { data, status } = await runQuery(BASIC_QUERY,
+                {
+                    order_by: 'modified_on',
+                    order_how: 'ASC'
+                },
+                headers);
 
             expect(status).toEqual(200);
             const hostArray = data.hosts.data;
@@ -437,10 +442,7 @@ describe('hosts query', function () {
             });
 
             test('null tags', async () => {
-                const headers = {
-                    [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', false)
-                };
-
+                const headers = createHeaders('customer', '12345', false);
                 const { data, status } = await runQuery(TAG_QUERY, {}, headers);
                 expect(status).toEqual(200);
                 data.hosts.data.should.have.length(1);
