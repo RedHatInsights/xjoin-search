@@ -8,7 +8,9 @@ RUN npm ci --only=production
 
 COPY . /opt/app-root/src
 
-RUN npm i typescript && npm run compile
+RUN npm i typescript
+RUN id && ls -l src && ls -l src/generated
+RUN npm run compile
 
 EXPOSE 4000
 ENV NODE_ENV=production
