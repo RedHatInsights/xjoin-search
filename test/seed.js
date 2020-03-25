@@ -18,6 +18,9 @@ async function run () {
     await client.indices.putSettings({
         index,
         body: {
+            index: {
+                max_result_window: 50000
+            },
             analysis: {
                 normalizer: {
                     case_insensitive: {
