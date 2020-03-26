@@ -124,6 +124,7 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
     const query: any = {
         from: args.offset,
         size: args.limit,
+        track_total_hits: true,
 
         sort: [{
             [processOrderBy(args.order_by)]: String(args.order_how)
