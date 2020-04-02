@@ -1,4 +1,3 @@
-import {HttpErrorBadRequest} from '../errors';
 import { UserInputError } from 'apollo-server-express';
 
 export function checkMin (min: number, value: number | null | undefined) {
@@ -7,7 +6,7 @@ export function checkMin (min: number, value: number | null | undefined) {
     }
 
     if (value < min) {
-        throw new HttpErrorBadRequest(`value must be ${min} or greater (was ${value})`);
+        throw new UserInputError(`value must be ${min} or greater (was ${value})`);
     }
 }
 
@@ -17,7 +16,7 @@ export function checkMax (max: number, value: number | null | undefined) {
     }
 
     if (value > max) {
-        throw new HttpErrorBadRequest(`value must be ${max} or less (was ${value})`);
+        throw new UserInputError(`value must be ${max} or less (was ${value})`);
     }
 }
 
@@ -34,7 +33,7 @@ export function checkTimestamp (timestamp: string | null | undefined) {
     if (typeof timestamp === 'string') {
         const newTimestamp = new Date(timestamp).getTime();
         if (isNaN(newTimestamp)) {
-            throw new HttpErrorBadRequest(`invalid timestamp format '${timestamp}'`);
+            throw new UserInputError(`invalid timestamp format '${timestamp}'`);
         }
     }
 }
