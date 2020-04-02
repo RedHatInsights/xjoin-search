@@ -15,6 +15,7 @@ import playground from './playground';
 import metrics from './metrics';
 import identity from './middleware/identity/impl';
 import identityFallback from './middleware/identity/fallback';
+import {observabilityPlugin} from './plugins';
 
 process.on('unhandledRejection', (reason: any) => {
     log.fatal(reason);
@@ -45,7 +46,10 @@ export default async function start () {
         resolvers,
         context: ({ req }) => ({ account_number: req.account_number }),
         playground,
-        introspection: true
+        introspection: true,
+        plugins: [
+            observabilityPlugin
+        ]
     });
 
     apollo.applyMiddleware({ app });
