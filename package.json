@@ -33,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
     "apollo-server-testing": "^2.9.5",
+    "apollo-server-types": "^0.3.0",
     "eslint": "^6.5.1",
     "eslint-plugin-jest": "^22.17.0",
     "eslint-plugin-security": "^1.4.0",
