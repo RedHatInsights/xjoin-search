@@ -56,7 +56,7 @@ export default async function start () {
         context: ({ req }) => ({ account_number: req.account_number }),
         playground,
         introspection: true,
-        formatError: (error) => {return errorFormatter(error)},
+        formatError: errorFormatter,
         plugins: [
             observabilityPlugin
         ]
