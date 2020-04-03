@@ -3,6 +3,7 @@ import express from 'express';
 import { createServer } from 'http';
 import { createTerminus } from '@godaddy/terminus';
 import { promisifyAll } from 'bluebird';
+import * as _ from 'lodash';
 
 import config, { sanitized } from './config';
 import version from './util/version';
@@ -23,7 +24,7 @@ process.on('unhandledRejection', (reason: any) => {
 });
 
 function errorFormatter (error: any) {
-    if (error.extensions.exception.meta.body.error.root_cause[0].reason.startsWith("Result window is too large")) {
+    if (_.get(error,'extensions.exception.meta.body.error.root_cause[0].reason', '').startsWith("Result window is too large")) {
         console.log("result window error");
         return new Error("Requested page too deep");
     }
