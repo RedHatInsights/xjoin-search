@@ -1,4 +1,4 @@
-import { runQuery, runQueryCatchError } from '../../../test';
+import { runQuery, runQueryCatchError, createHeaders } from '../../../test';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
 
@@ -53,12 +53,6 @@ const TAG_QUERY = `
         }
     }
 `;
-
-function createHeaders (username: string, account: string, is_internal = true) {
-    return {
-        [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, username, account, is_internal)
-    };
-}
 
 describe('hosts query', function () {
     test('fetch hosts', async () => {

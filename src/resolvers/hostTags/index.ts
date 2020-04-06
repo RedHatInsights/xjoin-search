@@ -4,7 +4,7 @@ import { QueryHostTagsArgs } from '../../generated/graphql';
 import { buildFilterQuery } from '../hosts';
 import {runQuery} from '../es';
 import config from '../../config';
-import { checkLimit } from '../validation';
+import { checkLimit, checkOffset } from '../validation';
 
 const ORDER_BY_MAPPING: { [key: string]: string } = {
     count: '_count',
@@ -25,20 +25,32 @@ function extractPage(list: any, limit: number, offset: number) {
 
 export default async function hostTags(parent: any, args: QueryHostTagsArgs, context: any) {
     checkLimit(args.limit);
+    checkOffset(args.offset);
+
+    const limit = defaultValue(args.limit, 10);
+    const offset = defaultValue(args.offset, 0);
 
     const body: any = {
         _source: [],
         query: buildFilterQuery(args.hostFilter, context.account_number),
+        size: 0,
         aggs: {
             tags: {
                 terms: {
                     field: 'tags_string',
+                    size: limit + offset,
                     order: [{
                         [ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
                     }, {
                         _key: 'ASC' // for deterministic sort order
                     }],
                     show_term_doc_count_error: true
+                }
+            },
+            total: {
+                cardinality: {
+                    field: 'tags_string',
+                    precision_threshold: 1000
                 }
             }
         }
@@ -60,8 +72,8 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
 
     const page = extractPage(
         result.body.aggregations.tags.buckets,
-        defaultValue(args.limit, 10),
-        defaultValue(args.offset, 0)
+        limit,
+        offset
     );
 
     const data = _.map(page, bucket => {
@@ -95,7 +107,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         data,
         meta: {
             count: data.length,
-            total: result.body.aggregations.tags.buckets.length
+            total: result.body.aggregations.total.value
         }
     };
 }
