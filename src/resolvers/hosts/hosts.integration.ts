@@ -486,6 +486,27 @@ describe('hosts query', function () {
                 expect(data).toMatchSnapshot();
             });
 
+            test('simple tag filter with explicit null namespace', async () => {
+                const headers = createHeaders('noNamespace', 'noNamespace');
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: {eq: null},
+                            key: {eq: 'foo'},
+                            value: {eq: null}
+                        }
+                    }
+                }, headers);
+
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].tags.data.should.have.length(1);
+                data.hosts.data[0].tags.data[0].should.eql({
+                    namespace: null,
+                    key: 'foo',
+                    value: null
+                });
+            });
+
             test('tag filter union', async () => {
                 const { data } = await runQuery(TAG_QUERY, {
                     filter: {

@@ -14,6 +14,7 @@ import {
 import { FilterResolver } from '../common';
 import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
+import { formatTags } from './format';
 
 type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -153,7 +154,7 @@ export default async function hosts(parent: any, args: QueryHostsArgs, context: 
 
     const data = _.map(result.body.hits.hits, result => {
         const item = result._source;
-        const structuredTags = item.tags_structured || [];
+        const structuredTags = formatTags(item.tags_structured);
         item.tags = {
             meta: {
                 count: structuredTags.length,

@@ -630,5 +630,28 @@
             "insights-client/bar/7",
             "insights-client/bar/8"
         ]
+    },
+    {
+        "id": "399886f1-fcb5-43d8-be70-f4bbdb02d4b0",
+        "account": "noNamespace",
+        "display_name": "bar",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "foo.local",
+        "canonical_facts": {
+            "fqdn": "foo.local",
+            "insights_id": "295f1ac0-fcf4-4255-83cb-b0c779de3951"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [{
+            "namespace": "null",
+            "key": "foo",
+            "value": null
+        }],
+        "tags_string": [
+            "null/foo"
+        ]
     }
 ]
