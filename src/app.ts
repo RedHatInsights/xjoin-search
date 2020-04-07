@@ -24,12 +24,11 @@ process.on('unhandledRejection', (reason: any) => {
 });
 
 function errorFormatter (error: any) {
-    if (_.get(error,'extensions.exception.meta.body.error.root_cause[0].reason', '').startsWith("Result window is too large")) {
-        console.log("result window error");
-        return new Error("Requested page too deep");
+    if (_.get(error, 'extensions.exception.meta.body.error.root_cause[0].reason', '').startsWith('Result window is too large')) {
+        return new Error('Requested page too deep');
     }
 
-    return error
+    return error;
 }
 
 export default async function start () {
