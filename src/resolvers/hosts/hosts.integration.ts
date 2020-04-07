@@ -1,4 +1,4 @@
-import { runQuery, runQueryCatchError } from '../../../test';
+import { runQuery, runQueryCatchError, createHeaders } from '../../../test';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
 
@@ -53,12 +53,6 @@ const TAG_QUERY = `
         }
     }
 `;
-
-function createHeaders (username: string, account: string, is_internal = true) {
-    return {
-        [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, username, account, is_internal)
-    };
-}
 
 describe('hosts query', function () {
     test('fetch hosts', async () => {
@@ -490,6 +484,27 @@ describe('hosts query', function () {
                     }
                 });
                 expect(data).toMatchSnapshot();
+            });
+
+            test('simple tag filter with explicit null namespace', async () => {
+                const headers = createHeaders('noNamespace', 'noNamespace');
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: {eq: null},
+                            key: {eq: 'foo'},
+                            value: {eq: null}
+                        }
+                    }
+                }, headers);
+
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].tags.data.should.have.length(1);
+                data.hosts.data[0].tags.data[0].should.eql({
+                    namespace: null,
+                    key: 'foo',
+                    value: null
+                });
             });
 
             test('tag filter union', async () => {

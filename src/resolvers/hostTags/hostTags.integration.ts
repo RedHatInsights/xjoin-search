@@ -1,4 +1,4 @@
-import { runQuery } from '../../../test';
+import { runQuery, createHeaders } from '../../../test';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
 
@@ -46,27 +46,40 @@ describe('host tags', function () {
         };
 
         const { data, status } = await runQuery(TAG_FILTERS_QUERY, {}, headers);
-        expect(status).toEqual(200);
         data.hostTags.data.should.have.length(0);
+        data.hostTags.meta.should.have.property('total', 0);
+        data.hostTags.meta.should.have.property('count', 0);
+        expect(status).toEqual(200);
     });
 
-    test('limit', async () => {
-        const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
-            limit: 2
+    describe('pagination', function () {
+        const headers = createHeaders('hostTagsTest', 'hostTagsTest');
+
+        test('limit', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                limit: 2
+            }, headers);
+
+            expect(status).toEqual(200);
+            data.hostTags.data.should.have.length(2);
+            data.hostTags.meta.count.should.equal(2);
+            data.hostTags.meta.total.should.equal(16);
+            expect(data).toMatchSnapshot();
         });
 
-        expect(status).toEqual(200);
-        expect(data).toMatchSnapshot();
-    });
+        test('limit + offset', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                limit: 2,
+                offset: 14
+            }, headers);
 
-    test('limit + offset', async () => {
-        const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
-            limit: 2,
-            offset: 1
+            data.hostTags.data.should.have.length(2);
+            data.hostTags.meta.should.have.property('count', 2);
+            data.hostTags.meta.should.have.property('total', 16);
+
+            expect(status).toEqual(200);
+            expect(data).toMatchSnapshot();
         });
-
-        expect(status).toEqual(200);
-        expect(data).toMatchSnapshot();
     });
 
     test('ordering', async () => {
@@ -137,7 +150,17 @@ describe('host tags', function () {
             });
 
             expect(status).toEqual(200);
-            expect(data).toMatchSnapshot();
+            data.hostTags.data.should.have.length(1);
+            data.hostTags.meta.should.have.property('count', 1);
+            data.hostTags.meta.should.have.property('total', 8);
+            data.hostTags.data.should.eql([{
+                count: 1,
+                tag: {
+                    namespace: 'aws',
+                    key: 'region',
+                    value: 'us-east-1'
+                }
+            }]);
         });
 
         test('by tag name negative', async () => {

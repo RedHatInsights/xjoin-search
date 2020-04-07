@@ -16,7 +16,7 @@ function errorHandler (e: any) {
 
 export const observabilityPlugin = {
     requestDidStart<T>(requestContext: GraphQLRequestContext<T>) {
-        log.trace({query: requestContext.request.query}, 'incoming GraphQL query');
+        log.debug({query: requestContext.request.query, variables: requestContext.request.variables}, 'incoming GraphQL query');
 
         return {
             didEncounterErrors<T>(errors: GraphQLRequestContext<T>) {
