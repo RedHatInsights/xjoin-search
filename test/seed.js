@@ -15,11 +15,27 @@ async function run () {
         index
     });
 
+    await client.ingest.putPipeline({
+        id: 'test.hosts.v1',
+        body: {
+            description: 'Ingest pipeline for xjoin.inventory.hosts',
+            processors: [{
+                script: {
+                    lang: 'painless',
+                    if: 'ctx.tags_structured != null',
+                    // eslint-disable-next-line max-len
+                    source: `ctx.tags_search = ctx.tags_structured.stream().map(t -> { StringBuilder builder = new StringBuilder(); if (t.namespace != null && t.namespace != 'null') { builder.append(t.namespace); } builder.append('/'); builder.append(t.key); builder.append('='); if (t.value != null) { builder.append(t.value); } return builder.toString() }).collect(Collectors.toList())`
+                }
+            }]
+        }
+    });
+
     await client.indices.putSettings({
         index,
         body: {
             index: {
-                max_result_window: 50000
+                max_result_window: 50000,
+                default_pipeline: 'test.hosts.v1'
             },
             analysis: {
                 normalizer: {
@@ -83,6 +99,9 @@ async function run () {
                     }
                 },
                 tags_string: {
+                    type: 'keyword'
+                },
+                tags_search: {
                     type: 'keyword'
                 }
             }
