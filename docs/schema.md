@@ -783,14 +783,10 @@ Defines the criteria by which tags are filtered in the `hostTags` query.
 <td>
 
 Limits the aggregation to tags that match the given search term.
-The search term is a regular exression that operates on percent-encoded tag namespace, key and value at the same time.
-In order to match the query regular expression needs to match percent-encoded strings.
-
-For example, to match tags with `Δwithčhars!` suffix the tag name query should look like:
-```
-{
-    name: ".*%CE%94with%C4%8Dhars%21"
-}
+The search term is a regular exression that operates on a string representation of a tag.
+The string representation has a form of "namespace/key=value" i.e. the segments are concatenated together using "=" and "/", respectively.
+There is no expecing of the control characters in the segments.
+As a result, "=" and "/" appear in every tag.
 ```
 
 </td>
