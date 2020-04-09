@@ -23,14 +23,6 @@ process.on('unhandledRejection', (reason: any) => {
     throw reason;
 });
 
-function errorFormatter (error: any) {
-    if (_.get(error, 'extensions.exception.meta.body.error.root_cause[0].reason', '').startsWith('Result window is too large')) {
-        return new Error('Requested page too deep');
-    }
-
-    return error;
-}
-
 export default async function start () {
     log.info({env: config.env}, `${version.full} starting`);
     log.debug(sanitized, 'configuration');
@@ -56,7 +48,6 @@ export default async function start () {
         context: ({ req }) => ({ account_number: req.account_number }),
         playground,
         introspection: true,
-        formatError: errorFormatter,
         plugins: [
             observabilityPlugin
         ]
