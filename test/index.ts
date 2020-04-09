@@ -37,3 +37,9 @@ export async function runQueryCatchError(headers: any, query = '{ hosts { data {
 
     return err;
 }
+
+export function createHeaders (username: string, account: string, is_internal = true) {
+    return {
+        [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, username, account, is_internal)
+    };
+}

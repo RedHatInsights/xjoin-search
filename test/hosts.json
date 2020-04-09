@@ -513,5 +513,145 @@
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d"
         },
         "system_profile_facts": {}
+    },
+
+    {
+        "id": "df63bdd7-3cad-4261-8116-e6d7bdbaea71",
+        "account": "hostTagsTest",
+        "display_name": "foo",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "foo.local",
+        "canonical_facts": {
+            "fqdn": "foo.local",
+            "insights_id": "dc88db78-75f6-4815-9401-7a30df6a35ea"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "1"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "2"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "3"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "4"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "5"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "6"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "7"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "8"
+        }],
+        "tags_string": [
+            "insights-client/foo/1",
+            "insights-client/foo/2",
+            "insights-client/foo/3",
+            "insights-client/foo/4",
+            "insights-client/foo/5",
+            "insights-client/foo/6",
+            "insights-client/foo/7",
+            "insights-client/foo/8"
+        ]
+    },
+    {
+        "id": "f2fea2de-5dd5-4f32-a6c1-142c7affc321",
+        "account": "hostTagsTest",
+        "display_name": "bar",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "bar.local",
+        "canonical_facts": {
+            "fqdn": "bar.local",
+            "insights_id": "f2fea2de-5dd5-4f32-a6c1-142c7affc321"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "1"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "2"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "3"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "4"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "5"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "6"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "7"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "8"
+        }],
+        "tags_string": [
+            "insights-client/bar/1",
+            "insights-client/bar/2",
+            "insights-client/bar/3",
+            "insights-client/bar/4",
+            "insights-client/bar/5",
+            "insights-client/bar/6",
+            "insights-client/bar/7",
+            "insights-client/bar/8"
+        ]
+    },
+    {
+        "id": "399886f1-fcb5-43d8-be70-f4bbdb02d4b0",
+        "account": "noNamespace",
+        "display_name": "bar",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "foo.local",
+        "canonical_facts": {
+            "fqdn": "foo.local",
+            "insights_id": "295f1ac0-fcf4-4255-83cb-b0c779de3951"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [{
+            "namespace": "null",
+            "key": "foo",
+            "value": null
+        }],
+        "tags_string": [
+            "null/foo"
+        ]
     }
 ]
