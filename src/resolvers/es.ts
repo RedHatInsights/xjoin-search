@@ -16,6 +16,7 @@ export async function runQuery (query: any, id: string): Promise<any> {
         return result;
     } catch(err) {
         log.error(err);
+        
         if (_.get(err, 'meta.body.error.root_cause[0].reason', '').startsWith('Result window is too large')) {
             // check if the request should have succeeded (eg. the requested page
             // contains hosts that should be able to be queried)
@@ -24,11 +25,10 @@ export async function runQuery (query: any, id: string): Promise<any> {
             query.body.from = 0;
             query.body.size = 0;
             
-            log.info(query, "count query");
-            
             const count_query_res = await client.search(query);
             
             const hits = count_query_res.body.hits.total.value
+            
             if (hits < requested_host_number) {
                 throw new ResultWindowError(err);
             }
