@@ -1,7 +1,7 @@
 import client from '../es';
 import log from '../util/log';
 import {esResponseHistogram} from '../metrics';
-import { ElasticSearchError, ResultWindowError } from '../../src/errors';
+import { ElasticSearchError, ResultWindowError, HttpErrorNotFound } from '../../src/errors';
 import * as _ from 'lodash';
 
 export async function runQuery (query: any, id: string): Promise<any> {
@@ -33,6 +33,7 @@ export async function runQuery (query: any, id: string): Promise<any> {
             if (hits >= requested_host_number) {
                 throw new ResultWindowError(err);
             }
+            throw new HttpErrorNotFound
         } else {
             throw new ElasticSearchError(err);
         }

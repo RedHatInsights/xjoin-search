@@ -28,8 +28,14 @@ export class HttpErrorForbidden extends HttpError {
     }
 }
 
+export class HttpErrorNotFound extends HttpError {
+    constructor() {
+        super(404, "Not Found")
+    }
+}
+
 export class ElasticSearchError extends ApolloError {
-    constructor(original_error: any, message = 'Elastic seach error', code = 'ELASTIC_SEARCH_ERROR') {
+    constructor(original_error: any, message = 'Elastic search error', code = 'ELASTIC_SEARCH_ERROR') {
         super(message, code, {original_error});
     }
 }

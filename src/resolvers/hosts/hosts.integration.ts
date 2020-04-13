@@ -2,7 +2,7 @@ import { runQuery, runQueryCatchError, createHeaders } from '../../../test';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
 
-const BASIC_QUERY = `
+export const BASIC_QUERY = `
     query hosts (
         $filter: HostFilter,
         $order_by: HOSTS_ORDER_BY,
