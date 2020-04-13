@@ -3,20 +3,19 @@ import log from '../util/log';
 import {esResponseHistogram} from '../metrics';
 import { ElasticSearchError, ResultWindowError } from '../../src/errors';
 import * as _ from 'lodash';
-import config from '../config';
 
 export async function runQuery (query: any, id: string): Promise<any> {
     log.trace(query, 'executing query');
 
-    let result = null
+    let result = null;
     try {
         result = await client.search(query);
         log.trace(result, 'query finished');
         esResponseHistogram.labels(id).observe(result.body.took / 1000); // ms -> seconds
         return result;
-    } catch(err) {
+    } catch (err) {
         log.error(err);
-        
+
         if (_.get(err, 'meta.body.error.root_cause[0].reason', '').startsWith('Result window is too large')) {
             // check if the request should have succeeded (eg. the requested page
             // contains hosts that should be able to be queried)
@@ -24,15 +23,16 @@ export async function runQuery (query: any, id: string): Promise<any> {
 
             query.body.from = 0;
             query.body.size = 0;
-            
+
             const count_query_res = await client.search(query);
-            
-            const hits = count_query_res.body.hits.total.value
-            
-            if (hits < requested_host_number) {
+
+            const hits = count_query_res.body.hits.total.value;
+
+            // only return the request window error if the requested page should
+            // have contained at least one host
+            if (hits >= requested_host_number) {
                 throw new ResultWindowError(err);
             }
-            throw new ElasticSearchError(err);
         } else {
             throw new ElasticSearchError(err);
         }

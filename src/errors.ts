@@ -1,4 +1,4 @@
-import { ApolloError } from "apollo-server-express";
+import { ApolloError } from 'apollo-server-express';
 
 export default class HttpError extends Error {
   status: number;
@@ -29,17 +29,16 @@ export class HttpErrorForbidden extends HttpError {
 }
 
 export class ElasticSearchError extends ApolloError {
-    constructor(original_error:any, message:string = "Elastic seach error", code:string = "ELASTIC_SEARCH_ERROR") {
-        super(message,
-        code,
-        {original_error: original_error});
+    constructor(original_error: any, message = 'Elastic seach error', code = 'ELASTIC_SEARCH_ERROR') {
+        super(message, code, {original_error});
     }
 }
 
 export class ResultWindowError extends ElasticSearchError {
-    constructor(original_error:any, message:string = "Request could not be completed because the page is too deep", code:string = "REQUEST_WINDOW_ERROR") {
-        super(original_error,
-            message,
-            code)
+    constructor(original_error: any,
+        message = 'Request could not be completed because the page is too deep',
+        code = 'REQUEST_WINDOW_ERROR')
+    {
+        super(original_error, message, code);
     }
 }
