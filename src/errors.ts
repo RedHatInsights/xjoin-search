@@ -29,15 +29,17 @@ export class HttpErrorForbidden extends HttpError {
 }
 
 export class ElasticSearchError extends ApolloError {
-    constructor( original_error:any, message:string = "elastic seach error") {
-        super(`${message} || Original error: ${original_error}`,
-        "ELASTIC_SEARCH_ERROR");
+    constructor(original_error:any, message:string = "Elastic seach error", code:string = "ELASTIC_SEARCH_ERROR") {
+        super(message,
+        code,
+        {original_error: original_error});
     }
 }
 
 export class ResultWindowError extends ElasticSearchError {
-    constructor(original_error:any, message:string = "request could not be completed because the page is too deep") {
-        super(`${message} || Original error: ${original_error}`,
-        "PAGE_TOO_DEEP")
+    constructor(original_error:any, message:string = "Request could not be completed because the page is too deep", code: "REQUEST_WINDOW_ERROR") {
+        super(original_error,
+            message,
+            code)
     }
 }
