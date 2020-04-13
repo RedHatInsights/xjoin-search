@@ -37,7 +37,7 @@ export class ElasticSearchError extends ApolloError {
 }
 
 export class ResultWindowError extends ElasticSearchError {
-    constructor(original_error:any, message:string = "Request could not be completed because the page is too deep", code: "REQUEST_WINDOW_ERROR") {
+    constructor(original_error:any, message:string = "Request could not be completed because the page is too deep", code:string = "REQUEST_WINDOW_ERROR") {
         super(original_error,
             message,
             code)
