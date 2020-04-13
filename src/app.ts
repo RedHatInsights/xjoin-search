@@ -3,7 +3,6 @@ import express from 'express';
 import { createServer } from 'http';
 import { createTerminus } from '@godaddy/terminus';
 import { promisifyAll } from 'bluebird';
-import * as _ from 'lodash';
 
 import config, { sanitized } from './config';
 import version from './util/version';
