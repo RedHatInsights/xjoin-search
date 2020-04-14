@@ -1,7 +1,7 @@
 import client from '../es';
 import log from '../util/log';
 import {esResponseHistogram} from '../metrics';
-import { ElasticSearchError, ResultWindowError, HttpErrorNotFound } from '../../src/errors';
+import { ElasticSearchError, ResultWindowError } from '../../src/errors';
 import * as _ from 'lodash';
 
 export async function runQuery (query: any, id: string): Promise<any> {
@@ -19,7 +19,7 @@ export async function runQuery (query: any, id: string): Promise<any> {
         if (_.get(err, 'meta.body.error.root_cause[0].reason', '').startsWith('Result window is too large')) {
             // check if the request should have succeeded (eg. the requested page
             // contains hosts that should be able to be queried)
-            const requested_host_number = query.body.from + query.body.size;
+            const requested_host_number = query.body.from;
 
             query.body.from = 0;
             query.body.size = 0;

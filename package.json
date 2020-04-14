@@ -64,6 +64,7 @@
     "pino-cloudwatch": "^0.5.1",
     "pino-multi-stream": "^4.2.0",
     "pino-pretty": "^3.2.2",
-    "prom-client": "^11.5.3"
+    "prom-client": "^11.5.3",
+    "sinon": "^9.0.2"
   }
 }

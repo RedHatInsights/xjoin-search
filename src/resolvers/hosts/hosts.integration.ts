@@ -1,8 +1,9 @@
 import { runQuery, runQueryCatchError, createHeaders } from '../../../test';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
+const sinon = require('sinon');
 
-export const BASIC_QUERY = `
+const BASIC_QUERY = `
     query hosts (
         $filter: HostFilter,
         $order_by: HOSTS_ORDER_BY,
@@ -644,6 +645,39 @@ describe('hosts query', function () {
             expect(data).toMatchSnapshot();
         });
     });
+
+    // describe('errors tests', function () {
+    //     test('Result window error', async () => {
+    //         const client = require('../../es').default;
+    //         // const client = require('../src/resolvers/es').client;
+    //         let clientSearchStub = sinon.stub(client, "search")
+    //         clientSearchStub.onCall(0).returns(
+    //             {
+    //                 meta: {
+    //                     body: {
+    //                         error: {
+    //                             root_cause: [
+    //                                 {reason: 'Result window is too large'}
+    //                             ]
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         );
+    
+    //         // clientSearchStub.onCall(1).returns("BADDD STUFFF YO!");
+    
+    //         const err = await runQueryCatchError(undefined, BASIC_QUERY, {
+    //             offset: 99999
+    //         });
+    
+    //         console.log(err);
+    //         console.log(`message:\n`);
+    //         console.log(err.message);
+    
+    //         expect(err.message.startsWith("Soemthing"));
+    //     });
+    // });
 
     describe('string filters', function () {
         const QUERY = `

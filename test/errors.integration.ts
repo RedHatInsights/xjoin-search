@@ -3,6 +3,8 @@ import * as constants from '../src/constants';
 import createIdentityHeader from '../src/middleware/identity/utils';
 import mockImplementationOnce from 'ts-jest';
 
+const sinon = require('sinon');
+
 const BASIC_QUERY = `
     query hosts (
         $filter: HostFilter,
@@ -32,39 +34,42 @@ const BASIC_QUERY = `
 `;
 
 describe('errors tests', function () {
-    test('404 for host outside result window', async () => {
-        const err = await runQueryCatchError(undefined, BASIC_QUERY, {
-            offset: 99999
-        });
-
-        expect(err.message = "Not found")
-    });
-
     test('Result window error', async () => {
-        const clientSearchMock = jest.fn()
-        .mockImplementationOnce(() => {
-            return {
+        const client = require('../src/es').default;
+        let clientSearchStub = sinon.stub(client, "search")
+        clientSearchStub.onCall(0).throws((
+            {
                 meta: {
                     body: {
-                        error: {
-                            root_cause: [
-                                {reason: 'Result window is too large'}
+                        "error": {
+                            "root_cause": [
+                                {
+                                    "type": "illegal_argument_exception",
+                                    "reason": "Result window is too large"
+                                }
                             ]
                         }
                     }
                 }
             }
-        })
-        .mockImplementationOnce(() => 'second call');
+        ));
 
-        require('../src/es').default.search = clientSearchMock;
+        clientSearchStub.onCall(1).returns((
+            {
+                body: {
+                    hits: {
+                        total: {
+                            value: 100000
+                        }
+                    }
+                }
+            }
+        ));
 
         const err = await runQueryCatchError(undefined, BASIC_QUERY, {
-            offset: 99999
+            offset: 50001
         });
 
-        console.log(err)
-        
-        expect(err.message = "Request could not be completed because the page is too deep")
+        expect(err.message.startsWith("Request could not be completed because the page is too deep")).toBeTruthy();
     });
 });
