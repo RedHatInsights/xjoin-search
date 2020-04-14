@@ -35,13 +35,13 @@ export class HttpErrorNotFound extends HttpError {
 }
 
 export class ElasticSearchError extends ApolloError {
-    constructor(original_error: any, message = 'Elastic search error', code = 'ELASTIC_SEARCH_ERROR') {
+    constructor(original_error: Error, message = 'Elastic search error', code = 'ELASTIC_SEARCH_ERROR') {
         super(message, code, {original_error});
     }
 }
 
 export class ResultWindowError extends ElasticSearchError {
-    constructor(original_error: any,
+    constructor(original_error: Error,
         message = 'Request could not be completed because the page is too deep',
         code = 'REQUEST_WINDOW_ERROR')
     {

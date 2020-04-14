@@ -33,7 +33,10 @@ export async function runQuery (query: any, id: string): Promise<any> {
             if (hits >= requested_host_number) {
                 throw new ResultWindowError(err);
             }
-            throw new HttpErrorNotFound
+
+            // return an empty response (same behavior as when there is not host
+            // at the specified offset within result window)
+            return count_query_res;
         } else {
             throw new ElasticSearchError(err);
         }
