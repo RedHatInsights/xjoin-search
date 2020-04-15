@@ -1,7 +1,8 @@
 import { runQuery, runQueryCatchError, createHeaders } from '../../../test';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
-const sinon = require('sinon');
+import sinon from 'sinon';
+import client from '../../es';
 
 const BASIC_QUERY = `
     query hosts (
@@ -802,7 +803,6 @@ describe('hosts query', function () {
         );
 
         function createClientSearchStub(error: any, return_object: any) {
-            const client = require('../../es').default;
             const clientSearchStub = sinon.stub(client, 'search');
             clientSearchStub.onCall(0).throws(error);
             clientSearchStub.onCall(1).returns(return_object);
