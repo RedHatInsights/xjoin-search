@@ -37,9 +37,9 @@ export async function runQuery (query: any, id: string): Promise<any> {
             // return an empty response (same behavior as when there is not host
             // at the specified offset within result window)
             return count_query_res;
-        } else {
-            throw new ElasticSearchError(err);
         }
+
+        throw new ElasticSearchError(err);
     }
 }
 

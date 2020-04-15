@@ -646,39 +646,6 @@ describe('hosts query', function () {
         });
     });
 
-    // describe('errors tests', function () {
-    //     test('Result window error', async () => {
-    //         const client = require('../../es').default;
-    //         // const client = require('../src/resolvers/es').client;
-    //         let clientSearchStub = sinon.stub(client, "search")
-    //         clientSearchStub.onCall(0).returns(
-    //             {
-    //                 meta: {
-    //                     body: {
-    //                         error: {
-    //                             root_cause: [
-    //                                 {reason: 'Result window is too large'}
-    //                             ]
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         );
-    
-    //         // clientSearchStub.onCall(1).returns("BADDD STUFFF YO!");
-    
-    //         const err = await runQueryCatchError(undefined, BASIC_QUERY, {
-    //             offset: 99999
-    //         });
-    
-    //         console.log(err);
-    //         console.log(`message:\n`);
-    //         console.log(err.message);
-    
-    //         expect(err.message.startsWith("Soemthing"));
-    //     });
-    // });
-
     describe('string filters', function () {
         const QUERY = `
             query hosts (
@@ -814,5 +781,77 @@ describe('hosts query', function () {
                 expect(error.response.errors[0].extensions.code).toEqual('BAD_USER_INPUT');
             });
         });
+    });
+
+    describe('errors tests', function () {
+        
+        const error = (
+            {
+                meta: {
+                    body: {
+                        error: {
+                            root_cause: [
+                                {
+                                    type: 'illegal_argument_exception',
+                                    reason: 'Result window is too large'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+            );
+
+        function createClientSearchStub(error:any, return_object:any) {
+            const client = require('../../es').default;
+            const clientSearchStub = sinon.stub(client, 'search');
+            clientSearchStub.onCall(0).throws(error);
+            clientSearchStub.onCall(1).returns(return_object);
+            return clientSearchStub
+        }
+
+        test('Result window error', async () => {
+            const clientSearchStub = createClientSearchStub(error, (
+                {
+                    body: {
+                        hits: {
+                            total: {
+                                value: 100000
+                            }
+                        }
+                    }
+                }
+            ))
+
+            const err = await runQueryCatchError(undefined, BASIC_QUERY, {
+                offset: 50001
+            });
+
+            expect(err.message.startsWith('Request could not be completed because the page is too deep')).toBeTruthy();
+            clientSearchStub.restore();
+        });
+
+        test('Result window exceeded no error', async () => {
+            const clientSearchStub = createClientSearchStub(error, (
+                {
+                    body: {
+                        hits: {
+                            total: {
+                                value: 100
+                            },
+                            hits: []
+                        }
+                    }
+                }
+            ));
+
+            const { data } = await runQuery(BASIC_QUERY, {
+                offset: 50001
+            });
+
+            expect(data.hosts.data).toEqual([]);
+            clientSearchStub.restore();
+        });
+
     });
 });
