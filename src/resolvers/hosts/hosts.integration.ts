@@ -784,7 +784,6 @@ describe('hosts query', function () {
     });
 
     describe('errors tests', function () {
-        
         const error = (
             {
                 meta: {
@@ -800,14 +799,14 @@ describe('hosts query', function () {
                     }
                 }
             }
-            );
+        );
 
-        function createClientSearchStub(error:any, return_object:any) {
+        function createClientSearchStub(error: any, return_object: any) {
             const client = require('../../es').default;
             const clientSearchStub = sinon.stub(client, 'search');
             clientSearchStub.onCall(0).throws(error);
             clientSearchStub.onCall(1).returns(return_object);
-            return clientSearchStub
+            return clientSearchStub;
         }
 
         test('Result window error', async () => {
@@ -821,7 +820,7 @@ describe('hosts query', function () {
                         }
                     }
                 }
-            ))
+            ));
 
             const err = await runQueryCatchError(undefined, BASIC_QUERY, {
                 offset: 50001
