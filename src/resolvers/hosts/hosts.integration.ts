@@ -804,17 +804,16 @@ describe('hosts query', function () {
 
         afterEach(() => {
             return sinon.restore();
-        })
+        });
 
         function createClientSearchStub(error: any, return_object: any) {
             const clientSearchStub = sinon.stub(client, 'search');
             clientSearchStub.onCall(0).throws(error);
             clientSearchStub.onCall(1).returns(return_object);
-            return clientSearchStub;
         }
 
         test('Result window error', async () => {
-            const clientSearchStub = createClientSearchStub(error, (
+            createClientSearchStub(error, (
                 {
                     body: {
                         hits: {
@@ -834,7 +833,7 @@ describe('hosts query', function () {
         });
 
         test('Result window exceeded no error', async () => {
-            const clientSearchStub = createClientSearchStub(error, (
+            createClientSearchStub(error, (
                 {
                     body: {
                         hits: {
@@ -855,13 +854,11 @@ describe('hosts query', function () {
         });
 
         test('Generic elastic search error', async () => {
-            const clientSearchStub = createClientSearchStub(({}), ({}));
+            createClientSearchStub(({}), ({}));
 
-            const err = await runQueryCatchError(undefined, BASIC_QUERY, {
-            });
+            const err = await runQueryCatchError(undefined, BASIC_QUERY);
 
             expect(err.message.startsWith('Elastic search error')).toBeTruthy();
-        })
-
+        });
     });
 });
