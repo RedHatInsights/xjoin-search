@@ -802,6 +802,10 @@ describe('hosts query', function () {
             }
         );
 
+        afterEach(() => {
+            return sinon.restore();
+        })
+
         function createClientSearchStub(error: any, return_object: any) {
             const clientSearchStub = sinon.stub(client, 'search');
             clientSearchStub.onCall(0).throws(error);
@@ -827,7 +831,6 @@ describe('hosts query', function () {
             });
 
             expect(err.message.startsWith('Request could not be completed because the page is too deep')).toBeTruthy();
-            clientSearchStub.restore();
         });
 
         test('Result window exceeded no error', async () => {
@@ -849,8 +852,16 @@ describe('hosts query', function () {
             });
 
             expect(data.hosts.data).toEqual([]);
-            clientSearchStub.restore();
         });
+
+        test('Generic elastic search error', async () => {
+            const clientSearchStub = createClientSearchStub(({}), ({}));
+
+            const err = await runQueryCatchError(undefined, BASIC_QUERY, {
+            });
+
+            expect(err.message.startsWith('Elastic search error')).toBeTruthy();
+        })
 
     });
 });
