@@ -117,6 +117,7 @@ export type FilterTimestamp = {
   gte?: Maybe<Scalars['String']>;
 };
 
+/** Inventory host */
 export type Host = {
    __typename?: 'Host';
   id: Scalars['ID'];
@@ -137,16 +138,19 @@ export type Host = {
 };
 
 
+/** Inventory host */
 export type HostCanonical_FactsArgs = {
   filter?: Maybe<Array<Scalars['String']>>;
 };
 
 
+/** Inventory host */
 export type HostSystem_Profile_FactsArgs = {
   filter?: Maybe<Array<Scalars['String']>>;
 };
 
 
+/** Inventory host */
 export type HostFactsArgs = {
   filter?: Maybe<Array<Scalars['String']>>;
 };
@@ -158,22 +162,31 @@ export enum Host_Tags_Order_By {
 
 /** Defines criteria by which the hosts are filtered. */
 export type HostFilter = {
+  /** Apply logical conjunction on the given filtering criteria */
   AND?: Maybe<Array<HostFilter>>;
+  /** Apply logical disjunction on the given filtering criteria */
   OR?: Maybe<Array<HostFilter>>;
+  /** Negate the given filtering criteria */
   NOT?: Maybe<HostFilter>;
-  /** Filter by host id. This filter supports wildcards */
+  /** Filter by host id */
   id?: Maybe<FilterStringWithWildcard>;
-  /** Filter by insights id. This filter supports wildcards */
+  /** Filter by insights id */
   insights_id?: Maybe<FilterStringWithWildcard>;
-  /** Filter by display_name. This filter supports wildcards */
+  /** Filter by display_name */
   display_name?: Maybe<FilterStringWithWildcardWithLowercase>;
-  /** Filter by fqdn. This filter supports wildcards */
+  /** Filter by fqdn */
   fqdn?: Maybe<FilterStringWithWildcard>;
+  /** Filter by 'arch' field of system profile */
   spf_arch?: Maybe<FilterStringWithWildcard>;
+  /** Filter by 'os_release' field of system profile */
   spf_os_release?: Maybe<FilterStringWithWildcard>;
+  /** Filter by 'os_kernel_version' field of system profile */
   spf_os_kernel_version?: Maybe<FilterStringWithWildcard>;
+  /** Filter by 'infrastructure_type' field of system profile */
   spf_infrastructure_type?: Maybe<FilterStringWithWildcard>;
+  /** Filter by 'infrastructure_vendor' field of system profile */
   spf_infrastructure_vendor?: Maybe<FilterStringWithWildcard>;
+  /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
   tag?: Maybe<FilterTag>;
