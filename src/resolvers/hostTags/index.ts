@@ -37,7 +37,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         aggs: {
             tags: {
                 terms: {
-                    field: 'tags_string',
+                    field: 'tags_search',
                     size: limit + offset,
                     order: [{
                         [ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
@@ -49,7 +49,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
             },
             total: {
                 cardinality: {
-                    field: 'tags_string',
+                    field: 'tags_search',
                     precision_threshold: 1000
                 }
             }
@@ -77,28 +77,42 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
     );
 
     const data = _.map(page, bucket => {
-        let segments = bucket.key.split('/').map(decodeURIComponent);
 
-        if (segments.length !== 3) {
-            throw new Error(`invalid tag format ${bucket.key}`);
+        function split (value: string, delimiter: string) {
+            const index = value.indexOf(delimiter);
+
+            if (index === -1) {
+                throw new Error(`cannot split ${value} using ${delimiter}`);
+            }
+
+            return [value.substring(0, index), value.substring(index + 1)];
         }
 
-        /*
-         * Translate to canonical forms
-         * - "" means null
-         * - "null" namespace means null
-         */
-        segments = segments.map((segment: string) => segment === '' ? null : segment);
-        if (segments[0] === 'null') {
-            segments[0] = null;
+        function normalizeTag (value: string, key: string) {
+            if (value === '' && key !== 'key') {
+                return null;
+            }
+
+            return value;
         }
+
+        // This assumes that a namespace never contains '/'
+        // We control the namespaces so this should be a safe assumption;
+        const [namespace, rest] = split(bucket.key, '/');
+
+        // This assumes that the key ends with the first '='
+        // That may not be accurate in a situation when someone defines a key that contains '='
+        // This should rarely happen but if it does we can solve that by issuing another ES query to clear up the ambiguity
+        const [key, value] = split(rest, '=');
+
+        const tag = _.mapValues({
+            namespace,
+            key,
+            value
+        }, normalizeTag);
 
         return {
-            tag: {
-                namespace: segments[0],
-                key: segments[1],
-                value: segments[2]
-            },
+            tag,
             count: bucket.doc_count
         };
     });

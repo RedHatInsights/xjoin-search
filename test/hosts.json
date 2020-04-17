@@ -653,5 +653,57 @@
         "tags_string": [
             "null/foo"
         ]
+    },
+    {
+        "id": "bd37baad-ce97-4488-ba0c-fb93edd36f7f",
+        "account": "hostTagsSpecialChars",
+        "display_name": "foo",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "foo.local",
+        "canonical_facts": {
+            "fqdn": "foo.local",
+            "insights_id": "d4d30804-93a5-463c-86d4-e639443fb5c5"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [{
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }]
+    },
+    {
+        "id": "b72cf877-3433-4755-b172-65700a56545a",
+        "account": "hostTagsSpecialChars",
+        "display_name": "bar",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "bar.local",
+        "canonical_facts": {
+            "fqdn": "bar.local",
+            "insights_id": "67d876f0-2e8e-45fc-becb-bc40cf1f92b2"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [{
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }, {
+            "namespace": "insights-client",
+            "key": "keyΔwithčhars*+!.,-_ ",
+            "value": "value"
+        }, {
+            "namespace": "insights-client",
+            "key": "key",
+            "value": "keyΔwithčhars*+!.,-_ "
+        }, {
+            "namespace": "keyΔwithčhars*+!.,-_ ",
+            "key": "key",
+            "value": "value"
+        }]
     }
 ]

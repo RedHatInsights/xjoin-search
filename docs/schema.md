@@ -166,6 +166,8 @@ total number of entities matching the query
 
 ### Host
 
+Inventory host
+
 <table>
 <thead>
 <tr>
@@ -674,24 +676,36 @@ Defines criteria by which the hosts are filtered.
 <tr>
 <td colspan="2" valign="top"><strong>AND</strong></td>
 <td valign="top">[<a href="#hostfilter">HostFilter</a>!]</td>
-<td></td>
+<td>
+
+Apply logical conjunction on the given filtering criteria
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>OR</strong></td>
 <td valign="top">[<a href="#hostfilter">HostFilter</a>!]</td>
-<td></td>
+<td>
+
+Apply logical disjunction on the given filtering criteria
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>NOT</strong></td>
 <td valign="top"><a href="#hostfilter">HostFilter</a></td>
-<td></td>
+<td>
+
+Negate the given filtering criteria
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>id</strong></td>
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
-Filter by host id. This filter supports wildcards
+Filter by host id
 
 </td>
 </tr>
@@ -700,7 +714,7 @@ Filter by host id. This filter supports wildcards
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
-Filter by insights id. This filter supports wildcards
+Filter by insights id
 
 </td>
 </tr>
@@ -709,7 +723,7 @@ Filter by insights id. This filter supports wildcards
 <td valign="top"><a href="#filterstringwithwildcardwithlowercase">FilterStringWithWildcardWithLowercase</a></td>
 <td>
 
-Filter by display_name. This filter supports wildcards
+Filter by display_name
 
 </td>
 </tr>
@@ -718,39 +732,63 @@ Filter by display_name. This filter supports wildcards
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
-Filter by fqdn. This filter supports wildcards
+Filter by fqdn
 
 </td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_arch</strong></td>
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
-<td></td>
+<td>
+
+Filter by 'arch' field of system profile
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_os_release</strong></td>
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
-<td></td>
+<td>
+
+Filter by 'os_release' field of system profile
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_os_kernel_version</strong></td>
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
-<td></td>
+<td>
+
+Filter by 'os_kernel_version' field of system profile
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_infrastructure_type</strong></td>
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
-<td></td>
+<td>
+
+Filter by 'infrastructure_type' field of system profile
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>spf_infrastructure_vendor</strong></td>
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
-<td></td>
+<td>
+
+Filter by 'infrastructure_vendor' field of system profile
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
 <td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
-<td></td>
+<td>
+
+Filter by the stale_timestamp value
+
+</td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>tag</strong></td>
@@ -783,14 +821,10 @@ Defines the criteria by which tags are filtered in the `hostTags` query.
 <td>
 
 Limits the aggregation to tags that match the given search term.
-The search term is a regular exression that operates on percent-encoded tag namespace, key and value at the same time.
-In order to match the query regular expression needs to match percent-encoded strings.
-
-For example, to match tags with `Δwithčhars!` suffix the tag name query should look like:
-```
-{
-    name: ".*%CE%94with%C4%8Dhars%21"
-}
+The search term is a regular exression that operates on a string representation of a tag.
+The string representation has a form of "namespace/key=value" i.e. the segments are concatenated together using "=" and "/", respectively.
+There is no expecing of the control characters in the segments.
+As a result, "=" and "/" appear in every tag.
 ```
 
 </td>

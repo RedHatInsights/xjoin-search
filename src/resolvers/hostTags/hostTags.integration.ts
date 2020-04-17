@@ -144,7 +144,7 @@ describe('host tags', function () {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
                 filter: {
                     search: {
-                        eq: 'aws/region/us-east-1'
+                        eq: 'aws/region=us-east-1'
                     }
                 }
             });
@@ -206,13 +206,75 @@ describe('host tags', function () {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
                 filter: {
                     search: {
-                        regex: '.*%CE%94with%C4%8Dhars%21'
+                        regex: '.*Δwithčhars!'
                     }
                 }
             });
 
             expect(status).toEqual(200);
             expect(data).toMatchSnapshot();
+        });
+
+        describe('special characters', function () {
+            const headers = {
+                [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'hostTagsSpecialChars', 'hostTagsSpecialChars', false)
+            };
+
+            const specialTags = [{
+                count: 1,
+                tag: {
+                    namespace: 'insights-client',
+                    key: 'key',
+                    value: 'keyΔwithčhars*+!.,-_ '
+                }
+            }, {
+                count: 1,
+                tag: {
+                    namespace: 'insights-client',
+                    key: 'keyΔwithčhars*+!.,-_ ',
+                    value: 'value'
+                }
+            }, {
+                count: 1,
+                tag: {
+                    namespace: 'keyΔwithčhars*+!.,-_ ',
+                    key: 'key',
+                    value: 'value'
+                }
+            }];
+
+            Array.from('Δč*+!.,_ ').forEach(i =>
+                test(`search by "${i}"`, async () => {
+                    const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                        filter: {
+                            search: {
+                                regex: `.*\\${i}.*`
+                            }
+                        }
+                    }, headers);
+
+                    expect(status).toEqual(200);
+                    const d = data.hostTags.data;
+                    d.should.have.length(3);
+                    d.should.eql(specialTags);
+                })
+            );
+
+            Array.from('=/').forEach(i =>
+                test(`search by control characters ("${i}") returns all tags`, async () => {
+                    const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                        filter: {
+                            search: {
+                                regex: `.*\\${i}.*`
+                            }
+                        }
+                    }, headers);
+
+                    expect(status).toEqual(200);
+                    const d = data.hostTags.data;
+                    d.should.have.length(4);
+                })
+            );
         });
     });
 });
