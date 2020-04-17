@@ -1,15 +1,45 @@
 import client from '../es';
 import log from '../util/log';
 import {esResponseHistogram} from '../metrics';
+import { ElasticSearchError, ResultWindowError } from '../../src/errors';
+import * as _ from 'lodash';
 
 export async function runQuery (query: any, id: string): Promise<any> {
     log.trace(query, 'executing query');
-    const result = await client.search(query);
-    log.trace(result, 'query finished');
 
-    esResponseHistogram.labels(id).observe(result.body.took / 1000); // ms -> seconds
+    try {
+        const result = await client.search(query);
+        log.trace(result, 'query finished');
+        esResponseHistogram.labels(id).observe(result.body.took / 1000); // ms -> seconds
+        return result;
+    } catch (err) {
+        log.error(err);
 
-    return result;
+        if (_.get(err, 'meta.body.error.root_cause[0].reason', '').startsWith('Result window is too large')) {
+            // check if the request should have succeeded (eg. the requested page
+            // contains hosts that should be able to be queried)
+            const requestedHostNumber = query.body.from;
+
+            query.body.from = 0;
+            query.body.size = 0;
+
+            const countQueryRes = await client.search(query);
+
+            const hits = countQueryRes.body.hits.total.value;
+
+            // only return the request window error if the requested page should
+            // have contained at least one host
+            if (hits >= requestedHostNumber) {
+                throw new ResultWindowError(err);
+            }
+
+            // return an empty response (same behavior as when there is not host
+            // at the specified offset within result window)
+            return countQueryRes;
+        }
+
+        throw new ElasticSearchError(err);
+    }
 }
 
 export function negate<T> (value: T) {

@@ -1,6 +1,8 @@
 import { runQuery, runQueryCatchError, createHeaders } from '../../../test';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
+import sinon from 'sinon';
+import client from '../../es';
 
 const BASIC_QUERY = `
     query hosts (
@@ -779,6 +781,84 @@ describe('hosts query', function () {
 
                 expect(error.response.errors[0].extensions.code).toEqual('BAD_USER_INPUT');
             });
+        });
+    });
+
+    describe('errors tests', function () {
+        const error = (
+            {
+                meta: {
+                    body: {
+                        error: {
+                            root_cause: [
+                                {
+                                    type: 'illegal_argument_exception',
+                                    reason: 'Result window is too large'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        );
+
+        afterEach(() => {
+            return sinon.restore();
+        });
+
+        function createClientSearchStub(error: any, return_object: any) {
+            const clientSearchStub = sinon.stub(client, 'search');
+            clientSearchStub.onCall(0).throws(error);
+            clientSearchStub.onCall(1).returns(return_object);
+        }
+
+        test('Result window error', async () => {
+            createClientSearchStub(error, (
+                {
+                    body: {
+                        hits: {
+                            total: {
+                                value: 100000
+                            }
+                        }
+                    }
+                }
+            ));
+
+            const err = await runQueryCatchError(undefined, BASIC_QUERY, {
+                offset: 50001
+            });
+
+            expect(err.message.startsWith('Request could not be completed because the page is too deep')).toBeTruthy();
+        });
+
+        test('Result window exceeded no error', async () => {
+            createClientSearchStub(error, (
+                {
+                    body: {
+                        hits: {
+                            total: {
+                                value: 100
+                            },
+                            hits: []
+                        }
+                    }
+                }
+            ));
+
+            const { data } = await runQuery(BASIC_QUERY, {
+                offset: 50001
+            });
+
+            expect(data.hosts.data).toEqual([]);
+        });
+
+        test('Generic elastic search error', async () => {
+            createClientSearchStub(({}), ({}));
+
+            const err = await runQueryCatchError(undefined, BASIC_QUERY);
+
+            expect(err.message.startsWith('Elastic search error')).toBeTruthy();
         });
     });
 });
