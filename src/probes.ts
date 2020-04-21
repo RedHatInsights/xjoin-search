@@ -7,27 +7,17 @@ import { ElasticSearchError, ResultWindowError } from './errors';
 const errors = new client.Counter({
     name: `${config.metrics.prefix}errors_total`,
     help: 'Total number of errors this instance encountered',
-    labelNames: ['type']
+    labelNames: ['type', 'subtype']
 });
 
 ['validation', 'system'].forEach(value => errors.labels(value).inc(0));
 
-export function validationError (error: GraphQLError) {
-    errors.labels('validation').inc();
+export function validationError (error: GraphQLError, subtypeLabel: string) {
+    errors.labels('validation', subtypeLabel).inc();
     log.warn({error}, 'validation error');
 }
 
-export function systemError (error: GraphQLError) {
-    errors.labels('system').inc();
+export function systemError (error: GraphQLError, subtypeLabel: string) {
+    errors.labels('system', subtypeLabel).inc();
     log.error({error}, 'system error');
-}
-
-export function elasticSearchError (error: ElasticSearchError) {
-    errors.labels('elasticsearch').inc();
-    log.error({error}, 'elasticsearch error');
-}
-
-export function resultWindowError (error: ResultWindowError) {
-    errors.labels('resultWindowError').inc();
-    log.error({error}, 'result window error');
 }
