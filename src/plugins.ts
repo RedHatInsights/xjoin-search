@@ -1,4 +1,5 @@
 import { ValidationError, UserInputError } from 'apollo-server-express';
+import { ElasticSearchError, ResultWindowError } from './errors';
 import log from './util/log';
 import * as probes from './probes';
 import {GraphQLRequestContext} from 'apollo-server-types';
@@ -7,6 +8,10 @@ function errorHandler (e: any) {
     // TODO: there are more error types that should be treated as validation errors
     if (e instanceof ValidationError || e.originalError instanceof UserInputError || e.originalError === undefined) {
         probes.validationError(e);
+    } else if (e.originalError instanceof ElasticSearchError) {
+        probes.elasticSearchError(e);
+    } else if (e.originalError instanceof ResultWindowError) {
+        probes.resultWindowError(e);
     } else {
         probes.systemError(e);
     }
