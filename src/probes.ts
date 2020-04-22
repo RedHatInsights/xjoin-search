@@ -2,7 +2,6 @@ import * as client from 'prom-client';
 import config from './config';
 import log from './util/log';
 import { GraphQLError } from 'graphql';
-import { ElasticSearchError, ResultWindowError } from './errors';
 
 const errors = new client.Counter({
     name: `${config.metrics.prefix}errors_total`,
@@ -10,14 +9,23 @@ const errors = new client.Counter({
     labelNames: ['type', 'subtype']
 });
 
-['validation', 'system'].forEach(value => errors.labels(value).inc(0));
+// TODO: figure this out and remove/fix line before merge
+// [('validation', 'system'].forEach(value => errors.labels(value).inc(0)); what is this line for???
 
-export function validationError (error: GraphQLError, subtypeLabel: string) {
-    errors.labels('validation', subtypeLabel).inc();
-    log.warn({error}, 'validation error');
+function _countError (typeLabel: string, error: GraphQLError) {
+    if (error.originalError) {
+        errors.labels(typeLabel, error.originalError.constructor.name).inc();
+    } else {
+        errors.labels(typeLabel, 'unknown').inc();
+    }
+
+    log.warn({error}, `${typeLabel} error`);
 }
 
-export function systemError (error: GraphQLError, subtypeLabel: string) {
-    errors.labels('system', subtypeLabel).inc();
-    log.error({error}, 'system error');
+export function systemError (error: GraphQLError) {
+    _countError('system', error);
+}
+
+export function validationError (error: GraphQLError) {
+    _countError('validation', error);
 }
