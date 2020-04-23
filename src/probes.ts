@@ -14,21 +14,20 @@ const sublabels = ['Unknown', 'ResultWindowError', 'ElasticSearchError'];
     sublabels.forEach(subLabel => errors.labels(typeLabel, subLabel).inc(0));
 });
 
-function _countError (typeLabel: string, error: GraphQLError) {
-    let subLabel = 'unknown';
-
+function determineSubtype (error: GraphQLError) {
     if (error.originalError) {
-        subLabel = error.originalError.constructor.name;
+        return error.originalError.constructor.name;
     }
 
-    errors.labels(typeLabel, subLabel).inc();
-    log.warn({error}, `${typeLabel} error: ${subLabel}`);
-}
-
-export function systemError (error: GraphQLError) {
-    _countError('System', error);
+    return 'unknown';
 }
 
 export function validationError (error: GraphQLError) {
-    _countError('Validation', error);
+    errors.labels('validation', determineSubtype(error)).inc();
+    log.warn({error}, 'validation error');
+}
+
+export function systemError (error: GraphQLError) {
+    errors.labels('system', determineSubtype(error)).inc();
+    log.error({error}, 'system error');
 }
