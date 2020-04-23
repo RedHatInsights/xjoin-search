@@ -9,23 +9,26 @@ const errors = new client.Counter({
     labelNames: ['type', 'subtype']
 });
 
-// TODO: figure this out and remove/fix line before merge
-// [('validation', 'system'].forEach(value => errors.labels(value).inc(0)); what is this line for???
+const sublabels = ['Unknown', 'ResultWindowError', 'ElasticSearchError'];
+['Validation', 'System'].forEach(typeLabel => {
+    sublabels.forEach(subLabel => errors.labels(typeLabel, subLabel).inc(0));
+});
 
 function _countError (typeLabel: string, error: GraphQLError) {
+    let subLabel = 'unknown';
+
     if (error.originalError) {
-        errors.labels(typeLabel, error.originalError.constructor.name).inc();
-    } else {
-        errors.labels(typeLabel, 'unknown').inc();
+        subLabel = error.originalError.constructor.name;
     }
 
-    log.warn({error}, `${typeLabel} error`);
+    errors.labels(typeLabel, subLabel).inc();
+    log.warn({error}, `${typeLabel} error: ${subLabel}`);
 }
 
 export function systemError (error: GraphQLError) {
-    _countError('system', error);
+    _countError('System', error);
 }
 
 export function validationError (error: GraphQLError) {
-    _countError('validation', error);
+    _countError('Validation', error);
 }
