@@ -3,6 +3,7 @@ import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
 import sinon from 'sinon';
 import client from '../../es';
+import * as probes from '../../probes';
 
 const BASIC_QUERY = `
     query hosts (
@@ -859,6 +860,37 @@ describe('hosts query', function () {
             const err = await runQueryCatchError(undefined, BASIC_QUERY);
 
             expect(err.message.startsWith('Elastic search error')).toBeTruthy();
+        });
+
+        test('log validation error', async () => {
+            jest.spyOn(probes, 'validationError');
+            await runQueryCatchError(undefined, BASIC_QUERY, {
+                offset: -1
+            });
+
+            expect(probes.validationError).toHaveBeenCalled();
+        });
+
+        test('log system error', async () => {
+            jest.spyOn(probes, 'systemError');
+
+            createClientSearchStub(error, (
+                {
+                    body: {
+                        hits: {
+                            total: {
+                                value: 100000
+                            }
+                        }
+                    }
+                }
+            ));
+
+            await runQueryCatchError(undefined, BASIC_QUERY, {
+                offset: 100000
+            });
+
+            expect(probes.systemError).toHaveBeenCalled();
         });
     });
 });
