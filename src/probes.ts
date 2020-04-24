@@ -2,6 +2,7 @@ import * as client from 'prom-client';
 import config from './config';
 import log from './util/log';
 import { GraphQLError } from 'graphql';
+import * as _ from 'lodash';
 
 const errors = new client.Counter({
     name: `${config.metrics.prefix}errors_total`,
@@ -10,7 +11,7 @@ const errors = new client.Counter({
 });
 
 const sublabels = ['Unknown', 'ResultWindowError', 'ElasticSearchError'];
-['Validation', 'System'].forEach(typeLabel => {
+['validation', 'system'].forEach(typeLabel => {
     sublabels.forEach(subLabel => errors.labels(typeLabel, subLabel).inc(0));
 });
 
@@ -19,7 +20,7 @@ function determineSubtype (error: GraphQLError) {
         return error.originalError.constructor.name;
     }
 
-    return 'unknown';
+    return _.get(error, 'constructor.name', 'unknown');
 }
 
 export function validationError (error: GraphQLError) {

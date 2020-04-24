@@ -868,7 +868,7 @@ describe('hosts query', function () {
                 offset: -1
             });
 
-            expect(probes.validationError).toHaveBeenCalled()
+            expect(probes.validationError).toHaveBeenCalled();
         });
 
         test('log system error', async () => {
@@ -890,7 +890,7 @@ describe('hosts query', function () {
                 offset: 100000
             });
 
-            expect(probes.systemError).toHaveBeenCalled()
+            expect(probes.systemError).toHaveBeenCalled();
         });
     });
 });
