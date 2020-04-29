@@ -20,6 +20,10 @@ async function run () {
         body: {
             description: 'Ingest pipeline for xjoin.inventory.hosts',
             processors: [{
+                set: {
+                    field: "ingest_timestamp",
+                    value: "{{_ingest.timestamp}}"
+                },
                 script: {
                     lang: 'painless',
                     if: 'ctx.tags_structured != null',
@@ -52,6 +56,7 @@ async function run () {
         body: {
             dynamic: false,
             properties: {
+                ingest_timestamp: {type: 'date'},
                 id: { type: 'keyword' },
                 account: { type: 'keyword' },
                 display_name: {
