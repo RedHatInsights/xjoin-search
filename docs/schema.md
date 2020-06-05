@@ -1,4 +1,7 @@
-# Schema Types
+---
+title: Cross Join Schema Types
+date: 2020-04-17T02:31
+---
 
 <details>
   <summary><strong>Table of Contents</strong></summary>
@@ -825,7 +828,6 @@ The search term is a regular exression that operates on a string representation 
 The string representation has a form of "namespace/key=value" i.e. the segments are concatenated together using "=" and "/", respectively.
 There is no expecing of the control characters in the segments.
 As a result, "=" and "/" appear in every tag.
-```
 
 </td>
 </tr>
