@@ -51,7 +51,7 @@
     "@godaddy/terminus": "^4.2.0",
     "@types/pino-multi-stream": "^3.1.2",
     "@types/sinon": "^9.0.0",
-    "apollo-server-express": "^2.9.5",
+    "apollo-server-express": "^2.14.2",
     "bluebird": "^3.7.0",
     "convict": "^5.1.0",
     "express": "^4.17.1",
