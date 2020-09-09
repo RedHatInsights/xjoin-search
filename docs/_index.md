@@ -1,5 +1,5 @@
 ---
-date: 2020-06-04 22:15:00.639995
+date: 2020-09-03 03:04:05
 title: Cross Join (xjoin)
 ---
 <div id="cross-join-xjoin" class="section">
@@ -25,7 +25,7 @@ Back-end services then consume the Elasticsearch index via the [Cross
 Join Query API
 (GraphQL)](https://github.com/redhatinsights/xjoin-search)
 
-[![xjoin-architecture-m1.png](xjoin-architecture-m1.png)](xjoin-architecture-m1.png)
+[![xjoin-architecture-m1.png](xjoin-architecture-m1.png)](../../_static/xjoin-architecture-m1.png)
 
 </div>
 
@@ -73,6 +73,9 @@ These are the URLs to the API in each environment:
   - CI <http://xjoin-search.xjoin-ci.svc.cluster.local:4000/graphql>
 
   - QA <http://xjoin-search.xjoin-qa.svc.cluster.local:4000/graphql>
+
+  - Stage
+    <http://xjoin-search.xjoin-stage.svc.cluster.local:4000/graphql>
 
   - Prod <http://xjoin-search.xjoin-prod.svc.cluster.local:4000/graphql>
 
