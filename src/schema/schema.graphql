@@ -61,6 +61,8 @@ input HostFilter {
     spf_infrastructure_type: FilterStringWithWildcard,
     "Filter by 'infrastructure_vendor' field of system profile"
     spf_infrastructure_vendor: FilterStringWithWildcard,
+    "Filter by 'sap_system' field of system profile"
+    sap_system: FilterString
 
     "Filter by the stale_timestamp value"
     stale_timestamp: FilterTimestamp

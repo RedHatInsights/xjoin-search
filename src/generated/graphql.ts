@@ -186,6 +186,8 @@ export type HostFilter = {
   spf_infrastructure_type?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'infrastructure_vendor' field of system profile */
   spf_infrastructure_vendor?: Maybe<FilterStringWithWildcard>;
+  /** Filter by 'sap_system' field of system profile */
+  sap_system?: Maybe<FilterString>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
@@ -362,9 +364,9 @@ export type ResolversTypes = {
   FilterStringWithWildcard: FilterStringWithWildcard,
   String: ResolverTypeWrapper<Scalars['String']>,
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase,
+  FilterString: FilterString,
   FilterTimestamp: FilterTimestamp,
   FilterTag: FilterTag,
-  FilterString: FilterString,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
@@ -391,9 +393,9 @@ export type ResolversParentTypes = {
   FilterStringWithWildcard: FilterStringWithWildcard,
   String: Scalars['String'],
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase,
+  FilterString: FilterString,
   FilterTimestamp: FilterTimestamp,
   FilterTag: FilterTag,
-  FilterString: FilterString,
   Int: Scalars['Int'],
   HOSTS_ORDER_BY: Hosts_Order_By,
   ORDER_DIR: Order_Dir,
