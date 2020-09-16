@@ -16,7 +16,6 @@ import { FilterResolver } from '../common';
 import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
 import { formatTags } from './format';
-import { filter } from 'bluebird';
 
 type HostFilterResolver = FilterResolver<HostFilter>;
 
