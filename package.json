@@ -61,7 +61,7 @@
     "graphql": "^14.5.8",
     "graphql-request": "^1.8.2",
     "graphql-type-json": "^0.3.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pino": "^5.13.6",
     "pino-cloudwatch": "^0.5.1",
     "pino-multi-stream": "^4.2.0",
