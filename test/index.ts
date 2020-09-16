@@ -1,8 +1,8 @@
 import 'should';
 import start from '../src/app';
-import createIdentityHeader from '../src/middleware/identity/utils';
-import * as constants from '../src/constants';
-import { GraphQLClient } from 'graphql-request';
+
+import { TestContext, ACCOUNT_PREFIX } from './TestContext';
+import client from '../src/es';
 
 let app: any = null;
 
@@ -20,26 +20,31 @@ afterAll(async () => {
     await app.stop();
 });
 
-export async function runQuery(query: string, variables: Record<string, any>,
-    headers: any = { [constants.IDENTITY_HEADER]: createIdentityHeader()}) {
+let testId = 0;
+let ctx: any = null;
 
-    const client = new GraphQLClient('http://localhost:4000/graphql', { headers });
-    return client.rawRequest(query, variables);
-}
+beforeEach(() => {
+    ctx = new TestContext(++testId);
+});
 
-export async function runQueryCatchError(headers: any, query = '{ hosts { data { id }}}', variables = {}) {
-    let err = null;
-    try {
-        await runQuery(query, variables, headers);
-    } catch (e) {
-        err = e;
+export function getContext() {
+    if (ctx instanceof TestContext) {
+        return ctx;
     }
 
-    return err;
+    throw new Error('test context not initialized');
 }
 
-export function createHeaders (username: string, account: string, is_internal = true) {
-    return {
-        [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, username, account, is_internal)
-    };
-}
+beforeAll(async function () {
+    client.deleteByQuery({
+        index: 'test.hosts.sink',
+        type: '_doc',
+        body: {
+            query: {
+                wildcard: {
+                    account: `${ACCOUNT_PREFIX}*`
+                }
+            }
+        }
+    });
+});

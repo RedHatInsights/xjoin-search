@@ -1,4 +1,4 @@
-import { runQuery, createHeaders } from '../../../test';
+import { runQuery, createHeaders } from '../../../test/helpers';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
 
