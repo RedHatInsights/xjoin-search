@@ -27,7 +27,8 @@
             "number_of_cpus": 1,
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
-            "satellite_managed": false
+            "satellite_managed": false,
+            "sap_system": true
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -98,7 +99,8 @@
             "number_of_cpus": 1,
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
-            "satellite_managed": false
+            "satellite_managed": false,
+            "sap_system": false
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -150,7 +152,7 @@
             "number_of_cpus": 1,
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
-            "satellite_managed": false
+            "satellite_managed": false,
         },
         "tags_structured": [{
             "namespace": "Sat",
