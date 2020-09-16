@@ -8,6 +8,7 @@ import config from '../../config';
 
 import { checkLimit, checkOffset } from '../validation';
 import {
+    filterString,
     filterStringWithWildcard,
     filterStringWithWildcardWithLowercase
 } from '../inputString';
@@ -15,6 +16,7 @@ import { FilterResolver } from '../common';
 import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
 import { formatTags } from './format';
+import { filter } from 'bluebird';
 
 type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -66,6 +68,7 @@ const RESOLVERS: HostFilterResolver[] = [
         (filter: HostFilter) => filter.spf_infrastructure_vendor,
         _.partial(filterStringWithWildcard, 'system_profile_facts.infrastructure_vendor')
     ),
+    optional((filter: HostFilter) => filter.spf_sap_system, _.partial(filterString, 'system_profile_facts.sap_system')),
 
     optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
     optional((filter: HostFilter) => filter.tag, filterTag),

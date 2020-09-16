@@ -187,7 +187,7 @@ export type HostFilter = {
   /** Filter by 'infrastructure_vendor' field of system profile */
   spf_infrastructure_vendor?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'sap_system' field of system profile */
-  sap_system?: Maybe<FilterString>;
+  spf_sap_system?: Maybe<FilterString>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */

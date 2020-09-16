@@ -86,7 +86,8 @@ async function run () {
                         os_release: { type: 'keyword' },
                         os_kernel_version: { type: 'keyword'},
                         infrastructure_type: { type: 'keyword' },
-                        infrastructure_vendor: { type: 'keyword' }
+                        infrastructure_vendor: { type: 'keyword' },
+                        sap_system: {type: 'keyword'}
                     }
                 },
                 tags_structured: {
