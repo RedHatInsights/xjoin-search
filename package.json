@@ -30,6 +30,7 @@
     "@types/lodash": "^4.14.142",
     "@types/node": "^12.7.12",
     "@types/pino": "^5.8.11",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
     "apollo-server-testing": "^2.9.5",
@@ -66,6 +67,7 @@
     "pino-multi-stream": "^4.2.0",
     "pino-pretty": "^3.2.2",
     "prom-client": "^11.5.3",
-    "sinon": "^9.0.2"
+    "sinon": "^9.0.2",
+    "uuid": "^8.3.0"
   }
 }

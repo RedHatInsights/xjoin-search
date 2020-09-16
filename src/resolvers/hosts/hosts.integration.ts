@@ -1,4 +1,4 @@
-import { runQuery, runQueryCatchError, createHeaders } from '../../../test';
+import { runQuery, runQueryCatchError, createHeaders } from '../../../test/helpers';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
 import sinon from 'sinon';
