@@ -11,6 +11,7 @@ import {
     filterStringWithWildcard,
     filterStringWithWildcardWithLowercase
 } from '../inputString';
+import { filterBoolean } from '../inputBoolean';
 import { FilterResolver } from '../common';
 import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
@@ -65,6 +66,14 @@ const RESOLVERS: HostFilterResolver[] = [
     optional(
         (filter: HostFilter) => filter.spf_infrastructure_vendor,
         _.partial(filterStringWithWildcard, 'system_profile_facts.infrastructure_vendor')
+    ),
+    optional(
+        (filter: HostFilter) => filter.spf_sap_system,
+        _.partial(filterBoolean, 'system_profile_facts.sap_system')
+    ),
+    optional(
+        (filter: HostFilter) => filter.spf_sap_sids,
+        _.partial(filterStringWithWildcard, 'system_profile_facts.sap_sids')
     ),
 
     optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
