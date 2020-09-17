@@ -61,12 +61,27 @@ input HostFilter {
     spf_infrastructure_type: FilterStringWithWildcard,
     "Filter by 'infrastructure_vendor' field of system profile"
     spf_infrastructure_vendor: FilterStringWithWildcard,
+    "Filter by 'sap_system' field of system profile"
+    spf_sap_system: FilterBoolean,
+    "Filter by 'sap_sids' field of system profile"
+    spf_sap_sids: FilterString
 
     "Filter by the stale_timestamp value"
     stale_timestamp: FilterTimestamp
 
     "Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with"
     tag: FilterTag
+}
+
+"""
+Basic filter for boolean fields.
+"""
+input FilterBoolean {
+    """
+    Compares the document field with the provided value.
+    If `null` is provided then documents where the given field does not exist are returned.
+    """
+    is: Boolean
 }
 
 """

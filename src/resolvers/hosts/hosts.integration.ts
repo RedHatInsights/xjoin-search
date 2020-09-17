@@ -1,9 +1,10 @@
-import { runQuery, runQueryCatchError, createHeaders } from '../../../test/helpers';
+import { runQuery, runQueryCatchError, createHeaders, createHosts } from '../../../test/helpers';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
 import sinon from 'sinon';
 import client from '../../es';
 import * as probes from '../../probes';
+import { getContext } from '../../../test';
 
 const BASIC_QUERY = `
     query hosts (
@@ -52,6 +53,31 @@ const TAG_QUERY = `
                         value
                     }
                 }
+            }
+        }
+    }
+`;
+
+const SP_QUERY = `
+    query hosts (
+        $filter: HostFilter,
+        $order_by: HOSTS_ORDER_BY,
+        $order_how: ORDER_DIR,
+        $limit: Int,
+        $offset: Int) {
+        hosts (
+            filter: $filter,
+            order_by: $order_by,
+            order_how: $order_how,
+            limit: $limit,
+            offset: $offset
+        )
+        {
+            data {
+                id,
+                account,
+                display_name,
+                system_profile_facts
             }
         }
     }
@@ -316,6 +342,115 @@ describe('hosts query', function () {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_infrastructure_vendor: { eq: 'baremetal' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
+
+            describe('sap_system', function () {
+                const hosts = [
+                    {system_profile_facts: {sap_system: true}},
+                    {system_profile_facts: {sap_system: false}},
+                    {system_profile_facts: {}}
+                ];
+
+                [true, false].forEach(expected =>
+                    test(`${expected}`, async () => {
+                        await createHosts(...hosts);
+
+                        const { data } = await runQuery(
+                            SP_QUERY,
+                            { filter: { spf_sap_system: { is: expected }}},
+                            getContext().headers
+                        );
+                        data.hosts.data.should.have.length(1);
+                        data.hosts.data[0].system_profile_facts.should.have.property('sap_system', expected);
+                    })
+                );
+
+                test('null', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(SP_QUERY, { filter: { spf_sap_system: { is: null }}}, getContext().headers);
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].system_profile_facts.should.be.empty();
+                });
+
+                test('not null', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { NOT: { spf_sap_system: { is: null }}}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(2);
+                    data.hosts.data.forEach((host: any) => host.system_profile_facts.should.have.property('sap_system'));
+                });
+            });
+
+            describe('sap_sids', function () {
+                const hosts = [
+                    {system_profile_facts: {sap_sids: ['H20', 'ABC']}},
+                    {system_profile_facts: {sap_sids: []}},
+                    {system_profile_facts: {sap_sids: ['ABC']}},
+                    {system_profile_facts: {sap_sids: ['BCD']}}
+                ];
+
+                test('simple', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { spf_sap_sids: { eq: 'H20' }}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].system_profile_facts.sap_sids.includes('H20');
+                });
+
+                test('multiple', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { spf_sap_sids: { eq: 'ABC' }}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(2);
+                    data.hosts.data.forEach((host: any) => host.system_profile_facts.sap_sids.includes('ABC'));
+                });
+
+                test('AND', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { AND: [{spf_sap_sids: { eq: 'ABC' }}, {spf_sap_sids: { eq: 'H20' }}]}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].system_profile_facts.sap_sids.should.eql(['H20', 'ABC']);
+                });
+
+                test('OR', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { OR: [{spf_sap_sids: { eq: 'BCD' }}, {spf_sap_sids: { eq: 'H20' }}]}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(2);
+                });
+
+                test('NOT', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { NOT: {spf_sap_sids: { eq: 'ABC' }}}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(2);
+                });
             });
         });
 

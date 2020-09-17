@@ -13,6 +13,7 @@
     * [TagInfo](#taginfo)
     * [Tags](#tags)
   * [Inputs](#inputs)
+    * [FilterBoolean](#filterboolean)
     * [FilterString](#filterstring)
     * [FilterStringWithRegex](#filterstringwithregex)
     * [FilterStringWithWildcard](#filterstringwithwildcard)
@@ -402,6 +403,32 @@ Structured representation of a tag
 
 ## Inputs
 
+### FilterBoolean
+
+Basic filter for boolean fields.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>is</strong></td>
+<td valign="top"><a href="#boolean">Boolean</a></td>
+<td>
+
+Compares the document field with the provided value.
+If `null` is provided then documents where the given field does not exist are returned.
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### FilterString
 
 Basic filter for string fields that allows filtering based on exact match.
@@ -778,6 +805,24 @@ Filter by 'infrastructure_type' field of system profile
 <td>
 
 Filter by 'infrastructure_vendor' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_sap_system</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td>
+
+Filter by 'sap_system' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_sap_sids</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'sap_sids' field of system profile
 
 </td>
 </tr>
