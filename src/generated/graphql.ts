@@ -21,7 +21,12 @@ export type CollectionMeta = {
   total: Scalars['Int'];
 };
 
+/** Basic filter for boolean fields. */
 export type FilterBoolean = {
+  /** 
+ * Compares the document field with the provided value.
+   * If `null` is provided then documents where the given field does not exist are returned.
+ */
   is?: Maybe<Scalars['Boolean']>;
 };
 
@@ -190,9 +195,9 @@ export type HostFilter = {
   spf_infrastructure_type?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'infrastructure_vendor' field of system profile */
   spf_infrastructure_vendor?: Maybe<FilterStringWithWildcard>;
-  /** TODO */
+  /** Filter by 'sap_system' field of system profile */
   spf_sap_system?: Maybe<FilterBoolean>;
-  /** TODO */
+  /** Filter by 'sap_sids' field of system profile */
   spf_sap_sids?: Maybe<FilterString>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
