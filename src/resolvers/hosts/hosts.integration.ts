@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import client from '../../es';
 import * as probes from '../../probes';
 import { getContext } from '../../../test';
+import { testLimitOffset } from '../test.common';
 
 const BASIC_QUERY = `
     query hosts (
@@ -239,22 +240,7 @@ describe('hosts query', function () {
         });
     });
 
-    describe('limit/offset', function () {
-        test('limit too low', async () => {
-            const err = await runQueryCatchError(undefined, BASIC_QUERY, { limit: -1 });
-            expect(err.message.startsWith('value must be 0 or greater (was -1)')).toBeTruthy();
-        });
-
-        test('limit too high', async () => {
-            const err = await runQueryCatchError(undefined, BASIC_QUERY, { limit: 101 });
-            expect(err.message.startsWith('value must be 100 or less (was 101)')).toBeTruthy();
-        });
-
-        test('offset too low', async () => {
-            const err = await runQueryCatchError(undefined, BASIC_QUERY, { offset: -5 });
-            expect(err.message.startsWith('value must be 0 or greater (was -5)')).toBeTruthy();
-        });
-    });
+    testLimitOffset(BASIC_QUERY);
 
     describe('queries', function () {
         describe('display_name', function () {

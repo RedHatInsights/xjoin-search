@@ -5,10 +5,15 @@
 
   * [Query](#query)
   * [Objects](#objects)
+    * [BooleanValueInfo](#booleanvalueinfo)
+    * [BooleanValues](#booleanvalues)
     * [CollectionMeta](#collectionmeta)
     * [Host](#host)
+    * [HostSystemProfile](#hostsystemprofile)
     * [HostTags](#hosttags)
     * [Hosts](#hosts)
+    * [StringValueInfo](#stringvalueinfo)
+    * [StringValues](#stringvalues)
     * [StructuredTag](#structuredtag)
     * [TagInfo](#taginfo)
     * [Tags](#tags)
@@ -26,6 +31,7 @@
     * [HOSTS_ORDER_BY](#hosts_order_by)
     * [HOST_TAGS_ORDER_BY](#host_tags_order_by)
     * [ORDER_DIR](#order_dir)
+    * [VALUES_ORDER_BY](#values_order_by)
   * [Scalars](#scalars)
     * [Boolean](#boolean)
     * [ID](#id)
@@ -125,10 +131,81 @@ The tags themselves can be filtered further using the `filter` parameter.
 <td valign="top"><a href="#order_dir">ORDER_DIR</a></td>
 <td></td>
 </tr>
+<tr>
+<td colspan="2" valign="top"><strong>hostSystemProfile</strong></td>
+<td valign="top"><a href="#hostsystemprofile">HostSystemProfile</a></td>
+<td>
+
+Fetches a list of unique values for a given system profile field.
+
+By default the query operates on all known systems that are registered with the given account.
+This can be altered using `hostFilter` parameter.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">hostFilter</td>
+<td valign="top"><a href="#hostfilter">HostFilter</a></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 
 ## Objects
+
+### BooleanValueInfo
+
+Represents a single Boolean value. The `count` field indicates how many systems with the given value were returned by a query
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>value</strong></td>
+<td valign="top"><a href="#boolean">Boolean</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>count</strong></td>
+<td valign="top"><a href="#int">Int</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### BooleanValues
+
+A list of Boolean values together with count information
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>data</strong></td>
+<td valign="top">[<a href="#booleanvalueinfo">BooleanValueInfo</a>]!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>meta</strong></td>
+<td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
 ### CollectionMeta
 
@@ -269,6 +346,81 @@ Facts of a host. The subset of keys can be requested using `filter`.
 </tbody>
 </table>
 
+### HostSystemProfile
+
+Lists unique system profile values.
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>sap_system</strong></td>
+<td valign="top"><a href="#booleanvalues">BooleanValues</a>!</td>
+<td>
+
+Lists unique values of the `sap_system` field
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">limit</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">offset</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_by</td>
+<td valign="top"><a href="#values_order_by">VALUES_ORDER_BY</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_how</td>
+<td valign="top"><a href="#order_dir">ORDER_DIR</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>sap_sids</strong></td>
+<td valign="top"><a href="#stringvalues">StringValues</a>!</td>
+<td>
+
+Lists unique values of the `sap_sids` field
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">limit</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">offset</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_by</td>
+<td valign="top"><a href="#values_order_by">VALUES_ORDER_BY</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_how</td>
+<td valign="top"><a href="#order_dir">ORDER_DIR</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
 ### HostTags
 
 <table>
@@ -309,6 +461,60 @@ Facts of a host. The subset of keys can be requested using `filter`.
 <tr>
 <td colspan="2" valign="top"><strong>data</strong></td>
 <td valign="top">[<a href="#host">Host</a>]!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>meta</strong></td>
+<td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### StringValueInfo
+
+Represents a single String value. The `count` field indicates how many systems with the given value were returned by a query.
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>value</strong></td>
+<td valign="top"><a href="#string">String</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>count</strong></td>
+<td valign="top"><a href="#int">Int</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### StringValues
+
+A list of String values together with count information
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>data</strong></td>
+<td valign="top">[<a href="#stringvalueinfo">StringValueInfo</a>]!</td>
 <td></td>
 </tr>
 <tr>
@@ -931,6 +1137,25 @@ As a result, "=" and "/" appear in every tag.
 </tr>
 <tr>
 <td valign="top"><strong>DESC</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### VALUES_ORDER_BY
+
+<table>
+<thead>
+<th align="left">Value</th>
+<th align="left">Description</th>
+</thead>
+<tbody>
+<tr>
+<td valign="top"><strong>value</strong></td>
+<td></td>
+</tr>
+<tr>
+<td valign="top"><strong>count</strong></td>
 <td></td>
 </tr>
 </tbody>

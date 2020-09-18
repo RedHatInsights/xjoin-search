@@ -13,3 +13,20 @@ export function jsonObjectFilter (fieldName: string) {
         return dict;
     };
 }
+
+export const VALUES_ORDER_BY_MAPPING: { [key: string]: string } = {
+    count: '_count',
+    value: '_key'
+};
+
+export function defaultValue (value: number | undefined | null, def: number) {
+    if (value === undefined || value === null) {
+        return def;
+    }
+
+    return value;
+}
+
+export function extractPage(list: any, limit: number, offset: number) {
+    return list.slice(offset, offset + limit);
+}

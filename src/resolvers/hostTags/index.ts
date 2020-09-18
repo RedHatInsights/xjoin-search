@@ -5,23 +5,12 @@ import { buildFilterQuery } from '../hosts';
 import {runQuery} from '../es';
 import config from '../../config';
 import { checkLimit, checkOffset } from '../validation';
+import { defaultValue, extractPage } from '../common';
 
-const ORDER_BY_MAPPING: { [key: string]: string } = {
+const TAG_ORDER_BY_MAPPING: { [key: string]: string } = {
     count: '_count',
     tag: '_key'
 };
-
-function defaultValue (value: number | undefined | null, def: number) {
-    if (value === undefined || value === null) {
-        return def;
-    }
-
-    return value;
-}
-
-function extractPage(list: any, limit: number, offset: number) {
-    return list.slice(offset, offset + limit);
-}
 
 export default async function hostTags(parent: any, args: QueryHostTagsArgs, context: any) {
     checkLimit(args.limit);
@@ -40,7 +29,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
                     field: 'tags_search',
                     size: limit + offset,
                     order: [{
-                        [ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
+                        [TAG_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
                     }, {
                         _key: 'ASC' // for deterministic sort order
                     }],
