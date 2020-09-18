@@ -31,6 +31,11 @@ enum HOST_TAGS_ORDER_BY {
     count
 }
 
+enum VALUES_ORDER_BY {
+    value,
+    count
+}
+
 """
 Defines criteria by which the hosts are filtered.
 """
@@ -267,6 +272,52 @@ type HostTags {
     meta: CollectionMeta!
 }
 
+"""
+Lists unique system profile values.
+"""
+type HostSystemProfile {
+
+    "Lists unique values of the `sap_system` field"
+    sap_system (
+        limit: Int = 10,
+        offset: Int = 0,
+        order_by: VALUES_ORDER_BY = value,
+        order_how: ORDER_DIR = ASC
+    ): BooleanValues!
+
+    "Lists unique values of the `sap_sids` field"
+    sap_sids (
+        limit: Int = 10,
+        offset: Int = 0,
+        order_by: VALUES_ORDER_BY = value,
+        order_how: ORDER_DIR = ASC
+    ): StringValues!
+}
+
+"A list of Boolean values together with count information"
+type BooleanValues {
+    data: [BooleanValueInfo]!
+    meta: CollectionMeta!
+}
+
+"Represents a single Boolean value. The `count` field indicates how many systems with the given value were returned by a query"
+type BooleanValueInfo {
+    value: Boolean!
+    count: Int!
+}
+
+"A list of String values together with count information"
+type StringValues {
+    data: [StringValueInfo]!
+    meta: CollectionMeta!
+}
+
+"Represents a single String value. The `count` field indicates how many systems with the given value were returned by a query."
+type StringValueInfo {
+    value: String!
+    count: Int!
+}
+
 #
 # Queries
 #
@@ -297,4 +348,14 @@ type Query {
         order_by: HOST_TAGS_ORDER_BY = count,
         order_how: ORDER_DIR = DESC
     ): HostTags
+
+    """
+    Fetches a list of unique values for a given system profile field.
+
+    By default the query operates on all known systems that are registered with the given account.
+    This can be altered using `hostFilter` parameter.
+    """
+    hostSystemProfile (
+        hostFilter: HostFilter,
+    ): HostSystemProfile
 }

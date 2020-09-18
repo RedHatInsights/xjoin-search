@@ -1,6 +1,7 @@
 import { runQuery, createHeaders } from '../../../test/helpers';
 import * as constants from '../../constants';
 import createIdentityHeader from '../../middleware/identity/utils';
+import { testLimitOffset } from '../test.common';
 
 const TAG_FILTERS_QUERY = `
     query hostTags (
@@ -80,6 +81,8 @@ describe('host tags', function () {
             expect(status).toEqual(200);
             expect(data).toMatchSnapshot();
         });
+
+        testLimitOffset(TAG_FILTERS_QUERY);
     });
 
     test('ordering', async () => {

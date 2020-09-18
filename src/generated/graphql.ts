@@ -12,6 +12,23 @@ export type Scalars = {
   JSON: any;
 };
 
+/** 
+ * Represents a single Boolean value. The `count` field indicates how many systems
+ * with the given value were returned by a query
+ */
+export type BooleanValueInfo = {
+   __typename?: 'BooleanValueInfo';
+  value: Scalars['Boolean'];
+  count: Scalars['Int'];
+};
+
+/** A list of Boolean values together with count information */
+export type BooleanValues = {
+   __typename?: 'BooleanValues';
+  data: Array<Maybe<BooleanValueInfo>>;
+  meta: CollectionMeta;
+};
+
 /** Metadata about a collection of entities */
 export type CollectionMeta = {
    __typename?: 'CollectionMeta';
@@ -216,6 +233,33 @@ export enum Hosts_Order_By {
   ModifiedOn = 'modified_on'
 }
 
+/** Lists unique system profile values. */
+export type HostSystemProfile = {
+   __typename?: 'HostSystemProfile';
+  /** Lists unique values of the `sap_system` field */
+  sap_system: BooleanValues;
+  /** Lists unique values of the `sap_sids` field */
+  sap_sids: StringValues;
+};
+
+
+/** Lists unique system profile values. */
+export type HostSystemProfileSap_SystemArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Values_Order_By>;
+  order_how?: Maybe<Order_Dir>;
+};
+
+
+/** Lists unique system profile values. */
+export type HostSystemProfileSap_SidsArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Values_Order_By>;
+  order_how?: Maybe<Order_Dir>;
+};
+
 export type HostTags = {
    __typename?: 'HostTags';
   data: Array<Maybe<TagInfo>>;
@@ -242,6 +286,13 @@ export type Query = {
    * The tags themselves can be filtered further using the `filter` parameter.
  */
   hostTags?: Maybe<HostTags>;
+  /** 
+ * Fetches a list of unique values for a given system profile field.
+   * 
+   * By default the query operates on all known systems that are registered with the given account.
+   * This can be altered using `hostFilter` parameter.
+ */
+  hostSystemProfile?: Maybe<HostSystemProfile>;
 };
 
 
@@ -261,6 +312,28 @@ export type QueryHostTagsArgs = {
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Host_Tags_Order_By>;
   order_how?: Maybe<Order_Dir>;
+};
+
+
+export type QueryHostSystemProfileArgs = {
+  hostFilter?: Maybe<HostFilter>;
+};
+
+/** 
+ * Represents a single String value. The `count` field indicates how many systems
+ * with the given value were returned by a query.
+ */
+export type StringValueInfo = {
+   __typename?: 'StringValueInfo';
+  value: Scalars['String'];
+  count: Scalars['Int'];
+};
+
+/** A list of String values together with count information */
+export type StringValues = {
+   __typename?: 'StringValues';
+  data: Array<Maybe<StringValueInfo>>;
+  meta: CollectionMeta;
 };
 
 /** Structured representation of a tag */
@@ -296,6 +369,11 @@ export type Tags = {
   data: Array<Maybe<StructuredTag>>;
   meta: CollectionMeta;
 };
+
+export enum Values_Order_By {
+  Value = 'value',
+  Count = 'count'
+}
 
 
 
@@ -395,6 +473,12 @@ export type ResolversTypes = {
   HOST_TAGS_ORDER_BY: Host_Tags_Order_By,
   HostTags: ResolverTypeWrapper<HostTags>,
   TagInfo: ResolverTypeWrapper<TagInfo>,
+  HostSystemProfile: ResolverTypeWrapper<HostSystemProfile>,
+  VALUES_ORDER_BY: Values_Order_By,
+  BooleanValues: ResolverTypeWrapper<BooleanValues>,
+  BooleanValueInfo: ResolverTypeWrapper<BooleanValueInfo>,
+  StringValues: ResolverTypeWrapper<StringValues>,
+  StringValueInfo: ResolverTypeWrapper<StringValueInfo>,
   JSON: ResolverTypeWrapper<Scalars['JSON']>,
 };
 
@@ -425,7 +509,25 @@ export type ResolversParentTypes = {
   HOST_TAGS_ORDER_BY: Host_Tags_Order_By,
   HostTags: HostTags,
   TagInfo: TagInfo,
+  HostSystemProfile: HostSystemProfile,
+  VALUES_ORDER_BY: Values_Order_By,
+  BooleanValues: BooleanValues,
+  BooleanValueInfo: BooleanValueInfo,
+  StringValues: StringValues,
+  StringValueInfo: StringValueInfo,
   JSON: Scalars['JSON'],
+};
+
+export type BooleanValueInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['BooleanValueInfo'] = ResolversParentTypes['BooleanValueInfo']> = {
+  value?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type BooleanValuesResolvers<ContextType = any, ParentType extends ResolversParentTypes['BooleanValues'] = ResolversParentTypes['BooleanValues']> = {
+  data?: Resolver<Array<Maybe<ResolversTypes['BooleanValueInfo']>>, ParentType, ContextType>,
+  meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type CollectionMetaResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionMeta'] = ResolversParentTypes['CollectionMeta']> = {
@@ -456,6 +558,12 @@ export type HostsResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type HostSystemProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostSystemProfile'] = ResolversParentTypes['HostSystemProfile']> = {
+  sap_system?: Resolver<ResolversTypes['BooleanValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SystemArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
+  sap_sids?: Resolver<ResolversTypes['StringValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SidsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type HostTagsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostTags'] = ResolversParentTypes['HostTags']> = {
   data?: Resolver<Array<Maybe<ResolversTypes['TagInfo']>>, ParentType, ContextType>,
   meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>,
@@ -473,6 +581,19 @@ export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<Resolver
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hosts?: Resolver<ResolversTypes['Hosts'], ParentType, ContextType, RequireFields<QueryHostsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
   hostTags?: Resolver<Maybe<ResolversTypes['HostTags']>, ParentType, ContextType, RequireFields<QueryHostTagsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
+  hostSystemProfile?: Resolver<Maybe<ResolversTypes['HostSystemProfile']>, ParentType, ContextType, RequireFields<QueryHostSystemProfileArgs, never>>,
+};
+
+export type StringValueInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['StringValueInfo'] = ResolversParentTypes['StringValueInfo']> = {
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type StringValuesResolvers<ContextType = any, ParentType extends ResolversParentTypes['StringValues'] = ResolversParentTypes['StringValues']> = {
+  data?: Resolver<Array<Maybe<ResolversTypes['StringValueInfo']>>, ParentType, ContextType>,
+  meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type StructuredTagResolvers<ContextType = any, ParentType extends ResolversParentTypes['StructuredTag'] = ResolversParentTypes['StructuredTag']> = {
@@ -495,13 +616,18 @@ export type TagsResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  BooleanValueInfo?: BooleanValueInfoResolvers<ContextType>,
+  BooleanValues?: BooleanValuesResolvers<ContextType>,
   CollectionMeta?: CollectionMetaResolvers<ContextType>,
   Host?: HostResolvers<ContextType>,
   Hosts?: HostsResolvers<ContextType>,
+  HostSystemProfile?: HostSystemProfileResolvers<ContextType>,
   HostTags?: HostTagsResolvers<ContextType>,
   JSON?: GraphQLScalarType,
   JSONObject?: GraphQLScalarType,
   Query?: QueryResolvers<ContextType>,
+  StringValueInfo?: StringValueInfoResolvers<ContextType>,
+  StringValues?: StringValuesResolvers<ContextType>,
   StructuredTag?: StructuredTagResolvers<ContextType>,
   TagInfo?: TagInfoResolvers<ContextType>,
   Tags?: TagsResolvers<ContextType>,
