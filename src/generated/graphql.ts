@@ -353,7 +353,6 @@ export type TagAggregationFilter = {
    * segments are concatenated together using "=" and "/", respectively.
    * There is no expecing of the control characters in the segments.
    * As a result, "=" and "/" appear in every tag.
-   * ```
  */
   search?: Maybe<FilterStringWithRegex>;
 };
