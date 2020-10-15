@@ -98,6 +98,15 @@ const config = convict({
                 default: 'test.hosts',
                 env: 'HOSTS_INDEX'
             }
+        },
+        tags: {
+            aggregations: {
+                size: {
+                    format: Number,
+                    default: 10000,
+                    env: 'MAX_TAGS_RETURNED'
+                }
+            }
         }
     }
 });
