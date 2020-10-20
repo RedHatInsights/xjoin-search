@@ -27,18 +27,13 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
             tags: {
                 terms: {
                     field: 'tags_search',
-                    size: config.queries.tags.aggregations.size,
+                    size: config.queries.maxBuckets,
                     order: [{
                         [TAG_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
                     }, {
                         _key: 'ASC' // for deterministic sort order
                     }],
                     show_term_doc_count_error: true
-                }
-            },
-            total: {
-                stats_bucket: {
-                    buckets_path: 'tags._count'
                 }
             }
         }
@@ -109,7 +104,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         data,
         meta: {
             count: data.length,
-            total: result.body.aggregations.total.count
+            total: result.body.aggregations.tags.buckets.length
         }
     };
 }
