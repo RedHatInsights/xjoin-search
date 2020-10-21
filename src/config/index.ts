@@ -98,6 +98,11 @@ const config = convict({
                 default: 'test.hosts',
                 env: 'HOSTS_INDEX'
             }
+        },
+        maxBuckets: {
+            format: Number,
+            default: 10000,
+            env: 'MAX_BUCKETS'
         }
     }
 });
