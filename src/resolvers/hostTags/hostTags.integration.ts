@@ -82,6 +82,24 @@ describe('host tags', function () {
             expect(data).toMatchSnapshot();
         });
 
+        test('limit + offset + search', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                limit: 2,
+                offset: 2,
+                filter: {
+                    search: {
+                        regex: '.*foo.*'
+                    }
+                }
+            }, headers);
+
+            expect(status).toEqual(200);
+
+            data.hostTags.data.should.have.length(2);
+            data.hostTags.meta.should.have.property('count', 2);
+            data.hostTags.meta.should.have.property('total', 8);
+        });
+
         testLimitOffset(TAG_FILTERS_QUERY);
     });
 
@@ -155,7 +173,7 @@ describe('host tags', function () {
             expect(status).toEqual(200);
             data.hostTags.data.should.have.length(1);
             data.hostTags.meta.should.have.property('count', 1);
-            data.hostTags.meta.should.have.property('total', 8);
+            data.hostTags.meta.should.have.property('total', 1);
             data.hostTags.data.should.eql([{
                 count: 1,
                 tag: {
@@ -176,6 +194,8 @@ describe('host tags', function () {
             });
 
             expect(status).toEqual(200);
+            data.hostTags.meta.should.have.property('count', 0);
+            data.hostTags.meta.should.have.property('total', 0);
             data.hostTags.data.should.be.empty();
         });
 
