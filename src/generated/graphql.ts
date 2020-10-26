@@ -256,6 +256,7 @@ export type HostSystemProfileSap_SystemArgs = {
 export type HostSystemProfileSap_SidsArgs = {
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
+  filter?: Maybe<SapSidFilter>;
   order_by?: Maybe<Values_Order_By>;
   order_how?: Maybe<Order_Dir>;
 };
@@ -317,6 +318,15 @@ export type QueryHostTagsArgs = {
 
 export type QueryHostSystemProfileArgs = {
   hostFilter?: Maybe<HostFilter>;
+};
+
+/** Defines the criteria by which sap_sids are filtered in the `hostSystemProfile` query. */
+export type SapSidFilter = {
+  /** 
+ * Limits the aggregation to sap_sids that match the given search term.
+   * The search term is a regular exression that operates on a string representation of a sap_sid.
+ */
+  search?: Maybe<FilterStringWithRegex>;
 };
 
 /** 
@@ -476,6 +486,7 @@ export type ResolversTypes = {
   VALUES_ORDER_BY: Values_Order_By,
   BooleanValues: ResolverTypeWrapper<BooleanValues>,
   BooleanValueInfo: ResolverTypeWrapper<BooleanValueInfo>,
+  SapSidFilter: SapSidFilter,
   StringValues: ResolverTypeWrapper<StringValues>,
   StringValueInfo: ResolverTypeWrapper<StringValueInfo>,
   JSON: ResolverTypeWrapper<Scalars['JSON']>,
@@ -512,6 +523,7 @@ export type ResolversParentTypes = {
   VALUES_ORDER_BY: Values_Order_By,
   BooleanValues: BooleanValues,
   BooleanValueInfo: BooleanValueInfo,
+  SapSidFilter: SapSidFilter,
   StringValues: StringValues,
   StringValueInfo: StringValueInfo,
   JSON: Scalars['JSON'],
@@ -559,7 +571,7 @@ export type HostsResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type HostSystemProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostSystemProfile'] = ResolversParentTypes['HostSystemProfile']> = {
   sap_system?: Resolver<ResolversTypes['BooleanValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SystemArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
-  sap_sids?: Resolver<ResolversTypes['StringValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SidsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>,
+  sap_sids?: Resolver<ResolversTypes['StringValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SidsArgs, 'limit' | 'offset' | 'filter' | 'order_by' | 'order_how'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

@@ -29,7 +29,7 @@ export function enumerationResolver <T> (field: string, convert: (value: any) =>
                 terms: {
                     terms: {
                         field,
-                        size: limit + offset,
+                        size: config.queries.maxBuckets,
                         order: [{
                             [VALUES_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
                         }, {
@@ -37,15 +37,18 @@ export function enumerationResolver <T> (field: string, convert: (value: any) =>
                         }],
                         show_term_doc_count_error: true
                     }
-                },
-                total: {
-                    cardinality: {
-                        field,
-                        precision_threshold: 1000
-                    }
                 }
             }
         };
+
+        if (args.filter && args.filter.search) {
+            const search = args.filter.search;
+            if (search.eq) {
+                body.aggs.terms.terms.include = [search.eq];
+            } else if (search.regex) {
+                body.aggs.terms.terms.include = search.regex;
+            }
+        }
 
         const result = await runQuery({
             index: config.queries.hosts.index,
@@ -67,7 +70,7 @@ export function enumerationResolver <T> (field: string, convert: (value: any) =>
             data,
             meta: {
                 count: data.length,
-                total: result.body.aggregations.total.value
+                total: result.body.aggregations.terms.buckets.length
             }
         };
     };
