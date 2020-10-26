@@ -26,6 +26,7 @@
     * [FilterTag](#filtertag)
     * [FilterTimestamp](#filtertimestamp)
     * [HostFilter](#hostfilter)
+    * [SapSidFilter](#sapsidfilter)
     * [TagAggregationFilter](#tagaggregationfilter)
   * [Enums](#enums)
     * [HOSTS_ORDER_BY](#hosts_order_by)
@@ -406,6 +407,11 @@ Lists unique values of the `sap_sids` field
 <tr>
 <td colspan="2" align="right" valign="top">offset</td>
 <td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top"><a href="#sapsidfilter">SapSidFilter</a></td>
 <td></td>
 </tr>
 <tr>
@@ -1047,6 +1053,32 @@ Filter by the stale_timestamp value
 <td>
 
 Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### SapSidFilter
+
+Defines the criteria by which sap_sids are filtered in the `hostSystemProfile` query.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>search</strong></td>
+<td valign="top"><a href="#filterstringwithregex">FilterStringWithRegex</a></td>
+<td>
+
+Limits the aggregation to sap_sids that match the given search term.
+The search term is a regular exression that operates on a string representation of a sap_sid.
 
 </td>
 </tr>

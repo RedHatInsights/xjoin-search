@@ -217,6 +217,17 @@ input TagAggregationFilter {
     search: FilterStringWithRegex
 }
 
+"""
+Defines the criteria by which sap_sids are filtered in the `hostSystemProfile` query.
+"""
+input SapSidFilter {
+    """
+    Limits the aggregation to sap_sids that match the given search term.
+    The search term is a regular exression that operates on a string representation of a sap_sid.
+    """
+    search: FilterStringWithRegex
+}
+
 #
 # Output types
 #
@@ -288,6 +299,7 @@ type HostSystemProfile {
     sap_sids (
         limit: Int = 10,
         offset: Int = 0,
+        filter: SapSidFilter = null,
         order_by: VALUES_ORDER_BY = value,
         order_how: ORDER_DIR = ASC
     ): StringValues!

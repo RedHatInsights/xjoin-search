@@ -135,6 +135,7 @@ describe('host system profile', function () {
         const QUERY = `
             query hostSystemProfile (
                 $hostFilter: HostFilter,
+                $filter: SapSidFilter,
                 $order_by: VALUES_ORDER_BY,
                 $order_how: ORDER_DIR,
                 $limit: Int,
@@ -146,6 +147,7 @@ describe('host system profile', function () {
                     sap_sids (
                         order_by: $order_by,
                         order_how: $order_how,
+                        filter: $filter,
                         limit: $limit,
                         offset: $offset
                     ) {
@@ -169,38 +171,74 @@ describe('host system profile', function () {
             {display_name: 'foo04', system_profile_facts: {sap_sids: ['ABC', 'DEF', 'GHI']}},
             {display_name: 'bar01', system_profile_facts: {sap_sids: ['ABC', 'DEF', 'GHI', 'JKL']}},
             {display_name: 'bar02', system_profile_facts: {sap_sids: ['ABC', 'DEF', 'GHI', 'JKL', 'MNO']}},
-            {display_name: 'bar03', system_profile_facts: {sap_sids: ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQR']}}
+            {display_name: 'bar03', system_profile_facts: {sap_sids: ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQR']}},
+            {display_name: 'bar04', system_profile_facts: {
+                sap_sids: ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQR', 'KeyΔwithčhars*+!.,-_ ']
+            }}
         ];
 
-        const abc = { value: 'ABC', count: 6};
-        const def = { value: 'DEF', count: 5};
-        const ghi = { value: 'GHI', count: 4};
-        const jkl = { value: 'JKL', count: 3};
-        const mno = { value: 'MNO', count: 2};
-        const pqr = { value: 'PQR', count: 1};
+        const abc = { value: 'ABC', count: 7};
+        const def = { value: 'DEF', count: 6};
+        const ghi = { value: 'GHI', count: 5};
+        const jkl = { value: 'JKL', count: 4};
+        const mno = { value: 'MNO', count: 3};
+        const pqr = { value: 'PQR', count: 2};
+        const special = { value: 'KeyΔwithčhars*+!.,-_ ', count: 1};
 
         test('basic query', async () => {
             await createHosts(...hosts);
 
             const { data, status } = await runQuery(QUERY, {}, getContext().headers);
             expect(status).toEqual(200);
-            data.hostSystemProfile.sap_sids.meta.should.eql({total: 6, count: 6});
-            data.hostSystemProfile.sap_sids.data.should.eql([abc, def, ghi, jkl, mno, pqr]);
+            data.hostSystemProfile.sap_sids.meta.should.eql({total: 7, count: 7});
+            data.hostSystemProfile.sap_sids.data.should.eql([abc, def, ghi, jkl, special, mno, pqr]);
         });
 
         testLimitOffset(QUERY);
 
-        test('pagination', async () => {
-            await createHosts(...hosts);
+        describe('pagination', function () {
+            test('limit', async () => {
+                await createHosts(...hosts);
 
-            const { data, status } = await runQuery(QUERY, {
-                limit: 2,
-                offset: 2
-            }, getContext().headers);
-            expect(status).toEqual(200);
+                const { data, status } = await runQuery(QUERY, {
+                    limit: 2
+                }, getContext().headers);
+                expect(status).toEqual(200);
 
-            data.hostSystemProfile.sap_sids.meta.should.eql({total: 6, count: 2});
-            data.hostSystemProfile.sap_sids.data.should.eql([ghi, jkl]);
+                data.hostSystemProfile.sap_sids.meta.should.eql({total: 7, count: 2});
+                data.hostSystemProfile.sap_sids.data.should.eql([abc, def]);
+            });
+
+            test('limit + offset', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    limit: 2,
+                    offset: 2
+                }, getContext().headers);
+                expect(status).toEqual(200);
+
+                data.hostSystemProfile.sap_sids.meta.should.eql({total: 7, count: 2});
+                data.hostSystemProfile.sap_sids.data.should.eql([ghi, jkl]);
+            });
+
+            test('limit + offset + search', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    limit: 1,
+                    offset: 1,
+                    filter: {
+                        search: {
+                            regex: '.*K.*'
+                        }
+                    }
+                }, getContext().headers);
+                expect(status).toEqual(200);
+
+                data.hostSystemProfile.sap_sids.meta.should.eql({total: 2, count: 1});
+                data.hostSystemProfile.sap_sids.data.should.eql([special]);
+            });
         });
 
         describe('ordering', function () {
@@ -213,8 +251,8 @@ describe('host system profile', function () {
                 }, getContext().headers);
                 expect(status).toEqual(200);
 
-                data.hostSystemProfile.sap_sids.meta.should.eql({total: 6, count: 6});
-                data.hostSystemProfile.sap_sids.data.should.eql([pqr, mno, jkl, ghi, def, abc]);
+                data.hostSystemProfile.sap_sids.meta.should.eql({total: 7, count: 7});
+                data.hostSystemProfile.sap_sids.data.should.eql([pqr, mno, special, jkl, ghi, def, abc]);
             });
         });
 
@@ -236,6 +274,108 @@ describe('host system profile', function () {
                 { value: 'DEF', count: 2},
                 { value: 'GHI', count: 1}
             ]);
+        });
+
+        describe('sap_sid filter', function () {
+            test('by sap_sid name', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    filter: {
+                        search: {
+                            eq: 'ABC'
+                        }
+                    }
+                }, getContext().headers);
+
+                expect(status).toEqual(200);
+                data.hostSystemProfile.sap_sids.meta.should.eql({total: 1, count: 1});
+                data.hostSystemProfile.sap_sids.data.should.eql([abc]);
+            });
+
+            test('by sap_sid name negative', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    filter: {
+                        search: {
+                            eq: '.*ABC.*'
+                        }
+                    }
+                }, getContext().headers);
+
+                expect(status).toEqual(200);
+                data.hostSystemProfile.sap_sids.meta.should.eql({total: 0, count: 0});
+                data.hostSystemProfile.sap_sids.data.should.be.empty();
+            });
+
+            test('by sap_sid name prefix', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    filter: {
+                        search: {
+                            regex: 'AB.*'
+                        }
+                    }
+                }, getContext().headers);
+
+                expect(status).toEqual(200);
+                data.hostSystemProfile.sap_sids.meta.should.eql({total: 1, count: 1});
+                data.hostSystemProfile.sap_sids.data.should.eql([abc]);
+            });
+
+            test('by sap_sid name substring', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    filter: {
+                        search: {
+                            regex: '.*B.*'
+                        }
+                    }
+                }, getContext().headers);
+
+                expect(status).toEqual(200);
+                data.hostSystemProfile.sap_sids.meta.should.eql({total: 1, count: 1});
+                data.hostSystemProfile.sap_sids.data.should.eql([abc]);
+            });
+
+            test('by sap_sid name suffix', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    filter: {
+                        search: {
+                            regex: '.*C'
+                        }
+                    }
+                }, getContext().headers);
+
+                expect(status).toEqual(200);
+                data.hostSystemProfile.sap_sids.meta.should.eql({total: 1, count: 1});
+                data.hostSystemProfile.sap_sids.data.should.eql([abc]);
+            });
+
+            describe('special characters', function () {
+                Array.from('Δč*+!.,_ ').forEach(i =>
+                    test(`search by "${i}"`, async () => {
+                        await createHosts(...hosts);
+
+                        const { data, status } = await runQuery(QUERY, {
+                            filter: {
+                                search: {
+                                    regex: `.*\\${i}.*`
+                                }
+                            }
+                        }, getContext().headers);
+
+                        expect(status).toEqual(200);
+                        data.hostSystemProfile.sap_sids.meta.should.eql({total: 1, count: 1});
+                        data.hostSystemProfile.sap_sids.data.should.eql([special]);
+                    })
+                );
+            });
         });
     });
 });
