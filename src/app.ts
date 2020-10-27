@@ -62,7 +62,9 @@ export default async function start () {
     createTerminus(server, {
         signals: ['SIGINT', 'SIGTERM'],
         healthChecks: {
-            '/health': () => client.ping()
+            '/health': async () => {
+                await client.ping();
+            }
         },
 
         async onSignal () {
