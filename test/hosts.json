@@ -15,6 +15,7 @@
         },
         "system_profile_facts": {
             "arch": "x86_64",
+            "owner_id": "plxi13y1-99ut-3rdf-bc10-84opf904lfad",
             "os_release": "7.3",
             "os_kernel_version": "4.18.0",
             "infrastructure_type": "virtual",
@@ -136,6 +137,7 @@
         },
         "system_profile_facts": {
             "arch": "x86_64",
+            "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904lbop",
             "os_release": "7.5",
             "os_kernel_version": "3.10.0",
             "infrastructure_type": "physical",
@@ -193,6 +195,7 @@
         },
         "system_profile_facts": {
             "arch": "x86_64",
+            "owner_id": "y78i67p7-ub70-1rdf-bc10-845cc604lbee",
             "os_release": "7.5",
             "os_kernel_version": "3.10.0",
             "infrastructure_type": "physical",

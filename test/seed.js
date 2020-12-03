@@ -88,7 +88,8 @@ async function run () {
                         infrastructure_type: { type: 'keyword' },
                         infrastructure_vendor: { type: 'keyword' },
                         sap_system: { type: 'boolean' },
-                        sap_sids: { type: 'keyword' }
+                        sap_sids: { type: 'keyword' },
+                        owner_id: { type: 'keyword'}
                     }
                 },
                 tags_structured: {
