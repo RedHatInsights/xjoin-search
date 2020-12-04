@@ -331,7 +331,8 @@ describe('hosts query', function () {
             });
 
             test('spf_owner_id', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { spf_owner_id: { eq: 'it8i99u1-48ut-1rdf-bc10-84opf904lbop' }}});
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { spf_owner_id: { eq: 'it8i99u1-48ut-1rdf-bc10-84opf904lbop' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
