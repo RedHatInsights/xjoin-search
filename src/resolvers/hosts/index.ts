@@ -75,6 +75,10 @@ const RESOLVERS: HostFilterResolver[] = [
         (filter: HostFilter) => filter.spf_sap_sids,
         _.partial(filterStringWithWildcard, 'system_profile_facts.sap_sids')
     ),
+    optional(
+        (filter: HostFilter) => filter.spf_owner_id,
+        _.partial(filterStringWithWildcard, 'system_profile_facts.owner_id')
+    ),
 
     optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
     optional((filter: HostFilter) => filter.tag, filterTag),

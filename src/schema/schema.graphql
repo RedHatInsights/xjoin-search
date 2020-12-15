@@ -70,6 +70,8 @@ input HostFilter {
     spf_sap_system: FilterBoolean,
     "Filter by 'sap_sids' field of system profile"
     spf_sap_sids: FilterString
+    "Filter by 'owner_id' field of system profile"
+    spf_owner_id: FilterString
 
     "Filter by the stale_timestamp value"
     stale_timestamp: FilterTimestamp

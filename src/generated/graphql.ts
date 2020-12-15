@@ -216,6 +216,8 @@ export type HostFilter = {
   spf_sap_system?: Maybe<FilterBoolean>;
   /** Filter by 'sap_sids' field of system profile */
   spf_sap_sids?: Maybe<FilterString>;
+  /** Filter by 'owner_id' field of system profile */
+  spf_owner_id?: Maybe<FilterString>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
