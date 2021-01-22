@@ -10,14 +10,6 @@ COPY . /opt/app-root/src
 
 RUN npm i typescript@3.6.3 && npm run compile
 
-USER root
-
-RUN UPDATE_PKGS="kernel-headers binutils" && \
-    yum update -y $UPDATE_PKGS && \
-    yum clean all
-
-USER 1001
-
 EXPOSE 4000
 ENV NODE_ENV=production
 CMD [ "node", "dist/src/app.js" ]
