@@ -111,7 +111,15 @@ async function run () {
                 },
                 tags_search: {
                     type: 'keyword'
-                }
+                },
+                per_reporter_staleness: {
+                    type: 'nested',
+                    properties: {
+                        last_check_in: { type: 'date_nanos' },
+                        stale_timestamp: { type: 'date_nanos' },
+                        check_in_succeeded: { type: 'boolean' },
+                    }
+                },
             }
         }
     });

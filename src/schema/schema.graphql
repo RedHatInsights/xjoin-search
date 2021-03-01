@@ -78,6 +78,9 @@ input HostFilter {
 
     "Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with"
     tag: FilterTag
+
+    "Filter by 'stale_timestamp' field of per_reporter_staleness"
+    
 }
 
 """
