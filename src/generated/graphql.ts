@@ -164,6 +164,8 @@ export type Host = {
   tags?: Maybe<Tags>;
   /** Facts of a host. The subset of keys can be requested using `filter`. */
   facts?: Maybe<Scalars['JSONObject']>;
+  /** per reporter staleness of the host */
+  per_reporter_staleness?: Maybe<Array<Maybe<PerReporterStaleness>>>;
 };
 
 
@@ -225,6 +227,8 @@ export type HostFilter = {
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
   tag?: Maybe<FilterTag>;
+  /** Filter by 'stale_timestamp' field of per_reporter_staleness */
+  per_reporter_staleness?: Maybe<PerReporterStalenessFilter>;
 };
 
 export type Hosts = {
@@ -278,6 +282,22 @@ export enum Order_Dir {
   Asc = 'ASC',
   Desc = 'DESC'
 }
+
+export type PerReporterStaleness = {
+  __typename?: 'PerReporterStaleness';
+  reporter?: Maybe<Scalars['String']>;
+  last_check_in?: Maybe<Scalars['String']>;
+  stale_timestamp?: Maybe<Scalars['String']>;
+  check_in_successful?: Maybe<Scalars['Boolean']>;
+};
+
+/** Per reporter timestamp field filter. */
+export type PerReporterStalenessFilter = {
+  reporter: Scalars['String'];
+  stale_timestamp?: Maybe<FilterTimestamp>;
+  last_check_in?: Maybe<FilterTimestamp>;
+  check_in_successful?: Maybe<Scalars['Boolean']>;
+};
 
 export type Query = {
   __typename?: 'Query';
@@ -477,6 +497,7 @@ export type ResolversTypes = {
   FilterString: FilterString;
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
+  PerReporterStalenessFilter: PerReporterStalenessFilter;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   HOSTS_ORDER_BY: Hosts_Order_By;
   ORDER_DIR: Order_Dir;
@@ -487,6 +508,7 @@ export type ResolversTypes = {
   Tags: ResolverTypeWrapper<Tags>;
   StructuredTag: ResolverTypeWrapper<StructuredTag>;
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>;
+  PerReporterStaleness: ResolverTypeWrapper<PerReporterStaleness>;
   TagAggregationFilter: TagAggregationFilter;
   FilterStringWithRegex: FilterStringWithRegex;
   HOST_TAGS_ORDER_BY: Host_Tags_Order_By;
@@ -514,6 +536,7 @@ export type ResolversParentTypes = {
   FilterString: FilterString;
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
+  PerReporterStalenessFilter: PerReporterStalenessFilter;
   Int: Scalars['Int'];
   Hosts: Hosts;
   Host: Host;
@@ -522,6 +545,7 @@ export type ResolversParentTypes = {
   Tags: Tags;
   StructuredTag: StructuredTag;
   CollectionMeta: CollectionMeta;
+  PerReporterStaleness: PerReporterStaleness;
   TagAggregationFilter: TagAggregationFilter;
   FilterStringWithRegex: FilterStringWithRegex;
   HostTags: HostTags;
@@ -566,6 +590,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostSystem_Profile_FactsArgs, never>>;
   tags?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType>;
   facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostFactsArgs, never>>;
+  per_reporter_staleness?: Resolver<Maybe<Array<Maybe<ResolversTypes['PerReporterStaleness']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -594,6 +619,14 @@ export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSONObject'], any> {
   name: 'JSONObject';
 }
+
+export type PerReporterStalenessResolvers<ContextType = any, ParentType extends ResolversParentTypes['PerReporterStaleness'] = ResolversParentTypes['PerReporterStaleness']> = {
+  reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  last_check_in?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  check_in_successful?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hosts?: Resolver<ResolversTypes['Hosts'], ParentType, ContextType, RequireFields<QueryHostsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
@@ -642,6 +675,7 @@ export type Resolvers<ContextType = any> = {
   HostTags?: HostTagsResolvers<ContextType>;
   JSON?: GraphQLScalarType;
   JSONObject?: GraphQLScalarType;
+  PerReporterStaleness?: PerReporterStalenessResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   StringValueInfo?: StringValueInfoResolvers<ContextType>;
   StringValues?: StringValuesResolvers<ContextType>;

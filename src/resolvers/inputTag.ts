@@ -9,7 +9,7 @@ import {ES_NULL_VALUE} from '../constants';
  */
 export const NAMESPACE_NULL_VALUE = 'null';
 
-function getFilterStringValue (value: FilterString | undefined | null, dflt = ES_NULL_VALUE): string {
+export function getFilterStringValue (value: FilterString | undefined | null, dflt = ES_NULL_VALUE): string {
     if (!value || !value.eq) {
         return dflt;
     }

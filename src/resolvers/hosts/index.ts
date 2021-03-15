@@ -16,6 +16,7 @@ import { FilterResolver } from '../common';
 import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
 import { formatTags } from './format';
+import { filterPerReporterStaleness } from '../inputPerReporterStaleness';
 
 type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -78,6 +79,10 @@ const RESOLVERS: HostFilterResolver[] = [
     optional(
         (filter: HostFilter) => filter.spf_owner_id,
         _.partial(filterStringWithWildcard, 'system_profile_facts.owner_id')
+    ),
+    optional(
+        (filter: HostFilter) => filter.per_reporter_staleness,
+        _.partial(filterPerReporterStaleness, 'per_reporter_staleness.')
     ),
 
     optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),

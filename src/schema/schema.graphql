@@ -80,7 +80,7 @@ input HostFilter {
     tag: FilterTag
 
     "Filter by 'stale_timestamp' field of per_reporter_staleness"
-    
+    per_reporter_staleness: PerReporterStalenessFilter
 }
 
 """
@@ -233,6 +233,18 @@ input SapSidFilter {
     search: FilterStringWithRegex
 }
 
+"""
+Per reporter timestamp field filter.
+"""
+input PerReporterStalenessFilter {
+    reporter: String! #maybe should be an emun?
+
+    stale_timestamp: FilterTimestamp
+
+    last_check_in: FilterTimestamp
+
+    check_in_successful: Boolean
+}
 #
 # Output types
 #
@@ -258,6 +270,9 @@ type Host {
 
     "Facts of a host. The subset of keys can be requested using `filter`."
     facts (filter: [String!]): JSONObject
+
+    "per reporter staleness of the host"
+    per_reporter_staleness: [PerReporterStaleness]
 }
 
 type Hosts {
@@ -275,6 +290,13 @@ type StructuredTag {
 type Tags {
     data: [StructuredTag]!
     meta: CollectionMeta!
+}
+
+type PerReporterStaleness {
+    reporter: String,
+    last_check_in: String,
+    stale_timestamp: String,
+    check_in_successful: Boolean
 }
 
 type TagInfo {
