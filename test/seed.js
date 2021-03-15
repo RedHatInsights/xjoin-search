@@ -50,85 +50,79 @@ async function run () {
             }
         }
     });
-    try {
-        
-    
-        await client.indices.putMapping({
-            index,
-            body: {
-                dynamic: false,
-                properties: {
-                    ingest_timestamp: {type: 'date'},
-                    id: { type: 'keyword' },
-                    account: { type: 'keyword' },
-                    display_name: {
-                        type: 'keyword',
-                        fields: {
-                            lowercase: {
-                                type: 'keyword',
-                                normalizer: 'case_insensitive'
-                            }
+    await client.indices.putMapping({
+        index,
+        body: {
+            dynamic: false,
+            properties: {
+                ingest_timestamp: {type: 'date'},
+                id: { type: 'keyword' },
+                account: { type: 'keyword' },
+                display_name: {
+                    type: 'keyword',
+                    fields: {
+                        lowercase: {
+                            type: 'keyword',
+                            normalizer: 'case_insensitive'
                         }
-                    },
-                    created_on: { type: 'date_nanos' },
-                    modified_on: { type: 'date_nanos' },
-                    stale_timestamp: { type: 'date_nanos' },
-                    ansible_host: { type: 'keyword' },
-                    canonical_facts: {
-                        type: 'object',
-                        properties: {
-                            fqdn: { type: 'keyword'},
-                            insights_id: { type: 'keyword'},
-                            satellite_id: { type: 'keyword'}
+                    }
+                },
+                created_on: { type: 'date_nanos' },
+                modified_on: { type: 'date_nanos' },
+                stale_timestamp: { type: 'date_nanos' },
+                ansible_host: { type: 'keyword' },
+                canonical_facts: {
+                    type: 'object',
+                    properties: {
+                        fqdn: { type: 'keyword'},
+                        insights_id: { type: 'keyword'},
+                        satellite_id: { type: 'keyword'}
+                    }
+                },
+                system_profile_facts: {
+                    properties: {
+                        arch: { type: 'keyword' },
+                        os_release: { type: 'keyword' },
+                        os_kernel_version: { type: 'keyword'},
+                        infrastructure_type: { type: 'keyword' },
+                        infrastructure_vendor: { type: 'keyword' },
+                        sap_system: { type: 'boolean' },
+                        sap_sids: { type: 'keyword' },
+                        owner_id: { type: 'keyword'}
+                    }
+                },
+                tags_structured: {
+                    type: 'nested',
+                    properties: {
+                        namespace: {
+                            type: 'keyword',
+                            null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
+                        },
+                        key: { type: 'keyword' },
+                        value: {
+                            type: 'keyword',
+                            null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
                         }
-                    },
-                    system_profile_facts: {
-                        properties: {
-                            arch: { type: 'keyword' },
-                            os_release: { type: 'keyword' },
-                            os_kernel_version: { type: 'keyword'},
-                            infrastructure_type: { type: 'keyword' },
-                            infrastructure_vendor: { type: 'keyword' },
-                            sap_system: { type: 'boolean' },
-                            sap_sids: { type: 'keyword' },
-                            owner_id: { type: 'keyword'}
-                        }
-                    },
-                    tags_structured: {
-                        type: 'nested',
-                        properties: {
-                            namespace: {
-                                type: 'keyword',
-                                null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
-                            },
-                            key: { type: 'keyword' },
-                            value: {
-                                type: 'keyword',
-                                null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
-                            }
-                        }
-                    },
-                    tags_string: {
-                        type: 'keyword'
-                    },
-                    tags_search: {
-                        type: 'keyword'
-                    },
-                    per_reporter_staleness: {
-                        type: 'nested',
-                        properties: {
-                            reporter: {type: 'keyword'},
-                            last_check_in: { type: 'date_nanos' },
-                            stale_timestamp: { type: 'date_nanos' },
-                            check_in_succeeded: { type: 'boolean' },
-                        }
-                    },
-                }
+                    }
+                },
+                tags_string: {
+                    type: 'keyword'
+                },
+                tags_search: {
+                    type: 'keyword'
+                },
+                per_reporter_staleness: {
+                    type: 'nested',
+                    properties: {
+                        reporter: {type: 'keyword'},
+                        last_check_in: { type: 'date_nanos' },
+                        stale_timestamp: { type: 'date_nanos' },
+                        check_in_succeeded: { type: 'boolean' },
+                    }
+                },
             }
-        });
-    } catch (error) {
-        print(error)
-    }
+        }
+    });
 
     await client.indices.open({
         index

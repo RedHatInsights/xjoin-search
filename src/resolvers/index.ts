@@ -15,7 +15,7 @@ const resolvers = {
     Host: {
         system_profile_facts: jsonObjectFilter('system_profile_facts'),
         canonical_facts: jsonObjectFilter('canonical_facts'),
-        facts: jsonObjectFilter('facts'),
+        facts: jsonObjectFilter('facts')
     },
 
     HostSystemProfile: {
