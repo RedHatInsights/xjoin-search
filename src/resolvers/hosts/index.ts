@@ -37,7 +37,7 @@ export function resolveFilters(filters: HostFilter[]) {
     return _.flatMap(filters, resolveFilter);
 }
 
-function optional<FILTER, TYPE, TYPE_NULLABLE extends TYPE | null | undefined> (
+export function optional<FILTER, TYPE, TYPE_NULLABLE extends TYPE | null | undefined> (
     accessor: (filter: FILTER) => TYPE_NULLABLE, resolver: FilterResolver<TYPE>) {
     return function (filter: FILTER) {
         const value = accessor(filter);

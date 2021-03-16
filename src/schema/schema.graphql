@@ -80,7 +80,7 @@ input HostFilter {
     tag: FilterTag
 
     "Filter by 'stale_timestamp' field of per_reporter_staleness"
-    per_reporter_staleness: PerReporterStalenessFilter
+    per_reporter_staleness: FilterPerReporterStaleness
 }
 
 """
@@ -236,14 +236,14 @@ input SapSidFilter {
 """
 Per reporter timestamp field filter.
 """
-input PerReporterStalenessFilter {
+input FilterPerReporterStaleness {
     reporter: String! #maybe should be an emun?
 
     stale_timestamp: FilterTimestamp
 
     last_check_in: FilterTimestamp
 
-    check_in_successful: Boolean
+    check_in_succeeded: FilterBoolean
 }
 #
 # Output types
@@ -296,7 +296,7 @@ type PerReporterStaleness {
     reporter: String,
     last_check_in: String,
     stale_timestamp: String,
-    check_in_successful: Boolean
+    check_in_succeeded: Boolean
 }
 
 type TagInfo {

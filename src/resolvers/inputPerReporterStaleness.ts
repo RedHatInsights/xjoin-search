@@ -1,79 +1,47 @@
-import { PerReporterStalenessFilter } from '../generated/graphql';
+import * as _ from 'lodash';
+import { FilterPerReporterStaleness, FilterTimestamp } from '../generated/graphql';
 import { checkTimestamp } from './validation';
-import { filterTimestamp } from './inputTimestamp'
+import { filterBoolean } from './inputBoolean'
+import { FilterBoolean } from '../generated/graphql';
+import { filterTimestamp } from './inputTimestamp';
 
-export function filterPerReporterStaleness(field: string, filter: PerReporterStalenessFilter) {
-    let prs_reporter = field
+type Resolved = Record<string, any>[];
 
-    let field_reporter = prs_reporter + ".reporter";
-    let field_stale_timestamp = prs_reporter + "stale_timestamp";
-    let field_last_check_in = prs_reporter + "last_check_in";
-
-
-    let timestamp_query = null;
-    if (filter.stale_timestamp != null) {
-        timestamp_query = filterTimestamp(field_stale_timestamp, filter.stale_timestamp);
+function booleanTerm (filter: FilterBoolean | null | undefined): Resolved {
+    if (filter !== null && filter !== undefined) {
+        return filterBoolean('per_reporter_staleness.check_in_succeeded', filter)
     }
- 
-    let range = {
-        "per_reporter_staleness.stale_timestamp": {},
-        "per_reporter_staleness.last_check_in": {}
-    }
+    return []
+}
 
-    if (filter.stale_timestamp != null) {
-        checkTimestamp(filter.stale_timestamp.gte);
-        checkTimestamp(filter.stale_timestamp.lte);
-        checkTimestamp(filter.stale_timestamp.gt);
-        checkTimestamp(filter.stale_timestamp.lt);
-        
-        range["per_reporter_staleness.stale_timestamp"] = {
-            gte: filter.stale_timestamp.gte,
-            lte: filter.stale_timestamp.lte,
-            gt: filter.stale_timestamp.gt,
-            lt: filter.stale_timestamp.lt
-        }
+function timestampTerm (field: string, filter: FilterTimestamp | null | undefined): Resolved {
+    if (filter !== null && filter !== undefined) {
+        return filterTimestamp(field, filter)
     }
+    return []
+}
 
+export function filterPerReporterStaleness(field: string, filter: FilterPerReporterStaleness) {   
+    let must_array = [
+        [{term: { 'per_reporter_staleness.reporter': filter.reporter }}],
+        booleanTerm(filter.check_in_succeeded),
+        timestampTerm('per_reporter_staleness.last_check_in', filter.last_check_in),
+        timestampTerm('per_reporter_staleness.stale_timestamp',filter.stale_timestamp),
+    ]
 
-    if (filter.last_check_in != null) {
-        checkTimestamp(filter.last_check_in.gte);
-        checkTimestamp(filter.last_check_in.lte);
-        checkTimestamp(filter.last_check_in.gt);
-        checkTimestamp(filter.last_check_in.lt);
-        
-        range["per_reporter_staleness.last_check_in"] = {
-            gte: filter.last_check_in.gte,
-            lte: filter.last_check_in.lte,
-            gt: filter.last_check_in.gt,
-            lt: filter.last_check_in.lt
-        }
-    }
-            
+    console.log(must_array);
+
     let reporter_query = [{
         nested: {
             path: 'per_reporter_staleness',
             query: {
                 bool: {
-                    must: [
-                        {term: { 'per_reporter_staleness.reporter': filter.reporter }},
-                        {"range": {
-                            "per_reporter_staleness.last_check_in": range["per_reporter_staleness.last_check_in"]
-                        }},
-                        {"range": {
-                            "per_reporter_staleness.stale_timestamp": range["per_reporter_staleness.stale_timestamp"]
-                        }}
-                    ]
+                    must: must_array
                 }
             }
         },
         
     }]
 
-    let final_query = reporter_query;
-//    / final_query.concat(timestamp_query);
-
-    console.log("the query:")
-    console.log(reporter_query)
-    //gonna have to change this bit to be dynamic
     return reporter_query;
 }

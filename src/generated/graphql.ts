@@ -50,6 +50,14 @@ export type FilterBoolean = {
   is?: Maybe<Scalars['Boolean']>;
 };
 
+/** Per reporter timestamp field filter. */
+export type FilterPerReporterStaleness = {
+  reporter: Scalars['String'];
+  stale_timestamp?: Maybe<FilterTimestamp>;
+  last_check_in?: Maybe<FilterTimestamp>;
+  check_in_succeeded?: Maybe<FilterBoolean>;
+};
+
 /** Basic filter for string fields that allows filtering based on exact match. */
 export type FilterString = {
   /**
@@ -228,7 +236,7 @@ export type HostFilter = {
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
   tag?: Maybe<FilterTag>;
   /** Filter by 'stale_timestamp' field of per_reporter_staleness */
-  per_reporter_staleness?: Maybe<PerReporterStalenessFilter>;
+  per_reporter_staleness?: Maybe<FilterPerReporterStaleness>;
 };
 
 export type Hosts = {
@@ -288,15 +296,7 @@ export type PerReporterStaleness = {
   reporter?: Maybe<Scalars['String']>;
   last_check_in?: Maybe<Scalars['String']>;
   stale_timestamp?: Maybe<Scalars['String']>;
-  check_in_successful?: Maybe<Scalars['Boolean']>;
-};
-
-/** Per reporter timestamp field filter. */
-export type PerReporterStalenessFilter = {
-  reporter: Scalars['String'];
-  stale_timestamp?: Maybe<FilterTimestamp>;
-  last_check_in?: Maybe<FilterTimestamp>;
-  check_in_successful?: Maybe<Scalars['Boolean']>;
+  check_in_succeeded?: Maybe<Scalars['Boolean']>;
 };
 
 export type Query = {
@@ -497,7 +497,7 @@ export type ResolversTypes = {
   FilterString: FilterString;
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
-  PerReporterStalenessFilter: PerReporterStalenessFilter;
+  FilterPerReporterStaleness: FilterPerReporterStaleness;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   HOSTS_ORDER_BY: Hosts_Order_By;
   ORDER_DIR: Order_Dir;
@@ -536,7 +536,7 @@ export type ResolversParentTypes = {
   FilterString: FilterString;
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
-  PerReporterStalenessFilter: PerReporterStalenessFilter;
+  FilterPerReporterStaleness: FilterPerReporterStaleness;
   Int: Scalars['Int'];
   Hosts: Hosts;
   Host: Host;
@@ -624,7 +624,7 @@ export type PerReporterStalenessResolvers<ContextType = any, ParentType extends 
   reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   last_check_in?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  check_in_successful?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  check_in_succeeded?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
