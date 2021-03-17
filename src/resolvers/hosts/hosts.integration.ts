@@ -762,35 +762,45 @@ describe('hosts query', function () {
                 data.hosts.data.should.have.length(2);
                 data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
                 data.hosts.data[1].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
-                
             });
 
             test('reporter and check in succeeded', async () => {
                 const { data } = await runQuery(PRS_QUERY,
-                    { filter: { per_reporter_staleness: { reporter: 'yupana', check_in_succeeded: {'is': true}}}});
+                    { filter: { per_reporter_staleness: { reporter: 'yupana', check_in_succeeded: {is: true}}}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');                
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
             });
 
             test('reporter and stale_timestamp', async () => {
                 const { data } = await runQuery(PRS_QUERY,
-                    { filter: { per_reporter_staleness: { reporter: 'yupana', stale_timestamp: {'lte': '2020-01-11T08:07:03.354307Z'}}}});
+                    { filter: { per_reporter_staleness: {
+                        reporter: 'yupana',
+                        stale_timestamp: {lte: '2020-01-11T08:07:03.354307Z'}
+                    }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');                
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
             test('reporter and last_check_in', async () => {
                 const { data } = await runQuery(PRS_QUERY,
-                    { filter: { per_reporter_staleness: { reporter: 'yupana', last_check_in: {'lte': '2020-01-10T08:07:03.354307Z'}}}});
+                    { filter: { per_reporter_staleness: {
+                        reporter: 'yupana',
+                        last_check_in: {lte: '2020-01-10T08:07:03.354307Z'}
+                    }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');                
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
             test('all', async () => {
                 const { data } = await runQuery(PRS_QUERY,
-                    { filter: { per_reporter_staleness: { reporter: 'puptoo', last_check_in: {'lte': '2020-01-09T08:07:03.354307Z'}, stale_timestamp: {'lte': '2020-01-10T08:07:03.354307Z'}, check_in_succeeded: {'is': true}}}});
+                    { filter: { per_reporter_staleness: {
+                        reporter: 'puptoo',
+                        last_check_in: {lte: '2020-01-09T08:07:03.354307Z'},
+                        stale_timestamp: {lte: '2020-01-10T08:07:03.354307Z'},
+                        check_in_succeeded: {is: true}
+                    }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');                
+                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
 
         });

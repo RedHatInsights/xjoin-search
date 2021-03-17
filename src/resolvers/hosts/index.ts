@@ -82,7 +82,7 @@ const RESOLVERS: HostFilterResolver[] = [
     ),
     optional(
         (filter: HostFilter) => filter.per_reporter_staleness,
-        _.partial(filterPerReporterStaleness, 'per_reporter_staleness.')
+        _.partial(filterPerReporterStaleness)
     ),
 
     optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
