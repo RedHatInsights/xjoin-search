@@ -774,14 +774,14 @@ describe('hosts query', function () {
 
             test('reporter and stale_timestamp', async () => {
                 const { data } = await runQuery(PRS_QUERY,
-                    { filter: { per_reporter_staleness: { reporter: 'yupana', stale_timestamp: {'gte': '2020-03-11T08:07:03.354307Z'}}}});
+                    { filter: { per_reporter_staleness: { reporter: 'yupana', stale_timestamp: {'lte': '2020-01-11T08:07:03.354307Z'}}}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');                
             });
 
             test('reporter and last_check_in', async () => {
                 const { data } = await runQuery(PRS_QUERY,
-                    { filter: { per_reporter_staleness: { reporter: 'yupana', last_check_in: {'gte': '2020-03-10T08:07:03.354307Z'}}}});
+                    { filter: { per_reporter_staleness: { reporter: 'yupana', last_check_in: {'lte': '2020-01-10T08:07:03.354307Z'}}}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');                
             });
