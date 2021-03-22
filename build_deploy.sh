@@ -4,6 +4,7 @@ set -exv
 
 IMAGE="quay.io/cloudservices/xjoin-search"
 IMAGE_TAG=$(git rev-parse --short=7 HEAD)
+BUILD_COMMIT=$(git rev-parse HEAD)
 
 if [[ -z "$QUAY_USER" || -z "$QUAY_TOKEN" ]]; then
     echo "QUAY_USER and QUAY_TOKEN must be set"
@@ -21,7 +22,7 @@ mkdir -p "$DOCKER_CONF"
 docker --config="$DOCKER_CONF" login -u="$QUAY_USER" -p="$QUAY_TOKEN" quay.io
 docker --config="$DOCKER_CONF" login -u="$RH_REGISTRY_USER" -p="$RH_REGISTRY_TOKEN" registry.redhat.io
 
-docker --config="$DOCKER_CONF" build -f build/Dockerfile -t "${IMAGE}:${IMAGE_TAG}" .
+docker --config="$DOCKER_CONF" build --build-arg BUILD_COMMIT=${BUILD_COMMIT} -f build/Dockerfile -t "${IMAGE}:${IMAGE_TAG}" .
 docker --config="$DOCKER_CONF" tag "${IMAGE}:${IMAGE_TAG}" "${IMAGE}:latest"
 docker --config="$DOCKER_CONF" push "${IMAGE}:${IMAGE_TAG}"
 docker --config="$DOCKER_CONF" push "${IMAGE}:latest"
