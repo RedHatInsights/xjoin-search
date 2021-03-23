@@ -774,7 +774,7 @@ describe('hosts query', function () {
             test('reporter and stale_timestamp', async () => {
                 const { data } = await runQuery(PRS_QUERY,
                     { filter: { per_reporter_staleness: {
-                        reporter: 'yupana',
+                        reporter: {'eq': 'yupana'},
                         stale_timestamp: {lte: '2020-01-11T08:07:03.354307Z'}
                     }}});
                 data.hosts.data.should.have.length(1);
@@ -784,7 +784,7 @@ describe('hosts query', function () {
             test('reporter and last_check_in', async () => {
                 const { data } = await runQuery(PRS_QUERY,
                     { filter: { per_reporter_staleness: {
-                        reporter: 'yupana',
+                        reporter: {'eq': 'yupana'},
                         last_check_in: {lte: '2020-01-10T08:07:03.354307Z'}
                     }}});
                 data.hosts.data.should.have.length(1);
@@ -794,7 +794,7 @@ describe('hosts query', function () {
             test('all', async () => {
                 const { data } = await runQuery(PRS_QUERY,
                     { filter: { per_reporter_staleness: {
-                        reporter: 'puptoo',
+                        reporter: {'eq': 'puptoo'},
                         last_check_in: {lte: '2020-01-09T08:07:03.354307Z'},
                         stale_timestamp: {lte: '2020-01-10T08:07:03.354307Z'},
                         check_in_succeeded: {is: true}

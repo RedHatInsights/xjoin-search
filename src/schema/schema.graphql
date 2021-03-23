@@ -237,7 +237,7 @@ input SapSidFilter {
 Per reporter timestamp field filter.
 """
 input FilterPerReporterStaleness {
-    reporter: String!
+    reporter: FilterString
 
     stale_timestamp: FilterTimestamp
 

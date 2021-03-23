@@ -52,7 +52,7 @@ export type FilterBoolean = {
 
 /** Per reporter timestamp field filter. */
 export type FilterPerReporterStaleness = {
-  reporter: Scalars['String'];
+  reporter?: Maybe<FilterString>;
   stale_timestamp?: Maybe<FilterTimestamp>;
   last_check_in?: Maybe<FilterTimestamp>;
   check_in_succeeded?: Maybe<FilterBoolean>;
