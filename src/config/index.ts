@@ -9,7 +9,7 @@ const config = convict({
     commit: {
         format: String,
         default: undefined,
-        env: 'OPENSHIFT_BUILD_COMMIT'
+        env: 'BUILD_COMMIT'
     },
     port: {
         format: 'nat',
