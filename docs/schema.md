@@ -1070,7 +1070,7 @@ Filter by 'rhc_client_id' field of system profile
 <td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
 <td>
 
-Filter by 'rhc_client_id' field of system profile
+Filter by 'is_marketplace' field of system profile
 
 </td>
 </tr>
