@@ -76,7 +76,7 @@ input HostFilter {
     spf_insights_client_version: FilterStringWithWildcard
     "Filter by 'rhc_client_id' field of system profile"
     spf_rhc_client_id: FilterString
-    "Filter by 'rhc_client_id' field of system profile"
+    "Filter by 'is_marketplace' field of system profile"
     spf_is_marketplace: FilterBoolean
 
     "Filter by the stale_timestamp value"
