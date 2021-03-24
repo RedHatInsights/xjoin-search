@@ -99,7 +99,7 @@
             "bios_version": "VirtualBox",
             "bios_vendor": "innotek GmbH",
             "number_of_cpus": 1,
-            "insights_client_version": "3.0.6-2.el7_6",
+            "insights_client_version": "5.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false,
             "is_marketplace": true,

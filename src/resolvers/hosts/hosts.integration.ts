@@ -337,6 +337,27 @@ describe('hosts query', function () {
                 data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
+            test('spf_is_marketplace', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { spf_is_marketplace: { is: false }}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
+
+            test('spf_rhc_client_id', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { spf_rhc_client_id: { eq: '33cd8e39-13bb-4d02-8316-84b850dc5136'}}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+            });
+
+            test('spf_insights_client_version', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { spf_insights_client_version: { eq: '5.0.6-2.el7_6'}}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+            });
+
             describe('sap_system', function () {
                 const hosts = [
                     {system_profile_facts: {sap_system: true}},
