@@ -358,6 +358,13 @@ describe('hosts query', function () {
                 data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
             });
 
+            test('spf_insights_client_version_wildcard', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { spf_insights_client_version: { matches: '5.*'}}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+            });
+
             describe('sap_system', function () {
                 const hosts = [
                     {system_profile_facts: {sap_system: true}},
