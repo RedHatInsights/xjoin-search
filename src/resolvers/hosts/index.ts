@@ -16,6 +16,7 @@ import { FilterResolver } from '../common';
 import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
 import { formatTags } from './format';
+import { filterString } from '../inputString';
 
 type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -63,6 +64,12 @@ const RESOLVERS: HostFilterResolver[] = [
         filter.spf_os_kernel_version, _.partial(filterStringWithWildcard, 'system_profile_facts.os_kernel_version')),
     optional((filter: HostFilter) =>
         filter.spf_infrastructure_type, _.partial(filterStringWithWildcard, 'system_profile_facts.infrastructure_type')),
+    optional((filter: HostFilter) =>
+        filter.spf_insights_client_version, _.partial(filterStringWithWildcard, 'system_profile_facts.insights_client_version')),
+    optional((filter: HostFilter) =>
+        filter.spf_rhc_client_id, _.partial(filterString, 'system_profile_facts.rhc_client_id')),
+    optional((filter: HostFilter) =>
+        filter.spf_is_marketplace, _.partial(filterBoolean, 'system_profile_facts.is_marketplace')),
     optional(
         (filter: HostFilter) => filter.spf_infrastructure_vendor,
         _.partial(filterStringWithWildcard, 'system_profile_facts.infrastructure_vendor')

@@ -1048,6 +1048,33 @@ Filter by 'owner_id' field of system profile
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>spf_insights_client_version</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Filter by 'insights_client_version' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_rhc_client_id</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'rhc_client_id' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_is_marketplace</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td>
+
+Filter by 'is_marketplace' field of system profile
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
 <td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
 <td>

@@ -221,6 +221,12 @@ export type HostFilter = {
   spf_sap_sids?: Maybe<FilterString>;
   /** Filter by 'owner_id' field of system profile */
   spf_owner_id?: Maybe<FilterString>;
+  /** Filter by 'insights_client_version' field of system profile */
+  spf_insights_client_version?: Maybe<FilterStringWithWildcard>;
+  /** Filter by 'rhc_client_id' field of system profile */
+  spf_rhc_client_id?: Maybe<FilterString>;
+  /** Filter by 'is_marketplace' field of system profile */
+  spf_is_marketplace?: Maybe<FilterBoolean>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */

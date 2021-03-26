@@ -28,7 +28,9 @@
             "number_of_cpus": 1,
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
-            "satellite_managed": false
+            "satellite_managed": false,
+            "is_marketplace": true,
+            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136"
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -97,9 +99,11 @@
             "bios_version": "VirtualBox",
             "bios_vendor": "innotek GmbH",
             "number_of_cpus": 1,
-            "insights_client_version": "3.0.6-2.el7_6",
+            "insights_client_version": "5.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
-            "satellite_managed": false
+            "satellite_managed": false,
+            "is_marketplace": true,
+            "rhc_client_id": "33cd8e39-13bb-4d02-8316-84b850dc5136"
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -152,7 +156,9 @@
             "number_of_cpus": 1,
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
-            "satellite_managed": false
+            "satellite_managed": false,
+            "is_marketplace": false,
+            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136"
         },
         "tags_structured": [{
             "namespace": "Sat",
