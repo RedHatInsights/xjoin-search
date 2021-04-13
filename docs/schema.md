@@ -669,7 +669,7 @@ Major release version (0-99)
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
 
-Minor release version (0-99)
+Minor release version (0-99
 
 </td>
 </tr>
