@@ -19,6 +19,7 @@
     * [Tags](#tags)
   * [Inputs](#inputs)
     * [FilterBoolean](#filterboolean)
+    * [FilterOperatingSystem](#filteroperatingsystem)
     * [FilterString](#filterstring)
     * [FilterStringWithRegex](#filterstringwithregex)
     * [FilterStringWithWildcard](#filterstringwithwildcard)
@@ -641,6 +642,49 @@ If `null` is provided then documents where the given field does not exist are re
 </tbody>
 </table>
 
+### FilterOperatingSystem
+
+Filters hosts by the operating system
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>major</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Major release version (0-99)
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>minor</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Minor release version (0-99
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>name</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Name of distro (max 4 chars e.g. RHEL)
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### FilterString
 
 Basic filter for string fields that allows filtering based on exact match.
@@ -1068,6 +1112,15 @@ Filter by 'rhc_client_id' field of system profile
 <tr>
 <td colspan="2" valign="top"><strong>spf_is_marketplace</strong></td>
 <td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td>
+
+Filter by 'is_marketplace' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_operating_system</strong></td>
+<td valign="top"><a href="#filteroperatingsystem">FilterOperatingSystem</a></td>
 <td>
 
 Filter by 'is_marketplace' field of system profile

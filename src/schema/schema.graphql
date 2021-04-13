@@ -78,6 +78,8 @@ input HostFilter {
     spf_rhc_client_id: FilterString
     "Filter by 'is_marketplace' field of system profile"
     spf_is_marketplace: FilterBoolean
+    "Filter by 'is_marketplace' field of system profile"
+    spf_operating_system: FilterOperatingSystem
 
     "Filter by the stale_timestamp value"
     stale_timestamp: FilterTimestamp
@@ -209,6 +211,20 @@ input FilterTag {
 
     "Tag value"
     value: FilterString
+}
+
+"""
+Filters hosts by the operating system
+"""
+input FilterOperatingSystem {
+    "Major release version (0-99)"
+    major: FilterString,
+
+    "Minor release version (0-99"
+    minor: FilterString,
+
+    "Name of distro (max 4 chars e.g. RHEL)"
+    name: FilterString
 }
 
 """

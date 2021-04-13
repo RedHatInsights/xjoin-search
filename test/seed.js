@@ -51,73 +51,85 @@ async function run () {
         }
     });
 
-    await client.indices.putMapping({
-        index,
-        body: {
-            dynamic: false,
-            properties: {
-                ingest_timestamp: {type: 'date'},
-                id: { type: 'keyword' },
-                account: { type: 'keyword' },
-                display_name: {
-                    type: 'keyword',
-                    fields: {
-                        lowercase: {
-                            type: 'keyword',
-                            normalizer: 'case_insensitive'
+    try {
+        await client.indices.putMapping({
+            index,
+            body: {
+                dynamic: false,
+                properties: {
+                    ingest_timestamp: {type: 'date'},
+                    id: { type: 'keyword' },
+                    account: { type: 'keyword' },
+                    display_name: {
+                        type: 'keyword',
+                        fields: {
+                            lowercase: {
+                                type: 'keyword',
+                                normalizer: 'case_insensitive'
+                            }
                         }
-                    }
-                },
-                created_on: { type: 'date_nanos' },
-                modified_on: { type: 'date_nanos' },
-                stale_timestamp: { type: 'date_nanos' },
-                ansible_host: { type: 'keyword' },
-                canonical_facts: {
-                    type: 'object',
-                    properties: {
-                        fqdn: { type: 'keyword'},
-                        insights_id: { type: 'keyword'},
-                        satellite_id: { type: 'keyword'}
-                    }
-                },
-                system_profile_facts: {
-                    properties: {
-                        arch: { type: 'keyword' },
-                        os_release: { type: 'keyword' },
-                        os_kernel_version: { type: 'keyword'},
-                        infrastructure_type: { type: 'keyword' },
-                        infrastructure_vendor: { type: 'keyword' },
-                        sap_system: { type: 'boolean' },
-                        sap_sids: { type: 'keyword' },
-                        owner_id: { type: 'keyword'},
-                        insights_client_version: { type: 'keyword' },
-                        rhc_client_id: { type: 'keyword' },
-                        is_marketplace: { type: 'boolean' }
-                    }
-                },
-                tags_structured: {
-                    type: 'nested',
-                    properties: {
-                        namespace: {
-                            type: 'keyword',
-                            null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
-                        },
-                        key: { type: 'keyword' },
-                        value: {
-                            type: 'keyword',
-                            null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
+                    },
+                    created_on: { type: 'date_nanos' },
+                    modified_on: { type: 'date_nanos' },
+                    stale_timestamp: { type: 'date_nanos' },
+                    ansible_host: { type: 'keyword' },
+                    canonical_facts: {
+                        type: 'object',
+                        properties: {
+                            fqdn: { type: 'keyword'},
+                            insights_id: { type: 'keyword'},
+                            satellite_id: { type: 'keyword'}
                         }
+                    },
+                    system_profile_facts: {
+                        properties: {
+                            arch: { type: 'keyword' },
+                            os_release: { type: 'keyword' },
+                            os_kernel_version: { type: 'keyword'},
+                            infrastructure_type: { type: 'keyword' },
+                            infrastructure_vendor: { type: 'keyword' },
+                            sap_system: { type: 'boolean' },
+                            sap_sids: { type: 'keyword' },
+                            owner_id: { type: 'keyword'},
+                            insights_client_version: { type: 'keyword' },
+                            rhc_client_id: { type: 'keyword' },
+                            is_marketplace: { type: 'boolean' },
+                            operating_system: {
+                                type: 'object',
+                                properties: {
+                                    major: {type: 'keyword'},
+                                    minor: {type: 'keyword'},
+                                    name: {type: 'keyword'}
+                                }
+                            }
+                        }
+                    },
+                    tags_structured: {
+                        type: 'nested',
+                        properties: {
+                            namespace: {
+                                type: 'keyword',
+                                null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
+                            },
+                            key: { type: 'keyword' },
+                            value: {
+                                type: 'keyword',
+                                null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
+                            }
+                        }
+                    },
+                    tags_string: {
+                        type: 'keyword'
+                    },
+                    tags_search: {
+                        type: 'keyword'
                     }
-                },
-                tags_string: {
-                    type: 'keyword'
-                },
-                tags_search: {
-                    type: 'keyword'
                 }
             }
-        }
-    });
+        });
+    } catch (err) {
+        console.log(err)
+    }
 
     await client.indices.open({
         index

@@ -50,6 +50,16 @@ export type FilterBoolean = {
   is?: Maybe<Scalars['Boolean']>;
 };
 
+/** Filters hosts by the operating system */
+export type FilterOperatingSystem = {
+  /** Major release version (0-99) */
+  major?: Maybe<FilterString>;
+  /** Minor release version (0-99 */
+  minor?: Maybe<FilterString>;
+  /** Name of distro (max 4 chars e.g. RHEL) */
+  name?: Maybe<FilterString>;
+};
+
 /** Basic filter for string fields that allows filtering based on exact match. */
 export type FilterString = {
   /**
@@ -227,6 +237,8 @@ export type HostFilter = {
   spf_rhc_client_id?: Maybe<FilterString>;
   /** Filter by 'is_marketplace' field of system profile */
   spf_is_marketplace?: Maybe<FilterBoolean>;
+  /** Filter by 'is_marketplace' field of system profile */
+  spf_operating_system?: Maybe<FilterOperatingSystem>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
@@ -481,6 +493,7 @@ export type ResolversTypes = {
   FilterBoolean: FilterBoolean;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   FilterString: FilterString;
+  FilterOperatingSystem: FilterOperatingSystem;
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
   Int: ResolverTypeWrapper<Scalars['Int']>;
@@ -518,6 +531,7 @@ export type ResolversParentTypes = {
   FilterBoolean: FilterBoolean;
   Boolean: Scalars['Boolean'];
   FilterString: FilterString;
+  FilterOperatingSystem: FilterOperatingSystem;
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
   Int: Scalars['Int'];

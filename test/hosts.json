@@ -5,7 +5,7 @@
         "display_name": "test02.rhel7.jharting.local",
         "created_on": "2019-01-10T08:07:03.354307Z",
         "modified_on": "2019-01-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-01-10T08:07:03.354307Z",
+        "stale_timestamp": "-01-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "test02.rhel7.jharting.local",
         "canonical_facts": {
@@ -30,7 +30,12 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false,
             "is_marketplace": true,
-            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136"
+            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+            "operating_system": {
+                "major": 7,
+                "minor": 3,
+                "name": "RHEL"
+            }
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -77,7 +82,7 @@
         "display_name": "test01.rhel7.jharting.local",
         "created_on": "2019-02-10T08:07:03.354307Z",
         "modified_on": "2019-02-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-02-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-02-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "test01.rhel7.jharting.local",
         "canonical_facts": {
@@ -103,7 +108,12 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false,
             "is_marketplace": true,
-            "rhc_client_id": "33cd8e39-13bb-4d02-8316-84b850dc5136"
+            "rhc_client_id": "33cd8e39-13bb-4d02-8316-84b850dc5136",
+            "operating_system": {
+                "major": 7,
+                "minor": 4,
+                "name": "RHEL"
+            }
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -130,7 +140,7 @@
         "display_name": "test03.rhel7.jharting.local",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "test03.rhel7.jharting.local",
         "canonical_facts": {
@@ -142,7 +152,7 @@
         "system_profile_facts": {
             "arch": "x86_64",
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904lbop",
-            "os_release": "7.5",
+            "os_release": "6.5",
             "os_kernel_version": "3.10.0",
             "infrastructure_type": "physical",
             "infrastructure_vendor": "baremetal",
@@ -158,7 +168,12 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false,
             "is_marketplace": false,
-            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136"
+            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+            "operating_system": {
+                "major": 6,
+                "minor": 5,
+                "name": "FED"
+            }
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -190,7 +205,7 @@
         "display_name": "test03.rhel7.jharting.local",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "test03.rhel7.jharting.local",
         "canonical_facts": {
@@ -225,7 +240,7 @@
         "display_name": "Ab",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "test03.rhel7.jharting.local",
         "canonical_facts": {
@@ -259,7 +274,7 @@
         "display_name": "Ba",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "test03.rhel7.jharting.local",
         "canonical_facts": {
@@ -293,7 +308,7 @@
         "display_name": "aa",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "test03.rhel7.jharting.local",
         "canonical_facts": {
@@ -327,7 +342,7 @@
         "display_name": "bb",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "test03.rhel7.jharting.local",
         "canonical_facts": {
@@ -361,7 +376,7 @@
         "display_name": "aC",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "test03.rhel7.jharting.local",
         "canonical_facts": {
@@ -393,9 +408,9 @@
         "id": "6e7b6339-0a2d-4552-a2f2-b7da0aece49d",
         "account": "timestamp_sorting_test",
         "display_name": "WhenDESC_After",
-        "created_on": "2020-02-26T04:04:33.807208Z",
-        "modified_on": "2020-02-26T04:04:33.807208Z",
-        "stale_timestamp": "2020-02-26T04:04:33.807208Z",
+        "created_on": "2030-02-26T04:04:33.807208Z",
+        "modified_on": "2030-02-26T04:04:33.807208Z",
+        "stale_timestamp": "2030-02-26T04:04:33.807208Z",
         "reporter": "puptoo",
         "ansible_host": "test01.rhel7.jharting.local",
         "canonical_facts": {
@@ -444,9 +459,9 @@
         "id": "6e7b6339-9y2d-4552-a2f2-b7da0aece49d",
         "account": "timestamp_sorting_test",
         "display_name": "WhenDESC_Before",
-        "created_on": "2020-02-26T04:04:33.807212Z",
-        "modified_on": "2020-02-26T04:04:33.807212Z",
-        "stale_timestamp": "2020-02-26T04:04:33.807212Z",
+        "created_on": "2030-02-26T04:04:33.807212Z",
+        "modified_on": "2030-02-26T04:04:33.807212Z",
+        "stale_timestamp": "2030-02-26T04:04:33.807212Z",
         "reporter": "puptoo",
         "ansible_host": "test01.rhel7.jharting.local",
         "canonical_facts": {
@@ -497,7 +512,7 @@
         "display_name": "aaBBccDD01",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "aaBBccDD01.local",
         "canonical_facts": {
@@ -514,7 +529,7 @@
         "display_name": "aaBBccDD02",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "aaBBccDD02.local",
         "canonical_facts": {
