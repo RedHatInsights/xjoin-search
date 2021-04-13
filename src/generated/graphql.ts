@@ -237,7 +237,7 @@ export type HostFilter = {
   spf_rhc_client_id?: Maybe<FilterString>;
   /** Filter by 'is_marketplace' field of system profile */
   spf_is_marketplace?: Maybe<FilterBoolean>;
-  /** Filter by 'is_marketplace' field of system profile */
+  /** Filter by 'operating_system' field of system profile */
   spf_operating_system?: Maybe<FilterOperatingSystem>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
