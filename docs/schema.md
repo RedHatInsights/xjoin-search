@@ -669,7 +669,7 @@ Major release version (0-99)
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
 
-Minor release version (0-99
+Minor release version (0-99)
 
 </td>
 </tr>
@@ -1123,7 +1123,7 @@ Filter by 'is_marketplace' field of system profile
 <td valign="top"><a href="#filteroperatingsystem">FilterOperatingSystem</a></td>
 <td>
 
-Filter by 'is_marketplace' field of system profile
+Filter by 'operating_system' field of system profile
 
 </td>
 </tr>
