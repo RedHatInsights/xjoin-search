@@ -50,12 +50,24 @@ export type FilterBoolean = {
   is?: Maybe<Scalars['Boolean']>;
 };
 
+/** Timestamp field filter with support for common operations. */
+export type FilterInt = {
+  /** Less than */
+  lt?: Maybe<Scalars['Int']>;
+  /** Less than or equal to */
+  lte?: Maybe<Scalars['Int']>;
+  /** Greater than */
+  gt?: Maybe<Scalars['Int']>;
+  /** Greater than or equal to */
+  gte?: Maybe<Scalars['Int']>;
+};
+
 /** Filters hosts by the operating system */
 export type FilterOperatingSystem = {
   /** Major release version (0-99) */
-  major?: Maybe<FilterString>;
+  major?: Maybe<FilterInt>;
   /** Minor release version (0-99 */
-  minor?: Maybe<FilterString>;
+  minor?: Maybe<FilterInt>;
   /** Name of distro (max 4 chars e.g. RHEL) */
   name?: Maybe<FilterString>;
 };
@@ -494,9 +506,10 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   FilterString: FilterString;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterInt: FilterInt;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   HOSTS_ORDER_BY: Hosts_Order_By;
   ORDER_DIR: Order_Dir;
   Hosts: ResolverTypeWrapper<Hosts>;
@@ -532,9 +545,10 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   FilterString: FilterString;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterInt: FilterInt;
+  Int: Scalars['Int'];
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
-  Int: Scalars['Int'];
   Hosts: Hosts;
   Host: Host;
   ID: Scalars['ID'];

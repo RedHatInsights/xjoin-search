@@ -214,14 +214,31 @@ input FilterTag {
 }
 
 """
+Timestamp field filter with support for common operations.
+"""
+input FilterInt {
+    "Less than"
+    lt: Int
+
+    "Less than or equal to"
+    lte: Int
+
+    "Greater than"
+    gt: Int
+
+    "Greater than or equal to"
+    gte: Int
+}
+
+"""
 Filters hosts by the operating system
 """
 input FilterOperatingSystem {
     "Major release version (0-99)"
-    major: FilterString,
+    major: FilterInt,
 
     "Minor release version (0-99"
-    minor: FilterString,
+    minor: FilterInt,
 
     "Name of distro (max 4 chars e.g. RHEL)"
     name: FilterString

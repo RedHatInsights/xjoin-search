@@ -478,14 +478,14 @@ describe('hosts query', function () {
 
                 test('spf_operating_system_major_version', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_operating_system: {major: { eq: '6'}}}});
+                        { filter: { spf_operating_system: {major: { gte: 6, lt: 7}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_operating_system_minor_version', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_operating_system: {minor: { eq: '5'}}}});
+                        { filter: { spf_operating_system: {minor: { gte: 5, lt: 6}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
@@ -502,8 +502,8 @@ describe('hosts query', function () {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {
                             name: { eq: 'RHEL'},
-                            major: { eq: '7' },
-                            minor: { eq: '3' }
+                            major: { gte: 7, lt: 8 },
+                            minor: { gte: 3, lt: 4 }
                         }}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');

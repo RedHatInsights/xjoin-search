@@ -96,8 +96,8 @@ async function run () {
                         operating_system: {
                             type: 'object',
                             properties: {
-                                major: {type: 'keyword'},
-                                minor: {type: 'keyword'},
+                                major: {type: 'byte'},
+                                minor: {type: 'byte'},
                                 name: {type: 'keyword'}
                             }
                         }
