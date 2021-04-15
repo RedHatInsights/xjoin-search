@@ -545,7 +545,7 @@
         "display_name": "foo",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "foo.local",
         "canonical_facts": {
@@ -603,7 +603,7 @@
         "display_name": "bar",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "bar.local",
         "canonical_facts": {
@@ -661,7 +661,7 @@
         "display_name": "bar",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "foo.local",
         "canonical_facts": {
@@ -684,7 +684,7 @@
         "display_name": "foo",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "foo.local",
         "canonical_facts": {
@@ -704,7 +704,7 @@
         "display_name": "bar",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "bar.local",
         "canonical_facts": {
