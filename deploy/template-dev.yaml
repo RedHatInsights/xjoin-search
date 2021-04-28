@@ -1,0 +1,152 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: xjoin-search
+objects:
+
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app: xjoin-search
+    name: xjoin-search
+  spec:
+    replicas: ${{NUM_REPLICAS}}
+    selector:
+      matchLabels:
+        app: xjoin-search
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: '4000'
+          prometheus.io/scrape: 'true'
+        labels:
+          app: xjoin-search
+      spec:
+        containers:
+        - env:
+          - name: LOG_LEVEL
+            value: ${LOG_LEVEL}
+          - name: LOG_PRETTY
+            value: ${LOG_PRETTY}
+          - name: LOG_CW_ENABLED
+            value: ${LOG_CW_ENABLED}
+          - name: LOG_CW_STREAM
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: LOG_CW_KEY
+            valueFrom:
+              secretKeyRef:
+                key: aws_access_key_id
+                name: cloudwatch
+          - name: LOG_CW_SECRET
+            valueFrom:
+              secretKeyRef:
+                key: aws_secret_access_key
+                name: cloudwatch
+          - name: LOG_CW_GROUP
+            valueFrom:
+              secretKeyRef:
+                key: log_group_name
+                name: cloudwatch
+          - name: NODE_ENV
+            value: ${NODE_ENV}
+          - name: HTTP_PORT
+            value: '4000'
+          - name: ES_NODES
+            valueFrom:
+              secretKeyRef:
+                key: endpoint
+                name: xjoin-elasticsearch
+          - name: ES_USERNAME
+            value: ''
+          - name: ES_PASSWORD
+            value: ''
+          - name: METRICS_PREFIX
+            value: ${METRICS_PREFIX}
+          - name: HOSTS_INDEX
+            value: ${HOSTS_INDEX}
+          image: quay.io/cloudservices/xjoin-search:${IMAGE_TAG}
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 4000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          name: xjoin-search
+          ports:
+          - containerPort: 4000
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 6
+            httpGet:
+              path: /health
+              port: 4000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: ${CPU_LIMITS}
+              memory: ${MEMORY_LIMITS}
+            requests:
+              cpu: ${CPU_REQUESTS}
+              memory: ${MEMORY_REQUESTS}
+        dnsPolicy: ClusterFirst
+        imagePullSecrets:
+        - name: quay-cloudservices-pull
+        - name: rh-registry-pull
+        restartPolicy: Always
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: '4000'
+      prometheus.io/scrape: 'true'
+    labels:
+      app: xjoin-search
+    name: xjoin-search
+  spec:
+    ports:
+    - name: tcp
+      port: 4000
+      protocol: TCP
+      targetPort: 4000
+    selector:
+      app: xjoin-search
+    type: ClusterIP
+
+parameters:
+- name: LOG_LEVEL
+  value: debug
+- name: LOG_PRETTY
+  value: 'false'
+- description: Can be "production", "development", "test"
+  name: NODE_ENV
+  value: production
+- name: METRICS_PREFIX
+  value: xjoin_search_
+- name: HOSTS_INDEX
+  value: xjoin.inventory.hosts
+- name: CPU_REQUESTS
+  value: 100m
+- name: CPU_LIMITS
+  value: 200m
+- name: MEMORY_REQUESTS
+  value: 256Mi
+- name: MEMORY_LIMITS
+  value: 512Mi
+- name: LOG_CW_ENABLED
+  value: 'true'
+- name: NUM_REPLICAS
+  value: '1'
+- description: Image tag
+  name: IMAGE_TAG
+  required: true
