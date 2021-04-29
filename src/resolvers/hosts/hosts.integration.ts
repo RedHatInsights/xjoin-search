@@ -473,6 +473,42 @@ describe('hosts query', function () {
                     data.hosts.data.should.have.length(2);
                 });
             });
+
+            describe('operating_system', function () {
+
+                test('spf_operating_system_major_version', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_operating_system: {major: { gte: 6, lt: 7}}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+                });
+
+                test('spf_operating_system_minor_version', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_operating_system: {minor: { gte: 5, lt: 6}}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+                });
+
+                test('spf_operating_system_name', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_operating_system: {name: { eq: 'RHEL'}}}});
+                    data.hosts.data.should.have.length(2);
+                    data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+                    data.hosts.data[1].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                });
+
+                test('spf_operating_system_combined', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_operating_system: {
+                            name: { eq: 'RHEL'},
+                            major: { gte: 7, lt: 8 },
+                            minor: { gte: 3, lt: 4 }
+                        }}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                });
+            });
         });
 
         describe('identity header', function () {

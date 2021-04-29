@@ -30,7 +30,12 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false,
             "is_marketplace": true,
-            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136"
+            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+            "operating_system": {
+                "major": 7,
+                "minor": 3,
+                "name": "RHEL"
+            }
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -103,7 +108,12 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false,
             "is_marketplace": true,
-            "rhc_client_id": "33cd8e39-13bb-4d02-8316-84b850dc5136"
+            "rhc_client_id": "33cd8e39-13bb-4d02-8316-84b850dc5136",
+            "operating_system": {
+                "major": 7,
+                "minor": 4,
+                "name": "RHEL"
+            }
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -142,7 +152,7 @@
         "system_profile_facts": {
             "arch": "x86_64",
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904lbop",
-            "os_release": "7.5",
+            "os_release": "6.5",
             "os_kernel_version": "3.10.0",
             "infrastructure_type": "physical",
             "infrastructure_vendor": "baremetal",
@@ -158,7 +168,12 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false,
             "is_marketplace": false,
-            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136"
+            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+            "operating_system": {
+                "major": 6,
+                "minor": 5,
+                "name": "FED"
+            }
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -530,7 +545,7 @@
         "display_name": "foo",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "foo.local",
         "canonical_facts": {
@@ -588,7 +603,7 @@
         "display_name": "bar",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "bar.local",
         "canonical_facts": {
@@ -646,7 +661,7 @@
         "display_name": "bar",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "foo.local",
         "canonical_facts": {
@@ -669,7 +684,7 @@
         "display_name": "foo",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "foo.local",
         "canonical_facts": {
@@ -689,7 +704,7 @@
         "display_name": "bar",
         "created_on": "2019-03-10T08:07:03.354307Z",
         "modified_on": "2019-03-10T08:07:03.354312Z",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "stale_timestamp": "2020-03-10T08:07:03.354307Z",
         "reporter": "puptoo",
         "ansible_host": "bar.local",
         "canonical_facts": {

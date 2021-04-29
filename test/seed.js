@@ -92,7 +92,15 @@ async function run () {
                         owner_id: { type: 'keyword'},
                         insights_client_version: { type: 'keyword' },
                         rhc_client_id: { type: 'keyword' },
-                        is_marketplace: { type: 'boolean' }
+                        is_marketplace: { type: 'boolean' },
+                        operating_system: {
+                            type: 'object',
+                            properties: {
+                                major: {type: 'byte'},
+                                minor: {type: 'byte'},
+                                name: {type: 'keyword'}
+                            }
+                        }
                     }
                 },
                 tags_structured: {

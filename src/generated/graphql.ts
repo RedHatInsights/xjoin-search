@@ -50,6 +50,28 @@ export type FilterBoolean = {
   is?: Maybe<Scalars['Boolean']>;
 };
 
+/** Timestamp field filter with support for common operations. */
+export type FilterInt = {
+  /** Less than */
+  lt?: Maybe<Scalars['Int']>;
+  /** Less than or equal to */
+  lte?: Maybe<Scalars['Int']>;
+  /** Greater than */
+  gt?: Maybe<Scalars['Int']>;
+  /** Greater than or equal to */
+  gte?: Maybe<Scalars['Int']>;
+};
+
+/** Filters hosts by the operating system */
+export type FilterOperatingSystem = {
+  /** Major release version (0-99) */
+  major?: Maybe<FilterInt>;
+  /** Minor release version (0-99 */
+  minor?: Maybe<FilterInt>;
+  /** Name of distro (max 4 chars e.g. RHEL) */
+  name?: Maybe<FilterString>;
+};
+
 /** Basic filter for string fields that allows filtering based on exact match. */
 export type FilterString = {
   /**
@@ -227,6 +249,8 @@ export type HostFilter = {
   spf_rhc_client_id?: Maybe<FilterString>;
   /** Filter by 'is_marketplace' field of system profile */
   spf_is_marketplace?: Maybe<FilterBoolean>;
+  /** Filter by 'operating_system' field of system profile */
+  spf_operating_system?: Maybe<FilterOperatingSystem>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
@@ -481,9 +505,11 @@ export type ResolversTypes = {
   FilterBoolean: FilterBoolean;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   FilterString: FilterString;
+  FilterOperatingSystem: FilterOperatingSystem;
+  FilterInt: FilterInt;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   HOSTS_ORDER_BY: Hosts_Order_By;
   ORDER_DIR: Order_Dir;
   Hosts: ResolverTypeWrapper<Hosts>;
@@ -518,9 +544,11 @@ export type ResolversParentTypes = {
   FilterBoolean: FilterBoolean;
   Boolean: Scalars['Boolean'];
   FilterString: FilterString;
+  FilterOperatingSystem: FilterOperatingSystem;
+  FilterInt: FilterInt;
+  Int: Scalars['Int'];
   FilterTimestamp: FilterTimestamp;
   FilterTag: FilterTag;
-  Int: Scalars['Int'];
   Hosts: Hosts;
   Host: Host;
   ID: Scalars['ID'];

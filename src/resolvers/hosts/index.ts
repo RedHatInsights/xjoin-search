@@ -17,6 +17,7 @@ import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
 import { formatTags } from './format';
 import { filterString } from '../inputString';
+import { filterOperatingSystem } from '../inputOperatingSystem';
 
 type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -86,6 +87,7 @@ const RESOLVERS: HostFilterResolver[] = [
         (filter: HostFilter) => filter.spf_owner_id,
         _.partial(filterStringWithWildcard, 'system_profile_facts.owner_id')
     ),
+    optional((filter: HostFilter) => filter.spf_operating_system, filterOperatingSystem),
 
     optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
     optional((filter: HostFilter) => filter.tag, filterTag),
