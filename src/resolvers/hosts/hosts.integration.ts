@@ -365,6 +365,13 @@ describe('hosts query', function () {
                 data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
             });
 
+            test('spf_host_type', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { spf_host_type: { eq: 'edge'}}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
+
             describe('sap_system', function () {
                 const hosts = [
                     {system_profile_facts: {sap_system: true}},

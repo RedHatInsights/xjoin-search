@@ -173,7 +173,8 @@
                 "major": 6,
                 "minor": 5,
                 "name": "FED"
-            }
+            },
+            "host_type": "edge"
         },
         "tags_structured": [{
             "namespace": "Sat",

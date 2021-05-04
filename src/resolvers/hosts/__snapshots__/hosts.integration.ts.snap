@@ -58,6 +58,7 @@ Object {
           "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
           "satellite_managed": false,
           "system_memory_bytes": 511451136,
+          "host_type": "edge",
         },
       },
     ],
