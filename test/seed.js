@@ -100,7 +100,8 @@ async function run () {
                                 minor: {type: 'byte'},
                                 name: {type: 'keyword'}
                             }
-                        }
+                        },
+                        host_type: { type: 'keyword' }
                     }
                 },
                 tags_structured: {

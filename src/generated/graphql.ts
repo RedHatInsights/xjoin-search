@@ -251,6 +251,8 @@ export type HostFilter = {
   spf_is_marketplace?: Maybe<FilterBoolean>;
   /** Filter by 'operating_system' field of system profile */
   spf_operating_system?: Maybe<FilterOperatingSystem>;
+  /** Filter by 'host_type' field of system profile */
+  spf_host_type?: Maybe<FilterString>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */

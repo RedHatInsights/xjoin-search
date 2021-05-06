@@ -39,6 +39,7 @@ Object {
           "bios_vendor": "innotek GmbH",
           "bios_version": "VirtualBox",
           "cores_per_socket": 1,
+          "host_type": "edge",
           "infrastructure_type": "physical",
           "infrastructure_vendor": "baremetal",
           "insights_client_version": "3.0.6-2.el7_6",
