@@ -11,7 +11,9 @@
         "canonical_facts": {
             "fqdn": "fqdn.test02.rhel7.jharting.local",
             "insights_id": "17c52679-f0b9-4e9b-9bac-a3c7fae5070c",
-            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+            "provider_type": "aws",
+            "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",
@@ -88,7 +90,9 @@
         "canonical_facts": {
             "fqdn": "fqdn.test01.rhel7.jharting.local",
             "insights_id": "a58c53e0-8000-4384-b902-c70b69faacc5",
-            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
+            "provider_type": "aws",
+            "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",
@@ -147,7 +151,9 @@
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c",
+            "provider_type": "aws",
+            "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",
@@ -248,7 +254,9 @@
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c",
+            "provider_type": "aws",
+            "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",

@@ -227,6 +227,10 @@ export type HostFilter = {
   display_name?: Maybe<FilterStringWithWildcardWithLowercase>;
   /** Filter by fqdn */
   fqdn?: Maybe<FilterStringWithWildcard>;
+  /** Filter by provider_type */
+  provider_type?: Maybe<FilterString>;
+  /** Filter by provider_id */
+  provider_id?: Maybe<FilterString>;
   /** Filter by 'arch' field of system profile */
   spf_arch?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'os_release' field of system profile */
@@ -504,9 +508,9 @@ export type ResolversTypes = {
   FilterStringWithWildcard: FilterStringWithWildcard;
   String: ResolverTypeWrapper<Scalars['String']>;
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
+  FilterString: FilterString;
   FilterBoolean: FilterBoolean;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  FilterString: FilterString;
   FilterOperatingSystem: FilterOperatingSystem;
   FilterInt: FilterInt;
   Int: ResolverTypeWrapper<Scalars['Int']>;
@@ -543,9 +547,9 @@ export type ResolversParentTypes = {
   FilterStringWithWildcard: FilterStringWithWildcard;
   String: Scalars['String'];
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
+  FilterString: FilterString;
   FilterBoolean: FilterBoolean;
   Boolean: Scalars['Boolean'];
-  FilterString: FilterString;
   FilterOperatingSystem: FilterOperatingSystem;
   FilterInt: FilterInt;
   Int: Scalars['Int'];

@@ -55,6 +55,10 @@ input HostFilter {
     display_name: FilterStringWithWildcardWithLowercase,
     "Filter by fqdn"
     fqdn: FilterStringWithWildcard,
+    "Filter by provider_type"
+    provider_type: FilterString,
+    "Filter by provider_id"
+    provider_id: FilterString,
 
     "Filter by 'arch' field of system profile"
     spf_arch: FilterStringWithWildcard,
