@@ -1073,6 +1073,24 @@ Filter by fqdn
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>provider_type</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by provider_type
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>provider_id</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by provider_id
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>spf_arch</strong></td>
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>

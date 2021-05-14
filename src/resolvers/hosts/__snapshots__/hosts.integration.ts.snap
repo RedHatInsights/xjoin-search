@@ -348,14 +348,6 @@ Object {
 exports[`hosts query queries stale_timestamp basic 1`] = `
 Object {
   "hosts": Object {
-    "data": Array [],
-  },
-}
-`;
-
-exports[`hosts query queries stale_timestamp gt only 1`] = `
-Object {
-  "hosts": Object {
     "data": Array [
       Object {
         "account": "test",
@@ -375,6 +367,15 @@ Object {
         "reporter": "puptoo",
         "stale_timestamp": "2030-01-10T08:07:03.354307Z",
       },
+    ],
+  },
+}
+`;
+
+exports[`hosts query queries stale_timestamp gt only 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
       Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",

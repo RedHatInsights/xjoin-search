@@ -269,7 +269,9 @@ describe('hosts query', function () {
 
         describe('provider_id', function () {
             test('substring', async () => {
-                const { data } = await runQuery(BASIC_QUERY, { filter: { provider_id: { eq: 'ce87bfac-a6cb-43a0-80ce-95d9669db71f' }}});
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { provider_id: { eq: 'ce87bfac-a6cb-43a0-80ce-95d9669db71f' }}}
+                );
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
