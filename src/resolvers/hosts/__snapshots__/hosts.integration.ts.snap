@@ -9,6 +9,8 @@ Object {
         "canonical_facts": Object {
           "fqdn": "fqdn.test03.rhel7.jharting.local",
           "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+          "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
+          "provider_type": "alibaba",
           "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
           "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
         },
@@ -75,6 +77,8 @@ Object {
         "canonical_facts": Object {
           "fqdn": "fqdn.test03.rhel7.jharting.local",
           "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+          "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
+          "provider_type": "alibaba",
           "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
           "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
         },
@@ -98,6 +102,8 @@ Object {
         "canonical_facts": Object {
           "fqdn": "fqdn.test03.rhel7.jharting.local",
           "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+          "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
+          "provider_type": "alibaba",
           "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
           "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
         },
@@ -342,6 +348,14 @@ Object {
 exports[`hosts query queries stale_timestamp basic 1`] = `
 Object {
   "hosts": Object {
+    "data": Array [],
+  },
+}
+`;
+
+exports[`hosts query queries stale_timestamp gt only 1`] = `
+Object {
+  "hosts": Object {
     "data": Array [
       Object {
         "account": "test",
@@ -361,15 +375,6 @@ Object {
         "reporter": "puptoo",
         "stale_timestamp": "2030-01-10T08:07:03.354307Z",
       },
-    ],
-  },
-}
-`;
-
-exports[`hosts query queries stale_timestamp gt only 1`] = `
-Object {
-  "hosts": Object {
-    "data": Array [
       Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
