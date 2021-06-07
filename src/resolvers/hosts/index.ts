@@ -17,6 +17,7 @@ import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
 import { formatTags } from './format';
 import { filterString } from '../inputString';
+import { filterOperatingSystem } from '../inputOperatingSystem';
 
 type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -70,6 +71,8 @@ const RESOLVERS: HostFilterResolver[] = [
         filter.spf_rhc_client_id, _.partial(filterString, 'system_profile_facts.rhc_client_id')),
     optional((filter: HostFilter) =>
         filter.spf_is_marketplace, _.partial(filterBoolean, 'system_profile_facts.is_marketplace')),
+    optional((filter: HostFilter) =>
+        filter.spf_host_type, _.partial(filterString, 'system_profile_facts.host_type')),
     optional(
         (filter: HostFilter) => filter.spf_infrastructure_vendor,
         _.partial(filterStringWithWildcard, 'system_profile_facts.infrastructure_vendor')
@@ -86,6 +89,7 @@ const RESOLVERS: HostFilterResolver[] = [
         (filter: HostFilter) => filter.spf_owner_id,
         _.partial(filterStringWithWildcard, 'system_profile_facts.owner_id')
     ),
+    optional((filter: HostFilter) => filter.spf_operating_system, filterOperatingSystem),
 
     optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
     optional((filter: HostFilter) => filter.tag, filterTag),

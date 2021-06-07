@@ -19,6 +19,8 @@
     * [Tags](#tags)
   * [Inputs](#inputs)
     * [FilterBoolean](#filterboolean)
+    * [FilterInt](#filterint)
+    * [FilterOperatingSystem](#filteroperatingsystem)
     * [FilterString](#filterstring)
     * [FilterStringWithRegex](#filterstringwithregex)
     * [FilterStringWithWildcard](#filterstringwithwildcard)
@@ -641,6 +643,101 @@ If `null` is provided then documents where the given field does not exist are re
 </tbody>
 </table>
 
+### FilterInt
+
+Timestamp field filter with support for common operations.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>lt</strong></td>
+<td valign="top"><a href="#int">Int</a></td>
+<td>
+
+Less than
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>lte</strong></td>
+<td valign="top"><a href="#int">Int</a></td>
+<td>
+
+Less than or equal to
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>gt</strong></td>
+<td valign="top"><a href="#int">Int</a></td>
+<td>
+
+Greater than
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>gte</strong></td>
+<td valign="top"><a href="#int">Int</a></td>
+<td>
+
+Greater than or equal to
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterOperatingSystem
+
+Filters hosts by the operating system
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>major</strong></td>
+<td valign="top"><a href="#filterint">FilterInt</a></td>
+<td>
+
+Major release version (0-99)
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>minor</strong></td>
+<td valign="top"><a href="#filterint">FilterInt</a></td>
+<td>
+
+Minor release version (0-99
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>name</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Name of distro (max 4 chars e.g. RHEL)
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### FilterString
 
 Basic filter for string fields that allows filtering based on exact match.
@@ -1071,6 +1168,24 @@ Filter by 'rhc_client_id' field of system profile
 <td>
 
 Filter by 'is_marketplace' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_operating_system</strong></td>
+<td valign="top"><a href="#filteroperatingsystem">FilterOperatingSystem</a></td>
+<td>
+
+Filter by 'operating_system' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_host_type</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'host_type' field of system profile
 
 </td>
 </tr>

@@ -78,6 +78,10 @@ input HostFilter {
     spf_rhc_client_id: FilterString
     "Filter by 'is_marketplace' field of system profile"
     spf_is_marketplace: FilterBoolean
+    "Filter by 'operating_system' field of system profile"
+    spf_operating_system: FilterOperatingSystem
+    "Filter by 'host_type' field of system profile"
+    spf_host_type: FilterString
 
     "Filter by the stale_timestamp value"
     stale_timestamp: FilterTimestamp
@@ -209,6 +213,37 @@ input FilterTag {
 
     "Tag value"
     value: FilterString
+}
+
+"""
+Timestamp field filter with support for common operations.
+"""
+input FilterInt {
+    "Less than"
+    lt: Int
+
+    "Less than or equal to"
+    lte: Int
+
+    "Greater than"
+    gt: Int
+
+    "Greater than or equal to"
+    gte: Int
+}
+
+"""
+Filters hosts by the operating system
+"""
+input FilterOperatingSystem {
+    "Major release version (0-99)"
+    major: FilterInt,
+
+    "Minor release version (0-99"
+    minor: FilterInt,
+
+    "Name of distro (max 4 chars e.g. RHEL)"
+    name: FilterString
 }
 
 """
