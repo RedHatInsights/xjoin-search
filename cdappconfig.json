@@ -1,0 +1,16 @@
+{
+    "webPort": 8000,
+    "metricsPort": 9001,
+    "metricsPath": "/metrics",
+    "logging": {
+        "type": "disabled",
+        "cloudwatch": {
+            "accessKeyId": "",
+            "secretAccessKey": "",
+            "region": "",
+            "logGroup": ""
+        }
+    },
+    "kafka": {},
+    "database": {}
+}
