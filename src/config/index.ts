@@ -89,6 +89,16 @@ const config = convict({
             format: String,
             default: 'xjoin_search_',
             env: 'METRICS_PREFIX'
+        },
+        port: {
+            format: 'nat',
+            default: 4000,
+            env: 'METRICS_PORT'
+        },
+        path: {
+            format: String,
+            default: '/metrics',
+            env: 'METRICS_PATH'
         }
     },
     queries: {
