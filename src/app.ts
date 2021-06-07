@@ -30,8 +30,9 @@ export default async function start () {
     log.debug('connected to Elasticsearch');
 
     const app = express();
+    const metricsApp = config.metrics.port === config.port ? app : express();
 
-    metrics(app);
+    metrics(metricsApp, config.metrics.path);
 
     if (config.env === 'development') {
         app.use(identityFallback);
@@ -54,12 +55,13 @@ export default async function start () {
 
     apollo.applyMiddleware({ app });
 
-    app.get('/version', (req: express.Request, res: express.Response) =>
+    metricsApp.get('/version', (req: express.Request, res: express.Response) =>
         res.json({ version: version.version, commit: version.short }).end());
 
-    const server: any = promisifyAll(createServer(app));
+    const metricsServer: any = promisifyAll(createServer(metricsApp));
+    const server: any = config.metrics.port === config.port ? null : promisifyAll(createServer(app));
 
-    createTerminus(server, {
+    createTerminus(metricsServer, {
         signals: ['SIGINT', 'SIGTERM'],
         healthChecks: {
             '/health': async () => {
@@ -79,14 +81,24 @@ export default async function start () {
         logger: (msg, error) => log.error(error, msg)
     });
 
-    await server.listenAsync(config.port);
+    await metricsServer.listenAsync(config.metrics.port);
+
+    if (server !== null) {
+        const server: any = promisifyAll(createServer(app));
+        await server.listenAsync(config.port);
+    }
+
     log.info({ url: `http://localhost:${config.port}${apollo.graphqlPath}` }, 'accepting connections');
 
     return {
         apollo,
         async stop () {
             try {
-                await server.closeAsync();
+                if (server !== null) {
+                    await server.closeAsync();
+                }
+
+                await metricsServer.closeAsync();
             } finally {
                 await client.close();
             }
