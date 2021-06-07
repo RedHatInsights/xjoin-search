@@ -575,8 +575,8 @@ describe('hosts query', function () {
                 const { data } = await runQuery(BASIC_QUERY, {
                     filter: {
                         stale_timestamp: {
-                            gte: '2020-01-10T08:07:03.354307Z',
-                            lte: '2020-02-10T08:07:03.354307Z'
+                            gte: '2030-01-10T08:07:03.354307Z',
+                            lte: '2030-02-10T08:07:03.354307Z'
                         }
                     }
                 });
@@ -586,7 +586,7 @@ describe('hosts query', function () {
                 const { data } = await runQuery(BASIC_QUERY, {
                     filter: {
                         stale_timestamp: {
-                            gte: '2020-02-10T08:07:03.354307Z'
+                            gte: '2030-02-10T08:07:03.354307Z'
                         }
                     }
                 });
@@ -596,7 +596,7 @@ describe('hosts query', function () {
                 const { data } = await runQuery(BASIC_QUERY, {
                     filter: {
                         stale_timestamp: {
-                            lte: '2020-02-10T08:07:03.354307Z'
+                            lte: '2030-02-10T08:07:03.354307Z'
                         }
                     }
                 });
@@ -606,7 +606,7 @@ describe('hosts query', function () {
                 const { data } = await runQuery(BASIC_QUERY, {
                     filter: {
                         stale_timestamp: {
-                            gt: '2020-02-10T08:07:03.354307Z'
+                            gt: '2030-02-10T08:07:03.354307Z'
                         }
                     }
                 });
@@ -616,7 +616,7 @@ describe('hosts query', function () {
                 const { data } = await runQuery(BASIC_QUERY, {
                     filter: {
                         stale_timestamp: {
-                            lt: '2020-02-10T08:07:03.354307Z'
+                            lt: '2030-02-10T08:07:03.354307Z'
                         }
                     }
                 });

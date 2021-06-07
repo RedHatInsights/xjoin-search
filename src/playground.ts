@@ -60,8 +60,8 @@ const playground = {
   hosts (
     filter: {
       stale_timestamp: {
-        gte: "2020-01-10T08:07:03.354307Z",
-        lte: "2020-02-10T08:07:03.354307Z"
+        gte: "2030-01-10T08:07:03.354307Z",
+        lte: "2030-02-10T08:07:03.354307Z"
       }
     },
     order_by: display_name,
