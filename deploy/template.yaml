@@ -136,7 +136,7 @@ objects:
       prometheus.io/scrape: 'true'
     labels:
       app: xjoin-search
-    name: xjoin-search-old
+    name: xjoin-search
   spec:
     ports:
     - name: tcp
