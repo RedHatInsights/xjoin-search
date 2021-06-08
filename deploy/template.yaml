@@ -8,6 +8,7 @@ objects:
   metadata:
     labels:
       app: xjoin-search
+      pod: xjoin-search-old
     name: xjoin-search
   spec:
     minReadySeconds: 15
@@ -144,7 +145,7 @@ objects:
       protocol: TCP
       targetPort: 4000
     selector:
-      app: xjoin-search
+      pod: xjoin-search-old
     sessionAffinity: None
     type: ClusterIP
   status:
