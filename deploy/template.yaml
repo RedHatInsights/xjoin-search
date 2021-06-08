@@ -28,6 +28,7 @@ objects:
           prometheus.io/scrape: 'true'
         labels:
           app: xjoin-search
+          pod: xjoin-search-old
       spec:
         affinity:
           podAntiAffinity:
