@@ -64,6 +64,21 @@ objects:
             cpu: ${CPU_REQUESTS}
             memory: ${MEMORY_REQUESTS}
 
+# this service proxies requests for the old URL (xjoin-search:4000) to the clowderized service (xjoin-search-api:8000)
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: xjoin-search
+    name: xjoin-search
+  spec:
+    ports:
+    - port: 4000
+      protocol: TCP
+      targetPort: web
+    selector:
+      pod: xjoin-search-api
+
 parameters:
 - name: LOG_LEVEL
   value: debug
