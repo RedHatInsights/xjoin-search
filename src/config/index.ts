@@ -1,5 +1,6 @@
 import convict from 'convict';
 import * as os from 'os';
+import * as _ from 'lodash';
 
 const config = convict({
     env: {
@@ -123,23 +124,29 @@ const acgConfig = process.env.ACG_CONFIG; // eslint-disable-line no-process-env
 if (acgConfig) {
     // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
     const clowdAppConfig = require(acgConfig); // eslint-disable-line security/detect-non-literal-require
-    config.load({
+
+    const data: any = {
         port: clowdAppConfig.webPort,
         metrics: {
             port: clowdAppConfig.metricsPort,
             path: clowdAppConfig.metricsPath
-        },
-        logging: {
+        }
+    };
+
+    if (_.get(clowdAppConfig, 'logging.cloudwatch.accessKeyId') !== undefined) {
+        data.logging = {
             cloudwatch: {
-                enabled: clowdAppConfig.logging.type === 'cloudwatch',
+                enabled: true,
                 group: clowdAppConfig.logging.cloudwatch.logGroup,
                 stream: os.hostname(),
                 key: clowdAppConfig.logging.cloudwatch.accessKeyId,
                 secret: clowdAppConfig.logging.cloudwatch.secretAccessKey,
                 region: clowdAppConfig.logging.cloudwatch.region
             }
-        }
-    });
+        };
+    }
+
+    config.load(data);
 }
 
 config.validate({ strict: true });
