@@ -3,13 +3,7 @@
     "metricsPort": 9001,
     "metricsPath": "/metrics",
     "logging": {
-        "type": "disabled",
-        "cloudwatch": {
-            "accessKeyId": "",
-            "secretAccessKey": "",
-            "region": "",
-            "logGroup": ""
-        }
+        "type": "null"
     },
     "kafka": {},
     "database": {}
