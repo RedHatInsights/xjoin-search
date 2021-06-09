@@ -32,7 +32,7 @@ export default async function start () {
     const app = express();
     const metricsApp = config.metrics.port === config.port ? app : express();
 
-    metrics(metricsApp, config.metrics.path);
+    metrics(app, metricsApp, config.metrics.path);
 
     if (config.env === 'development') {
         app.use(identityFallback);
