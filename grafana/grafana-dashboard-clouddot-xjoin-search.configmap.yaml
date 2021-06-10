@@ -18,7 +18,7 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "iteration": 1604483236927,
+      "iteration": 1623308515057,
       "links": [],
       "panels": [
         {
@@ -605,8 +605,9 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "sum(up{service=\"xjoin-search\"})",
+              "expr": "sum(up{service=\"xjoin-search-api\"})",
               "format": "time_series",
+              "interval": "",
               "intervalFactor": 1,
               "legendFormat": "",
               "refId": "A"
@@ -857,8 +858,9 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(up{service=\"xjoin-search\"})",
+              "expr": "sum(up{service=\"xjoin-search-api\"})",
               "format": "time_series",
+              "interval": "",
               "intervalFactor": 1,
               "legendFormat": "pod count",
               "refId": "A"
@@ -884,6 +886,7 @@ data:
           },
           "yaxes": [
             {
+              "$$hashKey": "object:127",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -892,6 +895,7 @@ data:
               "show": true
             },
             {
+              "$$hashKey": "object:128",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -972,9 +976,11 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "sum(increase(kube_pod_container_status_restarts_total{container=\"xjoin-search\"}[$__range]))",
+              "expr": "sum(increase(kube_pod_container_status_restarts_total{container=\"xjoin-search-api\"}[$__range]))",
               "format": "time_series",
+              "interval": "",
               "intervalFactor": 1,
+              "legendFormat": "",
               "refId": "A"
             }
           ],
@@ -1420,8 +1426,9 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_cpu_usage_seconds_total{container=\"xjoin-search\"}[1m])) by (pod)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{container=\"xjoin-search-api\"}[1m])) by (pod)",
               "format": "time_series",
+              "interval": "",
               "intervalFactor": 1,
               "legendFormat": "{{pod}}",
               "refId": "A"
@@ -1447,6 +1454,7 @@ data:
           },
           "yaxes": [
             {
+              "$$hashKey": "object:273",
               "format": "s",
               "label": null,
               "logBase": 1,
@@ -1455,6 +1463,7 @@ data:
               "show": true
             },
             {
+              "$$hashKey": "object:274",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -1519,8 +1528,9 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(container_memory_usage_bytes{container=\"xjoin-search\"}) by (pod)",
+              "expr": "sum(container_memory_usage_bytes{container=\"xjoin-search-api\"}) by (pod)",
               "format": "time_series",
+              "interval": "",
               "intervalFactor": 1,
               "legendFormat": "{{pod}}",
               "refId": "A"
@@ -1546,6 +1556,7 @@ data:
           },
           "yaxes": [
             {
+              "$$hashKey": "object:351",
               "format": "decbytes",
               "label": null,
               "logBase": 1,
@@ -1554,6 +1565,7 @@ data:
               "show": true
             },
             {
+              "$$hashKey": "object:352",
               "format": "short",
               "label": null,
               "logBase": 1,
