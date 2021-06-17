@@ -259,6 +259,36 @@ describe('hosts query', function () {
             });
         });
 
+        describe('provider_type', function () {
+            test('substring', async () => {
+                const { data } = await runQuery(BASIC_QUERY, { filter: { provider_type: { eq: 'alibaba' }}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
+        });
+
+        describe('provider_id', function () {
+            test('substring', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { provider_id: { eq: 'ce87bfac-a6cb-43a0-80ce-95d9669db71f' }}}
+                );
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+            });
+        });
+
+        describe('provider_type and provider_id', function () {
+            test('substring', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: {
+                        provider_type: { eq: 'aws' },
+                        provider_id: { eq: '1d073c47-8467-4372-b585-7b0d40d2ee3c' }
+                    }});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+            });
+        });
+
         describe('insights_id', function () {
             test('exact match', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { insights_id: {
