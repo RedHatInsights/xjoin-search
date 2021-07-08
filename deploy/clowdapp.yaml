@@ -50,15 +50,9 @@ objects:
                 key: endpoint
                 name: xjoin-elasticsearch
           - name: ES_USERNAME
-            valueFrom:
-              secretKeyRef:
-                key: username
-                name: xjoin-elasticsearch
+            value: ${ES_USERNAME}
           - name: ES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: password
-                name: xjoin-elasticsearch
+            value: ${ES_PASSWORD}
           - name: HOSTS_INDEX
             value: ${HOSTS_INDEX}
 
@@ -105,6 +99,10 @@ parameters:
   value: 512Mi
 - name: NUM_REPLICAS
   value: '1'
+- name: ES_USERNAME
+  value: ''
+- name: ES_PASSWORD
+  value: ''
 
 - name: IMAGE_TAG
   required: true
