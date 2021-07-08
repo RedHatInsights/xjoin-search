@@ -133,7 +133,8 @@ if (acgConfig) {
         }
     };
 
-    if (_.get(clowdAppConfig, 'logging.cloudwatch.accessKeyId') !== undefined) {
+    if (_.get(clowdAppConfig, 'logging.cloudwatch.accessKeyId') !== undefined &&
+        _.get(clowdAppConfig, 'logging.cloudwatch.accessKeyId') !== '') {
         data.logging = {
             cloudwatch: {
                 enabled: true,
