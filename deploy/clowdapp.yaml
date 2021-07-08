@@ -44,6 +44,8 @@ objects:
             value: ${LOG_PRETTY}
           - name: NODE_ENV
             value: ${NODE_ENV}
+          - name: LOG_CW_ENABLED
+            value: ${LOG_CW_ENABLED}
           - name: ES_NODES
             valueFrom:
               secretKeyRef:
@@ -80,6 +82,8 @@ objects:
       pod: xjoin-search-api
 
 parameters:
+- name: LOG_CW_ENABLED
+  value: 'false'
 - name: LOG_LEVEL
   value: debug
 - name: LOG_PRETTY
