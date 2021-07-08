@@ -50,9 +50,15 @@ objects:
                 key: endpoint
                 name: xjoin-elasticsearch
           - name: ES_USERNAME
-            value: ''
+            valueFrom:
+              secretKeyRef:
+                key: username
+                name: xjoin-elasticsearch
           - name: ES_PASSWORD
-            value: ''
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: xjoin-elasticsearch
           - name: HOSTS_INDEX
             value: ${HOSTS_INDEX}
 
