@@ -34,7 +34,7 @@ export function resolveFilter(filter: HostFilter): Record<string, any>[] {
     }, []);
 }
 
-export function resolveFilters(filters: HostFilter[]) {
+export function resolveFilters(filters: HostFilter[]): Record<string, unknown>[] {
     return _.flatMap(filters, resolveFilter);
 }
 
@@ -101,7 +101,7 @@ const RESOLVERS: HostFilterResolver[] = [
     optional((filter: HostFilter) => filter.NOT, common.not(resolveFilter))
 ];
 
-export function buildFilterQuery(filter: HostFilter | null | undefined, account_number: string) {
+export function buildFilterQuery(filter: HostFilter | null | undefined, account_number: string): Record<string, unknown> {
     return {
         bool: {
             filter: [
@@ -166,7 +166,10 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
     return query;
 }
 
-export default async function hosts(parent: any, args: QueryHostsArgs, context: any, info: any) {
+export default async function hosts(
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    parent: any, args: QueryHostsArgs, context: any, info: any): Promise<Record<string, unknown>> {
+
     checkLimit(args.limit);
     checkOffset(args.offset);
 

@@ -1,4 +1,4 @@
-FROM registry.redhat.io/ubi8/nodejs-10
+FROM registry.redhat.io/ubi8/nodejs-14
 
 ARG BUILD_COMMIT=unknown
 
@@ -10,7 +10,7 @@ RUN npm ci --only=production
 
 COPY . /opt/app-root/src
 
-RUN npm i typescript@3.6.3 && npm run compile
+RUN npm i typescript@4.3.5 && npm run compile
 
 EXPOSE 4000
 ENV NODE_ENV=production \

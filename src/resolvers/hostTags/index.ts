@@ -12,7 +12,8 @@ const TAG_ORDER_BY_MAPPING: { [key: string]: string } = {
     tag: '_key'
 };
 
-export default async function hostTags(parent: any, args: QueryHostTagsArgs, context: any) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default async function hostTags(parent: any, args: QueryHostTagsArgs, context: any): Promise<Record<string, unknown>> {
     checkLimit(args.limit);
     checkOffset(args.offset);
 

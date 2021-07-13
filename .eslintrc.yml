@@ -103,7 +103,7 @@ rules:
     - error
     - functions: false
   no-undef: 2
-  no-unused-vars: 2
+  no-unused-vars: 0
 
 # ES6
   no-var: 2
@@ -125,3 +125,6 @@ rules:
 
   '@typescript-eslint/no-require-imports': 2
   '@typescript-eslint/indent': 0
+
+# Jest
+  'jest/expect-expect': 0

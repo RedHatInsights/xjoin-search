@@ -35,7 +35,8 @@ const logger: pino.Logger = pino({
 }, buildDestination());
 
 export const serializers = {
-    req: (value: any) => {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    req: (value: any): void => {
         // the default serializer does not print the identity values attached by identity mw
         // therefore we copy account_number and username so that they are logged
         const result: any = pino.stdSerializers.req(value);

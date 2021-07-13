@@ -1,9 +1,10 @@
 import client from '../es';
 import log from '../util/log';
 import {esResponseHistogram} from '../metrics';
-import { ElasticSearchError, ResultWindowError } from '../../src/errors';
+import { ElasticSearchError, ResultWindowError } from '../errors';
 import * as _ from 'lodash';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function runQuery (query: any, id: string): Promise<any> {
     log.trace(query, 'executing query');
 
@@ -42,7 +43,7 @@ export async function runQuery (query: any, id: string): Promise<any> {
     }
 }
 
-export function negate<T> (value: T) {
+export function negate<T> (value: T): Record<string, any> {
     return {
         bool: {
             must_not: value
@@ -50,7 +51,7 @@ export function negate<T> (value: T) {
     };
 }
 
-export function exists (field: string) {
+export function exists (field: string): Record<string, any> {
     return {
         exists: {
             field
@@ -58,7 +59,7 @@ export function exists (field: string) {
     };
 }
 
-export function term<T> (field: string, value: T) {
+export function term<T> (field: string, value: T): Record<string, any> {
     return {
         term: {
             [field]: value
@@ -66,7 +67,7 @@ export function term<T> (field: string, value: T) {
     };
 }
 
-export function wildcard<T> (field: string, value: T) {
+export function wildcard<T> (field: string, value: T): Record<string, any> {
     return {
         wildcard: {
             [field]: value

@@ -1,7 +1,7 @@
 import { FilterTimestamp } from '../generated/graphql';
 import { checkTimestamp } from './validation';
 
-export function filterTimestamp(field: string, filter: FilterTimestamp) {
+export function filterTimestamp(field: string, filter: FilterTimestamp): Record<string, any>[] {
     checkTimestamp(filter.gte);
     checkTimestamp(filter.lte);
     checkTimestamp(filter.gt);

@@ -11,14 +11,11 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  JSONObject: { [key: string]: any };
   JSON: any;
+  JSONObject: { [key: string]: any };
 };
 
-/**
- * Represents a single Boolean value. The `count` field indicates how many systems
- * with the given value were returned by a query
- */
+/** Represents a single Boolean value. The `count` field indicates how many systems with the given value were returned by a query */
 export type BooleanValueInfo = {
   __typename?: 'BooleanValueInfo';
   value: Scalars['Boolean'];
@@ -105,9 +102,8 @@ export type FilterStringWithWildcard = {
    * Two types of wildcard operators are supported:
    * * `?`, which matches any single character
    * * `*`, which can match zero or more characters, including an empty one
-   * 
-   * See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html)
-   * for more details.
+   *
+   * See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html) for more details.
    */
   matches?: Maybe<Scalars['String']>;
 };
@@ -133,16 +129,11 @@ export type FilterStringWithWildcardWithLowercase = {
    * Two types of wildcard operators are supported:
    * * `?`, which matches any single character
    * * `*`, which can match zero or more characters, including an empty one
-   * 
-   * See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html)
-   * for more details.
+   *
+   * See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html) for more details.
    */
   matches?: Maybe<Scalars['String']>;
-  /**
-   * This operator is like
-   * [FilterStringWithWildcard.matches](#filterstringwithwildcard) except that it
-   * performs case-insensitive matching.
-   */
+  /** This operator is like [FilterStringWithWildcard.matches](#filterstringwithwildcard) except that it performs case-insensitive matching. */
   matches_lc?: Maybe<Scalars['String']>;
 };
 
@@ -167,6 +158,16 @@ export type FilterTimestamp = {
   /** Greater than or equal to */
   gte?: Maybe<Scalars['String']>;
 };
+
+export enum Hosts_Order_By {
+  DisplayName = 'display_name',
+  ModifiedOn = 'modified_on'
+}
+
+export enum Host_Tags_Order_By {
+  Tag = 'tag',
+  Count = 'count'
+}
 
 /** Inventory host */
 export type Host = {
@@ -205,11 +206,6 @@ export type HostSystem_Profile_FactsArgs = {
 export type HostFactsArgs = {
   filter?: Maybe<Array<Scalars['String']>>;
 };
-
-export enum Host_Tags_Order_By {
-  Tag = 'tag',
-  Count = 'count'
-}
 
 /** Defines criteria by which the hosts are filtered. */
 export type HostFilter = {
@@ -263,17 +259,6 @@ export type HostFilter = {
   tag?: Maybe<FilterTag>;
 };
 
-export type Hosts = {
-  __typename?: 'Hosts';
-  data: Array<Maybe<Host>>;
-  meta: CollectionMeta;
-};
-
-export enum Hosts_Order_By {
-  DisplayName = 'display_name',
-  ModifiedOn = 'modified_on'
-}
-
 /** Lists unique system profile values. */
 export type HostSystemProfile = {
   __typename?: 'HostSystemProfile';
@@ -308,6 +293,12 @@ export type HostTags = {
   meta: CollectionMeta;
 };
 
+export type Hosts = {
+  __typename?: 'Hosts';
+  data: Array<Maybe<Host>>;
+  meta: CollectionMeta;
+};
+
 
 
 export enum Order_Dir {
@@ -321,16 +312,16 @@ export type Query = {
   hosts: Hosts;
   /**
    * Fetches a list of unique tags and the number of their occurenes in the given set of systems.
-   * 
+   *
    * By default the query operates on all known systems that are registered with the given account.
    * This can be altered using the `hostFilter` parameter.
-   * 
+   *
    * The tags themselves can be filtered further using the `filter` parameter.
    */
   hostTags?: Maybe<HostTags>;
   /**
    * Fetches a list of unique values for a given system profile field.
-   * 
+   *
    * By default the query operates on all known systems that are registered with the given account.
    * This can be altered using `hostFilter` parameter.
    */
@@ -370,10 +361,7 @@ export type SapSidFilter = {
   search?: Maybe<FilterStringWithRegex>;
 };
 
-/**
- * Represents a single String value. The `count` field indicates how many systems
- * with the given value were returned by a query.
- */
+/** Represents a single String value. The `count` field indicates how many systems with the given value were returned by a query. */
 export type StringValueInfo = {
   __typename?: 'StringValueInfo';
   value: Scalars['String'];
@@ -400,8 +388,7 @@ export type TagAggregationFilter = {
   /**
    * Limits the aggregation to tags that match the given search term.
    * The search term is a regular exression that operates on a string representation of a tag.
-   * The string representation has a form of "namespace/key=value" i.e. the
-   * segments are concatenated together using "=" and "/", respectively.
+   * The string representation has a form of "namespace/key=value" i.e. the segments are concatenated together using "=" and "/", respectively.
    * There is no expecing of the control characters in the segments.
    * As a result, "=" and "/" appear in every tag.
    */
@@ -503,76 +490,76 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Query: ResolverTypeWrapper<{}>;
-  HostFilter: HostFilter;
-  FilterStringWithWildcard: FilterStringWithWildcard;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
-  FilterString: FilterString;
-  FilterBoolean: FilterBoolean;
+  BooleanValueInfo: ResolverTypeWrapper<BooleanValueInfo>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  FilterOperatingSystem: FilterOperatingSystem;
-  FilterInt: FilterInt;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  FilterTimestamp: FilterTimestamp;
+  BooleanValues: ResolverTypeWrapper<BooleanValues>;
+  CollectionMeta: ResolverTypeWrapper<CollectionMeta>;
+  FilterBoolean: FilterBoolean;
+  FilterInt: FilterInt;
+  FilterOperatingSystem: FilterOperatingSystem;
+  FilterString: FilterString;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  FilterStringWithRegex: FilterStringWithRegex;
+  FilterStringWithWildcard: FilterStringWithWildcard;
+  FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
   FilterTag: FilterTag;
+  FilterTimestamp: FilterTimestamp;
   HOSTS_ORDER_BY: Hosts_Order_By;
-  ORDER_DIR: Order_Dir;
-  Hosts: ResolverTypeWrapper<Hosts>;
+  HOST_TAGS_ORDER_BY: Host_Tags_Order_By;
   Host: ResolverTypeWrapper<Host>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>;
-  Tags: ResolverTypeWrapper<Tags>;
-  StructuredTag: ResolverTypeWrapper<StructuredTag>;
-  CollectionMeta: ResolverTypeWrapper<CollectionMeta>;
-  TagAggregationFilter: TagAggregationFilter;
-  FilterStringWithRegex: FilterStringWithRegex;
-  HOST_TAGS_ORDER_BY: Host_Tags_Order_By;
-  HostTags: ResolverTypeWrapper<HostTags>;
-  TagInfo: ResolverTypeWrapper<TagInfo>;
+  HostFilter: HostFilter;
   HostSystemProfile: ResolverTypeWrapper<HostSystemProfile>;
-  VALUES_ORDER_BY: Values_Order_By;
-  BooleanValues: ResolverTypeWrapper<BooleanValues>;
-  BooleanValueInfo: ResolverTypeWrapper<BooleanValueInfo>;
-  SapSidFilter: SapSidFilter;
-  StringValues: ResolverTypeWrapper<StringValues>;
-  StringValueInfo: ResolverTypeWrapper<StringValueInfo>;
+  HostTags: ResolverTypeWrapper<HostTags>;
+  Hosts: ResolverTypeWrapper<Hosts>;
   JSON: ResolverTypeWrapper<Scalars['JSON']>;
+  JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>;
+  ORDER_DIR: Order_Dir;
+  Query: ResolverTypeWrapper<{}>;
+  SapSidFilter: SapSidFilter;
+  StringValueInfo: ResolverTypeWrapper<StringValueInfo>;
+  StringValues: ResolverTypeWrapper<StringValues>;
+  StructuredTag: ResolverTypeWrapper<StructuredTag>;
+  TagAggregationFilter: TagAggregationFilter;
+  TagInfo: ResolverTypeWrapper<TagInfo>;
+  Tags: ResolverTypeWrapper<Tags>;
+  VALUES_ORDER_BY: Values_Order_By;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Query: {};
-  HostFilter: HostFilter;
-  FilterStringWithWildcard: FilterStringWithWildcard;
-  String: Scalars['String'];
-  FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
-  FilterString: FilterString;
-  FilterBoolean: FilterBoolean;
+  BooleanValueInfo: BooleanValueInfo;
   Boolean: Scalars['Boolean'];
-  FilterOperatingSystem: FilterOperatingSystem;
-  FilterInt: FilterInt;
   Int: Scalars['Int'];
-  FilterTimestamp: FilterTimestamp;
+  BooleanValues: BooleanValues;
+  CollectionMeta: CollectionMeta;
+  FilterBoolean: FilterBoolean;
+  FilterInt: FilterInt;
+  FilterOperatingSystem: FilterOperatingSystem;
+  FilterString: FilterString;
+  String: Scalars['String'];
+  FilterStringWithRegex: FilterStringWithRegex;
+  FilterStringWithWildcard: FilterStringWithWildcard;
+  FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
   FilterTag: FilterTag;
-  Hosts: Hosts;
+  FilterTimestamp: FilterTimestamp;
   Host: Host;
   ID: Scalars['ID'];
-  JSONObject: Scalars['JSONObject'];
-  Tags: Tags;
-  StructuredTag: StructuredTag;
-  CollectionMeta: CollectionMeta;
-  TagAggregationFilter: TagAggregationFilter;
-  FilterStringWithRegex: FilterStringWithRegex;
-  HostTags: HostTags;
-  TagInfo: TagInfo;
+  HostFilter: HostFilter;
   HostSystemProfile: HostSystemProfile;
-  BooleanValues: BooleanValues;
-  BooleanValueInfo: BooleanValueInfo;
-  SapSidFilter: SapSidFilter;
-  StringValues: StringValues;
-  StringValueInfo: StringValueInfo;
+  HostTags: HostTags;
+  Hosts: Hosts;
   JSON: Scalars['JSON'];
+  JSONObject: Scalars['JSONObject'];
+  Query: {};
+  SapSidFilter: SapSidFilter;
+  StringValueInfo: StringValueInfo;
+  StringValues: StringValues;
+  StructuredTag: StructuredTag;
+  TagAggregationFilter: TagAggregationFilter;
+  TagInfo: TagInfo;
+  Tags: Tags;
 };
 
 export type BooleanValueInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['BooleanValueInfo'] = ResolversParentTypes['BooleanValueInfo']> = {
@@ -609,12 +596,6 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type HostsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Hosts'] = ResolversParentTypes['Hosts']> = {
-  data?: Resolver<Array<Maybe<ResolversTypes['Host']>>, ParentType, ContextType>;
-  meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type HostSystemProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostSystemProfile'] = ResolversParentTypes['HostSystemProfile']> = {
   sap_system?: Resolver<ResolversTypes['BooleanValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SystemArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   sap_sids?: Resolver<ResolversTypes['StringValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SidsArgs, 'limit' | 'offset' | 'filter' | 'order_by' | 'order_how'>>;
@@ -623,6 +604,12 @@ export type HostSystemProfileResolvers<ContextType = any, ParentType extends Res
 
 export type HostTagsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostTags'] = ResolversParentTypes['HostTags']> = {
   data?: Resolver<Array<Maybe<ResolversTypes['TagInfo']>>, ParentType, ContextType>;
+  meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HostsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Hosts'] = ResolversParentTypes['Hosts']> = {
+  data?: Resolver<Array<Maybe<ResolversTypes['Host']>>, ParentType, ContextType>;
   meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -677,9 +664,9 @@ export type Resolvers<ContextType = any> = {
   BooleanValues?: BooleanValuesResolvers<ContextType>;
   CollectionMeta?: CollectionMetaResolvers<ContextType>;
   Host?: HostResolvers<ContextType>;
-  Hosts?: HostsResolvers<ContextType>;
   HostSystemProfile?: HostSystemProfileResolvers<ContextType>;
   HostTags?: HostTagsResolvers<ContextType>;
+  Hosts?: HostsResolvers<ContextType>;
   JSON?: GraphQLScalarType;
   JSONObject?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;

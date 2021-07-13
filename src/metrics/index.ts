@@ -14,7 +14,7 @@ export const esResponseHistogram = new client.Histogram({
     buckets: [0.003, 0.03, 0.1, 0.3, 1.5, 10]
 });
 
-export default function start (app: Application, metricsApp: Application, path: string) {
+export default function start (app: Application, metricsApp: Application, path: string): void {
     metricsApp.get(path, (req: Request, res: Response) => {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.write(client.register.metrics());

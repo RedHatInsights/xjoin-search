@@ -1,6 +1,6 @@
 import { UserInputError } from 'apollo-server-express';
 
-export function checkMin (min: number, value: number | null | undefined) {
+export function checkMin (min: number, value: number | null | undefined): void {
     if (value === null || value === undefined) {
         return;
     }
@@ -10,7 +10,7 @@ export function checkMin (min: number, value: number | null | undefined) {
     }
 }
 
-export function checkMax (max: number, value: number | null | undefined) {
+export function checkMax (max: number, value: number | null | undefined): void {
     if (value === null || value === undefined) {
         return;
     }
@@ -20,16 +20,16 @@ export function checkMax (max: number, value: number | null | undefined) {
     }
 }
 
-export function checkLimit (limit: number | null | undefined) {
+export function checkLimit (limit: number | null | undefined): void {
     checkMin(0, limit);
     checkMax(100, limit);
 }
 
-export function checkOffset (offset: number | null | undefined) {
+export function checkOffset (offset: number | null | undefined): void {
     checkMin(0, offset);
 }
 
-export function checkTimestamp (timestamp: string | null | undefined) {
+export function checkTimestamp (timestamp: string | null | undefined): void {
     if (typeof timestamp === 'string') {
         const newTimestamp = new Date(timestamp).getTime();
         if (isNaN(newTimestamp)) {
@@ -38,7 +38,8 @@ export function checkTimestamp (timestamp: string | null | undefined) {
     }
 }
 
-export function checkNotNull (value: any) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function checkNotNull (value: any): void {
     if (value === null) {
         throw new UserInputError('value may not be null');
     }

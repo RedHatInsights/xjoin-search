@@ -17,7 +17,7 @@ function getFilterStringValue (value: FilterString | undefined | null, dflt = ES
     return value.eq;
 }
 
-export function filterTag (value: FilterTag) {
+export function filterTag (value: FilterTag): Record<string, any>[] {
     return [{
         nested: {
             path: 'tags_structured',

@@ -23,12 +23,12 @@ function determineSubtype (error: GraphQLError) {
     return _.get(error, 'constructor.name', 'unknown');
 }
 
-export function validationError (error: GraphQLError) {
+export function validationError (error: GraphQLError): void {
     errors.labels('validation', determineSubtype(error)).inc();
     log.warn({error}, 'validation error');
 }
 
-export function systemError (error: GraphQLError) {
+export function systemError (error: GraphQLError): void {
     errors.labels('system', determineSubtype(error)).inc();
     log.error({error}, 'system error');
 }

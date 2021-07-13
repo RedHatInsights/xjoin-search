@@ -1,6 +1,6 @@
 import { FilterInt } from '../generated/graphql';
 
-export function filterInt(field: string, filter: FilterInt) {
+export function filterInt(field: string, filter: FilterInt): Record<string, any>[] {
     return [{
         range: {
             [field]: {

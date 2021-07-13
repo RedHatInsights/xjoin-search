@@ -1,6 +1,7 @@
 import { runQueryCatchError } from '../../test/helpers';
 
-export function testLimitOffset(query: any) {
+// eslint-disable-next-line jest/no-export,@typescript-eslint/explicit-module-boundary-types
+export function testLimitOffset(query: any): void {
     describe('limit/offset', function () {
         test('limit too low', async () => {
             const err = await runQueryCatchError(undefined, query, { limit: -1 });

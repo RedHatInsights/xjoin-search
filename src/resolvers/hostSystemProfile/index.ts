@@ -7,14 +7,19 @@ import { checkLimit, checkOffset } from '../validation';
 import { buildFilterQuery } from '../hosts';
 import { defaultValue, VALUES_ORDER_BY_MAPPING, extractPage } from '../common';
 
-export default async function hostSystemProfile(parent: any, args: QueryHostSystemProfileArgs, context: any) {
-    context.hostQuery = buildFilterQuery(args.hostFilter, context.account_number);
+export default async function hostSystemProfile(
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    parent: any,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    args: QueryHostSystemProfileArgs, context: any): Promise<Record<string, unknown>> {
 
+    context.hostQuery = buildFilterQuery(args.hostFilter, context.account_number);
     return {};
 }
 
 export function enumerationResolver <T> (field: string, convert: (value: any) => T) {
-    return async (parent: any, args: any, context: any) => {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    return async (parent: any, args: any, context: any): Promise<Record<string, unknown>> => {
         checkLimit(args.limit);
         checkOffset(args.offset);
 

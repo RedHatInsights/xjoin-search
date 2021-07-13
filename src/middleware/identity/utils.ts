@@ -25,7 +25,7 @@ export default function createIdentityHeader(
     modify_data = (d: any) => d,
     username = DEFAULTS.user.username,
     account_number = DEFAULTS.account_number,
-    is_internal = true) {
+    is_internal = true): string {
 
     const data = {
         identity: {

@@ -3,7 +3,7 @@ import log from '../../util/log';
 import * as constants from '../../constants';
 import {HttpErrorBadRequest, HttpErrorForbidden, HttpErrorUnauthorized} from '../../errors';
 
-export default function identity(req: express.Request, res: express.Response, next: express.NextFunction) {
+export default function identity(req: express.Request, res: express.Response, next: express.NextFunction): void {
     const raw = req.header(constants.IDENTITY_HEADER);
 
     if (raw === undefined) {

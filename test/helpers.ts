@@ -38,8 +38,8 @@ export async function createHost (overrides = {}) {
         type: '_doc',
         id: host.id,
         body: host,
-        refresh: 'true'
-    });
+        refresh: true
+    }, {});
 }
 
 export function createHosts (...hosts: any[]) {

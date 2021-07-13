@@ -1,3 +1,4 @@
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import { createServer } from 'http';
@@ -22,7 +23,7 @@ process.on('unhandledRejection', (reason: any) => {
     throw reason;
 });
 
-export default async function start () {
+export default async function start (): Promise<Record<string, unknown>> {
     log.info({env: config.env}, `${version.full} starting`);
     log.debug(sanitized, 'configuration');
 
@@ -46,13 +47,14 @@ export default async function start () {
         typeDefs: schema,
         resolvers,
         context: ({ req }) => ({ account_number: req.account_number }),
-        playground,
         introspection: true,
         plugins: [
-            observabilityPlugin
+            observabilityPlugin,
+            ApolloServerPluginLandingPageGraphQLPlayground(playground)
         ]
     });
 
+    await apollo.start();
     apollo.applyMiddleware({ app });
 
     metricsApp.get('/version', (req: express.Request, res: express.Response) =>

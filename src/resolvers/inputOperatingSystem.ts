@@ -21,7 +21,7 @@ function intTerm (field: string, filter: FilterInt | null | undefined): Resolved
     return [];
 }
 
-export function filterOperatingSystem(filter: FilterOperatingSystem) {
+export function filterOperatingSystem(filter: FilterOperatingSystem): Record<string, any>[] {
     let filter_array: any[] = [];
 
     filter_array = filter_array.concat(
