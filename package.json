@@ -17,7 +17,7 @@
   },
   "author": "Jozef Hartinger",
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.21.6",
+    "@graphql-codegen/cli": "^1.21.7",
     "@graphql-codegen/introspection": "^1.18.2",
     "@graphql-codegen/typescript": "^1.22.4",
     "@graphql-codegen/typescript-resolvers": "^1.19.5",
