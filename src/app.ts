@@ -33,7 +33,7 @@ export default async function start (): Promise<Record<string, unknown>> {
     const app = express();
     const metricsApp = config.metrics.port === config.port ? app : express();
 
-    metrics(app, metricsApp, config.metrics.path);
+    await metrics(app, metricsApp, config.metrics.path);
 
     if (config.env === 'development') {
         app.use(identityFallback);
