@@ -49,9 +49,10 @@ objects:
           - name: ES_USERNAME
             value: "elastic"
           - name: ES_PASSWORD
-            secretKeyRef:
-              key: elastic
-              name: xjoin-elasticsearch-es-elastic-user
+            valueFrom:
+              secretKeyRef:
+                key: elastic
+                name: xjoin-elasticsearch-es-elastic-user
           - name: HOSTS_INDEX
             value: ${HOSTS_INDEX}
 
