@@ -54,7 +54,7 @@ input HostFilter {
     "Filter by display_name"
     display_name: FilterStringWithWildcardWithLowercase,
     "Filter by fqdn"
-    fqdn: FilterStringWithWildcard,
+    fqdn: FilterStringWithWildcardWithLowercase,
     "Filter by provider_type"
     provider_type: FilterString,
     "Filter by provider_id"
