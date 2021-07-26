@@ -56,7 +56,7 @@ const RESOLVERS: HostFilterResolver[] = [
         filter.insights_id, _.partial(filterStringWithWildcard, 'canonical_facts.insights_id')),
     optional((filter: HostFilter) =>
         filter.display_name, _.partial(filterStringWithWildcardWithLowercase, 'display_name')),
-    optional((filter: HostFilter) => filter.fqdn, _.partial(filterStringWithWildcard, 'canonical_facts.fqdn')),
+    optional((filter: HostFilter) => filter.fqdn, _.partial(filterStringWithWildcardWithLowercase, 'canonical_facts.fqdn')),
     optional((filter: HostFilter) => filter.provider_type, _.partial(filterString, 'canonical_facts.provider_type')),
     optional((filter: HostFilter) => filter.provider_id, _.partial(filterString, 'canonical_facts.provider_id')),
 

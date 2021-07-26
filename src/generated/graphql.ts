@@ -222,7 +222,7 @@ export type HostFilter = {
   /** Filter by display_name */
   display_name?: Maybe<FilterStringWithWildcardWithLowercase>;
   /** Filter by fqdn */
-  fqdn?: Maybe<FilterStringWithWildcard>;
+  fqdn?: Maybe<FilterStringWithWildcardWithLowercase>;
   /** Filter by provider_type */
   provider_type?: Maybe<FilterString>;
   /** Filter by provider_id */

@@ -1065,7 +1065,7 @@ Filter by display_name
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>fqdn</strong></td>
-<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td valign="top"><a href="#filterstringwithwildcardwithlowercase">FilterStringWithWildcardWithLowercase</a></td>
 <td>
 
 Filter by fqdn
