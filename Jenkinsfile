@@ -4,7 +4,7 @@ NS='xjoin-search-pr'
 
 node('nodejs') {
 
-    env.NODEJS_HOME = "${tool 'node-10'}"
+    env.NODEJS_HOME = "${tool 'node-14'}"
     env.PATH="${env.NODEJS_HOME}/bin:${env.PATH}"
 
     checkout scm
