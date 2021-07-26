@@ -21,8 +21,8 @@ async function run () {
             description: 'Ingest pipeline for xjoin.inventory.hosts',
             processors: [{
                 set: {
-                    field: "ingest_timestamp",
-                    value: "{{_ingest.timestamp}}"
+                    field: 'ingest_timestamp',
+                    value: '{{_ingest.timestamp}}'
                 },
                 script: {
                     lang: 'painless',
@@ -75,7 +75,15 @@ async function run () {
                 canonical_facts: {
                     type: 'object',
                     properties: {
-                        fqdn: { type: 'keyword'},
+                        fqdn: {
+                            type: 'keyword',
+                            fields: {
+                                lowercase: {
+                                    type: 'keyword',
+                                    normalizer: 'case_insensitive'
+                                }
+                            }
+                        },
                         insights_id: { type: 'keyword'},
                         satellite_id: { type: 'keyword'},
                         provider_type: {type: 'keyword'},
