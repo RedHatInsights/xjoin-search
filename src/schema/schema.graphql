@@ -210,13 +210,13 @@ Filters hosts by the presence of a host tag
 """
 input FilterTag {
     "Tag namespace"
-    namespace: FilterString,
+    namespace: FilterStringWithWildcardWithLowercase,
 
     "Tag key"
-    key: FilterString!,
+    key: FilterStringWithWildcardWithLowercase!,
 
     "Tag value"
-    value: FilterString
+    value: FilterStringWithWildcardWithLowercase
 }
 
 """
@@ -309,9 +309,9 @@ type Hosts {
 
 "Structured representation of a tag"
 type StructuredTag {
-    namespace: String,
-    key: String!,
-    value: String
+    namespace: FilterStringWithWildcardWithLowercase,
+    key: FilterStringWithWildcardWithLowercase!,
+    value: FilterStringWithWildcardWithLowercase
 }
 
 type Tags {
