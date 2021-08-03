@@ -309,9 +309,9 @@ type Hosts {
 
 "Structured representation of a tag"
 type StructuredTag {
-    namespace: FilterStringWithWildcardWithLowercase,
-    key: FilterStringWithWildcardWithLowercase!,
-    value: FilterStringWithWildcardWithLowercase
+    namespace: String,
+    key: String!,
+    value: String
 }
 
 type Tags {
