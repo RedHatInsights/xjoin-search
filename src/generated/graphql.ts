@@ -140,11 +140,11 @@ export type FilterStringWithWildcardWithLowercase = {
 /** Filters hosts by the presence of a host tag */
 export type FilterTag = {
   /** Tag namespace */
-  namespace?: Maybe<FilterString>;
+  namespace?: Maybe<FilterStringWithWildcardWithLowercase>;
   /** Tag key */
-  key: FilterString;
+  key: FilterStringWithWildcardWithLowercase;
   /** Tag value */
-  value?: Maybe<FilterString>;
+  value?: Maybe<FilterStringWithWildcardWithLowercase>;
 };
 
 /** Timestamp field filter with support for common operations. */

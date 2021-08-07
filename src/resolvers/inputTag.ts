@@ -14,7 +14,7 @@ function getFilterStringValue (value: FilterString | undefined | null, dflt = ES
         return dflt;
     }
 
-    return value.eq;
+    return value.eq.toLowerCase();
 }
 
 export function filterTag (value: FilterTag): Record<string, any>[] {
