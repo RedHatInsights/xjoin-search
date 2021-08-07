@@ -1,4 +1,4 @@
-import { FilterTag, FilterString } from '../generated/graphql';
+import { FilterTag, FilterStringWithWildcardWithLowercase } from '../generated/graphql';
 import {ES_NULL_VALUE} from '../constants';
 
 /*
@@ -9,7 +9,7 @@ import {ES_NULL_VALUE} from '../constants';
  */
 export const NAMESPACE_NULL_VALUE = 'null';
 
-function getFilterStringValue (value: FilterString | undefined | null, dflt = ES_NULL_VALUE): string {
+function getFilterStringValue (value: FilterStringWithWildcardWithLowercase | undefined | null, dflt = ES_NULL_VALUE): string {
     if (!value || !value.eq) {
         return dflt;
     }
