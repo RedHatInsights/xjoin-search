@@ -916,7 +916,7 @@ Filters hosts by the presence of a host tag
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>namespace</strong></td>
-<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td valign="top"><a href="#filterstringwithwildcardwithlowercase">FilterStringWithWildcardWithLowercase</a></td>
 <td>
 
 Tag namespace
@@ -925,7 +925,7 @@ Tag namespace
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>key</strong></td>
-<td valign="top"><a href="#filterstring">FilterString</a>!</td>
+<td valign="top"><a href="#filterstringwithwildcardwithlowercase">FilterStringWithWildcardWithLowercase</a>!</td>
 <td>
 
 Tag key
@@ -934,7 +934,7 @@ Tag key
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>value</strong></td>
-<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td valign="top"><a href="#filterstringwithwildcardwithlowercase">FilterStringWithWildcardWithLowercase</a></td>
 <td>
 
 Tag value

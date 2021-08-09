@@ -739,6 +739,32 @@ describe('hosts query', function () {
                 });
             });
 
+            test('simple tag filter with case-insenstive value', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: {eq: 'AWS'},
+                            key: {eq: 'REGION'},
+                            value: {eq: 'US-EAST-1'}
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
+            test('simple tag filter with wildcard key value', async () => {
+                const { data } = await runQuery(TAG_QUERY, {
+                    filter: {
+                        tag: {
+                            namespace: {eq: 'aws'},
+                            key: {eq: '*'},
+                            value: {eq: 'us-*-1'}
+                        }
+                    }
+                });
+                expect(data).toMatchSnapshot();
+            });
+
             test('tag filter union', async () => {
                 const { data } = await runQuery(TAG_QUERY, {
                     filter: {

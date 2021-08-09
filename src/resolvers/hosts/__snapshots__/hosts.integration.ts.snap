@@ -645,6 +645,41 @@ Object {
 }
 `;
 
+exports[`hosts query queries tags simple tag filter with case-insenstive value 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "display_name": "test01.rhel7.jharting.local",
+        "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
+        "tags": Object {
+          "data": Array [
+            Object {
+              "key": "env",
+              "namespace": "Sat",
+              "value": "prod",
+            },
+            Object {
+              "key": "region",
+              "namespace": "aws",
+              "value": "us-east-1",
+            },
+            Object {
+              "key": "database",
+              "namespace": "insights-client",
+              "value": null,
+            },
+          ],
+          "meta": Object {
+            "total": 3,
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
 exports[`hosts query queries tags simple tag filter with explicit null value 1`] = `
 Object {
   "hosts": Object {
@@ -736,6 +771,41 @@ Object {
 `;
 
 exports[`hosts query queries tags simple tag filter with value 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "display_name": "test01.rhel7.jharting.local",
+        "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
+        "tags": Object {
+          "data": Array [
+            Object {
+              "key": "env",
+              "namespace": "Sat",
+              "value": "prod",
+            },
+            Object {
+              "key": "region",
+              "namespace": "aws",
+              "value": "us-east-1",
+            },
+            Object {
+              "key": "database",
+              "namespace": "insights-client",
+              "value": null,
+            },
+          ],
+          "meta": Object {
+            "total": 3,
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query queries tags simple tag filter with wildcard key value 1`] = `
 Object {
   "hosts": Object {
     "data": Array [
