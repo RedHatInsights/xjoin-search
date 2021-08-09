@@ -24,11 +24,11 @@ export function filterTag (value: FilterTag): Record<string, any>[] {
             query: {
                 bool: {
                     filter: [{
-                        term: { 'tags_structured.namespace': getFilterStringValue(value.namespace, NAMESPACE_NULL_VALUE) }
+                        wildcard: { 'tags_structured.namespace': getFilterStringValue(value.namespace, NAMESPACE_NULL_VALUE) }
                     }, {
-                        term: { 'tags_structured.key': getFilterStringValue(value.key) }
+                        wildcard: { 'tags_structured.key': getFilterStringValue(value.key) }
                     }, {
-                        term: { 'tags_structured.value': getFilterStringValue(value.value) }
+                        wildcard: { 'tags_structured.value': getFilterStringValue(value.value) }
                     }]
                 }
             }
