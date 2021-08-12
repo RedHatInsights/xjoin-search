@@ -64,6 +64,28 @@ objects:
             cpu: ${CPU_REQUESTS}
             memory: ${MEMORY_REQUESTS}
 
+    jobs:
+    - name: heartbeat
+      schedule: ${HEARTBEAT_SCHEDULE}
+      suspend: ${{HEARTBEAT_SUSPEND}}
+      podSpec:
+        image: ${HEARTBEAT_IMAGE}:${HEARTBEAT_IMAGE_TAG}
+        restartPolicy: Never
+        env:
+          - name: INGRESS_HOST
+            value: ${INGRESS_HOST}
+          - name: INGRESS_PORT
+            value: ${INGRESS_PORT}
+          - name: INGRESS_PROTOCOL
+            value: ${INGRESS_PROTOCOL}
+        resources:
+          limits:
+            cpu: 51m
+            memory: 51Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+
 # this service proxies requests for the old URL (xjoin-search:4000) to the clowderized service (xjoin-search-api:8000)
 - apiVersion: v1
   kind: Service
@@ -103,6 +125,21 @@ parameters:
   value: ''
 - name: ES_PASSWORD
   value: ''
+
+- name: INGRESS_HOST
+  value: ingress-service
+- name: INGRESS_PORT
+  value: '8000'
+- name: INGRESS_PROTOCOL
+  value: 'http'
+- name: HEARTBEAT_IMAGE
+  value: 'quay.io/cloudservices/inventory-heartbeat'
+- name: HEARTBEAT_IMAGE_TAG
+  value: 'latest'
+- name: HEARTBEAT_SUSPEND
+  value: 'true'
+- name: HEARTBEAT_SCHEDULE
+  value: '@hourly'
 
 - name: IMAGE_TAG
   required: true
