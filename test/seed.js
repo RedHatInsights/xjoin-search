@@ -119,12 +119,32 @@ async function run () {
                     properties: {
                         namespace: {
                             type: 'keyword',
-                            null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
+                            // null_value: '$$_XJOIN_SEARCH_NULL_VALUE',
+                            fields: {
+                                lowercase: {
+                                    type: 'keyword',
+                                    normalizer: 'case_insensitive'
+                                }
+                            }        
                         },
-                        key: { type: 'keyword' },
+                        key: { 
+                            type: 'keyword',
+                            fields: {
+                                lowercase: {
+                                    type: 'keyword',
+                                    normalizer: 'case_insensitive'
+                                }
+                            }
+                        },
                         value: {
                             type: 'keyword',
-                            null_value: '$$_XJOIN_SEARCH_NULL_VALUE'
+                            // null_value: '$$_XJOIN_SEARCH_NULL_VALUE',
+                            fields: {
+                                lowercase: {
+                                    type: 'keyword',
+                                    normalizer: 'case_insensitive'
+                                }
+                            }
                         }
                     }
                 },
@@ -132,7 +152,13 @@ async function run () {
                     type: 'keyword'
                 },
                 tags_search: {
-                    type: 'keyword'
+                    type: 'keyword',
+                    fields: {
+                        lowercase: {
+                            type: 'keyword',
+                            normalizer: 'case_insensitive'
+                        }
+                    }
                 }
             }
         }

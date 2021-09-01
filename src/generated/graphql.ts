@@ -87,6 +87,8 @@ export type FilterStringWithRegex = {
   eq?: Maybe<Scalars['String']>;
   /** Matches the document field against the provided regular expression. */
   regex?: Maybe<Scalars['String']>;
+  /** Matches the document field against the provided regular expression. */
+  regex_lc?: Maybe<Scalars['String']>;
 };
 
 /** String field filter that allows filtering based on exact match or using wildcards. */
