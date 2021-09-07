@@ -129,7 +129,7 @@ input HostFilter {
     "Filter by 'os_release' field of system profile"
     spf_os_release: FilterString
     "Filter by 'operating_system' field of system profile"
-    spf_operating_system: FilterString
+    spf_operating_system: FilterOperatingSystem
     "Filter by 'cpu_flags' field of system profile"
     spf_cpu_flags: FilterString
     "Filter by 'bios_version' field of system profile"

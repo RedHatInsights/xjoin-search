@@ -5,7 +5,18 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const { buildMappingsFor } = require("json-schema-to-es-mapping");
 
-function remove_blocked_fields(schema) {
+const FILTER_TYPES = {
+    string: "FilterString", //when type is anything else (default)
+    boolean: "FilterBoolean", //when type is boolean
+    wildcard: "FilterStringWithWildcard", //when `x-wildcard` is true (and present)
+    timestamp: "FilterTimestamp", //when type is string and format is `date-time`
+};
+const CUSTOM_FILTER_TYPES = {
+    operating_system: "FilterOperatingSystem"
+};
+const CUSTOM_FIELDS = ["operating_system"];
+
+function removeBlockedFields(schema) {
     for (const [key, value] of Object.entries(schema["properties"])) {
         if ("x-indexed" in value && value["x-indexed"] == false) {
             console.log("found x-indexed: " + value["x-indexed"]);
@@ -16,7 +27,7 @@ function remove_blocked_fields(schema) {
     return schema;
 }
 
-function remove_include_in_parent(mapping) {
+function removeIncludeInParent(mapping) {
     for (const property in mapping["mappings"]["system_profile_facts"]["properties"]) {        
         if ("include_in_parent" in mapping["mappings"]["system_profile_facts"]["properties"][property]) {
             delete mapping["mappings"]["system_profile_facts"]["properties"][property]["include_in_parent"]; 
@@ -26,46 +37,41 @@ function remove_include_in_parent(mapping) {
     return mapping;
 }
 
-function determine_filter_type(value) {
+function customTypeFromName(field_name) {
+    return CUSTOM_FILTER_TYPES[field_name];
+}
+
+function determineFilterType(field_name, value) {
     //take the details of the field from the JSONshema and return the type
     //of filter used in the graphQL schema
-
-    const filterTypes = {
-        string: "FilterString", //when type is anything else (default)
-        boolean: "FilterBoolean", //when type is boolean
-        wildcard: "FilterStringWithWildcard", //when `x-wildcard` is true (and present)
-        timestamp: "FilterTimestamp" //when type is string and format is `date-time`
-        // ^ not currently used, but maybe?
-    };
-
-    //boolean (wildcard imposible)
-    //timestamp (wildcard irrelevant)
-    //wildcard string
-    //else filterstring
-
     let type = _.get(value, "type");
 
     if (type == undefined) {
         throw `ERROR: type of ${key} is undefined in the system_profile JSONschema`
     }
 
-    if (type == "boolean") {
-        return filterTypes.boolean;
+    if(_.includes(CUSTOM_FIELDS, field_name)) {
+        console.log("custom!")
+        console.log(field_name)
+        console.log(customTypeFromName(field_name))
+        return customTypeFromName(field_name);
+    } else if (type == "boolean") {
+        return FILTER_TYPES.boolean;
     } else if (_.get(value, "format") == "date-time") {
-        return filterTypes.timestamp;
+        return FILTER_TYPES.timestamp;
     } else if (_.get(value, "x-wildcard")) {
-        return filterTypes.wildcard;
+        return FILTER_TYPES.wildcard;
     } 
 
     // FilterString is pretty much a catch all, but watch for edge cases
-    return filterTypes.string;
+    return FILTER_TYPES.string;
 }
 
-function create_graphql_fields(schema) {
+function createGraphqlFields(schema) {
     let grapqhlFieldsArray = [];
 
     for (const [key, value] of Object.entries(schema["properties"])) {
-        let filterType = determine_filter_type(value);
+        let filterType = determineFilterType(key, value);
         grapqhlFieldsArray.push(`    "Filter by '${key}' field of system profile"\n    spf_${key}: ${filterType}`);
     }
 
@@ -90,8 +96,8 @@ try {
     let mappingFileContent = fs.readFileSync(mappingFilePath, 'utf8');
     let template = JSON.parse(mappingFileContent);
 
-    schema = remove_blocked_fields(schema);
-    new_mapping = remove_include_in_parent(buildMappingsFor("system_profile_facts", schema));
+    schema = removeBlockedFields(schema);
+    new_mapping = removeIncludeInParent(buildMappingsFor("system_profile_facts", schema));
 
     template["properties"]["system_profile_facts"]["properties"] = new_mapping["mappings"]["system_profile_facts"]["properties"];
     
@@ -113,7 +119,7 @@ try {
     graphqlStringArray.splice(insertIndex, endIndex-insertIndex-2);
 
     //insert the generated ones
-    _.forEach(create_graphql_fields(schema), (field) => {
+    _.forEach(createGraphqlFields(schema), (field) => {
         graphqlStringArray.splice(insertIndex, 0, field);
     })
 
