@@ -788,6 +788,11 @@ If `null` is provided then documents where the given field does not exist are re
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>eq_lc</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>regex</strong></td>
 <td valign="top"><a href="#string">String</a></td>
 <td>

@@ -27,7 +27,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         aggs: {
             tags: {
                 terms: {
-                    field: 'tags_search',
+                    field: 'tags_search.lowercase',
                     size: config.queries.maxBuckets,
                     order: [{
                         [TAG_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)

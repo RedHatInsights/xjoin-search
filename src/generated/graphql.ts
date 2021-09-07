@@ -227,32 +227,102 @@ export type HostFilter = {
   provider_type?: Maybe<FilterString>;
   /** Filter by provider_id */
   provider_id?: Maybe<FilterString>;
-  /** Filter by 'arch' field of system profile */
-  spf_arch?: Maybe<FilterStringWithWildcard>;
-  /** Filter by 'os_release' field of system profile */
-  spf_os_release?: Maybe<FilterStringWithWildcard>;
-  /** Filter by 'os_kernel_version' field of system profile */
-  spf_os_kernel_version?: Maybe<FilterStringWithWildcard>;
-  /** Filter by 'infrastructure_type' field of system profile */
-  spf_infrastructure_type?: Maybe<FilterStringWithWildcard>;
-  /** Filter by 'infrastructure_vendor' field of system profile */
-  spf_infrastructure_vendor?: Maybe<FilterStringWithWildcard>;
-  /** Filter by 'sap_system' field of system profile */
-  spf_sap_system?: Maybe<FilterBoolean>;
-  /** Filter by 'sap_sids' field of system profile */
-  spf_sap_sids?: Maybe<FilterString>;
-  /** Filter by 'owner_id' field of system profile */
-  spf_owner_id?: Maybe<FilterString>;
-  /** Filter by 'insights_client_version' field of system profile */
-  spf_insights_client_version?: Maybe<FilterStringWithWildcard>;
-  /** Filter by 'rhc_client_id' field of system profile */
-  spf_rhc_client_id?: Maybe<FilterString>;
-  /** Filter by 'is_marketplace' field of system profile */
-  spf_is_marketplace?: Maybe<FilterBoolean>;
-  /** Filter by 'operating_system' field of system profile */
-  spf_operating_system?: Maybe<FilterOperatingSystem>;
+  /** Filter by 'rhsm' field of system profile */
+  spf_rhsm?: Maybe<FilterString>;
+  /** Filter by 'rpm_ostree_deployments' field of system profile */
+  spf_rpm_ostree_deployments?: Maybe<FilterString>;
+  /** Filter by 'greenboot_fallback_detected' field of system profile */
+  spf_greenboot_fallback_detected?: Maybe<FilterBoolean>;
+  /** Filter by 'greenboot_status' field of system profile */
+  spf_greenboot_status?: Maybe<FilterString>;
   /** Filter by 'host_type' field of system profile */
   spf_host_type?: Maybe<FilterString>;
+  /** Filter by 'is_marketplace' field of system profile */
+  spf_is_marketplace?: Maybe<FilterBoolean>;
+  /** Filter by 'selinux_config_file' field of system profile */
+  spf_selinux_config_file?: Maybe<FilterString>;
+  /** Filter by 'selinux_current_mode' field of system profile */
+  spf_selinux_current_mode?: Maybe<FilterString>;
+  /** Filter by 'tuned_profile' field of system profile */
+  spf_tuned_profile?: Maybe<FilterString>;
+  /** Filter by 'sap_version' field of system profile */
+  spf_sap_version?: Maybe<FilterString>;
+  /** Filter by 'sap_instance_number' field of system profile */
+  spf_sap_instance_number?: Maybe<FilterString>;
+  /** Filter by 'sap_sids' field of system profile */
+  spf_sap_sids?: Maybe<FilterString>;
+  /** Filter by 'sap_system' field of system profile */
+  spf_sap_system?: Maybe<FilterBoolean>;
+  /** Filter by 'enabled_services' field of system profile */
+  spf_enabled_services?: Maybe<FilterString>;
+  /** Filter by 'installed_services' field of system profile */
+  spf_installed_services?: Maybe<FilterString>;
+  /** Filter by 'gpg_pubkeys' field of system profile */
+  spf_gpg_pubkeys?: Maybe<FilterString>;
+  /** Filter by 'installed_packages' field of system profile */
+  spf_installed_packages?: Maybe<FilterString>;
+  /** Filter by 'captured_date' field of system profile */
+  spf_captured_date?: Maybe<FilterString>;
+  /** Filter by 'insights_egg_version' field of system profile */
+  spf_insights_egg_version?: Maybe<FilterString>;
+  /** Filter by 'insights_client_version' field of system profile */
+  spf_insights_client_version?: Maybe<FilterStringWithWildcard>;
+  /** Filter by 'installed_products' field of system profile */
+  spf_installed_products?: Maybe<FilterString>;
+  /** Filter by 'dnf_modules' field of system profile */
+  spf_dnf_modules?: Maybe<FilterString>;
+  /** Filter by 'cloud_provider' field of system profile */
+  spf_cloud_provider?: Maybe<FilterString>;
+  /** Filter by 'satellite_managed' field of system profile */
+  spf_satellite_managed?: Maybe<FilterBoolean>;
+  /** Filter by 'katello_agent_running' field of system profile */
+  spf_katello_agent_running?: Maybe<FilterBoolean>;
+  /** Filter by 'subscription_auto_attach' field of system profile */
+  spf_subscription_auto_attach?: Maybe<FilterString>;
+  /** Filter by 'subscription_status' field of system profile */
+  spf_subscription_status?: Maybe<FilterString>;
+  /** Filter by 'last_boot_time' field of system profile */
+  spf_last_boot_time?: Maybe<FilterTimestamp>;
+  /** Filter by 'kernel_modules' field of system profile */
+  spf_kernel_modules?: Maybe<FilterString>;
+  /** Filter by 'arch' field of system profile */
+  spf_arch?: Maybe<FilterString>;
+  /** Filter by 'os_kernel_version' field of system profile */
+  spf_os_kernel_version?: Maybe<FilterString>;
+  /** Filter by 'os_release' field of system profile */
+  spf_os_release?: Maybe<FilterString>;
+  /** Filter by 'operating_system' field of system profile */
+  spf_operating_system?: Maybe<FilterString>;
+  /** Filter by 'cpu_flags' field of system profile */
+  spf_cpu_flags?: Maybe<FilterString>;
+  /** Filter by 'bios_version' field of system profile */
+  spf_bios_version?: Maybe<FilterString>;
+  /** Filter by 'bios_vendor' field of system profile */
+  spf_bios_vendor?: Maybe<FilterString>;
+  /** Filter by 'disk_devices' field of system profile */
+  spf_disk_devices?: Maybe<FilterString>;
+  /** Filter by 'network_interfaces' field of system profile */
+  spf_network_interfaces?: Maybe<FilterString>;
+  /** Filter by 'infrastructure_vendor' field of system profile */
+  spf_infrastructure_vendor?: Maybe<FilterString>;
+  /** Filter by 'infrastructure_type' field of system profile */
+  spf_infrastructure_type?: Maybe<FilterString>;
+  /** Filter by 'system_memory_bytes' field of system profile */
+  spf_system_memory_bytes?: Maybe<FilterString>;
+  /** Filter by 'cores_per_socket' field of system profile */
+  spf_cores_per_socket?: Maybe<FilterString>;
+  /** Filter by 'number_of_sockets' field of system profile */
+  spf_number_of_sockets?: Maybe<FilterString>;
+  /** Filter by 'number_of_cpus' field of system profile */
+  spf_number_of_cpus?: Maybe<FilterString>;
+  /** Filter by 'cpu_model' field of system profile */
+  spf_cpu_model?: Maybe<FilterString>;
+  /** Filter by 'rhc_config_state' field of system profile */
+  spf_rhc_config_state?: Maybe<FilterString>;
+  /** Filter by 'rhc_client_id' field of system profile */
+  spf_rhc_client_id?: Maybe<FilterString>;
+  /** Filter by 'owner_id' field of system profile */
+  spf_owner_id?: Maybe<FilterString>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
