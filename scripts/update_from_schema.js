@@ -4,6 +4,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { buildMappingsFor } = require("json-schema-to-es-mapping");
+const { type } = require('os');
 
 const FILTER_TYPES = {
     string: "FilterString", //when type is anything else (default)
@@ -17,9 +18,11 @@ const CUSTOM_FILTER_TYPES = {
 const CUSTOM_FIELDS = ["operating_system"];
 
 function removeBlockedFields(schema) {
+    console.log("\n### removing fields marked to not be indexed ###");
+
     for (const [key, value] of Object.entries(schema["properties"])) {
         if ("x-indexed" in value && value["x-indexed"] == false) {
-            console.log("found x-indexed: " + value["x-indexed"]);
+            console.log(`Removed field: ${key}`);
             delete schema["properties"][key]; 
         }
     }
@@ -38,6 +41,8 @@ function removeIncludeInParent(mapping) {
 }
 
 function customTypeFromName(field_name) {
+    console.log(`using custom field type for: ${field_name}`);
+
     return CUSTOM_FILTER_TYPES[field_name];
 }
 
@@ -51,9 +56,6 @@ function determineFilterType(field_name, value) {
     }
 
     if(_.includes(CUSTOM_FIELDS, field_name)) {
-        console.log("custom!")
-        console.log(field_name)
-        console.log(customTypeFromName(field_name))
         return customTypeFromName(field_name);
     } else if (type == "boolean") {
         return FILTER_TYPES.boolean;
@@ -78,43 +80,42 @@ function createGraphqlFields(schema) {
     return grapqhlFieldsArray;
 }
 
-try {
-    var myArgs = process.argv.slice(2);
-    schemaPath = myArgs[0];
-
-    console.log(schemaPath)
-
-    if (schemaPath == undefined) {
-        schemaPath = './inventory-schemas/schemas/system_profile/v1.yaml'
+function getSchema(schema_path) {
+    if (schema_path == undefined) {
+        schema_path = './inventory-schemas/schemas/system_profile/v1.yaml'
     }
 
     let schemaFileContent = fs.readFileSync(myArgs[0], 'utf8');
     let schemaData = yaml.load(schemaFileContent);
-    let schema = schemaData["$defs"]["SystemProfile"]
+
+    return removeBlockedFields(schemaData["$defs"]["SystemProfile"])
+}
+
+function updateMapping(schema) {
+    console.log("\n### updating elasticsearch mapping ###");
 
     let mappingFilePath = '../test/mapping.json'
     let mappingFileContent = fs.readFileSync(mappingFilePath, 'utf8');
     let template = JSON.parse(mappingFileContent);
 
-    schema = removeBlockedFields(schema);
     new_mapping = removeIncludeInParent(buildMappingsFor("system_profile_facts", schema));
 
     template["properties"]["system_profile_facts"]["properties"] = new_mapping["mappings"]["system_profile_facts"]["properties"];
     
     fs.writeFileSync(mappingFilePath, JSON.stringify(template, null, 2));
+}
 
+function updateGraphQLSchema(schema) {
+    console.log("\n### updating GraphQL schema ###");
 
-    //update the graphql schema
     let grapqhlFilePath = '../src/schema/schema.graphql';
     let grapqhlFileContent = fs.readFileSync(grapqhlFilePath, 'utf8');
     let graphqlStringArray = grapqhlFileContent.toString().split('\n');
 
     //find the index of the marker line where we will insert the new additions
-    let insertIndex = graphqlStringArray.indexOf("    # START: system_profile schema filters") + 2;
-    let endIndex = graphqlStringArray.indexOf("    # END: system_profile schema filters") - 1;
+    let insertIndex = graphqlStringArray.indexOf("    # START: system_profile schema filters") + 1;
+    let endIndex = graphqlStringArray.indexOf("    # END: system_profile schema filters");
     
-    console.log(`insert: ${insertIndex} | end: ${endIndex}`);
-
     //remove existing system_profile filters, but leave padding
     graphqlStringArray.splice(insertIndex, endIndex-insertIndex-2);
 
@@ -126,6 +127,71 @@ try {
     let newGraphqlFileContent = graphqlStringArray.join("\n");
 
     fs.writeFileSync(grapqhlFilePath, newGraphqlFileContent);
+}
+
+function updateHostsJson(schema) {
+    console.log("\n### updating example data for tests in hosts.json ###");
+
+    let hosts_file_path = '../test/hosts.json'
+    let hosts_file_content = fs.readFileSync(hosts_file_path, 'utf8');
+    let hosts = JSON.parse(hosts_file_content);
+
+    let new_host_system_profile_facts = [{},{},{}];
+
+    //iterate over JSONschema creating three hosts worh of example SPF data
+    for (const [key, value] of Object.entries(schema["properties"])) {
+        let type = value["type"];
+
+        //for strings take example values from example property
+        if(type == "string") {
+            example = _.get(value, "example");
+
+            if(example == undefined) {
+                throw `ERROR: string field ${key} missing example values`;
+            }
+
+            example_values = example.split(",");
+
+            for(let i = 0; i < 3; i++) {
+                new_host_system_profile_facts[i][key] = example_values[i].trim();
+            }
+        } else if (type == "boolean") {
+            let bool_values = [true, false, false];
+
+            for(let i = 0; i < 3; i++) {
+                new_host_system_profile_facts[i][key] = bool_values[i];
+            }
+        } else if (type == "integer") {
+            for(let i = 0; i < 3; i++) {
+                new_host_system_profile_facts[i][key] = i;
+            }
+        }
+    }
+
+    let i = 0;
+    _.forEach(hosts, (host) => {
+        if(host["account"] == "test") {
+            _.forEach(new_host_system_profile_facts[i], (value, field) => {
+                host["system_profile_facts"][field] = new_host_system_profile_facts[i][field];
+            })
+        }
+        i++;
+    })
+
+    fs.writeFileSync(hosts_file_path, JSON.stringify(hosts, null, 4));
+}
+
+try {
+    var myArgs = process.argv.slice(2);
+    schema_path = myArgs[0];
+
+    let schema = getSchema(schema_path);
+
+    updateMapping(schema);
+    updateGraphQLSchema(schema);
+    updateHostsJson(schema);
+
+    
 } catch (e) {
     console.log(e);
 }

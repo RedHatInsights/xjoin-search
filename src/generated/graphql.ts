@@ -292,7 +292,7 @@ export type HostFilter = {
   /** Filter by 'os_release' field of system profile */
   spf_os_release?: Maybe<FilterString>;
   /** Filter by 'operating_system' field of system profile */
-  spf_operating_system?: Maybe<FilterString>;
+  spf_operating_system?: Maybe<FilterOperatingSystem>;
   /** Filter by 'cpu_flags' field of system profile */
   spf_cpu_flags?: Maybe<FilterString>;
   /** Filter by 'bios_version' field of system profile */

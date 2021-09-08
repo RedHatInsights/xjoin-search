@@ -63,7 +63,6 @@ input HostFilter {
     # DO NOT REMOVE. Used to automatically update this schema
     # based on the system_profile JSONschema
     # START: system_profile schema filters
-
     "Filter by 'rhsm' field of system profile"
     spf_rhsm: FilterString
     "Filter by 'rpm_ostree_deployments' field of system profile"
@@ -160,8 +159,7 @@ input HostFilter {
     spf_rhc_client_id: FilterString
     "Filter by 'owner_id' field of system profile"
     spf_owner_id: FilterString
-    "Filter by 'owner_id' field of system profile"
-    spf_owner_id: FilterString
+
 
     # END: system_profile schema filters
     # DO NOT REMOVE.
