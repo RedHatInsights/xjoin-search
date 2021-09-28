@@ -41,15 +41,17 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         }
     };
 
+    console.log(body)
     if (args.filter && args.filter.search) {
         const search = args.filter.search;
         if (search.eq) {
             body.aggs.tags.terms.include = [search.eq];
         } else if (search.regex) {
-            body.aggs.tags.terms.include = search.regex;
-        } else if (search.regex_lc) {
-            body.aggs.tags.terms.include = search.regex_lc.toLowerCase()
+            body.aggs.tags.terms.include = search.regex.toLowerCase();
         }
+        // else if (search.regex_lc) {
+        //     body.aggs.tags.terms.include = search.regex_lc.toLowerCase()
+        // }
     }
 
     const result = await runQuery({

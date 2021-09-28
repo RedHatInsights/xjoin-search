@@ -125,7 +125,7 @@ async function run () {
                                     type: 'keyword',
                                     normalizer: 'case_insensitive'
                                 }
-                            }        
+                            }
                         },
                         key: { 
                             type: 'keyword',
