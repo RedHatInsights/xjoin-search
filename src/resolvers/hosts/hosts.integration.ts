@@ -6,6 +6,7 @@ import client from '../../es';
 import * as probes from '../../probes';
 import { getContext } from '../../../test';
 import { testLimitOffset } from '../test.common';
+import each from 'jest-each';
 
 const BASIC_QUERY = `
     query hosts (
@@ -325,7 +326,23 @@ describe('hosts query', function () {
             expect(data).toMatchSnapshot();
         });
 
+        // working here TODO: remove this comment when i'm done
         describe('system_profile', function () {
+
+            // attemping to make a generalized test that test all current and 
+            // future non-custom type field in the system profile
+            test('all_spf_fields', async () => {
+                each([
+                    ['os_kernel_version', 'matches', '4.18.*']
+                ]).test('%s', async (field_name, search_operation, search_value) => {
+                    const filter_name = 'spf_' + field_name;
+                    const { data } = await runQuery(BASIC_QUERY, { filter: { filter_name: { search_operation: search_value }}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                })
+            });
+
+
             test('arch', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_arch: { eq: 'x86_64' }}});
                 expect(data).toMatchSnapshot();
@@ -343,7 +360,7 @@ describe('hosts query', function () {
                 expect(data).toMatchSnapshot();
             });
 
-            test('os_kernel_release', async () => {
+            test('os_kernel_version', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_os_kernel_version: { matches: '4.18.*' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
@@ -395,11 +412,8 @@ describe('hosts query', function () {
                 data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
             });
 
-            test('spf_host_type', async () => {
-                const { data } = await runQuery(BASIC_QUERY,
-                    { filter: { spf_host_type: { eq: 'edge'}}});
-                data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            describe('generated_spf_tests', function () {
+
             });
 
             describe('sap_system', function () {

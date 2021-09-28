@@ -47,6 +47,36 @@ export type FilterBoolean = {
   is?: Maybe<Scalars['Boolean']>;
 };
 
+/** Filter by 'disk_devices' field of system profile */
+export type FilterDiskDevices = {
+  /** Filter by 'device' field of disk_devices */
+  device?: Maybe<FilterString>;
+  /** Filter by 'label' field of disk_devices */
+  label?: Maybe<FilterString>;
+  /** Filter by 'mount_point' field of disk_devices */
+  mount_point?: Maybe<FilterString>;
+  /** Filter by 'type' field of disk_devices */
+  type?: Maybe<FilterString>;
+};
+
+/** Filter by 'dnf_modules' field of system profile */
+export type FilterDnfModules = {
+  /** Filter by 'name' field of dnf_modules */
+  name?: Maybe<FilterString>;
+  /** Filter by 'stream' field of dnf_modules */
+  stream?: Maybe<FilterString>;
+};
+
+/** Filter by 'installed_products' field of system profile */
+export type FilterInstalledProducts = {
+  /** Filter by 'name' field of installed_products */
+  name?: Maybe<FilterString>;
+  /** Filter by 'id' field of installed_products */
+  id?: Maybe<FilterString>;
+  /** Filter by 'status' field of installed_products */
+  status?: Maybe<FilterString>;
+};
+
 /** Timestamp field filter with support for common operations. */
 export type FilterInt = {
   /** Less than */
@@ -59,14 +89,56 @@ export type FilterInt = {
   gte?: Maybe<Scalars['Int']>;
 };
 
-/** Filters hosts by the operating system */
-export type FilterOperatingSystem = {
-  /** Major release version (0-99) */
-  major?: Maybe<FilterInt>;
-  /** Minor release version (0-99 */
-  minor?: Maybe<FilterInt>;
-  /** Name of distro (max 4 chars e.g. RHEL) */
+/** Filter by 'network_interfaces' field of system profile */
+export type FilterNetworkInterfaces = {
+  /** Filter by 'ipv4_addresses' field of network_interfaces */
+  ipv4_addresses?: Maybe<FilterString>;
+  /** Filter by 'ipv6_addresses' field of network_interfaces */
+  ipv6_addresses?: Maybe<FilterString>;
+  /** Filter by 'mtu' field of network_interfaces */
+  mtu?: Maybe<FilterInt>;
+  /** Filter by 'mac_address' field of network_interfaces */
+  mac_address?: Maybe<FilterString>;
+  /** Filter by 'name' field of network_interfaces */
   name?: Maybe<FilterString>;
+  /** Filter by 'state' field of network_interfaces */
+  state?: Maybe<FilterString>;
+  /** Filter by 'type' field of network_interfaces */
+  type?: Maybe<FilterString>;
+};
+
+/** Filter by 'operating_system' field of system profile */
+export type FilterOperatingSystem = {
+  /** Filter by 'major' field of operating_system */
+  major?: Maybe<FilterInt>;
+  /** Filter by 'minor' field of operating_system */
+  minor?: Maybe<FilterInt>;
+  /** Filter by 'name' field of operating_system */
+  name?: Maybe<FilterString>;
+};
+
+/** Filter by 'rhsm' field of system profile */
+export type FilterRhsm = {
+  /** Filter by 'version' field of rhsm */
+  version?: Maybe<FilterString>;
+};
+
+/** Filter by 'rpm_ostree_deployments' field of system profile */
+export type FilterRpmOstreeDeployments = {
+  /** Filter by 'id' field of rpm_ostree_deployments */
+  id?: Maybe<FilterString>;
+  /** Filter by 'checksum' field of rpm_ostree_deployments */
+  checksum?: Maybe<FilterString>;
+  /** Filter by 'origin' field of rpm_ostree_deployments */
+  origin?: Maybe<FilterString>;
+  /** Filter by 'osname' field of rpm_ostree_deployments */
+  osname?: Maybe<FilterString>;
+  /** Filter by 'version' field of rpm_ostree_deployments */
+  version?: Maybe<FilterString>;
+  /** Filter by 'booted' field of rpm_ostree_deployments */
+  booted?: Maybe<FilterBoolean>;
+  /** Filter by 'pinned' field of rpm_ostree_deployments */
+  pinned?: Maybe<FilterBoolean>;
 };
 
 /** Basic filter for string fields that allows filtering based on exact match. */
@@ -228,9 +300,9 @@ export type HostFilter = {
   /** Filter by provider_id */
   provider_id?: Maybe<FilterString>;
   /** Filter by 'rhsm' field of system profile */
-  spf_rhsm?: Maybe<FilterString>;
+  spf_rhsm?: Maybe<FilterRhsm>;
   /** Filter by 'rpm_ostree_deployments' field of system profile */
-  spf_rpm_ostree_deployments?: Maybe<FilterString>;
+  spf_rpm_ostree_deployments?: Maybe<FilterRpmOstreeDeployments>;
   /** Filter by 'greenboot_fallback_detected' field of system profile */
   spf_greenboot_fallback_detected?: Maybe<FilterBoolean>;
   /** Filter by 'greenboot_status' field of system profile */
@@ -268,9 +340,9 @@ export type HostFilter = {
   /** Filter by 'insights_client_version' field of system profile */
   spf_insights_client_version?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'installed_products' field of system profile */
-  spf_installed_products?: Maybe<FilterString>;
+  spf_installed_products?: Maybe<FilterInstalledProducts>;
   /** Filter by 'dnf_modules' field of system profile */
-  spf_dnf_modules?: Maybe<FilterString>;
+  spf_dnf_modules?: Maybe<FilterDnfModules>;
   /** Filter by 'cloud_provider' field of system profile */
   spf_cloud_provider?: Maybe<FilterString>;
   /** Filter by 'satellite_managed' field of system profile */
@@ -288,7 +360,7 @@ export type HostFilter = {
   /** Filter by 'arch' field of system profile */
   spf_arch?: Maybe<FilterString>;
   /** Filter by 'os_kernel_version' field of system profile */
-  spf_os_kernel_version?: Maybe<FilterString>;
+  spf_os_kernel_version?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'os_release' field of system profile */
   spf_os_release?: Maybe<FilterString>;
   /** Filter by 'operating_system' field of system profile */
@@ -300,21 +372,21 @@ export type HostFilter = {
   /** Filter by 'bios_vendor' field of system profile */
   spf_bios_vendor?: Maybe<FilterString>;
   /** Filter by 'disk_devices' field of system profile */
-  spf_disk_devices?: Maybe<FilterString>;
+  spf_disk_devices?: Maybe<FilterDiskDevices>;
   /** Filter by 'network_interfaces' field of system profile */
-  spf_network_interfaces?: Maybe<FilterString>;
+  spf_network_interfaces?: Maybe<FilterNetworkInterfaces>;
   /** Filter by 'infrastructure_vendor' field of system profile */
   spf_infrastructure_vendor?: Maybe<FilterString>;
   /** Filter by 'infrastructure_type' field of system profile */
   spf_infrastructure_type?: Maybe<FilterString>;
   /** Filter by 'system_memory_bytes' field of system profile */
-  spf_system_memory_bytes?: Maybe<FilterString>;
+  spf_system_memory_bytes?: Maybe<FilterInt>;
   /** Filter by 'cores_per_socket' field of system profile */
-  spf_cores_per_socket?: Maybe<FilterString>;
+  spf_cores_per_socket?: Maybe<FilterInt>;
   /** Filter by 'number_of_sockets' field of system profile */
-  spf_number_of_sockets?: Maybe<FilterString>;
+  spf_number_of_sockets?: Maybe<FilterInt>;
   /** Filter by 'number_of_cpus' field of system profile */
-  spf_number_of_cpus?: Maybe<FilterString>;
+  spf_number_of_cpus?: Maybe<FilterInt>;
   /** Filter by 'cpu_model' field of system profile */
   spf_cpu_model?: Maybe<FilterString>;
   /** Filter by 'rhc_config_state' field of system profile */
@@ -571,8 +643,14 @@ export type ResolversTypes = {
   BooleanValues: ResolverTypeWrapper<BooleanValues>;
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>;
   FilterBoolean: FilterBoolean;
+  FilterDiskDevices: FilterDiskDevices;
+  FilterDnfModules: FilterDnfModules;
+  FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
+  FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterRhsm: FilterRhsm;
+  FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
   FilterString: FilterString;
   String: ResolverTypeWrapper<Scalars['String']>;
   FilterStringWithRegex: FilterStringWithRegex;
@@ -610,8 +688,14 @@ export type ResolversParentTypes = {
   BooleanValues: BooleanValues;
   CollectionMeta: CollectionMeta;
   FilterBoolean: FilterBoolean;
+  FilterDiskDevices: FilterDiskDevices;
+  FilterDnfModules: FilterDnfModules;
+  FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
+  FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterRhsm: FilterRhsm;
+  FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
   FilterString: FilterString;
   String: Scalars['String'];
   FilterStringWithRegex: FilterStringWithRegex;

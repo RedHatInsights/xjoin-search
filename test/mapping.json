@@ -84,10 +84,47 @@
           "type": "keyword"
         },
         "network_interfaces": {
-          "type": "nested"
+          "type": "object",
+          "properties": {
+            "ipv4_addresses": {
+              "type": "keyword"
+            },
+            "ipv6_addresses": {
+              "type": "keyword"
+            },
+            "mtu": {
+              "type": "integer"
+            },
+            "mac_address": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            },
+            "state": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
         },
         "disk_devices": {
-          "type": "nested"
+          "type": "object",
+          "properties": {
+            "device": {
+              "type": "keyword"
+            },
+            "label": {
+              "type": "text"
+            },
+            "mount_point": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
         },
         "bios_vendor": {
           "type": "keyword"
@@ -143,10 +180,29 @@
           "type": "keyword"
         },
         "dnf_modules": {
-          "type": "nested"
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "stream": {
+              "type": "keyword"
+            }
+          }
         },
         "installed_products": {
-          "type": "nested"
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "id": {
+              "type": "keyword"
+            },
+            "status": {
+              "type": "keyword"
+            }
+          }
         },
         "insights_client_version": {
           "type": "keyword"
@@ -203,7 +259,30 @@
           "type": "boolean"
         },
         "rpm_ostree_deployments": {
-          "type": "nested"
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "checksum": {
+              "type": "keyword"
+            },
+            "origin": {
+              "type": "keyword"
+            },
+            "osname": {
+              "type": "keyword"
+            },
+            "version": {
+              "type": "keyword"
+            },
+            "booted": {
+              "type": "boolean"
+            },
+            "pinned": {
+              "type": "boolean"
+            }
+          }
         },
         "rhsm": {
           "type": "object",

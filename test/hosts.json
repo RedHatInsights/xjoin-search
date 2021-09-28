@@ -30,12 +30,12 @@
             "number_of_cpus": 0,
             "insights_client_version": "ex1",
             "system_memory_bytes": 0,
-            "satellite_managed": true,
-            "is_marketplace": true,
+            "satellite_managed": false,
+            "is_marketplace": false,
             "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
             "operating_system": {
-                "major": 7,
-                "minor": 3,
+                "major": 0,
+                "minor": 0,
                 "name": "RHEL"
             },
             "rhc_config_state": "22cd8e39-13bb-4d02-8316-84b850dc5136",
@@ -44,10 +44,10 @@
             "bios_version": "ex1",
             "subscription_status": "ex1",
             "subscription_auto_attach": "ex1",
-            "katello_agent_running": true,
+            "katello_agent_running": false,
             "cloud_provider": "aws",
             "captured_date": "ex1",
-            "sap_system": true,
+            "sap_system": false,
             "sap_instance_number": "03",
             "sap_version": "1.00.122.04.1478575636",
             "tuned_profile": "desktop",
@@ -55,7 +55,50 @@
             "selinux_config_file": "permissive",
             "host_type": "edge",
             "greenboot_status": "red",
-            "greenboot_fallback_detected": true
+            "greenboot_fallback_detected": false,
+            "rhsm": {
+                "version": "8.1"
+            },
+            "network_interfaces": {
+                "ipv4_addresses": "123.456.789.012 123.456.789.012 123.456.789.012",
+                "ipv6_addresses": "0123:4567:89ab:cdef:0123:4567:89ab:cdef",
+                "mtu": 0,
+                "mac_address": "00:00:00:00:00:00",
+                "name": "eth0",
+                "state": "UP",
+                "type": "ether"
+            },
+            "disk_devices": {
+                "device": "/dev/fdd0",
+                "label": "beans",
+                "mount_point": "/mnt/remote_nfs_shares",
+                "type": "ext3"
+            },
+            "cpu_flags": "ex1",
+            "kernel_modules": "ex1",
+            "dnf_modules": {
+                "name": "abc",
+                "stream": "abc"
+            },
+            "installed_products": {
+                "name": "abc",
+                "id": "abc",
+                "status": "Subscribed"
+            },
+            "installed_packages": "krb5-libs-0:-1.16.1-23.fc29.i686",
+            "gpg_pubkeys": "gpg-pubkey-11111111-22222222",
+            "installed_services": "ex1",
+            "enabled_services": "ex1",
+            "sap_sids": "H2O",
+            "rpm_ostree_deployments": {
+                "id": "fedora-silverblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0",
+                "checksum": "63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb",
+                "origin": "fedora/33/x86_64/silverblue",
+                "osname": "fedora-silverblue",
+                "version": "33.21",
+                "booted": false,
+                "pinned": false
+            }
         },
         "tags_structured": [
             {
@@ -134,12 +177,12 @@
             "number_of_cpus": 1,
             "insights_client_version": "ex2",
             "system_memory_bytes": 1,
-            "satellite_managed": false,
-            "is_marketplace": false,
+            "satellite_managed": true,
+            "is_marketplace": true,
             "rhc_client_id": "2c68e8ec-10e2-11ec-82a8-0242ac130003",
             "operating_system": {
-                "major": 7,
-                "minor": 4,
+                "major": 1,
+                "minor": 1,
                 "name": "RHEL"
             },
             "owner_id": "2c68e8ec-10e2-11ec-82a8-0242ac130003",
@@ -147,10 +190,10 @@
             "cpu_model": "Intel(R) Xeon(R) CPU E9-7800 0 @ 1.90GHz",
             "subscription_status": "ex2",
             "subscription_auto_attach": "ex2",
-            "katello_agent_running": false,
+            "katello_agent_running": true,
             "cloud_provider": "ms",
             "captured_date": "ex2",
-            "sap_system": false,
+            "sap_system": true,
             "sap_instance_number": "05",
             "sap_version": "2.00.122.04.1478575636",
             "tuned_profile": "example",
@@ -158,7 +201,40 @@
             "selinux_config_file": "sleepy",
             "host_type": "edge",
             "greenboot_status": "green",
-            "greenboot_fallback_detected": false
+            "greenboot_fallback_detected": true,
+            "network_interfaces": {
+                "ipv4_addresses": "123.456.789.012 123.456.789.012",
+                "ipv6_addresses": "abcd:4567:89ab:cdef:0123:4567:89ab:cdef",
+                "mtu": 1,
+                "mac_address": "10:00:00:00:00:00",
+                "name": "eth1"
+            },
+            "disk_devices": {
+                "label": "frogs"
+            },
+            "cpu_flags": "ex2",
+            "kernel_modules": "ex2",
+            "dnf_modules": {
+                "name": "dfg",
+                "stream": "dfg"
+            },
+            "installed_products": {
+                "name": "dfg",
+                "id": "dfg",
+                "status": "inactive"
+            },
+            "installed_packages": "arb5-libs-0:-1.16.1-23.fc29.i686",
+            "gpg_pubkeys": "gpg-pubkey-22222222-22222222",
+            "installed_services": "ex2",
+            "enabled_services": "ex2",
+            "sap_sids": "ABC",
+            "rpm_ostree_deployments": {
+                "booted": true,
+                "pinned": true
+            },
+            "rhsm": {
+                "version": "7.5"
+            }
         },
         "tags_structured": [
             {
@@ -217,30 +293,63 @@
             "number_of_cpus": 2,
             "insights_client_version": "ex3",
             "system_memory_bytes": 2,
-            "satellite_managed": false,
-            "is_marketplace": false,
+            "satellite_managed": true,
+            "is_marketplace": true,
             "rhc_client_id": "2fa3e796-10e2-11ec-82a8-0242ac130003",
             "operating_system": {
-                "major": 6,
-                "minor": 5,
-                "name": "FED"
+                "major": 2,
+                "minor": 2,
+                "name": "RHEL"
             },
             "host_type": "edge",
             "rhc_config_state": "2fa3e796-10e2-11ec-82a8-0242ac130003",
             "cpu_model": "Intel(R) I7(R) CPU I7-10900k 0 @ 4.90GHz",
             "subscription_status": "ex3",
             "subscription_auto_attach": "ex3",
-            "katello_agent_running": false,
+            "katello_agent_running": true,
             "cloud_provider": "ibm",
             "captured_date": "ex3",
-            "sap_system": false,
+            "sap_system": true,
             "sap_instance_number": "99",
             "sap_version": "3.00.122.04.1478575636",
             "tuned_profile": "laptop",
             "selinux_current_mode": "sleeping",
             "selinux_config_file": "authoritative",
             "greenboot_status": "green",
-            "greenboot_fallback_detected": false
+            "greenboot_fallback_detected": true,
+            "network_interfaces": {
+                "ipv4_addresses": "123.456.789.012",
+                "ipv6_addresses": "qwer:4567:89ab:cdef:0123:4567:89ab:cdef",
+                "mtu": 2,
+                "mac_address": "20:00:00:00:00:00",
+                "name": "eth2"
+            },
+            "disk_devices": {
+                "label": "main"
+            },
+            "cpu_flags": "ex3",
+            "kernel_modules": "ex3",
+            "dnf_modules": {
+                "name": "pop",
+                "stream": "pop"
+            },
+            "installed_products": {
+                "name": "pop",
+                "id": "pop",
+                "status": "canceled"
+            },
+            "installed_packages": "brb5-libs-0:-1.16.1-23.fc29.i686",
+            "gpg_pubkeys": "gpg-pubkey-22222222-33333333",
+            "installed_services": "ex3",
+            "enabled_services": "ex3",
+            "sap_sids": "XYZ",
+            "rpm_ostree_deployments": {
+                "booted": true,
+                "pinned": true
+            },
+            "rhsm": {
+                "version": "9.9"
+            }
         },
         "tags_structured": [
             {

@@ -20,8 +20,11 @@ import { filterTag } from '../inputTag';
 import { formatTags } from './format';
 import { filterString } from '../inputString';
 import { filterOperatingSystem } from '../inputOperatingSystem';
+import { filterObject } from '../inputObject';
+import { filterInt } from '../inputInt';
+import { PrimativeTypeString } from '../inputObject';
 
-type HostFilterResolver = FilterResolver<HostFilter>;
+export type HostFilterResolver = FilterResolver<HostFilter>;
 
 export function resolveFilter(filter: HostFilter): Record<string, any>[] {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define, no-use-before-define
@@ -52,54 +55,99 @@ function optional<FILTER, TYPE, TYPE_NULLABLE extends TYPE | null | undefined> (
     };
 }
 
-function resolverFromType(name: string, type: string, value: any): HostFilterResolver | null {
-    let resolverFunctionTypeMap = new Map<string, any>();
-    resolverFunctionTypeMap.set('string', filterString);
-    resolverFunctionTypeMap.set('integer', filterString);
-    resolverFunctionTypeMap.set('wildcard', filterStringWithWildcard);
-    resolverFunctionTypeMap.set('boolean', filterBoolean);
-
-    //arrays inherit type of content since elastic doesn't distinquish multipliciy
-    let resolverFunction;
-
-    if (type === 'array') {
-        if (value.items.type === undefined) {
-            throw "array items has undefined type"
-        }
-
-        return getResolver(name, value.items.type, value.items)
-
-    } else {
-        resolverFunction = resolverFunctionTypeMap.get(type);
-    
-        if (resolverFunction === undefined) {
-            throw "resolver not found for schema entry " + type;
-        }
-    
-        return resolverFunction;
+function getItemsIfArray(field_value: any) {
+    if (_.has(field_value,"items")) {
+        field_value = field_value["items"];
     }
+
+    return field_value;
 }
 
+function getSubFieldNames(field_value: any) {
+    let sub_field_names: string[] = [];
+
+    field_value = getItemsIfArray(field_value);
+
+    _.forEach(field_value["properties"], (value, key) => {
+        sub_field_names.push(key);
+    })
+    
+    return sub_field_names;
+}
+
+function getSubFieldTypes(field_value: any): PrimativeTypeString[] {
+    let sub_field_types: PrimativeTypeString[] = [];
+
+    field_value = getItemsIfArray(field_value);
+
+    _.forEach(field_value["properties"], (value, key) => {
+        sub_field_types.push(getTypeOfField(key, value)); 
+    })
+    
+    return sub_field_types;
+}
+
+export function resolverFromType(name: string, type: string, value: any): HostFilterResolver | null {
+    // TODO: make this global and constant
+    // kind of reevaluate it on the whole really, not sure it needs to be a map
+    let resolverFunctionTypeMap = new Map<string, any>();
+    resolverFunctionTypeMap.set('string', filterString);
+    resolverFunctionTypeMap.set('integer', filterInt);
+    resolverFunctionTypeMap.set('wildcard', filterStringWithWildcard);
+    resolverFunctionTypeMap.set('boolean', filterBoolean);
+    resolverFunctionTypeMap.set('object', filterObject);
+
+    let resolverFunction = resolverFunctionTypeMap.get(type);
+
+    if (resolverFunction === undefined) {
+        throw "resolver not found for schema entry " + type;
+    }
+
+    if (resolverFunction === filterObject) {
+        let sub_field_names: string[] = getSubFieldNames(value);
+        let sub_field_types: PrimativeTypeString[] = getSubFieldTypes(value);
+        console.log(`Creating object partial for ${name}`);
+        console.log(`sub_fields_names: ${sub_field_names}.`);
+        console.log(`sub_fields_types: ${sub_field_types}.`);
+        resolverFunction = _.partialRight(resolverFunction, sub_field_names, sub_field_types);
+    }
+
+    return resolverFunction;
+}
+
+// TODO: this can be removed if filterObject work works
 function resolverFromName(name: string): HostFilterResolver | null {
     let resolverFunctionTypeMap = new Map<string, any>();
-    resolverFunctionTypeMap.set('operating_system', filterOperatingSystem);
+    resolverFunctionTypeMap.set('operating_system', filterObject);
 
     let resolverFunction = resolverFunctionTypeMap.get(name);
 
     if (resolverFunction === undefined) {
-        console.log("custom resolver not found for schema entry " + name)
+        console.log("ERROR: custom resolver not found for schema entry " + name)
         return null;
+    } else {
+        console.log(`custom resolver found for schema entry ${name}: ${resolverFunction}`)
     }
 
     return resolverFunction;
 }
 
 function getResolver(name: string, type: string, value: object): HostFilterResolver | null {
-    if (type === "object") {    
-        return resolverFromName(name);
-    } else {
-        return resolverFromType(name, type, value);
+    return resolverFromType(name, type, value);
+}
+
+function getTypeOfField(key: string, field_value: any): PrimativeTypeString {
+    let type: PrimativeTypeString | undefined = _.get(field_value, "type");
+
+    if (type == "array") {
+        type = getTypeOfField(key, field_value["items"]);
     }
+
+    if (type == undefined) {
+        throw `error: no type for entry ${key}`;
+    }
+
+    return type;
 }
 
 async function resolverMapFromSchema(schemaFilePath: string): Promise<HostFilterResolver[]> {
@@ -107,15 +155,15 @@ async function resolverMapFromSchema(schemaFilePath: string): Promise<HostFilter
 
     try {
         schema = await $RefParser.dereference(schemaFilePath);
-        console.log(schema);
+        // console.log(schema);
     }
         catch(err) {
         console.error(err);
     }  
 
     if (typeof(schema) !== "object") {
-        console.log("loaded data:");
-        console.log(schema);
+        // console.log("loaded data:");
+        // console.log(schema);
         throw "system profile schema not proccessed into an object. Actual type: " + typeof(schema);
     }
 
@@ -141,11 +189,7 @@ async function resolverMapFromSchema(schemaFilePath: string): Promise<HostFilter
             throw "error processing schema";
         }
 
-        let type: string = _.get(value, "type");
-
-        if (typeof(type) != "string") {
-            throw "error: no type for entry";
-        }
+        let type: string = getTypeOfField(key, value); //_.get(value, "type");
 
         console.log("type is: " + type)
             
@@ -160,8 +204,8 @@ async function resolverMapFromSchema(schemaFilePath: string): Promise<HostFilter
         }
     })
 
-    console.log("RESOLVERS");
-    console.log(resolvers);
+    // console.log("RESOLVERS");
+    // console.log(resolvers);
 
     return resolvers;
 }
