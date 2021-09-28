@@ -796,8 +796,6 @@ Matches the document field against the provided regular expression.
 
 </td>
 </tr>
-<tr>
-</tr>
 </tbody>
 </table>
 

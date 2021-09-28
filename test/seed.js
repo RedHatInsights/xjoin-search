@@ -119,7 +119,6 @@ async function run () {
                     properties: {
                         namespace: {
                             type: 'keyword',
-                            // null_value: '$$_XJOIN_SEARCH_NULL_VALUE',
                             fields: {
                                 lowercase: {
                                     type: 'keyword',
@@ -138,7 +137,6 @@ async function run () {
                         },
                         value: {
                             type: 'keyword',
-                            // null_value: '$$_XJOIN_SEARCH_NULL_VALUE',
                             fields: {
                                 lowercase: {
                                     type: 'keyword',
