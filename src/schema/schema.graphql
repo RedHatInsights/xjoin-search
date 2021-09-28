@@ -186,11 +186,6 @@ input FilterStringWithRegex {
     Matches the document field against the provided regular expression.
     """
     regex: String
-
-    """
-    Matches the document field against the provided regular expression.
-    """
-    regex_lc: String
 }
 
 """

@@ -28,7 +28,6 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
             tags: {
                 terms: {
                     field: 'tags_search.lowercase',
-                    // field: 'tags_search',
                     size: config.queries.maxBuckets,
                     order: [{
                         [TAG_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
@@ -41,7 +40,6 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         }
     };
 
-    console.log(body)
     if (args.filter && args.filter.search) {
         const search = args.filter.search;
         if (search.eq) {
@@ -49,9 +47,6 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         } else if (search.regex) {
             body.aggs.tags.terms.include = search.regex.toLowerCase();
         }
-        // else if (search.regex_lc) {
-        //     body.aggs.tags.terms.include = search.regex_lc.toLowerCase()
-        // }
     }
 
     const result = await runQuery({

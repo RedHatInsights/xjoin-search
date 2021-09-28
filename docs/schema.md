@@ -797,13 +797,6 @@ Matches the document field against the provided regular expression.
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>regex_lc</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td>
-
-Matches the document field against the provided regular expression.
-
-</td>
 </tr>
 </tbody>
 </table>
