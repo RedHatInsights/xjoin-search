@@ -29,8 +29,8 @@ jobs:
           echo "::set-output name=schema_sha::$(git ls-remote https://github.com/RedHatInsights/inventory-schemas.git master | cut -c -7)"
       - name: update schema file
         run: |
-          cp ../inventory-schemas/schemas/system_profile/v1.yaml platformSchemas/systemProfileSchema.yaml
-          echo "${{ steps.vars.outputs.schema_sha }}" >> platformSchemas/systemProfileSchemaSha.txt
+          cp ../inventory-schemas/schemas/system_profile/v1.yaml inventory-schemas/system_profile_schema.yaml
+          echo "${{ steps.vars.outputs.schema_sha }}" >> inventory-schemas/system_profile_schema_sha.txt
       - name: update mapping from schema
         run: |
           cd scripts
