@@ -15,7 +15,7 @@
     "test": "npm run compile && npm run seed && NODE_ENV=test LOG_LEVEL=fatal jest -t 'os_kernel_version'",
     "verify": "npm-run-all docs lint coverage",
     "preinstall": "npx npm-force-resolutions",
-    "updateFromSchema": "node scripts/update_from_schema.js platformSchemas/systemProfileSchema.yaml"
+    "updateFromSchema": "node scripts/update_from_schema.js inventory-schemas/system_profile_schema.yaml"
   },
   "author": "Jozef Hartinger",
   "devDependencies": {

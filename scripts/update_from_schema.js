@@ -22,10 +22,20 @@ function removeBlockedFields(schema) {
 
     for (const [key, value] of Object.entries(schema["properties"])) {
         if ("x-indexed" in value && value["x-indexed"] == false) {
+            console.log(`Removing field: ${key}`)
             delete schema["properties"][key];
+        } else if (value["type"] == "object") {
+            console.log(`object: ${key}`)
+            removeBlockedFields(value)
+        } else if (value["type"] == "array") {
+            console.log(`array: ${key}`)
+            if (value["items"]["type"] == "object") {
+                removeBlockedFields(value["items"])
+            }
         }
     }
 
+    console.log(`returning`)
     return schema;
 }
 
@@ -146,6 +156,8 @@ function createGraphqlTypes(schema) {
 }
 
 
+// TODO: gotta figure out what to do for nested objects. 
+// I don't even know that they make much sense to query on
 function updateGraphQLSchema(schema) {
     console.log("\n### updating GraphQL schema ###");
 

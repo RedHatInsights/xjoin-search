@@ -188,7 +188,7 @@ That script will automatically update the following files to accommodate the new
   - This file contains test data for hosts used in automated and manual testing.
   The script uses the example fields in the schema to populate the file with example values for testing.
 
-If you want to update things manually you can update the schema file `platformSchemas/systemProfileSchema.yaml` and run `npm run updateFromSchema`. If you intend to commit the change remember to update `platformSchemas/systemProfileSchemaSha.txt` as well with the SHA of the associated `inventory-schemas` commit. This should not be done unless the automated action is not working. Any change out of sync with the `inventory-schemas` repo will be removed the next time the action is run, but they should ideally never be out of sync.
+If you want to update things manually you can update the schema file `inventory-schemas/system_profile_schema.yaml` and run `npm run updateFromSchema`. If you intend to commit the change remember to update `inventory-schemas/system_profile_schema_sha.txt` as well with the SHA of the associated `inventory-schemas` commit. This should not be done unless the automated action is not working. Any change out of sync with the `inventory-schemas` repo will be removed the next time the action is run, but they should ideally never be out of sync.
 
 Changes to the mapping, graphql schema or hosts file that are unrelated to system profile fields should be unaffected.
 
