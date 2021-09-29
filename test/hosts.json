@@ -44,6 +44,10 @@
             "key": "env",
             "value": "prod"
         }, {
+            "namespace": "SAT",
+            "key": "ENV",
+            "value": "PROD"
+        }, {
             "namespace": "aws",
             "key": "region",
             "value": "us-east-2"
@@ -62,6 +66,7 @@
         }],
         "tags_string": [
             "Sat/env/prod",
+            "SAT/ENV/PROD",
             "aws/region/us-east-2",
             "insights-client/web/",
             "insights-client/os/fedora",
@@ -124,6 +129,10 @@
             "key": "env",
             "value": "prod"
         }, {
+            "namespace": "SAT",
+            "key": "ENV",
+            "value": "PROD"
+        }, {
             "namespace": "aws",
             "key": "region",
             "value": "us-east-1"
@@ -134,6 +143,7 @@
         }],
         "tags_string": [
             "Sat/env/prod",
+            "SAT/ENV/PROD",
             "aws/region/us-east-1",
             "insights-client/database/"
         ]
@@ -187,6 +197,10 @@
             "key": "env",
             "value": "prod"
         }, {
+            "namespace": "SAT",
+            "key": "ENV",
+            "value": "PROD"
+        }, {
             "namespace": "aws",
             "key": "region",
             "value": "us-east-3"
@@ -201,6 +215,7 @@
         }],
         "tags_string": [
             "Sat/env/prod",
+            "SAT/ENV/PROD",
             "aws/region/us-east-3",
             "insights-client/database/",
             "insights-client/os/fedora"
@@ -450,6 +465,10 @@
             "key": "env",
             "value": "prod"
         }, {
+            "namespace": "SAT",
+            "key": "ENV",
+            "value": "PROD"
+        }, {
             "namespace": "aws",
             "key": "region",
             "value": "us-east-1"
@@ -460,6 +479,7 @@
         }],
         "tags_string": [
             "Sat/env/prod",
+            "SAT/ENV/PROD",
             "aws/region/us-east-1",
             "insights-client/database/"
         ]
@@ -501,6 +521,10 @@
             "key": "env",
             "value": "prod"
         }, {
+            "namespace": "SAT",
+            "key": "ENV",
+            "value": "PROD"
+        }, {
             "namespace": "aws",
             "key": "region",
             "value": "us-east-1"
@@ -511,6 +535,7 @@
         }],
         "tags_string": [
             "Sat/env/prod",
+            "SAT/ENV/PROD",
             "aws/region/us-east-1",
             "insights-client/database/"
         ]
