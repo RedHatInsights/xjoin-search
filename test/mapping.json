@@ -85,46 +85,11 @@
         },
         "network_interfaces": {
           "type": "object",
-          "properties": {
-            "ipv4_addresses": {
-              "type": "keyword"
-            },
-            "ipv6_addresses": {
-              "type": "keyword"
-            },
-            "mtu": {
-              "type": "integer"
-            },
-            "mac_address": {
-              "type": "keyword"
-            },
-            "name": {
-              "type": "keyword"
-            },
-            "state": {
-              "type": "keyword"
-            },
-            "type": {
-              "type": "keyword"
-            }
-          }
+          "include_in_parent": true
         },
         "disk_devices": {
           "type": "object",
-          "properties": {
-            "device": {
-              "type": "keyword"
-            },
-            "label": {
-              "type": "text"
-            },
-            "mount_point": {
-              "type": "keyword"
-            },
-            "type": {
-              "type": "keyword"
-            }
-          }
+          "include_in_parent": true
         },
         "bios_vendor": {
           "type": "keyword"
@@ -133,7 +98,8 @@
           "type": "keyword"
         },
         "cpu_flags": {
-          "type": "keyword"
+          "type": "keyword",
+          "include_in_parent": true
         },
         "operating_system": {
           "type": "object",
@@ -159,7 +125,8 @@
           "type": "keyword"
         },
         "kernel_modules": {
-          "type": "keyword"
+          "type": "keyword",
+          "include_in_parent": true
         },
         "last_boot_time": {
           "type": "keyword"
@@ -181,28 +148,11 @@
         },
         "dnf_modules": {
           "type": "object",
-          "properties": {
-            "name": {
-              "type": "keyword"
-            },
-            "stream": {
-              "type": "keyword"
-            }
-          }
+          "include_in_parent": true
         },
         "installed_products": {
           "type": "object",
-          "properties": {
-            "name": {
-              "type": "keyword"
-            },
-            "id": {
-              "type": "keyword"
-            },
-            "status": {
-              "type": "keyword"
-            }
-          }
+          "include_in_parent": true
         },
         "insights_client_version": {
           "type": "keyword"
@@ -214,22 +164,27 @@
           "type": "keyword"
         },
         "installed_packages": {
-          "type": "keyword"
+          "type": "keyword",
+          "include_in_parent": true
         },
         "gpg_pubkeys": {
-          "type": "keyword"
+          "type": "keyword",
+          "include_in_parent": true
         },
         "installed_services": {
-          "type": "keyword"
+          "type": "keyword",
+          "include_in_parent": true
         },
         "enabled_services": {
-          "type": "keyword"
+          "type": "keyword",
+          "include_in_parent": true
         },
         "sap_system": {
           "type": "boolean"
         },
         "sap_sids": {
-          "type": "keyword"
+          "type": "keyword",
+          "include_in_parent": true
         },
         "sap_instance_number": {
           "type": "keyword"
@@ -260,29 +215,7 @@
         },
         "rpm_ostree_deployments": {
           "type": "object",
-          "properties": {
-            "id": {
-              "type": "keyword"
-            },
-            "checksum": {
-              "type": "keyword"
-            },
-            "origin": {
-              "type": "keyword"
-            },
-            "osname": {
-              "type": "keyword"
-            },
-            "version": {
-              "type": "keyword"
-            },
-            "booted": {
-              "type": "boolean"
-            },
-            "pinned": {
-              "type": "boolean"
-            }
-          }
+          "include_in_parent": true
         },
         "rhsm": {
           "type": "object",

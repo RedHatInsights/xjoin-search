@@ -27,12 +27,16 @@ jobs:
           git config user.name 'GitHub Actions' 
           git config user.email 'actions@github.com'
           echo "::set-output name=schema_sha::$(git ls-remote https://github.com/RedHatInsights/inventory-schemas.git master | cut -c -7)"
+      - name: update schema file
+        run: |
+          cp ../inventory-schemas/schemas/system_profile/v1.yaml platformSchemas/systemProfileSchema.yaml
+          echo "${{ steps.vars.outputs.schema_sha }}" >> platformSchemas/systemProfileSchemaSha.txt
       - name: update mapping from schema
         run: |
           cd scripts
           npm ci
-          node update_mapping.js ../inventory-schemas/schemas/system_profile/v1.yaml
-          git add -u
+          npm run updateFromSchema
+          git add -A
           git commit -m "update mapping ${{ steps.vars.outputs.schema_sha }}"
       - name: remove schema submodule
         run: rm -r inventory-schemas

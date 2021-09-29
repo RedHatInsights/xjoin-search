@@ -22,7 +22,7 @@ function removeBlockedFields(schema) {
 
     for (const [key, value] of Object.entries(schema["properties"])) {
         if ("x-indexed" in value && value["x-indexed"] == false) {
-            delete schema["properties"][key]; 
+            delete schema["properties"][key];
         }
     }
 
@@ -63,11 +63,11 @@ function determineFilterType(field_name, value) {
         return FILTER_TYPES.boolean;
     } else if (type == "integer") {
         return FILTER_TYPES.integer;
-    }else if (_.get(value, "format") == "date-time") {
+    } else if (_.get(value, "format") == "date-time") {
         return FILTER_TYPES.timestamp;
     } else if (_.get(value, "x-wildcard")) {
         return FILTER_TYPES.wildcard;
-    } 
+    }
 
     // FilterString is pretty much a catch all, but watch for edge cases
     return FILTER_TYPES.string;
@@ -85,9 +85,9 @@ async function getSchema(schema_path) {
         schema = await $RefParser.dereference(schema_path);
         // console.log(schema);
     }
-        catch(err) {
+    catch (err) {
         console.error(err);
-    }  
+    }
 
     return removeBlockedFields(schema["$defs"]["SystemProfile"])
 }
@@ -102,11 +102,11 @@ function updateMapping(schema) {
     new_mapping = buildMappingsFor("system_profile_facts", schema);
 
     template["properties"]["system_profile_facts"]["properties"] = new_mapping["mappings"]["system_profile_facts"]["properties"];
-    
+
     fs.writeFileSync(mappingFilePath, JSON.stringify(template, null, 2));
 }
 
-function createGraphqlFields(schema, parent_name="system profile", prefix="spf_") {
+function createGraphqlFields(schema, parent_name = "system profile", prefix = "spf_") {
     //console.log(schema);
     let grapqhlFieldsArray = [];
 
@@ -136,7 +136,7 @@ function createGraphqlTypes(schema) {
     let graphql_type_array = [];
 
     for (const [key, value] of Object.entries(schema["properties"])) {
-        if(getTypeOfField(value) == "object") {
+        if (getTypeOfField(value) == "object") {
             graphql_type_array.push(createTypeForObject(key, value));
         }
     }
@@ -156,31 +156,31 @@ function updateGraphQLSchema(schema) {
     //find the index of the marker line where we will insert the new additions
     let insertIndex = graphqlStringArray.indexOf("    # START: system_profile schema filters") + 1;
     let endIndex = graphqlStringArray.indexOf("    # END: system_profile schema filters");
-    
+
     //remove existing system_profile filters, but leave padding
-    graphqlStringArray.splice(insertIndex, endIndex-insertIndex-2);
+    graphqlStringArray.splice(insertIndex, endIndex - insertIndex - 2);
 
     //insert the generated ones
     _.forEach(createGraphqlFields(schema), (field) => {
         graphqlStringArray.splice(insertIndex, 0, field);
     })
 
-    
+
     // TODO: relying on comments for this to function already sucks, maybe use a more explicite on for the end
     // at least make sure to add do not removes
     let typeInsertIndex = graphqlStringArray.indexOf("# Generated system_profile input types") + 2;
     let typeEndIndex = graphqlStringArray.indexOf("# Output types");
-    
+
     //console.log(`!!! TYPE start: ${typeInsertIndex}`);
     //console.log(`!!! TYPE end: ${typeEndIndex}`);
-    
+
     //remove existing types, but leave padding
-    graphqlStringArray.splice(typeInsertIndex, typeEndIndex-typeInsertIndex-3);
-    
+    graphqlStringArray.splice(typeInsertIndex, typeEndIndex - typeInsertIndex - 3);
+
     _.forEach(createGraphqlTypes(schema), (field) => {
         graphqlStringArray.splice(typeInsertIndex, 0, field);
     })
-    
+
     let newGraphqlFileContent = graphqlStringArray.join("\n");
     fs.writeFileSync(grapqhlFilePath, newGraphqlFileContent);
 }
@@ -203,7 +203,7 @@ function getTypeOfField(field_value) {
 function getExampleValues(key, field_value, host_number) {
     example = _.get(field_value, "example");
 
-    if(example == undefined) {
+    if (example == undefined) {
         throw `ERROR: string field ${key} missing example values`;
     }
 
@@ -214,7 +214,7 @@ function getExampleValues(key, field_value, host_number) {
 }
 
 function getItemsIfArray(field_value) {
-    if (_.has(field_value,"items")) {
+    if (_.has(field_value, "items")) {
         field_value = field_value["items"];
     }
 
@@ -223,25 +223,25 @@ function getItemsIfArray(field_value) {
 
 function generateSystemProfileValues(field, host_number) {
     let value = {}
-    
+
     // TODO: remove the following
     //console.log(field);
-    if (_.has(field,"items")) {
+    if (_.has(field, "items")) {
         //console.log(`!!!! has items !!!!!!!!!`);
         //console.log(field["items"]);
         field = field["items"];
     }
-    
+
     for (let [key, field_value] of Object.entries(field["properties"])) {
         let type = getTypeOfField(field_value);
 
         field_value = getItemsIfArray(field_value);
 
         //for strings take example values from example property
-        if(type == "object") {
+        if (type == "object") {
             //console.log(`Found object: ${key} | value: ${field_value}`)
             value[key] = generateSystemProfileValues(field_value, host_number);
-        } else if(type == "string") {
+        } else if (type == "string") {
             ///console.log(field_value);
             value[key] = getExampleValues(key, field_value, host_number);
         } else if (type == "boolean") {
@@ -273,7 +273,7 @@ function updateHostsJson(new_host_system_profile_facts) {
 
     let i = 0;
     _.forEach(hosts, (host) => {
-        if(host["account"] == "test") {
+        if (host["account"] == "test") {
             _.forEach(new_host_system_profile_facts[i], (value, field) => {
                 host["system_profile_facts"][field] = new_host_system_profile_facts[i][field];
             })
@@ -288,7 +288,7 @@ function getTestHostIds(hosts) {
     let test_host_ids = [];
 
     _.forEach(hosts, (host) => {
-        if(host["account"] == "test") {
+        if (host["account"] == "test") {
             test_host_ids.push(host["id"]);
         }
     })
@@ -357,6 +357,7 @@ function updateTests(schema) {
 async function main() {
     var myArgs = process.argv.slice(2);
     schema_path = myArgs[0];
+    console.log(`schema_path = ${schema_path}`)
 
     let schema = await getSchema(schema_path);
 

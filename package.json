@@ -15,7 +15,7 @@
     "test": "npm run compile && npm run seed && NODE_ENV=test LOG_LEVEL=fatal jest -t 'os_kernel_version'",
     "verify": "npm-run-all docs lint coverage",
     "preinstall": "npx npm-force-resolutions",
-    "updateFromMapping": "node scripts/update_from_schema.js scripts/TEMP_schema.yml"
+    "updateFromSchema": "node scripts/update_from_schema.js platformSchemas/systemProfileSchema.yaml"
   },
   "author": "Jozef Hartinger",
   "devDependencies": {
@@ -69,7 +69,7 @@
     "graphql-type-json": "^0.3.2",
     "js-yaml": "^4.1.0",
     "json-schema-deref-sync": "^0.14.0",
-    "json-schema-to-es-mapping": "file:../json-schema-to-es-mapping",
+    "json-schema-to-es-mapping": "git+https://github.com/RedHatInsights/json-schema-to-es-mapping.git",
     "lodash": "^4.17.21",
     "pino": "^6.12.0",
     "pino-cloudwatch": "^0.7.0",
