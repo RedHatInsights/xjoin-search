@@ -6,6 +6,7 @@ import {runQuery} from '../es';
 import config from '../../config';
 import { checkLimit, checkOffset } from '../validation';
 import { defaultValue, extractPage } from '../common';
+import log from '../../util/log';
 
 const TAG_ORDER_BY_MAPPING: { [key: string]: string } = {
     count: '_count',
@@ -27,14 +28,14 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         aggs: {
             tags: {
                 terms: {
-                    field: 'tags_search.lowercase',
+                    field: 'tags_search.custom',
                     size: config.queries.maxBuckets,
                     order: [{
                         [TAG_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
                     }, {
                         _key: 'ASC' // for deterministic sort order
                     }],
-                    show_term_doc_count_error: true
+                    show_term_doc_count_error: true,
                 }
             }
         }
@@ -45,9 +46,13 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         if (search.eq) {
             body.aggs.tags.terms.include = [search.eq];
         } else if (search.regex) {
-            body.aggs.tags.terms.include = search.regex.toLowerCase();
+            body.aggs.tags.terms.include = search.regex;
         }
     }
+
+    log.trace("Tag search query sent to elasticsearch:");
+    log.trace(body);
+    log.trace("Done printing body value.")
 
     const result = await runQuery({
         index: config.queries.hosts.index,

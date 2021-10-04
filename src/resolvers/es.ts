@@ -11,6 +11,9 @@ export async function runQuery (query: any, id: string): Promise<any> {
     try {
         const result = await client.search(query);
         log.trace(result, 'query finished');
+        log.trace("Query sent to elasticsearch:");
+        log.trace(query);
+        log.trace("Done printing query.")
         esResponseHistogram.labels(id).observe(result.body.took / 1000); // ms -> seconds
         return result;
     } catch (err) {

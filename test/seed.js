@@ -28,7 +28,20 @@ async function run () {
                     lang: 'painless',
                     if: 'ctx.tags_structured != null',
                     // eslint-disable-next-line max-len
-                    source: `ctx.tags_search = ctx.tags_structured.stream().map(t -> { StringBuilder builder = new StringBuilder(); if (t.namespace != null && t.namespace != 'null') { builder.append(t.namespace); } builder.append('/'); builder.append(t.key); builder.append('='); if (t.value != null) { builder.append(t.value); } return builder.toString() }).collect(Collectors.toList())`
+                    source: `ctx.tags_search = ctx.tags_structured.stream().map(
+                        t -> { 
+                            StringBuilder builder = new StringBuilder(); 
+                            if (t.namespace != null && t.namespace != 'null') { 
+                                builder.append(t.namespace); 
+                            } 
+                            builder.append('/'); 
+                            builder.append(t.key); 
+                            builder.append('='); 
+                            if (t.value != null) { 
+                                builder.append(t.value); 
+                            } 
+                            return builder.toString() 
+                        }).collect(Collectors.toList())`
                 }
             }]
         }
@@ -45,6 +58,11 @@ async function run () {
                 normalizer: {
                     case_insensitive: {
                         filter: 'lowercase'
+                    },
+                    my_normalizer: {
+                        type: "custom",
+                        char_filter: [],
+                        filter: ["lowercase", "asciifolding"]
                     }
                 }
             }
@@ -122,7 +140,8 @@ async function run () {
                             fields: {
                                 lowercase: {
                                     type: 'keyword',
-                                    normalizer: 'case_insensitive'
+                                    // normalizer: 'case_insensitive'
+                                    normalizer: 'my_normalizer'
                                 }
                             }
                         },
@@ -131,7 +150,8 @@ async function run () {
                             fields: {
                                 lowercase: {
                                     type: 'keyword',
-                                    normalizer: 'case_insensitive'
+                                    // normalizer: 'case_insensitive'
+                                    normalizer: 'my_normalizer'
                                 }
                             }
                         },
@@ -140,7 +160,8 @@ async function run () {
                             fields: {
                                 lowercase: {
                                     type: 'keyword',
-                                    normalizer: 'case_insensitive'
+                                    // normalizer: 'case_insensitive'
+                                    normalizer: 'my_normalizer'
                                 }
                             }
                         }
@@ -155,6 +176,11 @@ async function run () {
                         lowercase: {
                             type: 'keyword',
                             normalizer: 'case_insensitive'
+
+                        },
+                        custom: {
+                            type: 'keyword',
+                            normalizer: 'my_normalizer'
                         }
                     }
                 }
