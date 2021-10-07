@@ -115,23 +115,6 @@ export function resolverFromType(name: string, type: string, value: any): HostFi
     return resolverFunction;
 }
 
-// TODO: this can be removed if filterObject work works
-function resolverFromName(name: string): HostFilterResolver | null {
-    let resolverFunctionTypeMap = new Map<string, any>();
-    resolverFunctionTypeMap.set('operating_system', filterObject);
-
-    let resolverFunction = resolverFunctionTypeMap.get(name);
-
-    if (resolverFunction === undefined) {
-        console.log("ERROR: custom resolver not found for schema entry " + name)
-        return null;
-    } else {
-        console.log(`custom resolver found for schema entry ${name}: ${resolverFunction}`)
-    }
-
-    return resolverFunction;
-}
-
 function getResolver(name: string, type: string, value: object): HostFilterResolver | null {
     return resolverFromType(name, type, value);
 }

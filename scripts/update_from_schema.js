@@ -38,17 +38,6 @@ function removeBlockedFields(schema) {
     return schema;
 }
 
-// TODO: remove this if it doesn't come back up
-// function removeIncludeInParent(mapping) {
-//     for (const property in mapping["mappings"]["system_profile_facts"]["properties"]) {        
-//         if ("include_in_parent" in mapping["mappings"]["system_profile_facts"]["properties"][property]) {
-//             delete mapping["mappings"]["system_profile_facts"]["properties"][property]["include_in_parent"]; 
-//         }
-//     }
-
-//     return mapping;
-// }
-
 function snakeToTitle(str) {
     return str.split('_').map(w => w[0].toUpperCase() + w.substr(1).toLowerCase()).join('')
 }
@@ -155,8 +144,6 @@ function createGraphqlTypes(schema) {
 }
 
 
-// TODO: gotta figure out what to do for nested objects. 
-// I don't even know that they make much sense to query on
 function updateGraphQLSchema(schema) {
     console.log("\n### updating GraphQL schema ###");
 

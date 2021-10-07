@@ -10,16 +10,6 @@ import { FilterResolver } from './common'
 
 type Resolved = Record<string, any>[];
 
-// TODO: expand to include all primatives (also other objects if recursion can work)
-type PrimativeFilter = (FilterInt | FilterString)
-// const PRIMATIVE_RESOLVERS = {
-//     "string": filterString,
-//     "integer": filterInt,
-//     "array": filterString, //this is not right, going to have to figure this out
-//     "wildcard": filterStringWithWildcard,
-//     "object": filterObject,
-//     "boolean": filterBoolean
-// };
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean"
 
 // TODO: check if HostResolvers is too broad
