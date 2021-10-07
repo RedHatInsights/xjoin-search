@@ -7,6 +7,8 @@ import * as probes from '../../probes';
 import { getContext } from '../../../test';
 import { testLimitOffset } from '../test.common';
 import each from 'jest-each';
+import { any, filter } from 'bluebird';
+import _ from 'lodash';
 
 const BASIC_QUERY = `
     query hosts (
@@ -331,15 +333,45 @@ describe('hosts query', function () {
 
             // attemping to make a generalized test that test all current and 
             // future non-custom type field in the system profile
-            test('all_spf_fields', async () => {
-                each([
-                    ['os_kernel_version', 'matches', '4.18.*']
-                ]).test('%s', async (field_name, search_operation, search_value) => {
+            // test('all_spf_fields', async () => {
+            //     async function test_spf_field(field_name: string, search_operation: string, search_value: string, callback: (data: any) => {}) {
+            //         const filter_name = 'spf_' + field_name;
+            //         const { data } = await runQuery(BASIC_QUERY, { filter: { filter_name: { search_operation: search_value }}});
+            //         callback(data)
+            //     }
+
+            //     function check(data: any) {
+            //         data.hosts.data.should.have.length(1);
+            //         data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136')
+            //     }
+
+            //     const test_data = [
+            //         ['os_kernel_version', 'matches', '4.18.*']
+            //     ]
+
+            //     for (let data in test_data) {
+            //         const field_name = data[0];
+            //         const search_operation = data[1];
+            //         const search_value = data[2];
+
+            //     }
+            // });
+            describe('all_spf_fields', () => {
+                const test_data = [
+                    ['os_kernel_version', 'matches', '3.10*']
+                ]
+
+                test.each(test_data)('${field_name}', async (field_name: string, search_operation: string, search_value: string) => {
                     const filter_name = 'spf_' + field_name;
-                    const { data } = await runQuery(BASIC_QUERY, { filter: { filter_name: { search_operation: search_value }}});
-                    data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
-                })
+
+                    let d1: Record<string, string> = {}
+                    d1[search_operation] = search_value
+                    let d2: Record<string, Record<string, string>> = {}
+                    d2[filter_name] = d1
+                    let var_dict: Record<string, Record<string, Record<string, string>>> = {"filter": d2}
+                    
+                    await expect((await runQuery(BASIC_QUERY, var_dict)).data.hosts.data[0].id).toEqual('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                });
             });
 
 
@@ -368,7 +400,7 @@ describe('hosts query', function () {
 
             test('os_infrastructure_type', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_infrastructure_type: { eq: 'virtual' }}});
-                expect(data).toMatchSnapshot();
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
             test('os_infrastructure_vendor', async () => {
@@ -388,7 +420,7 @@ describe('hosts query', function () {
                 const { data } = await runQuery(BASIC_QUERY,
                     { filter: { spf_is_marketplace: { is: false }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
 
             test('spf_rhc_client_id', async () => {
@@ -529,14 +561,14 @@ describe('hosts query', function () {
 
                 test('spf_operating_system_major_version', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_operating_system: {major: { gte: 6, lt: 7}}}});
+                        { filter: { spf_operating_system: {major: { gte: 2, lt: 7}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_operating_system_minor_version', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_operating_system: {minor: { gte: 5, lt: 6}}}});
+                        { filter: { spf_operating_system: {minor: { gte: 2, lt: 6}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
@@ -553,11 +585,11 @@ describe('hosts query', function () {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {
                             name: { eq: 'RHEL'},
-                            major: { gte: 7, lt: 8 },
-                            minor: { gte: 3, lt: 4 }
+                            major: { gte: 1, lt: 2 },
+                            minor: { gte: 1, lt: 2 }
                         }}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                    data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
                 });
             });
         });
@@ -863,13 +895,14 @@ describe('hosts query', function () {
             }
         `;
 
+        
         test('simple system profile query', async () => {
             const { data } = await runQuery(QUERY, {
                 filter: { id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' }},
                 system_profile_filter: ['arch', 'os_release']
             });
 
-            expect(data).toMatchSnapshot();
+            expect(data.hosts.data[0].system_profile_facts).toMatchSnapshot();
         });
 
         test('simple canonical fact query', async () => {
@@ -878,16 +911,18 @@ describe('hosts query', function () {
                 canonical_fact_filter: ['insights_id', 'satellite_id']
             });
 
-            expect(data).toMatchSnapshot();
+            expect(data.hosts.data[0].canonical_facts).toMatchSnapshot();
         });
 
+        // TODO: figure out a way to make this not break when new SPF fields are added
+        // I believe the desired behavior is to return all of the SPF fields
         test('empty', async () => {
             const { data } = await runQuery(QUERY, {
                 filter: { id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' }},
                 system_profile_filter: []
             });
 
-            expect(data).toMatchSnapshot();
+            expect(data.hosts.data[0].system_profile_facts).toMatchSnapshot();
         });
     });
 
@@ -911,6 +946,14 @@ describe('hosts query', function () {
 
         function expectId (data: any, id: string) {
             data.hosts.data.should.eql([{id}]);
+        }
+
+        function expectIds(data: any, id_list: [string]) {
+            let expected_data: any = [];
+            _.forEach(id_list, (id) => {
+                expected_data.push({"id": id})
+            })
+            data.hosts.data.should.eql(expected_data);
         }
 
         test('eq with value', async () => {

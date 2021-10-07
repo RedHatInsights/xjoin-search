@@ -16,6 +16,7 @@ function lowercaseField (field: string) {
  * Resolver for FilterString
  */
 export function filterString (field: string, filter: FilterString): Resolved {
+    console.log("$$$$$ String $$$$$$$")
     if (filter.eq === null) {
         return [negate(exists(field))];
     } else if (filter.eq !== undefined) {
@@ -29,6 +30,9 @@ export function filterString (field: string, filter: FilterString): Resolved {
  * Resolver for FilterStringWithWildcard
  */
 export function filterStringWithWildcard (field: string, filter: FilterStringWithWildcard): Resolved {
+    //TODO: remove
+    console.log("$$$$$ wildcard $$$$$$$")
+
     const result = filterString(field, filter);
 
     checkNotNull(filter.matches);

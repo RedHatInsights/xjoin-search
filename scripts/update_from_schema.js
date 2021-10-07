@@ -4,7 +4,6 @@ const _ = require('lodash');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { buildMappingsFor } = require("json-schema-to-es-mapping");
-const { type } = require('os');
 const $RefParser = require("@apidevtools/json-schema-ref-parser");
 
 const FILTER_TYPES = {
@@ -222,7 +221,12 @@ function getExampleValues(key, field_value, host_number) {
     values = example.split(",");
     values = values.map(s => s.trim());
 
-    return values[host_number];
+    value = values[host_number]
+    if (value == "null") {
+        value = null
+    }
+
+    return value;
 }
 
 function getItemsIfArray(field_value) {
@@ -236,11 +240,7 @@ function getItemsIfArray(field_value) {
 function generateSystemProfileValues(field, host_number) {
     let value = {}
 
-    // TODO: remove the following
-    //console.log(field);
     if (_.has(field, "items")) {
-        //console.log(`!!!! has items !!!!!!!!!`);
-        //console.log(field["items"]);
         field = field["items"];
     }
 

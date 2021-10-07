@@ -134,7 +134,7 @@ describe('host tags', function () {
             });
 
             expect(status).toEqual(200);
-            expect(data).toMatchSnapshot();
+            data.hostTags.data.should.have.length(2);
         });
 
         test('by tag intersection', async () => {

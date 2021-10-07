@@ -139,6 +139,10 @@ function getResolver(name: string, type: string, value: object): HostFilterResol
 function getTypeOfField(key: string, field_value: any): PrimativeTypeString {
     let type: PrimativeTypeString | undefined = _.get(field_value, "type");
 
+    if (type == "string" && _.get(field_value, "x-wildcard")) {
+        type = "wildcard"
+    }
+
     if (type == "array") {
         type = getTypeOfField(key, field_value["items"]);
     }
@@ -176,6 +180,11 @@ async function resolverMapFromSchema(schemaFilePath: string): Promise<HostFilter
         optional((filter: HostFilter) => filter.fqdn, _.partial(filterStringWithWildcard, 'canonical_facts.fqdn')),
         optional((filter: HostFilter) => filter.provider_type, _.partial(filterString, 'canonical_facts.provider_type')),
         optional((filter: HostFilter) => filter.provider_id, _.partial(filterString, 'canonical_facts.provider_id')),
+        optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
+        optional((filter: HostFilter) => filter.tag, filterTag),
+        optional((filter: HostFilter) => filter.OR, common.or(resolveFilters)),
+        optional((filter: HostFilter) => filter.AND, common.and(resolveFilters)),
+        optional((filter: HostFilter) => filter.NOT, common.not(resolveFilter))
     ];
 
     //loop through the schema object and create a new entry in the array for each entry in the schema
@@ -210,8 +219,10 @@ async function resolverMapFromSchema(schemaFilePath: string): Promise<HostFilter
     return resolvers;
 }
 
+
+//TODO: make this path configurable
 let RESOLVERS: HostFilterResolver[];
-resolverMapFromSchema("scripts/TEMP_schema.yml").then((resolvers: HostFilterResolver[])=>{
+resolverMapFromSchema("inventory-schemas/system_profile_schema.yaml").then((resolvers: HostFilterResolver[])=>{
     RESOLVERS = resolvers;
 });
 

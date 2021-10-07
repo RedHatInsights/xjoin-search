@@ -193,13 +193,13 @@ $defs:
         type: string
         pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
         maxLength: 36
-        example: 22cd8e39-13bb-4d02-8316-84b850dc5136, 2c68e8ec-10e2-11ec-82a8-0242ac130003, 2fa3e796-10e2-11ec-82a8-0242ac130003
+        example: 22cd8e39-13bb-4d02-8316-84b850dc5136, 2c68e8ec-10e2-11ec-82a8-0242ac130003, it8i99u1-48ut-1rdf-bc10-84opf904lbop
       rhc_client_id:
         description: A UUID associated with a cloud_connector
         type: string
         pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
         maxLength: 36
-        example: 22cd8e39-13bb-4d02-8316-84b850dc5136, 2c68e8ec-10e2-11ec-82a8-0242ac130003, 2fa3e796-10e2-11ec-82a8-0242ac130003
+        example: 22cd8e39-13bb-4d02-8316-84b850dc5136, 33cd8e39-13bb-4d02-8316-84b850dc5136, 2fa3e796-10e2-11ec-82a8-0242ac130003
       rhc_config_state:
         description: A UUID associated with the config manager state
         type: string
@@ -231,11 +231,11 @@ $defs:
       infrastructure_type:
         type: string
         maxLength: 100
-        example: "ex1, ex2, ex3"
+        example: "physical, physical, virtual"
       infrastructure_vendor:
         type: string
         maxLength: 100
-        example: "ex1, ex2, ex3"
+        example: "ex1, ex2, baremetal"
       network_interfaces:
         type: array  # techincally a set, ordering is not important
         items:
@@ -253,8 +253,10 @@ $defs:
         maxLength: 100
         example: "ex1, ex2, ex3"
       bios_release_date:
+        #TODO: make sure this doesn't need regex support 
         type: string
         x-indexed: false
+        x-wildcard: true
         maxLength: 50
         example: "ex1, ex2, ex3"
       cpu_flags:
@@ -284,7 +286,7 @@ $defs:
             type: string
             maxLength: 4
             enum: [RHEL]
-            example: "RHEL, RHEL, RHEL"
+            example: "RHEL, RHEL, FED"
       os_release:
         type: string
         maxLength: 100
@@ -294,12 +296,12 @@ $defs:
         maxLength: 20
         pattern: '^\d+\.\d+\.\d+(\.\d+)?$'
         description: The kernel version represented with a three, optionally four, number scheme.
-        example: '3.10.0, 4.5.0, 8.0.0'
+        example: '4.18.2, 4.5.0, 5.1.0'
         x-wildcard: true
       arch:
         type: string
         maxLength: 50
-        example: "ex1, ex2, ex3"
+        example: "ARM, x86_64, null"
       kernel_modules:
         type: array
         items:
@@ -353,7 +355,7 @@ $defs:
         description: The version number of insights client. supports wildcards
         x-wildcard: true
         maxLength: 50
-        example: "ex1, ex2, ex3"
+        example: "3.0.1-2.el4_2, 5.0.6-2.el7_6, 6.0.6-2.el8_4"
       insights_egg_version:
         type: string
         maxLength: 50

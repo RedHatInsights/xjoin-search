@@ -6,6 +6,7 @@ import client from '../src/es';
 
 let app: any = null;
 
+jest.setTimeout(2000000)
 beforeAll(async () => {
     try {
         app = await start();

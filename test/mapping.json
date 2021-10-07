@@ -85,11 +85,46 @@
         },
         "network_interfaces": {
           "type": "object",
-          "include_in_parent": true
+          "properties": {
+            "ipv4_addresses": {
+              "type": "keyword"
+            },
+            "ipv6_addresses": {
+              "type": "keyword"
+            },
+            "mtu": {
+              "type": "integer"
+            },
+            "mac_address": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            },
+            "state": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
         },
         "disk_devices": {
           "type": "object",
-          "include_in_parent": true
+          "properties": {
+            "device": {
+              "type": "keyword"
+            },
+            "label": {
+              "type": "text"
+            },
+            "mount_point": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
         },
         "bios_vendor": {
           "type": "keyword"
@@ -98,8 +133,7 @@
           "type": "keyword"
         },
         "cpu_flags": {
-          "type": "keyword",
-          "include_in_parent": true
+          "type": "keyword"
         },
         "operating_system": {
           "type": "object",
@@ -125,8 +159,7 @@
           "type": "keyword"
         },
         "kernel_modules": {
-          "type": "keyword",
-          "include_in_parent": true
+          "type": "keyword"
         },
         "last_boot_time": {
           "type": "keyword"
@@ -148,11 +181,28 @@
         },
         "dnf_modules": {
           "type": "object",
-          "include_in_parent": true
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "stream": {
+              "type": "keyword"
+            }
+          }
         },
         "installed_products": {
           "type": "object",
-          "include_in_parent": true
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "id": {
+              "type": "keyword"
+            },
+            "status": {
+              "type": "keyword"
+            }
+          }
         },
         "insights_client_version": {
           "type": "keyword"
@@ -164,27 +214,22 @@
           "type": "keyword"
         },
         "installed_packages": {
-          "type": "keyword",
-          "include_in_parent": true
+          "type": "keyword"
         },
         "gpg_pubkeys": {
-          "type": "keyword",
-          "include_in_parent": true
+          "type": "keyword"
         },
         "installed_services": {
-          "type": "keyword",
-          "include_in_parent": true
+          "type": "keyword"
         },
         "enabled_services": {
-          "type": "keyword",
-          "include_in_parent": true
+          "type": "keyword"
         },
         "sap_system": {
           "type": "boolean"
         },
         "sap_sids": {
-          "type": "keyword",
-          "include_in_parent": true
+          "type": "keyword"
         },
         "sap_instance_number": {
           "type": "keyword"
@@ -215,7 +260,29 @@
         },
         "rpm_ostree_deployments": {
           "type": "object",
-          "include_in_parent": true
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "checksum": {
+              "type": "keyword"
+            },
+            "origin": {
+              "type": "keyword"
+            },
+            "osname": {
+              "type": "keyword"
+            },
+            "version": {
+              "type": "keyword"
+            },
+            "booted": {
+              "type": "boolean"
+            },
+            "pinned": {
+              "type": "boolean"
+            }
+          }
         },
         "rhsm": {
           "type": "object",
@@ -232,14 +299,14 @@
       "properties": {
         "namespace": {
           "type": "keyword",
-          "null_value": "null"
+          "null_value": "$$_XJOIN_SEARCH_NULL_VALUE"
         },
         "key": {
           "type": "keyword"
         },
         "value": {
           "type": "keyword",
-          "null_value": "null"
+          "null_value": "$$_XJOIN_SEARCH_NULL_VALUE"
         }
       }
     },

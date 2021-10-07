@@ -1,96 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hosts query JSONObjectFilter empty 1`] = `
-Object {
-  "hosts": Object {
-    "data": Array [
-      Object {
-        "account": "test",
-        "canonical_facts": Object {
-          "fqdn": "fqdn.test03.rhel7.jharting.local",
-          "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
-          "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
-          "provider_type": "alibaba",
-          "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-          "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
-        },
-        "display_name": "test03.rhel7.jharting.local",
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
-        "system_profile_facts": Object {},
-      },
-    ],
-  },
-}
-`;
+exports[`hosts query JSONObjectFilter empty 1`] = `Object {}`;
 
 exports[`hosts query JSONObjectFilter simple canonical fact query 1`] = `
 Object {
-  "hosts": Object {
-    "data": Array [
-      Object {
-        "account": "test",
-        "canonical_facts": Object {
-          "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
-          "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-        },
-        "display_name": "test03.rhel7.jharting.local",
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
-        "system_profile_facts": Object {
-          "arch": "x86_64",
-          "bios_release_date": "12/01/2006",
-          "bios_vendor": "innotek GmbH",
-          "bios_version": "VirtualBox",
-          "cores_per_socket": 1,
-          "host_type": "edge",
-          "infrastructure_type": "physical",
-          "infrastructure_vendor": "baremetal",
-          "insights_client_version": "3.0.6-2.el7_6",
-          "insights_egg_version": "3.0.115-1",
-          "is_marketplace": false,
-          "last_boot_time": "2019-08-07T08:46:16",
-          "number_of_cpus": 1,
-          "number_of_sockets": 1,
-          "operating_system": Object {
-            "major": 6,
-            "minor": 5,
-            "name": "FED",
-          },
-          "os_kernel_version": "3.10.0",
-          "os_release": "6.5",
-          "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904lbop",
-          "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
-          "satellite_managed": false,
-          "system_memory_bytes": 511451136,
-        },
-      },
-    ],
-  },
+  "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
+  "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
 }
 `;
 
 exports[`hosts query JSONObjectFilter simple system profile query 1`] = `
 Object {
-  "hosts": Object {
-    "data": Array [
-      Object {
-        "account": "test",
-        "canonical_facts": Object {
-          "fqdn": "fqdn.test03.rhel7.jharting.local",
-          "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
-          "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
-          "provider_type": "alibaba",
-          "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-          "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
-        },
-        "display_name": "test03.rhel7.jharting.local",
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
-        "system_profile_facts": Object {
-          "arch": "x86_64",
-          "os_release": "6.5",
-        },
-      },
-    ],
-  },
+  "arch": null,
+  "os_release": "ex3",
 }
 `;
 

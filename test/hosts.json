@@ -16,11 +16,11 @@
             "provider_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
         },
         "system_profile_facts": {
-            "arch": "ex1",
+            "arch": "ARM",
             "owner_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
             "os_release": "ex1",
-            "os_kernel_version": "3.10.0",
-            "infrastructure_type": "ex1",
+            "os_kernel_version": "4.18.2",
+            "infrastructure_type": "physical",
             "infrastructure_vendor": "ex1",
             "last_boot_time": "ex1",
             "number_of_sockets": 0,
@@ -28,7 +28,7 @@
             "bios_release_date": "12/01/2006",
             "bios_vendor": "ex1",
             "number_of_cpus": 0,
-            "insights_client_version": "ex1",
+            "insights_client_version": "3.0.1-2.el4_2",
             "system_memory_bytes": 0,
             "satellite_managed": false,
             "is_marketplace": false,
@@ -162,10 +162,10 @@
             "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
-            "arch": "ex2",
+            "arch": "x86_64",
             "os_release": "ex2",
             "os_kernel_version": "4.5.0",
-            "infrastructure_type": "ex2",
+            "infrastructure_type": "physical",
             "infrastructure_vendor": "ex2",
             "last_boot_time": "ex2",
             "number_of_sockets": 1,
@@ -175,11 +175,11 @@
             "bios_version": "ex2",
             "bios_vendor": "ex2",
             "number_of_cpus": 1,
-            "insights_client_version": "ex2",
+            "insights_client_version": "5.0.6-2.el7_6",
             "system_memory_bytes": 1,
             "satellite_managed": true,
             "is_marketplace": true,
-            "rhc_client_id": "2c68e8ec-10e2-11ec-82a8-0242ac130003",
+            "rhc_client_id": "33cd8e39-13bb-4d02-8316-84b850dc5136",
             "operating_system": {
                 "major": 1,
                 "minor": 1,
@@ -277,12 +277,11 @@
             "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
-            "arch": "ex3",
-            "owner_id": "2fa3e796-10e2-11ec-82a8-0242ac130003",
+            "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904lbop",
             "os_release": "ex3",
-            "os_kernel_version": "8.0.0",
-            "infrastructure_type": "ex3",
-            "infrastructure_vendor": "ex3",
+            "os_kernel_version": "5.1.0",
+            "infrastructure_type": "virtual",
+            "infrastructure_vendor": "baremetal",
             "last_boot_time": "ex3",
             "number_of_sockets": 2,
             "insights_egg_version": "ex3",
@@ -291,7 +290,7 @@
             "bios_version": "ex3",
             "bios_vendor": "ex3",
             "number_of_cpus": 2,
-            "insights_client_version": "ex3",
+            "insights_client_version": "6.0.6-2.el8_4",
             "system_memory_bytes": 2,
             "satellite_managed": true,
             "is_marketplace": true,
@@ -299,7 +298,7 @@
             "operating_system": {
                 "major": 2,
                 "minor": 2,
-                "name": "RHEL"
+                "name": "FED"
             },
             "host_type": "edge",
             "rhc_config_state": "2fa3e796-10e2-11ec-82a8-0242ac130003",
@@ -349,7 +348,8 @@
             },
             "rhsm": {
                 "version": "9.9"
-            }
+            },
+            "arch": null
         },
         "tags_structured": [
             {
