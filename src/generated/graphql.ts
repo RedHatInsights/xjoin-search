@@ -69,6 +69,18 @@ export type FilterOperatingSystem = {
   name?: Maybe<FilterString>;
 };
 
+/** Filters hosts by Ansible fields */
+export type FilterAnsible = {
+  /** Ansible Controller version */
+  controller_version?: Maybe<FilterStringWithWildcard>;
+  /** Ansible Hub version */
+  hub_version?: Maybe<FilterStringWithWildcard>;
+  /** Ansible Catalog Worker version */
+  catalog_worker_version?: Maybe<FilterStringWithWildcard>;
+  /** Ansible SSO version */
+  sso_version?: Maybe<FilterStringWithWildcard>;
+};
+
 /** Basic filter for string fields that allows filtering based on exact match. */
 export type FilterString = {
   /**
@@ -251,6 +263,8 @@ export type HostFilter = {
   spf_is_marketplace?: Maybe<FilterBoolean>;
   /** Filter by 'operating_system' field of system profile */
   spf_operating_system?: Maybe<FilterOperatingSystem>;
+  /** Filter by 'ansible' field of system profile */
+  spf_ansible?: Maybe<FilterAnsible>;
   /** Filter by 'host_type' field of system profile */
   spf_host_type?: Maybe<FilterString>;
   /** Filter by the stale_timestamp value */
@@ -503,6 +517,7 @@ export type ResolversTypes = {
   FilterBoolean: FilterBoolean;
   FilterInt: FilterInt;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterAnsible: FilterAnsible;
   FilterString: FilterString;
   String: ResolverTypeWrapper<Scalars['String']>;
   FilterStringWithRegex: FilterStringWithRegex;
@@ -542,6 +557,7 @@ export type ResolversParentTypes = {
   FilterBoolean: FilterBoolean;
   FilterInt: FilterInt;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterAnsible: FilterAnsible;
   FilterString: FilterString;
   String: Scalars['String'];
   FilterStringWithRegex: FilterStringWithRegex;

@@ -1199,6 +1199,15 @@ Filter by 'operating_system' field of system profile
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>spf_ansible</strong></td>
+<td valign="top"><a href="#filteransible">FilterAnsible</a></td>
+<td>
+
+Filter by 'ansible' field of system profile
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>spf_host_type</strong></td>
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>

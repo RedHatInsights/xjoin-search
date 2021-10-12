@@ -37,6 +37,12 @@
                 "major": 7,
                 "minor": 3,
                 "name": "RHEL"
+            },
+            "ansible": {
+                "controller_version": "1.2.3",
+                "hub_version": "1.2.3",
+                "catalog_worker_version": "1.2.3",
+                "sso_version": "1.2.3"
             }
         },
         "tags_structured": [{
@@ -117,7 +123,14 @@
                 "major": 7,
                 "minor": 4,
                 "name": "RHEL"
+            },
+            "ansible": {
+                "controller_version": "4.5.6",
+                "hub_version": "4.5.6",
+                "catalog_worker_version": "4.5.6",
+                "sso_version": "4.5.6"
             }
+
         },
         "tags_structured": [{
             "namespace": "Sat",
@@ -179,6 +192,12 @@
                 "major": 6,
                 "minor": 5,
                 "name": "FED"
+            },
+            "ansible": {
+                "controller_version": "7.8.9",
+                "hub_version": "7.8.9",
+                "catalog_worker_version": "7.8.9",
+                "sso_version": "7.8.9"
             },
             "host_type": "edge"
         },
