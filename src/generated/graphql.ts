@@ -51,8 +51,6 @@ export type FilterBoolean = {
 export type FilterDiskDevices = {
   /** Filter by 'device' field of disk_devices */
   device?: Maybe<FilterString>;
-  /** Filter by 'label' field of disk_devices */
-  label?: Maybe<FilterString>;
   /** Filter by 'mount_point' field of disk_devices */
   mount_point?: Maybe<FilterString>;
   /** Filter by 'type' field of disk_devices */
@@ -362,7 +360,7 @@ export type HostFilter = {
   /** Filter by 'os_kernel_version' field of system profile */
   spf_os_kernel_version?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'os_release' field of system profile */
-  spf_os_release?: Maybe<FilterString>;
+  spf_os_release?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'operating_system' field of system profile */
   spf_operating_system?: Maybe<FilterOperatingSystem>;
   /** Filter by 'cpu_flags' field of system profile */

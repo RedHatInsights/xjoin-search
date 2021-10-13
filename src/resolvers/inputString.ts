@@ -17,6 +17,8 @@ function lowercaseField (field: string) {
  */
 export function filterString (field: string, filter: FilterString): Resolved {
     if (filter.eq === null) {
+        // TODO: remove
+        console.log(field);
         return [negate(exists(field))];
     } else if (filter.eq !== undefined) {
         return [term(field, filter.eq)];

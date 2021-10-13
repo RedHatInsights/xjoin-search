@@ -9,6 +9,10 @@ import { testLimitOffset } from '../test.common';
 import each from 'jest-each';
 import { any, filter } from 'bluebird';
 import _ from 'lodash';
+import { getSchema, getTestHost, getTypeOfField, PrimativeTypeString, getOperationsForType } from '../../util/systemProfile';
+import $RefParser from '@apidevtools/json-schema-ref-parser';
+import schema from 'src/schema';
+import * as fs from 'fs';
 
 const BASIC_QUERY = `
     query hosts (
@@ -329,55 +333,105 @@ describe('hosts query', function () {
         });
 
         // working here TODO: remove this comment when i'm done
+        // make this return a list of queries to use. Simpler that way
         describe('system_profile', function () {
+            function createFilterQuery(name: string, operation: string, test_value: string): Record<string, Record<string, Record<string, string>>> {
+                const filter_name = 'spf_' + name;
+                let d1: Record<string, string> = {} 
+                d1[operation] = test_value
+                let d2: Record<string, Record<string, string>> = {}
+                d2[filter_name] = d1
+                return {"filter": d2}
+            }
 
-            // attemping to make a generalized test that test all current and 
-            // future non-custom type field in the system profile
-            // test('all_spf_fields', async () => {
-            //     async function test_spf_field(field_name: string, search_operation: string, search_value: string, callback: (data: any) => {}) {
-            //         const filter_name = 'spf_' + field_name;
-            //         const { data } = await runQuery(BASIC_QUERY, { filter: { filter_name: { search_operation: search_value }}});
-            //         callback(data)
-            //     }
+            function generateFilterQuerys(schema_chunk: $RefParser.JSONSchema, test_host_chunk: Object) {
+                //Have to check if it's really an array because the nesting is different if it is
+                function get_next_schema_chunk(schema_chunk: any, field_name: string) {
+                    let field_properties = _.get(schema_chunk, field_name)
+                    if (_.get(field_properties, "type") == "array") {
+                        field_properties = _.get(field_properties, "items")
+                    }
 
-            //     function check(data: any) {
-            //         data.hosts.data.should.have.length(1);
-            //         data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136')
-            //     }
+                    return _.get(field_properties, "properties");
+                }
 
-            //     const test_data = [
-            //         ['os_kernel_version', 'matches', '4.18.*']
-            //     ]
 
-            //     for (let data in test_data) {
-            //         const field_name = data[0];
-            //         const search_operation = data[1];
-            //         const search_value = data[2];
+                let test_data: Record<string, any>[] = [];
 
-            //     }
-            // });
+                _.forEach(schema_chunk, (field_value: any, field_name: string) => {
+                    if (typeof(field_name) === "undefined" && typeof(field_value) === "undefined") {
+                        throw "error processing schema";
+                    }
+            
+                    let type: PrimativeTypeString = getTypeOfField(field_name, field_value);
+                    if (type == "object") {
+                        const next_schema_chunk: any = get_next_schema_chunk(schema_chunk, field_name);
+                        const next_host_chunk: any = _.get(test_host_chunk, field_name);
+
+                        //TODO: factor out
+                        if (next_schema_chunk == null) {
+                            throw `${field_name} object has no contents in schema`
+                        }
+
+                        if (next_host_chunk == null) {
+                            throw `${field_name} object has no contents in host`
+                        }
+
+                        const filter_queries = generateFilterQuerys(next_schema_chunk, next_host_chunk);
+                        test_data.push(..._.map(filter_queries, (filter_query):Record<string,any> => {
+                            return {field_name: filter_query};
+                        }));
+                    } else {
+                        //flat or bottom
+                        let field_test_value: string = _.get(test_host_chunk, field_name);
+                        let operations: string[] =  getOperationsForType(type)
+
+                        _.forEach(operations, (operation: string) => {
+                            test_data.push(createFilterQuery(field_name, operation, field_test_value))
+                        })
+                    }
+                })
+
+                return test_data
+            }
+
+            async function generateSPFTestData(): Promise<Record<string, any>[]> {
+                const schema = _.get(await getSchema(), "$defs.SystemProfile.properties");
+                const test_host = _.get(getTestHost("22cd8e39-13bb-4d02-8316-84b850dc5136"), "system_profile_facts");
+
+                return generateFilterQuerys(schema, test_host);
+            }
+
+            function getSPFTestData(): Object {
+                let spf_data_file = fs.readFileSync('test/spf_test_data.json', 'utf8');
+                let parsed = JSON.parse(spf_data_file);
+                return parsed;
+            }
+
+
             describe('all_spf_fields', () => {
-                const test_data = [
-                    ['os_kernel_version', 'matches', '3.10*']
-                ]
+                // let test_data: []|Record<string,any>[] = [];
 
-                test.each(test_data)('${field_name}', async (field_name: string, search_operation: string, search_value: string) => {
-                    const filter_name = 'spf_' + field_name;
+                // beforeAll(async () => {
+                //     test_data = await generateSPFTestData()
+                // })
+                let test_data = getSPFTestData();
+                
 
-                    let d1: Record<string, string> = {}
-                    d1[search_operation] = search_value
-                    let d2: Record<string, Record<string, string>> = {}
-                    d2[filter_name] = d1
-                    let var_dict: Record<string, Record<string, Record<string, string>>> = {"filter": d2}
-                    
-                    await expect((await runQuery(BASIC_QUERY, var_dict)).data.hosts.data[0].id).toEqual('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                if (test_data == []) {
+                    console.error("no test data for all SPF fields test")
+                    fail
+                }
+
+                test.each(test_data)('${field_name}', async (filter_query: Record<string, any>) => {
+                    await expect((await runQuery(BASIC_QUERY, filter_query)).data.hosts.data[0].id).toEqual('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
             });
 
 
             test('arch', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_arch: { eq: 'x86_64' }}});
-                expect(data).toMatchSnapshot();
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
             });
 
             test('os_release', async () => {
@@ -389,7 +443,7 @@ describe('hosts query', function () {
                         }
                     }
                 });
-                expect(data).toMatchSnapshot();
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
             test('os_kernel_version', async () => {

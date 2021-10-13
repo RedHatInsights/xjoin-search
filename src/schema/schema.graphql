@@ -157,7 +157,7 @@ input HostFilter {
     spf_os_kernel_version: FilterStringWithWildcard
 
     "Filter by 'os_release' field of system profile"
-    spf_os_release: FilterString
+    spf_os_release: FilterStringWithWildcard
 
     "Filter by 'operating_system' field of system profile"
     spf_operating_system: FilterOperatingSystem
@@ -462,8 +462,6 @@ Filter by 'disk_devices' field of system profile
 input FilterDiskDevices {
     "Filter by 'device' field of disk_devices"
     device: FilterString
-,    "Filter by 'label' field of disk_devices"
-    label: FilterString
 ,    "Filter by 'mount_point' field of disk_devices"
     mount_point: FilterString
 ,    "Filter by 'type' field of disk_devices"

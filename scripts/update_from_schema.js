@@ -1,5 +1,31 @@
-// When running this script add the path to the schema file to use as argv
-// e.g. node update_mapping.js path/to/schema_file.yml
+/*
+SUMMARY:
+This script updates various files in xjoin-search to support filtering on and
+retrieving data from the fields defined in the system profile schema. 
+It is meant to be run when fields are added to or removed from the schema.
+
+For more information about how this script is used please check the README
+in the root of this repository. Relevant information is located under the
+Maintenance header in a subsection titled "Update SystemProfile Filters using schema"
+
+WHEN TO RUN:
+Ideally this script should never need to be manually run for maintenance
+reasons. However there may be utility in running this script as part of the
+development process. For example: if you are working with some change to the 
+system profile schema that has yet to be committed you can point this script 
+to your custom version of the schema to test things out.
+
+If the automation that runs this script to keep xjoin-search up to date has
+failed please see the README for more information about performing the maintenance
+manually
+
+HOW TO RUN:
+When running this script add the path to the schema file you want to use as argv
+e.g. node update_mapping.js path/to/schema_file.yml
+The most recent version of the schema is stored at:
+    /inventory-schemas/system_profile_schema
+*/
+
 const _ = require('lodash');
 const fs = require('fs');
 const yaml = require('js-yaml');
@@ -7,15 +33,23 @@ const { buildMappingsFor } = require("json-schema-to-es-mapping");
 const $RefParser = require("@apidevtools/json-schema-ref-parser");
 
 const FILTER_TYPES = {
-    string: "FilterString", //when type is anything else (default)
-    boolean: "FilterBoolean", //when type is boolean
+    string: "FilterString",
+    boolean: "FilterBoolean",
     integer: "FilterInt",
-    wildcard: "FilterStringWithWildcard", //when `x-wildcard` is true (and present)
-    timestamp: "FilterTimestamp", //when type is string and format is `date-time`
+    wildcard: "FilterStringWithWildcard",
+    timestamp: "FilterTimestamp",
 };
 
-const HOSTS_FILE_PATH = 'test/hosts.json'
+const HOSTS_FILE_PATH = 'test/hosts.json';
+const GRAPHQL_FILE_PATH = 'src/schema/schema.graphql';
+const NUM_TEST_HOSTS = 3;
 
+/*
+Remove any fields that are marked to NOT be indexed in elasticSearch
+These fields will have the property:
+    x-indexed: false
+in their schema definition
+*/
 function removeBlockedFields(schema) {
     console.log("\n### removing fields marked to not be indexed ###");
 
@@ -34,21 +68,25 @@ function removeBlockedFields(schema) {
         }
     }
 
-    console.log(`returning`)
     return schema;
 }
+
 
 function snakeToTitle(str) {
     return str.split('_').map(w => w[0].toUpperCase() + w.substr(1).toLowerCase()).join('')
 }
 
+
 function graphQLTypeName(str) {
     return "Filter" + snakeToTitle(str);
 }
 
+
+/*
+From the properties of the field in the system profile schema determine the type
+of filter to use in the GraphQL schema
+*/
 function determineFilterType(field_name, value) {
-    //take the details of the field from the JSONshema and return the type
-    //of filter used in the graphQL schema
     let type = getTypeOfField(value);
 
     if (type == undefined) {
@@ -65,10 +103,9 @@ function determineFilterType(field_name, value) {
         return FILTER_TYPES.timestamp;
     } else if (_.get(value, "x-wildcard")) {
         return FILTER_TYPES.wildcard;
+    } else if (type == "string") {
+        return FILTER_TYPES.string;
     }
-
-    // FilterString is pretty much a catch all, but watch for edge cases
-    return FILTER_TYPES.string;
 }
 
 
@@ -81,7 +118,6 @@ async function getSchema(schema_path) {
 
     try {
         schema = await $RefParser.dereference(schema_path);
-        // console.log(schema);
     }
     catch (err) {
         console.error(err);
@@ -89,6 +125,7 @@ async function getSchema(schema_path) {
 
     return removeBlockedFields(schema["$defs"]["SystemProfile"])
 }
+
 
 function updateMapping(schema) {
     console.log("\n### updating elasticsearch mapping ###");
@@ -104,28 +141,26 @@ function updateMapping(schema) {
     fs.writeFileSync(mappingFilePath, JSON.stringify(template, null, 2));
 }
 
+
 function createGraphqlFields(schema, parent_name = "system profile", prefix = "spf_") {
-    //console.log(schema);
-    let grapqhlFieldsArray = [];
+    let graphqlFieldsArray = [];
 
     schema = getItemsIfArray(schema);
 
     for (const [key, value] of Object.entries(schema["properties"])) {
         let filterType = determineFilterType(key, value);
-        grapqhlFieldsArray.push(`    "Filter by '${key}' field of ${parent_name}"\n    ${prefix}${key}: ${filterType}\n`);
+        graphqlFieldsArray.push(`    "Filter by '${key}' field of ${parent_name}"\n    ${prefix}${key}: ${filterType}\n`);
     }
 
-    return grapqhlFieldsArray;
+    return graphqlFieldsArray;
 }
+
 
 function createTypeForObject(field_name, field_value) {
     type_array = []
     type_array += `"""\nFilter by '${field_name}' field of system profile\n"""\ninput ${graphQLTypeName(field_name)} {\n`;
     type_array += createGraphqlFields(field_value, field_name, "");
     type_array += "\n}\n";
-
-    //console.log("!!! NEW TYPE !!!")
-    //console.log(type_array);
 
     return type_array;
 }
@@ -139,7 +174,6 @@ function createGraphqlTypes(schema) {
         }
     }
 
-    //console.log(graphql_type_array);
     return graphql_type_array;
 }
 
@@ -147,9 +181,8 @@ function createGraphqlTypes(schema) {
 function updateGraphQLSchema(schema) {
     console.log("\n### updating GraphQL schema ###");
 
-    let grapqhlFilePath = 'src/schema/schema.graphql';
-    let grapqhlFileContent = fs.readFileSync(grapqhlFilePath, 'utf8');
-    let graphqlStringArray = grapqhlFileContent.toString().split('\n');
+    let graphqlFileContent = fs.readFileSync(GRAPHQL_FILE_PATH, 'utf8');
+    let graphqlStringArray = graphqlFileContent.toString().split('\n');
 
     //find the index of the marker line where we will insert the new additions
     let insertIndex = graphqlStringArray.indexOf("    # START: system_profile schema filters") + 1;
@@ -163,14 +196,10 @@ function updateGraphQLSchema(schema) {
         graphqlStringArray.splice(insertIndex, 0, field);
     })
 
-
-    // TODO: relying on comments for this to function already sucks, maybe use a more explicite on for the end
+    // TODO: relying on comments for this to function already sucks, maybe use a more explicit one for the end
     // at least make sure to add do not removes
     let typeInsertIndex = graphqlStringArray.indexOf("# Generated system_profile input types") + 2;
     let typeEndIndex = graphqlStringArray.indexOf("# Output types");
-
-    //console.log(`!!! TYPE start: ${typeInsertIndex}`);
-    //console.log(`!!! TYPE end: ${typeEndIndex}`);
 
     //remove existing types, but leave padding
     graphqlStringArray.splice(typeInsertIndex, typeEndIndex - typeInsertIndex - 3);
@@ -180,13 +209,15 @@ function updateGraphQLSchema(schema) {
     })
 
     let newGraphqlFileContent = graphqlStringArray.join("\n");
-    fs.writeFileSync(grapqhlFilePath, newGraphqlFileContent);
+    fs.writeFileSync(GRAPHQL_FILE_PATH, newGraphqlFileContent);
 }
+
 
 function getHosts() {
     let hosts_file_content = fs.readFileSync(HOSTS_FILE_PATH, 'utf8');
     return JSON.parse(hosts_file_content);
 }
+
 
 function getTypeOfField(field_value) {
     let type = field_value["type"];
@@ -197,6 +228,7 @@ function getTypeOfField(field_value) {
 
     return type;
 }
+
 
 function getExampleValues(key, field_value, host_number) {
     example = _.get(field_value, "example");
@@ -216,6 +248,7 @@ function getExampleValues(key, field_value, host_number) {
     return value;
 }
 
+
 function getItemsIfArray(field_value) {
     if (_.has(field_value, "items")) {
         field_value = field_value["items"];
@@ -224,7 +257,27 @@ function getItemsIfArray(field_value) {
     return field_value;
 }
 
+/*
+Generates example values for each field in the system profile for use on test hosts.
+
+for strings:
+    Fetches one of the example strings provided in the system profile
+    three values are provided for each field, the host number determines which is
+    fetched.
+
+for booleans:
+    host_number 0 gets True
+    host_number > 0 gets False
+
+for ints:
+    gets the host_number
+
+*/
 function generateSystemProfileValues(field, host_number) {
+    if(host_number < 0 || host_number > NUM_TEST_HOSTS) {
+        throw `Cannot generate system profile values for test host number ${host_number}. Out of range.`
+    }
+
     let value = {}
 
     if (_.has(field, "items")) {
@@ -236,24 +289,27 @@ function generateSystemProfileValues(field, host_number) {
 
         field_value = getItemsIfArray(field_value);
 
-        //for strings take example values from example property
-        if (type == "object") {
-            //console.log(`Found object: ${key} | value: ${field_value}`)
-            value[key] = generateSystemProfileValues(field_value, host_number);
-        } else if (type == "string") {
-            ///console.log(field_value);
-            value[key] = getExampleValues(key, field_value, host_number);
-        } else if (type == "boolean") {
-            value[key] = Boolean(host_number);
-        } else if (type == "integer") {
-            value[key] = host_number;
-        } else {
-            throw `ERROR! ${key} type: ${type} not supported!`;
+        switch (type) {
+            case "object":
+                value[key] = generateSystemProfileValues(field_value, host_number);
+                break;
+            case "string":
+                value[key] = getExampleValues(key, field_value, host_number);
+                break;
+            case "boolean":
+                value[key] = Boolean(host_number);
+                break;
+            case "integer":
+                value[key] = host_number;
+                break;
+            default:
+                throw `ERROR! ${key} type: ${type} not supported!`;
         }
     }
 
     return value
 }
+
 
 function generateNewSystemProfileFacts(schema, number_of_hosts) {
     let new_host_system_profile_facts = [];
@@ -265,6 +321,7 @@ function generateNewSystemProfileFacts(schema, number_of_hosts) {
     return new_host_system_profile_facts;
 }
 
+
 function updateHostsJson(new_host_system_profile_facts) {
     console.log("\n### updating example data for tests in hosts.json ###");
 
@@ -273,7 +330,7 @@ function updateHostsJson(new_host_system_profile_facts) {
     let i = 0;
     _.forEach(hosts, (host) => {
         if (host["account"] == "test") {
-            _.forEach(new_host_system_profile_facts[i], (value, field) => {
+            _.forEach(new_host_system_profile_facts[i], (_, field) => {
                 host["system_profile_facts"][field] = new_host_system_profile_facts[i][field];
             })
         }
@@ -283,86 +340,16 @@ function updateHostsJson(new_host_system_profile_facts) {
     fs.writeFileSync(HOSTS_FILE_PATH, JSON.stringify(hosts, null, 4));
 }
 
-function getTestHostIds(hosts) {
-    let test_host_ids = [];
-
-    _.forEach(hosts, (host) => {
-        if (host["account"] == "test") {
-            test_host_ids.push(host["id"]);
-        }
-    })
-
-    return test_host_ids;
-}
-
-function updateHostTests(schema, new_host_system_profile_facts) {
-    // iterate through non-custom type fields
-    // for each create a new test case like the following
-    // test('spf_host_color', async () => {
-    //     const { data } = await runQuery(BASIC_QUERY,
-    //     { filter: { spf_host_color: { eq: 'blue'}}});
-    //     data.hosts.data.should.have.length(1);
-    //     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
-    // });
-
-    // Data needed:
-    // - field_name: new_host_system_profile_facts
-    // - field_type (for operation): schema
-    // - the first example value for the field: new_host_system_profile_facts
-    // - the id of the host: ???
-
-    let hosts = getHosts();
-    let test_host_ids = getTestHostIds(hosts);
-
-    // open the test file
-    let test_file_path = 'src/resolvers/hosts/hosts.integration.ts';
-    let test_file_content = fs.readFileSync(zv, 'utf8');
-    let test_string_array = test_file_content.toString().split('\n');
-
-    //find the index of the marker line where we will insert the new additions
-    let insert_index = test_string_array.indexOf("            describe('generated_spf_tests', function () {") + 1;
-    let end_index = test_string_array.indexOf("            });", insert_index);
-
-    //remove existing system_profile filters, but leave padding
-    graphqlStringArray.splice(insert_index, end_index - insert_index);
-
-    let new_tests_array = [];
-
-
-    for (const [key, value] of Object.entries(schema["properties"])) {
-        let type = value["type"];
-
-
-
-        new_tests_array.push();
-
-        // if string look at the example values provided in schema
-        // query for the first value and expect the id of the first
-        // host in hosts.json
-
-    }
-}
-
-function updateTests(schema) {
-    let new_host_system_profile_facts = generateNewSystemProfileFacts(schema, 3);
-
-    //first update the test data in hosts.json
-    updateHostsJson(new_host_system_profile_facts);
-    //updateHostTests(schema, new_host_system_profile_facts);
-
-}
-
 
 async function main() {
     var myArgs = process.argv.slice(2);
     schema_path = myArgs[0];
-    console.log(`schema_path = ${schema_path}`)
 
     let schema = await getSchema(schema_path);
 
     updateMapping(schema);
     updateGraphQLSchema(schema);
-    updateTests(schema);
+    updateHostsJson(generateNewSystemProfileFacts(schema, NUM_TEST_HOSTS));
 }
 
 try {

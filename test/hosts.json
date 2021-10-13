@@ -16,9 +16,8 @@
             "provider_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
         },
         "system_profile_facts": {
-            "arch": "ARM",
             "owner_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
-            "os_release": "ex1",
+            "os_release": "7.4",
             "os_kernel_version": "4.18.2",
             "infrastructure_type": "physical",
             "infrastructure_vendor": "ex1",
@@ -70,7 +69,6 @@
             },
             "disk_devices": {
                 "device": "/dev/fdd0",
-                "label": "beans",
                 "mount_point": "/mnt/remote_nfs_shares",
                 "type": "ext3"
             },
@@ -98,7 +96,8 @@
                 "version": "33.21",
                 "booted": false,
                 "pinned": false
-            }
+            },
+            "arch": "ARM"
         },
         "tags_structured": [
             {
@@ -163,7 +162,7 @@
         },
         "system_profile_facts": {
             "arch": "x86_64",
-            "os_release": "ex2",
+            "os_release": "8.2",
             "os_kernel_version": "4.5.0",
             "infrastructure_type": "physical",
             "infrastructure_vendor": "ex2",
@@ -209,9 +208,7 @@
                 "mac_address": "10:00:00:00:00:00",
                 "name": "eth1"
             },
-            "disk_devices": {
-                "label": "frogs"
-            },
+            "disk_devices": {},
             "cpu_flags": "ex2",
             "kernel_modules": "ex2",
             "dnf_modules": {
@@ -278,7 +275,7 @@
         },
         "system_profile_facts": {
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904lbop",
-            "os_release": "ex3",
+            "os_release": "7.5",
             "os_kernel_version": "5.1.0",
             "infrastructure_type": "virtual",
             "infrastructure_vendor": "baremetal",
@@ -323,9 +320,7 @@
                 "mac_address": "20:00:00:00:00:00",
                 "name": "eth2"
             },
-            "disk_devices": {
-                "label": "main"
-            },
+            "disk_devices": {},
             "cpu_flags": "ex3",
             "kernel_modules": "ex3",
             "dnf_modules": {
