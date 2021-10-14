@@ -593,7 +593,7 @@ describe('hosts query', function () {
 
                 test('spf_ansible_sso_version_eq', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_ansible: {catalog_worker_version: { matches: '7.8.9'}}}});
+                        { filter: { spf_ansible: {catalog_worker_version: { eq: '7.8.9'}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });

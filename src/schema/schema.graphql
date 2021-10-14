@@ -253,6 +253,23 @@ input FilterOperatingSystem {
 }
 
 """
+Filters hosts by Ansible facts
+"""
+input FilterAnsible {
+    "Ansible Controller version"
+    controller_version: FilterStringWithWildcard,
+
+    "Ansible Hub version"
+    hub_version: FilterStringWithWildcard,
+
+    "Ansible Catalog Worker version"
+    catalog_worker_version: FilterStringWithWildcard,
+
+    "Ansible SSO version"
+    sso_version: FilterStringWithWildcard
+}
+
+"""
 Defines the criteria by which tags are filtered in the `hostTags` query.
 """
 input TagAggregationFilter {
