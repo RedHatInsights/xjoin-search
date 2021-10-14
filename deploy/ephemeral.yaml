@@ -120,6 +120,9 @@ objects:
       - name: default
         podTemplate:
           spec:
+            volumes:
+            - name: elasticsearch-data
+              emptyDir: {}
             containers:
             - name: elasticsearch
               resources:
