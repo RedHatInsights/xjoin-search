@@ -402,9 +402,9 @@ describe('hosts query', function () {
                 return generateFilterQuerys(schema, test_host);
             }
 
-            function getSPFTestData(): Object {
+            function getSPFTestData(): {"field_name": string, "field_query": Object}[] {
                 let spf_data_file = fs.readFileSync('test/spf_test_data.json', 'utf8');
-                let parsed = JSON.parse(spf_data_file);
+                let parsed: {"field_name": string, "field_query": Object}[] = JSON.parse(spf_data_file);
                 return parsed;
             }
 
@@ -415,7 +415,7 @@ describe('hosts query', function () {
                 // beforeAll(async () => {
                 //     test_data = await generateSPFTestData()
                 // })
-                let test_data = getSPFTestData();
+                let test_data: {"field_name": string, "field_query": Object}[] = getSPFTestData();
                 
 
                 if (test_data == []) {
@@ -423,8 +423,10 @@ describe('hosts query', function () {
                     fail
                 }
 
-                test.each(test_data)('${field_name}', async (filter_query: Record<string, any>) => {
-                    await expect((await runQuery(BASIC_QUERY, filter_query)).data.hosts.data[0].id).toEqual('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                test.each(test_data)('$field_name $field_query', async ({field_name, field_query}) => {
+                    const { data } = await runQuery(BASIC_QUERY, field_query);
+                    data.hosts.data.should.have.length(1);
+                    await expect(data.hosts.data[0].id).toEqual('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
             });
 

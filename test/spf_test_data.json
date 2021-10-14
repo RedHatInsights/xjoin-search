@@ -1,0 +1,5 @@
+[
+    {"field_name": "os_release", "field_query": {"filter": {"spf_os_release":{"eq": "7.4"}}}},
+    {"field_name": "arch", "field_query": {"filter": {"spf_arch":{"eq": "ARM"}}}},
+    {"field_name": "os_kernel_version", "field_query": {"filter": {"spf_os_kernel_version":{"eq": "4.18.2"}}}}
+]
