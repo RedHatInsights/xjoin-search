@@ -38,6 +38,18 @@ export type CollectionMeta = {
   total: Scalars['Int'];
 };
 
+/** Filters hosts by Ansible facts */
+export type FilterAnsible = {
+  /** Ansible Controller version */
+  controller_version?: Maybe<FilterStringWithWildcard>;
+  /** Ansible Hub version */
+  hub_version?: Maybe<FilterStringWithWildcard>;
+  /** Ansible Catalog Worker version */
+  catalog_worker_version?: Maybe<FilterStringWithWildcard>;
+  /** Ansible SSO version */
+  sso_version?: Maybe<FilterStringWithWildcard>;
+};
+
 /** Basic filter for boolean fields. */
 export type FilterBoolean = {
   /**
@@ -251,6 +263,8 @@ export type HostFilter = {
   spf_is_marketplace?: Maybe<FilterBoolean>;
   /** Filter by 'operating_system' field of system profile */
   spf_operating_system?: Maybe<FilterOperatingSystem>;
+  /** Filter by 'ansible' field of system profile */
+  spf_ansible?: Maybe<FilterAnsible>;
   /** Filter by 'host_type' field of system profile */
   spf_host_type?: Maybe<FilterString>;
   /** Filter by the stale_timestamp value */
@@ -500,6 +514,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   BooleanValues: ResolverTypeWrapper<BooleanValues>;
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>;
+  FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
   FilterInt: FilterInt;
   FilterOperatingSystem: FilterOperatingSystem;
@@ -539,6 +554,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   BooleanValues: BooleanValues;
   CollectionMeta: CollectionMeta;
+  FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
   FilterInt: FilterInt;
   FilterOperatingSystem: FilterOperatingSystem;

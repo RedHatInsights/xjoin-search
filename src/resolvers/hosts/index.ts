@@ -18,6 +18,7 @@ import { filterTag } from '../inputTag';
 import { formatTags } from './format';
 import { filterString } from '../inputString';
 import { filterOperatingSystem } from '../inputOperatingSystem';
+import { filterAnsible } from '../inputAnsible';
 
 type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -92,6 +93,7 @@ const RESOLVERS: HostFilterResolver[] = [
         _.partial(filterStringWithWildcard, 'system_profile_facts.owner_id')
     ),
     optional((filter: HostFilter) => filter.spf_operating_system, filterOperatingSystem),
+    optional((filter: HostFilter) => filter.spf_ansible, filterAnsible),
 
     optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
     optional((filter: HostFilter) => filter.tag, filterTag),

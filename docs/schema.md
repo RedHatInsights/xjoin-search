@@ -18,6 +18,7 @@
     * [TagInfo](#taginfo)
     * [Tags](#tags)
   * [Inputs](#inputs)
+    * [FilterAnsible](#filteransible)
     * [FilterBoolean](#filterboolean)
     * [FilterInt](#filterint)
     * [FilterOperatingSystem](#filteroperatingsystem)
@@ -617,6 +618,58 @@ Structured representation of a tag
 
 ## Inputs
 
+### FilterAnsible
+
+Filters hosts by Ansible facts
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>controller_version</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Ansible Controller version
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>hub_version</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Ansible Hub version
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>catalog_worker_version</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Ansible Catalog Worker version
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>sso_version</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Ansible SSO version
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### FilterBoolean
 
 Basic filter for boolean fields.
@@ -1195,6 +1248,15 @@ Filter by 'is_marketplace' field of system profile
 <td>
 
 Filter by 'operating_system' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_ansible</strong></td>
+<td valign="top"><a href="#filteransible">FilterAnsible</a></td>
+<td>
+
+Filter by 'ansible' field of system profile
 
 </td>
 </tr>

@@ -36,6 +36,12 @@ Object {
         "display_name": "test03.rhel7.jharting.local",
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "system_profile_facts": Object {
+          "ansible": Object {
+            "catalog_worker_version": "7.8.9",
+            "controller_version": "7.8.9",
+            "hub_version": "7.8.9",
+            "sso_version": "7.8.9",
+          },
           "arch": "x86_64",
           "bios_release_date": "12/01/2006",
           "bios_vendor": "innotek GmbH",

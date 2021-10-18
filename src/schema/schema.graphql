@@ -84,6 +84,8 @@ input HostFilter {
     spf_is_marketplace: FilterBoolean
     "Filter by 'operating_system' field of system profile"
     spf_operating_system: FilterOperatingSystem
+    "Filter by 'ansible' field of system profile"
+    spf_ansible: FilterAnsible
     "Filter by 'host_type' field of system profile"
     spf_host_type: FilterString
 
@@ -248,6 +250,23 @@ input FilterOperatingSystem {
 
     "Name of distro (max 4 chars e.g. RHEL)"
     name: FilterString
+}
+
+"""
+Filters hosts by Ansible facts
+"""
+input FilterAnsible {
+    "Ansible Controller version"
+    controller_version: FilterStringWithWildcard,
+
+    "Ansible Hub version"
+    hub_version: FilterStringWithWildcard,
+
+    "Ansible Catalog Worker version"
+    catalog_worker_version: FilterStringWithWildcard,
+
+    "Ansible SSO version"
+    sso_version: FilterStringWithWildcard
 }
 
 """

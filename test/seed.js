@@ -111,6 +111,15 @@ async function run () {
                                 name: {type: 'keyword'}
                             }
                         },
+                        ansible: {
+                            type: 'object',
+                            properties: {
+                                controller_version: {type: 'keyword'},
+                                hub_version: {type: 'keyword'},
+                                catalog_worker_version: {type: 'keyword'},
+                                sso_version: {type: 'keyword'}
+                            }
+                        },
                         host_type: { type: 'keyword' }
                     }
                 },
