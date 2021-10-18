@@ -38,6 +38,18 @@ export type CollectionMeta = {
   total: Scalars['Int'];
 };
 
+/** Filters hosts by Ansible facts */
+export type FilterAnsible = {
+  /** Ansible Controller version */
+  controller_version?: Maybe<FilterStringWithWildcard>;
+  /** Ansible Hub version */
+  hub_version?: Maybe<FilterStringWithWildcard>;
+  /** Ansible Catalog Worker version */
+  catalog_worker_version?: Maybe<FilterStringWithWildcard>;
+  /** Ansible SSO version */
+  sso_version?: Maybe<FilterStringWithWildcard>;
+};
+
 /** Basic filter for boolean fields. */
 export type FilterBoolean = {
   /**
@@ -67,18 +79,6 @@ export type FilterOperatingSystem = {
   minor?: Maybe<FilterInt>;
   /** Name of distro (max 4 chars e.g. RHEL) */
   name?: Maybe<FilterString>;
-};
-
-/** Filters hosts by Ansible fields */
-export type FilterAnsible = {
-  /** Ansible Controller version */
-  controller_version?: Maybe<FilterStringWithWildcard>;
-  /** Ansible Hub version */
-  hub_version?: Maybe<FilterStringWithWildcard>;
-  /** Ansible Catalog Worker version */
-  catalog_worker_version?: Maybe<FilterStringWithWildcard>;
-  /** Ansible SSO version */
-  sso_version?: Maybe<FilterStringWithWildcard>;
 };
 
 /** Basic filter for string fields that allows filtering based on exact match. */
@@ -514,10 +514,10 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   BooleanValues: ResolverTypeWrapper<BooleanValues>;
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>;
+  FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
   FilterInt: FilterInt;
   FilterOperatingSystem: FilterOperatingSystem;
-  FilterAnsible: FilterAnsible;
   FilterString: FilterString;
   String: ResolverTypeWrapper<Scalars['String']>;
   FilterStringWithRegex: FilterStringWithRegex;
@@ -554,10 +554,10 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   BooleanValues: BooleanValues;
   CollectionMeta: CollectionMeta;
+  FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
   FilterInt: FilterInt;
   FilterOperatingSystem: FilterOperatingSystem;
-  FilterAnsible: FilterAnsible;
   FilterString: FilterString;
   String: Scalars['String'];
   FilterStringWithRegex: FilterStringWithRegex;
