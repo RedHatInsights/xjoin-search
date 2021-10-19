@@ -69,6 +69,7 @@
             },
             "disk_devices": {
                 "device": "/dev/fdd0",
+                "label": "foo",
                 "mount_point": "/mnt/remote_nfs_shares",
                 "type": "ext1"
             },
@@ -223,6 +224,7 @@
             },
             "disk_devices": {
                 "device": "/dev/fdd1",
+                "label": "bar",
                 "mount_point": "/mnt/local_nfs",
                 "type": "ext2"
             },
@@ -357,6 +359,7 @@
             },
             "disk_devices": {
                 "device": "/dev/fdd2",
+                "label": "baz",
                 "mount_point": "/mnt/foo",
                 "type": "ext3"
             },

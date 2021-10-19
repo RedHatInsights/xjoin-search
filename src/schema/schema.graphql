@@ -496,6 +496,8 @@ Filter by 'disk_devices' field of system profile
 input FilterDiskDevices {
     "Filter by 'device' field of disk_devices"
     device: FilterString
+,    "Filter by 'label' field of disk_devices"
+    label: FilterString
 ,    "Filter by 'mount_point' field of disk_devices"
     mount_point: FilterString
 ,    "Filter by 'type' field of disk_devices"

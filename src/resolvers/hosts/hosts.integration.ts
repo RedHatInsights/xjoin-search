@@ -335,89 +335,24 @@ describe('hosts query', function () {
             expect(data).toMatchSnapshot();
         });
 
-        // working here TODO: remove this comment when i'm done
-        // make this return a list of queries to use. Simpler that way
         describe('system_profile', function () {
-            function createFilterQuery(name: string, operation: string, test_value: string): Record<string, Record<string, Record<string, string>>> {
-                const filter_name = 'spf_' + name;
-                let d1: Record<string, string> = {} 
-                d1[operation] = test_value
-                let d2: Record<string, Record<string, string>> = {}
-                d2[filter_name] = d1
-                return {"filter": d2}
-            }
-
-            function generateFilterQuerys(schema_chunk: $RefParser.JSONSchema, test_host_chunk: Object) {
-                //Have to check if it's really an array because the nesting is different if it is
-                function get_next_schema_chunk(schema_chunk: any, field_name: string) {
-                    let field_properties = _.get(schema_chunk, field_name)
-                    if (_.get(field_properties, "type") == "array") {
-                        field_properties = _.get(field_properties, "items")
-                    }
-
-                    return _.get(field_properties, "properties");
-                }
-
-
-                let test_data: Record<string, any>[] = [];
-
-                _.forEach(schema_chunk, (field_value: any, field_name: string) => {
-                    if (typeof(field_name) === "undefined" && typeof(field_value) === "undefined") {
-                        throw "error processing schema";
-                    }
-            
-                    let type: PrimativeTypeString = getTypeOfField(field_name, field_value);
-                    if (type == "object") {
-                        const next_schema_chunk: any = get_next_schema_chunk(schema_chunk, field_name);
-                        const next_host_chunk: any = _.get(test_host_chunk, field_name);
-
-                        //TODO: factor out
-                        if (next_schema_chunk == null) {
-                            throw `${field_name} object has no contents in schema`
-                        }
-
-                        if (next_host_chunk == null) {
-                            throw `${field_name} object has no contents in host`
-                        }
-
-                        const filter_queries = generateFilterQuerys(next_schema_chunk, next_host_chunk);
-                        test_data.push(..._.map(filter_queries, (filter_query):Record<string,any> => {
-                            return {field_name: filter_query};
-                        }));
-                    } else {
-                        //flat or bottom
-                        let field_test_value: string = _.get(test_host_chunk, field_name);
-                        let operations: string[] =  getOperationsForType(type)
-
-                        _.forEach(operations, (operation: string) => {
-                            test_data.push(createFilterQuery(field_name, operation, field_test_value))
-                        })
-                    }
-                })
-
-                return test_data
-            }
-
             function getSPFTestData(): {"field_name": string, "field_query": Object}[] {
                 let spf_data_file = fs.readFileSync('test/spf_test_data.json', 'utf8');
                 let parsed: {"field_name": string, "field_query": Object}[] = JSON.parse(spf_data_file);
                 return parsed;
             }
 
-
-            describe('all_spf_fields', () => {
-                // let test_data: []|Record<string,any>[] = [];
-
-                // beforeAll(async () => {
-                //     test_data = await generateSPFTestData()
-                // })
-                let test_data: {"field_name": string, "field_query": Object}[] = getSPFTestData();
-                
-
+            function _checkTestDataExists(test_data: Object[]) {
                 if (test_data == []) {
                     console.error("no test data for all SPF fields test")
                     fail
                 }
+            }
+
+
+            describe('all_spf_fields', () => {
+                let test_data: {"field_name": string, "field_query": Object}[] = getSPFTestData();
+                _checkTestDataExists(test_data);
 
                 test.each(test_data)('$field_name $field_query', async ({field_name, field_query}) => {
                     const { data } = await runQuery(BASIC_QUERY, {filter: field_query});

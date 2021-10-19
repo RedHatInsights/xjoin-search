@@ -7,7 +7,7 @@ import { filterObject } from '../resolvers/inputObject';
 import { filterInt } from '../resolvers/inputInt';
 import { HostFilterResolver } from '../resolvers/hosts';
 import * as fs from 'fs';
-//TODO: make an env variable?
+
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean" | "date-time"
 const schemaFilePath = "inventory-schemas/system_profile_schema.yaml";
 

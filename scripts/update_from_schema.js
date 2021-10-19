@@ -52,24 +52,18 @@ These fields will have the property:
 in their schema definition
 */
 function removeBlockedFields(schema) {
-    console.log("\n### removing fields marked to not be indexed ###");
-
     for (const [key, value] of Object.entries(schema["properties"])) {
         if ("x-indexed" in value && value["x-indexed"] == false) {
-            console.log(`Removing field: ${key}`)
             delete schema["properties"][key];
         } else if (value["type"] == "object") {
-            console.log(`object: ${key}`)
             removeBlockedFields(value)
         } else if (value["type"] == "array") {
-            console.log(`array: ${key}`)
             if (value["items"]["type"] == "object") {
                 removeBlockedFields(value["items"])
             }
         }
     }
 
-    console.log(`returning`)
     return schema;
 }
 
@@ -112,6 +106,8 @@ function determineFilterType(field_name, value) {
 
 
 async function getSchema(schema_path) {
+    console.log("\n### fetching schema ###");
+
     if (schema_path == undefined) {
         schema_path = './inventory-schemas/schemas/system_profile/v1.yaml'
     }
@@ -125,6 +121,7 @@ async function getSchema(schema_path) {
         console.error(err);
     }
 
+    console.log("\n### removing fields marked to not be indexed ###");
     return removeBlockedFields(schema["$defs"]["SystemProfile"])
 }
 
@@ -413,11 +410,21 @@ function createFilterQueriesForField(field_name, field_type, field_format, test_
     if (equality_types.includes(field_type) && field_format != "date-time") {
         return createFilterQueriesForEquality(field_name, field_type, test_value);
     } else {
-        console.log(`range ${field_name}`)
-        console.log(field_format)
         return createFilterQueriesForRange(field_name, field_type, field_format, test_value);
     }
 }
+
+
+function _checkSchemaAndHostChunkValid(schema_chunk, host_chunk) {
+    if (schema_chunk == null) {
+        throw `${field_name} object has no contents in schema`
+    }
+
+    if (host_chunk == null) {
+        throw `${field_name} object has no contents in host`
+    }
+}
+
 
 function createFilterQuerys(schema_chunk, test_host_chunk, bottom) {
     let test_data = [];
@@ -435,14 +442,7 @@ function createFilterQuerys(schema_chunk, test_host_chunk, bottom) {
             const next_schema_chunk = getItemsIfArray(field_value);
             const next_host_chunk = _.get(test_host_chunk, field_name);
 
-            //TODO: factor out
-            if (next_schema_chunk == null) {
-                throw `${field_name} object has no contents in schema`
-            }
-
-            if (next_host_chunk == null) {
-                throw `${field_name} object has no contents in host`
-            }
+            _checkSchemaAndHostChunkValid(next_schema_chunk, next_host_chunk);
 
             const filter_queries = createFilterQuerys(next_schema_chunk, next_host_chunk, false);
             test_data.push(..._.map(filter_queries, (field_dict) => {
@@ -482,8 +482,6 @@ async function main() {
 
     const schema = await getSchema(schema_path);
     const new_spf_facts = generateNewSystemProfileFacts(schema, NUM_TEST_HOSTS);
-
-    console.log(new_spf_facts);
 
     updateMapping(schema);
     updateGraphQLSchema(schema);

@@ -1,3 +1,6 @@
+# TODO: this probably doesn't do what it's supposed to anymore. Make it
+
+
 # This workflow updates the operator configuration based on the latest version
 # of the system_profile schema from insights-schemas
 # It then opens a pull request on this repo with the changes and information

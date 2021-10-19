@@ -27,12 +27,12 @@ $defs:
         type: string
         example: "foo, bar, baz"
         maxLength: 1024
-      # options:
-      #   description: Mount options for nested object
-      #   example:
-      #     uid: "0"
-      #     ro: true
-      #   "$ref": "#/$defs/NestedObject"
+      options:
+        description: Mount options for nested object
+        example:
+          uid: "0"
+          ro: true
+        "$ref": "#/$defs/NestedObject"
         x-indexed: false
       mount_point:
         description: The mount point

@@ -115,6 +115,9 @@
             "device": {
               "type": "keyword"
             },
+            "label": {
+              "type": "text"
+            },
             "mount_point": {
               "type": "keyword"
             },
