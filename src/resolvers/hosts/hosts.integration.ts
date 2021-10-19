@@ -426,7 +426,7 @@ describe('hosts query', function () {
                 test.each(test_data)('$field_name $field_query', async ({field_name, field_query}) => {
                     const { data } = await runQuery(BASIC_QUERY, field_query);
                     data.hosts.data.should.have.length(1);
-                    await expect(data.hosts.data[0].id).toEqual('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                    await expect(data.hosts.data[0].id).toEqual('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
                 });
             });
 

@@ -1,5 +1,650 @@
 [
-    {"field_name": "os_release", "field_query": {"filter": {"spf_os_release":{"eq": "7.4"}}}},
-    {"field_name": "arch", "field_query": {"filter": {"spf_arch":{"eq": "ARM"}}}},
-    {"field_name": "os_kernel_version", "field_query": {"filter": {"spf_os_kernel_version":{"eq": "4.18.2"}}}}
+  [
+    {
+      "field_name": "owner_id",
+      "field_query": {
+        "spf_owner_id": {
+          "eq": "2c68e8ec-10e2-11ec-82a8-0242ac130003"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "rhc_client_id",
+      "field_query": {
+        "spf_rhc_client_id": {
+          "eq": "33cd8e39-13bb-4d02-8316-84b850dc5136"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "rhc_config_state",
+      "field_query": {
+        "spf_rhc_config_state": {
+          "eq": "2c68e8ec-10e2-11ec-82a8-0242ac130003"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "cpu_model",
+      "field_query": {
+        "spf_cpu_model": {
+          "eq": "Intel(R) Xeon(R) CPU E9-7800 0 @ 1.90GHz"
+        }
+      }
+    }
+  ],
+  {
+    "field_name": "number_of_cpus",
+    "field_query": {
+      "spf_number_of_cpus": {
+        "gt": 0,
+        "lte": 1
+      }
+    }
+  },
+  {
+    "field_name": "number_of_sockets",
+    "field_query": {
+      "spf_number_of_sockets": {
+        "gt": 0,
+        "lte": 1
+      }
+    }
+  },
+  {
+    "field_name": "cores_per_socket",
+    "field_query": {
+      "spf_cores_per_socket": {
+        "gt": 0,
+        "lte": 1
+      }
+    }
+  },
+  {
+    "field_name": "system_memory_bytes",
+    "field_query": {
+      "spf_system_memory_bytes": {
+        "gt": 0,
+        "lte": 1
+      }
+    }
+  },
+  [
+    {
+      "field_name": "infrastructure_type",
+      "field_query": {
+        "spf_infrastructure_type": {
+          "eq": "physical"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "infrastructure_vendor",
+      "field_query": {
+        "spf_infrastructure_vendor": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "ipv4_addresses",
+      "field_query": {
+        "spf_ipv4_addresses": {
+          "eq": "123.456.789.012 123.456.789.012"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "ipv6_addresses",
+      "field_query": {
+        "spf_ipv6_addresses": {
+          "eq": "abcd:4567:89ab:cdef:0123:4567:89ab:cdef"
+        }
+      }
+    }
+  ],
+  {
+    "field_name": "network_interfaces mtu",
+    "field_query": {
+      "network_interfaces": {
+        "spf_mtu": {
+          "gt": 0,
+          "lte": 1
+        }
+      }
+    }
+  },
+  [
+    {
+      "field_name": "mac_address",
+      "field_query": {
+        "spf_mac_address": {
+          "eq": "10:00:00:00:00:00"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "name",
+      "field_query": {
+        "spf_name": {
+          "eq": "eth1"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "state",
+      "field_query": {
+        "spf_state": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "type",
+      "field_query": {
+        "spf_type": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "device",
+      "field_query": {
+        "spf_device": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "mount_point",
+      "field_query": {
+        "spf_mount_point": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "type",
+      "field_query": {
+        "spf_type": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "bios_vendor",
+      "field_query": {
+        "spf_bios_vendor": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "bios_version",
+      "field_query": {
+        "spf_bios_version": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "cpu_flags",
+      "field_query": {
+        "spf_cpu_flags": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  {
+    "field_name": "operating_system major",
+    "field_query": {
+      "operating_system": {
+        "spf_major": {
+          "gt": 0,
+          "lte": 1
+        }
+      }
+    }
+  },
+  {
+    "field_name": "operating_system minor",
+    "field_query": {
+      "operating_system": {
+        "spf_minor": {
+          "gt": 0,
+          "lte": 1
+        }
+      }
+    }
+  },
+  [
+    {
+      "field_name": "name",
+      "field_query": {
+        "spf_name": {
+          "eq": "RHEL"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "os_release",
+      "field_query": {
+        "spf_os_release": {
+          "eq": "8.2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "os_kernel_version",
+      "field_query": {
+        "spf_os_kernel_version": {
+          "eq": "4.5.0"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "arch",
+      "field_query": {
+        "spf_arch": {
+          "eq": "x86_64"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "kernel_modules",
+      "field_query": {
+        "spf_kernel_modules": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  {
+    "field_name": "last_boot_time",
+    "field_query": {
+      "spf_last_boot_time": {
+        "gt": "2021-01-11T15:10:10.000Z",
+        "lte": "2021-01-11T15:10:10.000Z"
+      }
+    }
+  },
+  [
+    {
+      "field_name": "subscription_status",
+      "field_query": {
+        "spf_subscription_status": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "subscription_auto_attach",
+      "field_query": {
+        "spf_subscription_auto_attach": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "katello_agent_running",
+      "field_query": {
+        "spf_katello_agent_running": {
+          "is": true
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "satellite_managed",
+      "field_query": {
+        "spf_satellite_managed": {
+          "is": true
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "cloud_provider",
+      "field_query": {
+        "spf_cloud_provider": {
+          "eq": "ms"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "name",
+      "field_query": {
+        "spf_name": {
+          "eq": "dfg"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "stream",
+      "field_query": {
+        "spf_stream": {
+          "eq": "dfg"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "name",
+      "field_query": {
+        "spf_name": {
+          "eq": "dfg"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "id",
+      "field_query": {
+        "spf_id": {
+          "eq": "dfg"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "status",
+      "field_query": {
+        "spf_status": {
+          "eq": "inactive"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "insights_client_version",
+      "field_query": {
+        "spf_insights_client_version": {
+          "eq": "5.0.6-2.el7_6"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "insights_egg_version",
+      "field_query": {
+        "spf_insights_egg_version": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "captured_date",
+      "field_query": {
+        "spf_captured_date": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "installed_packages",
+      "field_query": {
+        "spf_installed_packages": {
+          "eq": "arb5-libs-0:-1.16.1-23.fc29.i686"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "gpg_pubkeys",
+      "field_query": {
+        "spf_gpg_pubkeys": {
+          "eq": "gpg-pubkey-22222222-22222222"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "installed_services",
+      "field_query": {
+        "spf_installed_services": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "enabled_services",
+      "field_query": {
+        "spf_enabled_services": {
+          "eq": "ex2"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "sap_system",
+      "field_query": {
+        "spf_sap_system": {
+          "is": true
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "sap_sids",
+      "field_query": {
+        "spf_sap_sids": {
+          "eq": "ABC"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "sap_instance_number",
+      "field_query": {
+        "spf_sap_instance_number": {
+          "eq": "05"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "sap_version",
+      "field_query": {
+        "spf_sap_version": {
+          "eq": "2.00.122.04.1478575636"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "tuned_profile",
+      "field_query": {
+        "spf_tuned_profile": {
+          "eq": "example"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "selinux_current_mode",
+      "field_query": {
+        "spf_selinux_current_mode": {
+          "eq": "not_enforcing"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "selinux_config_file",
+      "field_query": {
+        "spf_selinux_config_file": {
+          "eq": "sleepy"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "is_marketplace",
+      "field_query": {
+        "spf_is_marketplace": {
+          "is": true
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "host_type",
+      "field_query": {
+        "spf_host_type": {
+          "eq": "edge"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "greenboot_status",
+      "field_query": {
+        "spf_greenboot_status": {
+          "eq": "green"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "greenboot_fallback_detected",
+      "field_query": {
+        "spf_greenboot_fallback_detected": {
+          "is": true
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "id",
+      "field_query": {
+        "spf_id": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "checksum",
+      "field_query": {
+        "spf_checksum": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "origin",
+      "field_query": {
+        "spf_origin": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "osname",
+      "field_query": {
+        "spf_osname": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "version",
+      "field_query": {
+        "spf_version": {}
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "booted",
+      "field_query": {
+        "spf_booted": {
+          "is": true
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "pinned",
+      "field_query": {
+        "spf_pinned": {
+          "is": true
+        }
+      }
+    }
+  ],
+  [
+    {
+      "field_name": "version",
+      "field_query": {
+        "spf_version": {
+          "eq": "7.5"
+        }
+      }
+    }
+  ]
 ]

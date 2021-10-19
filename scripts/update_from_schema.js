@@ -42,6 +42,7 @@ const FILTER_TYPES = {
 
 const HOSTS_FILE_PATH = 'test/hosts.json';
 const GRAPHQL_FILE_PATH = 'src/schema/schema.graphql';
+const SPF_TEST_DATA_FILE_PATH = 'test/spf_test_data.json';
 const NUM_TEST_HOSTS = 3;
 
 /*
@@ -68,6 +69,7 @@ function removeBlockedFields(schema) {
         }
     }
 
+    console.log(`returning`)
     return schema;
 }
 
@@ -87,7 +89,7 @@ From the properties of the field in the system profile schema determine the type
 of filter to use in the GraphQL schema
 */
 function determineFilterType(field_name, value) {
-    let type = getTypeOfField(value);
+    let type = getFieldType(value);
 
     if (type == undefined) {
         throw `ERROR: type of ${key} is undefined in the system_profile JSONschema`
@@ -169,7 +171,7 @@ function createGraphqlTypes(schema) {
     let graphql_type_array = [];
 
     for (const [key, value] of Object.entries(schema["properties"])) {
-        if (getTypeOfField(value) == "object") {
+        if (getFieldType(value) == "object") {
             graphql_type_array.push(createTypeForObject(key, value));
         }
     }
@@ -219,14 +221,19 @@ function getHosts() {
 }
 
 
-function getTypeOfField(field_value) {
+function getFieldType(field_value) {
     let type = field_value["type"];
 
     if (type == "array") {
-        type = getTypeOfField(field_value["items"]);
+        type = getFieldType(field_value["items"]);
     }
 
     return type;
+}
+
+
+function getFieldFormat(field_value) {
+    return _.get(field_value, "format");
 }
 
 
@@ -265,6 +272,9 @@ for strings:
     three values are provided for each field, the host number determines which is
     fetched.
 
+    for data-time format strings:
+        creates a static date time where the day is 10 + host_number
+
 for booleans:
     host_number 0 gets True
     host_number > 0 gets False
@@ -278,36 +288,37 @@ function generateSystemProfileValues(field, host_number) {
         throw `Cannot generate system profile values for test host number ${host_number}. Out of range.`
     }
 
-    let value = {}
-
-    if (_.has(field, "items")) {
-        field = field["items"];
-    }
-
+    field = getItemsIfArray(field);
+    
+    let values = {};
     for (let [key, field_value] of Object.entries(field["properties"])) {
-        let type = getTypeOfField(field_value);
-
         field_value = getItemsIfArray(field_value);
 
-        switch (type) {
+        switch (getFieldType(field_value)) {
             case "object":
-                value[key] = generateSystemProfileValues(field_value, host_number);
+                values[key] = generateSystemProfileValues(field_value, host_number);
                 break;
             case "string":
-                value[key] = getExampleValues(key, field_value, host_number);
+                switch(getFieldFormat(field_value)) {
+                    case "date-time":
+                        values[key] = new Date(`2021-01-1${host_number}T10:10:10`).toISOString();
+                        break;
+                    default:
+                        values[key] = getExampleValues(key, field_value, host_number);
+                }
                 break;
             case "boolean":
-                value[key] = Boolean(host_number);
+                values[key] = Boolean(host_number);
                 break;
             case "integer":
-                value[key] = host_number;
+                values[key] = host_number;
                 break;
             default:
                 throw `ERROR! ${key} type: ${type} not supported!`;
         }
     }
 
-    return value
+    return values;
 }
 
 
@@ -341,15 +352,140 @@ function updateHostsJson(new_host_system_profile_facts) {
 }
 
 
+function getOperationsForType(type) {
+    const operations_by_type_map = new Map();
+    operations_by_type_map.set("string", ["eq"]);
+    operations_by_type_map.set("wildcard", ["eq", "matches"]);
+    operations_by_type_map.set("boolean", ["is"]);
+    operations_by_type_map.set("integer", ["gt", "lt", "gte", "lte"]);
+    operations_by_type_map.set("date-time", ["gt", "lt", "gte", "lte"]);
+
+    const operations = operations_by_type_map.get(type);
+
+    if (operations == undefined) {
+        throw(`Could not find operations for type ${type}`)
+    }
+
+    return operations;
+}
+
+function createFilterQueryForEquality(field_name, operation, test_value) {
+    const filter_name = 'spf_' + field_name;
+    return {[filter_name]:{[operation]: test_value}};
+}
+
+function createFilterQueriesForEquality(field_name, field_type, test_value) {
+    const operations = getOperationsForType(field_type);
+    let test_data = [];
+
+    _.forEach(operations, (operation) => {
+        test_data.push({"field_name": field_name, "field_query": createFilterQueryForEquality(field_name, operation, test_value)});
+    })
+
+    return test_data;
+}
+
+
+function createFilterQueryForRange(field_name, lower_value, test_value) {
+    const filter_name = 'spf_' + field_name;
+    return {[filter_name]:{"gt": lower_value, "lte": test_value}};
+}
+
+
+function createFilterQueriesForRange(field_name, field_type, field_format, test_value) {
+    // trying to query the first host with a combination of range operations
+    // first host field value is 1 for ints
+    // timestamp values days are ordered left to right by increasing recency
+    let lower_value = 0;
+
+    //create one query gt lower value
+    //and lte actual value
+
+    if (field_format == "date-time") {
+        //TODO: Global constant base timestamp
+        lower_value = new Date(`2021-01-11T10:10:10`).toISOString();
+    }
+
+    return {"field_name": field_name, "field_query": createFilterQueryForRange(field_name, lower_value, test_value)};
+
+}
+
+
+function createFilterQueriesForField(field_name, field_type, field_format, test_value) {
+    const range_types = ["integer", "date-time"];
+    const equality_types = ["string", "wildcard", "boolean"];
+
+    if (equality_types.includes(field_type) && field_format != "date-time") {
+        return createFilterQueriesForEquality(field_name, field_type, test_value);
+    } else {
+        console.log(`range ${field_name}`)
+        console.log(field_format)
+        return createFilterQueriesForRange(field_name, field_type, field_format, test_value);
+    }
+}
+
+function createFilterQuerys(schema_chunk, test_host_chunk, bottom) {
+    let test_data = [];
+
+    _.forEach(schema_chunk["properties"], (field_value, field_name) => {
+        if (typeof(field_name) === "undefined" && typeof(field_value) === "undefined") {
+            throw "error processing schema";
+        }
+
+
+        let field_type = getFieldType(field_value);
+        let field_format = getFieldFormat(field_value);
+
+        if (field_type == "object") {
+            const next_schema_chunk = getItemsIfArray(field_value);
+            const next_host_chunk = _.get(test_host_chunk, field_name);
+
+            //TODO: factor out
+            if (next_schema_chunk == null) {
+                throw `${field_name} object has no contents in schema`
+            }
+
+            if (next_host_chunk == null) {
+                throw `${field_name} object has no contents in host`
+            }
+
+            const filter_queries = createFilterQuerys(next_schema_chunk, next_host_chunk, false);
+            test_data.push(..._.map(filter_queries, (field_dict) => {
+                field_dict["field_name"] = field_name + " " + field_dict["field_name"]
+                field_dict["field_query"] = {[field_name]: field_dict["field_query"]}
+                return field_dict;
+            }));
+        } else {
+            let field_test_value = _.get(test_host_chunk, field_name);
+            test_data.push(createFilterQueriesForField(field_name, field_type, field_format, field_test_value));
+            
+        }
+    })
+
+    return test_data;
+}
+
+
+function updateTestData(schema, host_facts) {
+    console.log("\n### updating test queries in spf_test_data.json ###");
+    const test_data = createFilterQuerys(schema, host_facts, true)
+
+    fs.writeFileSync(SPF_TEST_DATA_FILE_PATH, JSON.stringify(test_data, null, 2));
+}
+
 async function main() {
     var myArgs = process.argv.slice(2);
     schema_path = myArgs[0];
 
-    let schema = await getSchema(schema_path);
+    const schema = await getSchema(schema_path);
+    const new_spf_facts = generateNewSystemProfileFacts(schema, NUM_TEST_HOSTS);
+
+    console.log(new_spf_facts);
 
     updateMapping(schema);
     updateGraphQLSchema(schema);
-    updateHostsJson(generateNewSystemProfileFacts(schema, NUM_TEST_HOSTS));
+    updateHostsJson(new_spf_facts);
+    updateTestData(schema, new_spf_facts[1]);
 }
 
 try {
