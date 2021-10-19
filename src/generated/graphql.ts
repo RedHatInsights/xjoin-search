@@ -63,6 +63,8 @@ export type FilterBoolean = {
 export type FilterDiskDevices = {
   /** Filter by 'device' field of disk_devices */
   device?: Maybe<FilterString>;
+  /** Filter by 'label' field of disk_devices */
+  label?: Maybe<FilterString>;
   /** Filter by 'mount_point' field of disk_devices */
   mount_point?: Maybe<FilterString>;
   /** Filter by 'type' field of disk_devices */

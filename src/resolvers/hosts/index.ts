@@ -71,7 +71,7 @@ async function resolverMapFromSchema(): Promise<HostFilterResolver[]> {
     // Pre-defined resolvers for fields that are not part of the system profile
     let resolvers: HostFilterResolver[] = getPredefinedResolvers() 
 
-    _.forEach(_.get(schema, "$defs.SystemProfile.properties"), (value: any, key: any) => {
+    _.forEach(_.get(schema, "properties"), (value: any, key: any) => {
         if (typeof(key) === "undefined" && typeof(value) === "undefined") {
             throw "error processing schema";
         }

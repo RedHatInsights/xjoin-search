@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import $RefParser from "@apidevtools/json-schema-ref-parser";
+import $RefParser, { JSONSchema } from "@apidevtools/json-schema-ref-parser";
 import { filterTimestamp } from '../resolvers/inputTimestamp';
 import { filterString, filterStringWithWildcard } from '../resolvers/inputString';
 import { filterBoolean } from '../resolvers/inputBoolean';
@@ -7,37 +7,60 @@ import { filterObject } from '../resolvers/inputObject';
 import { filterInt } from '../resolvers/inputInt';
 import { HostFilterResolver } from '../resolvers/hosts';
 import * as fs from 'fs';
+import { any } from 'bluebird';
 
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean" | "date-time"
 const schemaFilePath = "inventory-schemas/system_profile_schema.yaml";
 
-function removeBlockedFields(schema: Object) {
-    console.log("\n### removing fields marked to not be indexed ###");
 
-    let blocked_fields: string[] = []
-    let redacted_schema: Record<string,any> = {};
-    _.forEach(_.get(schema, "properties"), (value:string, key: string) => {
-        const type = _.get(value, "type");
 
-        if (_.get(value, "x-indexed") == false) {
-            console.log(`Removing field: ${key}`);
-            blocked_fields.push(value);
-        } else if (type == "object") {
-            console.log(`object: ${key}`);
-            redacted_schema[key] = removeBlockedFields(value);
-        } else if (type == "array") {
-            console.log(`array: ${key}`)
-            const items = _.get(value, "items");
-            if (_.get(items, "type") == "object") {
-                redacted_schema[key] = removeBlockedFields(items);
+function removeBlockedFields(schema: JSONSchema) {
+    if (!schema["properties"]) {
+        throw "schema doesn't exist"
+    }
+
+    for (const [key, value] of Object.entries(schema["properties"])) {
+        if ("x-indexed" in value && value["x-indexed"] == false && key in schema["properties"]) {
+            delete schema["properties"][key];
+        } else if (value["type"] == "object") {
+            removeBlockedFields(value)
+        } else if (value["type"] == "array") {
+            if (value["items"]["type"] == "object") {
+                removeBlockedFields(value["items"])
             }
-        } else {
-            redacted_schema[key] = value;
         }
-    });
+    }
 
-    return _.omit(redacted_schema, blocked_fields);
+    return schema;
 }
+//Recursive rebuilding approach. Seems not to work and feels overcomplicated given the pure JS version
+// function removeBlockedFields(schema: Object) {
+//     console.log("\n### removing fields marked to not be indexed ###");
+
+//     let blocked_fields: string[] = []
+//     let redacted_schema: Record<string,any> = {};
+//     _.forEach(_.get(schema, "properties"), (value:string, key: string) => {
+//         const type = _.get(value, "type");
+
+//         if (_.get(value, "x-indexed") == false) {
+//             console.log(`Removing field: ${key}`);
+//             blocked_fields.push(value);
+//         } else if (type == "object") {
+//             console.log(`object: ${key}`);
+//             redacted_schema[key] = removeBlockedFields(value);
+//         } else if (type == "array") {
+//             console.log(`array: ${key}`)
+//             const items = _.get(value, "items");
+//             if (_.get(items, "type") == "object") {
+//                 redacted_schema[key] = removeBlockedFields(items);
+//             }
+//         } else {
+//             redacted_schema[key] = value;
+//         }
+//     });
+
+//     return _.omit(redacted_schema, blocked_fields);
+// }
 
 function getItemsIfArray(field_value: any) {
     if (_.has(field_value,"items")) {
@@ -49,19 +72,20 @@ function getItemsIfArray(field_value: any) {
 
 
 export async function getSchema() {
-    let schema
+    let schema: any;
+
     try {
         schema = await $RefParser.dereference(schemaFilePath);
     } catch(err) {
         console.error(err);
-        throw("error: System Profile Schema can not be read")
+        throw("error: System Profile Schema can not be read");
     }
 
-    if (typeof(schema) !== "object") {
-        throw "system profile schema not proccessed into an object. Actual type: " + typeof(schema);
+    if (!_.get(schema, "$defs") || !_.get(schema["$defs"],"SystemProfile")) {
+        throw "invalid schema"
     }
 
-    return schema
+    return removeBlockedFields(schema["$defs"]["SystemProfile"]);
 }
 
 
