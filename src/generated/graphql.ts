@@ -38,6 +38,18 @@ export type CollectionMeta = {
   total: Scalars['Int'];
 };
 
+/** Filter by 'ansible' field of system profile */
+export type FilterAnsible = {
+  /** Filter by 'controller_version' field of ansible */
+  controller_version?: Maybe<FilterString>;
+  /** Filter by 'hub_version' field of ansible */
+  hub_version?: Maybe<FilterString>;
+  /** Filter by 'catalog_worker_version' field of ansible */
+  catalog_worker_version?: Maybe<FilterString>;
+  /** Filter by 'sso_version' field of ansible */
+  sso_version?: Maybe<FilterString>;
+};
+
 /** Basic filter for boolean fields. */
 export type FilterBoolean = {
   /**
@@ -207,6 +219,16 @@ export type FilterStringWithWildcardWithLowercase = {
   matches_lc?: Maybe<Scalars['String']>;
 };
 
+/** Filter by 'system_purpose' field of system profile */
+export type FilterSystemPurpose = {
+  /** Filter by 'usage' field of system_purpose */
+  usage?: Maybe<FilterString>;
+  /** Filter by 'role' field of system_purpose */
+  role?: Maybe<FilterString>;
+  /** Filter by 'sla' field of system_purpose */
+  sla?: Maybe<FilterString>;
+};
+
 /** Filters hosts by the presence of a host tag */
 export type FilterTag = {
   /** Tag namespace */
@@ -297,6 +319,10 @@ export type HostFilter = {
   provider_type?: Maybe<FilterString>;
   /** Filter by provider_id */
   provider_id?: Maybe<FilterString>;
+  /** Filter by 'ansible' field of system profile */
+  spf_ansible?: Maybe<FilterAnsible>;
+  /** Filter by 'system_purpose' field of system profile */
+  spf_system_purpose?: Maybe<FilterSystemPurpose>;
   /** Filter by 'rhsm' field of system profile */
   spf_rhsm?: Maybe<FilterRhsm>;
   /** Filter by 'rpm_ostree_deployments' field of system profile */
@@ -640,6 +666,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   BooleanValues: ResolverTypeWrapper<BooleanValues>;
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>;
+  FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
@@ -654,6 +681,7 @@ export type ResolversTypes = {
   FilterStringWithRegex: FilterStringWithRegex;
   FilterStringWithWildcard: FilterStringWithWildcard;
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
+  FilterSystemPurpose: FilterSystemPurpose;
   FilterTag: FilterTag;
   FilterTimestamp: FilterTimestamp;
   HOSTS_ORDER_BY: Hosts_Order_By;
@@ -685,6 +713,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   BooleanValues: BooleanValues;
   CollectionMeta: CollectionMeta;
+  FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
@@ -699,6 +728,7 @@ export type ResolversParentTypes = {
   FilterStringWithRegex: FilterStringWithRegex;
   FilterStringWithWildcard: FilterStringWithWildcard;
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
+  FilterSystemPurpose: FilterSystemPurpose;
   FilterTag: FilterTag;
   FilterTimestamp: FilterTimestamp;
   Host: Host;

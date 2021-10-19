@@ -468,3 +468,53 @@ $defs:
             example: "8.1, 7.5, 9.9"
             type: string
             maxLength: 255
+      system_purpose:
+        description: Object for system purpose information
+        type: object
+        properties:
+          usage:
+            description: The intended usage of the system
+            type: string
+            maxLength: 17
+            enum: ['Production', 'Development/Test', 'Disaster Recovery']
+            example: 'Production, Development/Test, Disaster Recovery'
+          role:
+            description: The intended role of the system
+            type: string
+            maxLength: 37
+            enum: ['Red Hat Enterprise Linux Server', 'Red Hat Enterprise Linux Workstation', 'Red Hat Enterprise Linux Compute Node']
+            example: 'Red Hat Enterprise Linux Server, Red Hat Enterprise Linux Workstation, Red Hat Enterprise Linux Compute Node'
+          sla:
+            description: The intended SLA of the system
+            type: string
+            maxLength: 12
+            enum: ['Premium', 'Standard', 'Self-Support']
+            example: 'Premium, Standard, Self-Support'
+      ansible:
+        description: Object containing data specific to Ansible Automation Platform
+        type: object
+        properties:
+          controller_version:
+            description: The ansible-tower or automation-controller version on the host
+            type: string
+            example:  '1.2.3, 2.4.2, 3.2.1'
+            maxLength: 30
+            pattern: '^\d+(\.\d+)+$'
+          hub_version:
+            description: The automation-hub version on the host
+            type: string
+            example:  '4.5.6, 2.3.5, 1.2.3'
+            maxLength: 30
+            pattern: '^\d+(\.\d+)+$'
+          catalog_worker_version:
+            description: The catalog-worker version on the host
+            type: string
+            example:  '7.8.9, 1.2.3, 4.5.6'
+            maxLength: 30
+            pattern: '^\d+(\.\d+)+$'
+          sso_version:
+            description: The SSO version on the host
+            type: string
+            example:  '10.11.12, 7.8.9, 3.2.1'
+            maxLength: 30
+            pattern: '^\d+(\.\d+)+$'

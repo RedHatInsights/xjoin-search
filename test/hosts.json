@@ -97,7 +97,18 @@
                 "booted": true,
                 "pinned": true
             },
-            "arch": "ARM"
+            "arch": "ARM",
+            "system_purpose": {
+                "usage": "Production",
+                "role": "Red Hat Enterprise Linux Server",
+                "sla": "Premium"
+            },
+            "ansible": {
+                "controller_version": "1.2.3",
+                "hub_version": "4.5.6",
+                "catalog_worker_version": "7.8.9",
+                "sso_version": "10.11.12"
+            }
         },
         "tags_structured": [
             {
@@ -242,6 +253,17 @@
             },
             "rhsm": {
                 "version": "7.5"
+            },
+            "system_purpose": {
+                "usage": "Development/Test",
+                "role": "Red Hat Enterprise Linux Workstation",
+                "sla": "Standard"
+            },
+            "ansible": {
+                "controller_version": "2.4.2",
+                "hub_version": "2.3.5",
+                "catalog_worker_version": "1.2.3",
+                "sso_version": "7.8.9"
             }
         },
         "tags_structured": [
@@ -366,7 +388,18 @@
             "rhsm": {
                 "version": "9.9"
             },
-            "arch": null
+            "arch": null,
+            "system_purpose": {
+                "usage": "Disaster Recovery",
+                "role": "Red Hat Enterprise Linux Compute Node",
+                "sla": "Self-Support"
+            },
+            "ansible": {
+                "controller_version": "3.2.1",
+                "hub_version": "1.2.3",
+                "catalog_worker_version": "4.5.6",
+                "sso_version": "3.2.1"
+            }
         },
         "tags_structured": [
             {

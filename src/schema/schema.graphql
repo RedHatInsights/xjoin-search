@@ -63,6 +63,12 @@ input HostFilter {
     # DO NOT REMOVE. Used to automatically update this schema
     # based on the system_profile JSONschema
     # START: system_profile schema filters
+    "Filter by 'ansible' field of system profile"
+    spf_ansible: FilterAnsible
+
+    "Filter by 'system_purpose' field of system profile"
+    spf_system_purpose: FilterSystemPurpose
+
     "Filter by 'rhsm' field of system profile"
     spf_rhsm: FilterRhsm
 
@@ -389,6 +395,34 @@ input SapSidFilter {
 #
 # Generated system_profile input types
 #
+"""
+Filter by 'ansible' field of system profile
+"""
+input FilterAnsible {
+    "Filter by 'controller_version' field of ansible"
+    controller_version: FilterString
+,    "Filter by 'hub_version' field of ansible"
+    hub_version: FilterString
+,    "Filter by 'catalog_worker_version' field of ansible"
+    catalog_worker_version: FilterString
+,    "Filter by 'sso_version' field of ansible"
+    sso_version: FilterString
+
+}
+
+"""
+Filter by 'system_purpose' field of system profile
+"""
+input FilterSystemPurpose {
+    "Filter by 'usage' field of system_purpose"
+    usage: FilterString
+,    "Filter by 'role' field of system_purpose"
+    role: FilterString
+,    "Filter by 'sla' field of system_purpose"
+    sla: FilterString
+
+}
+
 """
 Filter by 'rhsm' field of system profile
 """

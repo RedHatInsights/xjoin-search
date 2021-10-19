@@ -594,5 +594,75 @@
         }
       }
     }
+  },
+  {
+    "field_name": "system_purpose usage",
+    "field_query": {
+      "spf_system_purpose": {
+        "usage": {
+          "eq": "Development/Test"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "system_purpose role",
+    "field_query": {
+      "spf_system_purpose": {
+        "role": {
+          "eq": "Red Hat Enterprise Linux Workstation"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "system_purpose sla",
+    "field_query": {
+      "spf_system_purpose": {
+        "sla": {
+          "eq": "Standard"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "ansible controller_version",
+    "field_query": {
+      "spf_ansible": {
+        "controller_version": {
+          "eq": "2.4.2"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "ansible hub_version",
+    "field_query": {
+      "spf_ansible": {
+        "hub_version": {
+          "eq": "2.3.5"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "ansible catalog_worker_version",
+    "field_query": {
+      "spf_ansible": {
+        "catalog_worker_version": {
+          "eq": "1.2.3"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "ansible sso_version",
+    "field_query": {
+      "spf_ansible": {
+        "sso_version": {
+          "eq": "7.8.9"
+        }
+      }
+    }
   }
 ]
