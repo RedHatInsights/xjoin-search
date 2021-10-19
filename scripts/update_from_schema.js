@@ -28,7 +28,6 @@ The most recent version of the schema is stored at:
 
 const _ = require('lodash');
 const fs = require('fs');
-const yaml = require('js-yaml');
 const { buildMappingsFor } = require("json-schema-to-es-mapping");
 const $RefParser = require("@apidevtools/json-schema-ref-parser");
 
