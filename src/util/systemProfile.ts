@@ -6,8 +6,6 @@ import { filterBoolean } from '../resolvers/inputBoolean';
 import { filterObject } from '../resolvers/inputObject';
 import { filterInt } from '../resolvers/inputInt';
 import { HostFilterResolver } from '../resolvers/hosts';
-import * as fs from 'fs';
-import { any } from 'bluebird';
 
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean" | "date-time"
 const schemaFilePath = "inventory-schemas/system_profile_schema.yaml";
@@ -33,34 +31,7 @@ function removeBlockedFields(schema: JSONSchema) {
 
     return schema;
 }
-//Recursive rebuilding approach. Seems not to work and feels overcomplicated given the pure JS version
-// function removeBlockedFields(schema: Object) {
-//     console.log("\n### removing fields marked to not be indexed ###");
 
-//     let blocked_fields: string[] = []
-//     let redacted_schema: Record<string,any> = {};
-//     _.forEach(_.get(schema, "properties"), (value:string, key: string) => {
-//         const type = _.get(value, "type");
-
-//         if (_.get(value, "x-indexed") == false) {
-//             console.log(`Removing field: ${key}`);
-//             blocked_fields.push(value);
-//         } else if (type == "object") {
-//             console.log(`object: ${key}`);
-//             redacted_schema[key] = removeBlockedFields(value);
-//         } else if (type == "array") {
-//             console.log(`array: ${key}`)
-//             const items = _.get(value, "items");
-//             if (_.get(items, "type") == "object") {
-//                 redacted_schema[key] = removeBlockedFields(items);
-//             }
-//         } else {
-//             redacted_schema[key] = value;
-//         }
-//     });
-
-//     return _.omit(redacted_schema, blocked_fields);
-// }
 
 function getItemsIfArray(field_value: any) {
     if (_.has(field_value,"items")) {
@@ -171,34 +142,6 @@ export function getResolver(name: string, type: string, value: any): HostFilterR
     }
 
     return resolverFunction;
-}
-
-function getTestHosts() {
-    let hosts_file_data = fs.readFileSync('test/hosts.json', 'utf8');
-    let parsed = JSON.parse(hosts_file_data);
-    return parsed;
-}
-
-
-//Maybe move? not *really* related to the schema technically, but it is spiritually
-//just hand this the hosts object instread of reading a whole file every dang time
-export function getTestHost(host_id: String): Object {
-    let hosts = getTestHosts();
-
-    let found_host = null;
-    
-    _.forEach(hosts, (host) => {
-        console.log(host);
-        if (_.get(host, "id") == host_id) {
-            found_host = host;
-        }
-    })
-
-    if (found_host == null) {
-        throw "Test host not found for ID";
-    }
-    
-    return found_host;
 }
 
 

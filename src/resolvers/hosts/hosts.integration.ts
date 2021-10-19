@@ -6,12 +6,7 @@ import client from '../../es';
 import * as probes from '../../probes';
 import { getContext } from '../../../test';
 import { testLimitOffset } from '../test.common';
-import each from 'jest-each';
-import { any, filter } from 'bluebird';
 import _ from 'lodash';
-import { getSchema, getTestHost, getTypeOfField, PrimativeTypeString, getOperationsForType } from '../../util/systemProfile';
-import $RefParser from '@apidevtools/json-schema-ref-parser';
-import schema from 'src/schema';
 import * as fs from 'fs';
 
 const BASIC_QUERY = `
