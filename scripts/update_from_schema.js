@@ -276,8 +276,8 @@ for strings:
         creates a static date time where the day is 10 + host_number
 
 for booleans:
-    host_number 0 gets True
-    host_number > 0 gets False
+    host_number 1 gets True
+    others get False
 
 for ints:
     gets the host_number
@@ -308,7 +308,7 @@ function generateSystemProfileValues(field, host_number) {
                 }
                 break;
             case "boolean":
-                values[key] = Boolean(host_number);
+                values[key] = Boolean(host_number - 1);
                 break;
             case "integer":
                 values[key] = host_number;
@@ -393,20 +393,15 @@ function createFilterQueryForRange(field_name, lower_value, test_value) {
 
 
 function createFilterQueriesForRange(field_name, field_type, field_format, test_value) {
-    // trying to query the first host with a combination of range operations
-    // first host field value is 1 for ints
-    // timestamp values days are ordered left to right by increasing recency
     let lower_value = 0;
 
-    //create one query gt lower value
-    //and lte actual value
-
     if (field_format == "date-time") {
-        //TODO: Global constant base timestamp
-        lower_value = new Date(`2021-01-11T10:10:10`).toISOString();
+        lower_value = new Date(test_value);
+        lower_value.setDate(lower_value.getDate()-1)
+        lower_value = lower_value.toISOString();
     }
 
-    return {"field_name": field_name, "field_query": createFilterQueryForRange(field_name, lower_value, test_value)};
+    return [{"field_name": field_name, "field_query": createFilterQueryForRange(field_name, lower_value, test_value)}];
 
 }
 
@@ -452,12 +447,20 @@ function createFilterQuerys(schema_chunk, test_host_chunk, bottom) {
             const filter_queries = createFilterQuerys(next_schema_chunk, next_host_chunk, false);
             test_data.push(..._.map(filter_queries, (field_dict) => {
                 field_dict["field_name"] = field_name + " " + field_dict["field_name"]
-                field_dict["field_query"] = {[field_name]: field_dict["field_query"]}
+                // remove spf_ from field query
+                let old_field_name = Object.keys(field_dict["field_query"])[0];
+                let new_field_name_no_spf = old_field_name.substr(4);
+                let new_field_dict = {[new_field_name_no_spf]: field_dict["field_query"][old_field_name]}
+                field_dict["field_query"] = {["spf_"+field_name]: new_field_dict}
                 return field_dict;
             }));
         } else {
             let field_test_value = _.get(test_host_chunk, field_name);
-            test_data.push(createFilterQueriesForField(field_name, field_type, field_format, field_test_value));
+
+            _.forEach(createFilterQueriesForField(field_name, field_type, field_format, field_test_value), (field_data) => {
+                test_data.push(field_data);
+            });
+            
             
         }
     })

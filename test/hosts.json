@@ -29,8 +29,8 @@
             "number_of_cpus": 0,
             "insights_client_version": "3.0.1-2.el4_2",
             "system_memory_bytes": 0,
-            "satellite_managed": false,
-            "is_marketplace": false,
+            "satellite_managed": true,
+            "is_marketplace": true,
             "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
             "operating_system": {
                 "major": 0,
@@ -43,18 +43,18 @@
             "bios_version": "ex1",
             "subscription_status": "ex1",
             "subscription_auto_attach": "ex1",
-            "katello_agent_running": false,
+            "katello_agent_running": true,
             "cloud_provider": "aws",
             "captured_date": "ex1",
-            "sap_system": false,
+            "sap_system": true,
             "sap_instance_number": "03",
             "sap_version": "1.00.122.04.1478575636",
             "tuned_profile": "desktop",
             "selinux_current_mode": "enforcing",
             "selinux_config_file": "permissive",
             "host_type": "edge",
-            "greenboot_status": "red",
-            "greenboot_fallback_detected": false,
+            "greenboot_status": "green",
+            "greenboot_fallback_detected": true,
             "rhsm": {
                 "version": "8.1"
             },
@@ -70,7 +70,7 @@
             "disk_devices": {
                 "device": "/dev/fdd0",
                 "mount_point": "/mnt/remote_nfs_shares",
-                "type": "ext3"
+                "type": "ext1"
             },
             "cpu_flags": "ex1",
             "kernel_modules": "ex1",
@@ -94,8 +94,8 @@
                 "origin": "fedora/33/x86_64/silverblue",
                 "osname": "fedora-silverblue",
                 "version": "33.21",
-                "booted": false,
-                "pinned": false
+                "booted": true,
+                "pinned": true
             },
             "arch": "ARM"
         },
@@ -164,7 +164,7 @@
             "arch": "x86_64",
             "os_release": "8.2",
             "os_kernel_version": "4.5.0",
-            "infrastructure_type": "physical",
+            "infrastructure_type": "virtual",
             "infrastructure_vendor": "ex2",
             "last_boot_time": "2021-01-11T15:10:10.000Z",
             "number_of_sockets": 1,
@@ -176,39 +176,45 @@
             "number_of_cpus": 1,
             "insights_client_version": "5.0.6-2.el7_6",
             "system_memory_bytes": 1,
-            "satellite_managed": true,
-            "is_marketplace": true,
+            "satellite_managed": false,
+            "is_marketplace": false,
             "rhc_client_id": "33cd8e39-13bb-4d02-8316-84b850dc5136",
             "operating_system": {
                 "major": 1,
                 "minor": 1,
-                "name": "RHEL"
+                "name": "FED"
             },
             "owner_id": "2c68e8ec-10e2-11ec-82a8-0242ac130003",
             "rhc_config_state": "2c68e8ec-10e2-11ec-82a8-0242ac130003",
             "cpu_model": "Intel(R) Xeon(R) CPU E9-7800 0 @ 1.90GHz",
             "subscription_status": "ex2",
             "subscription_auto_attach": "ex2",
-            "katello_agent_running": true,
+            "katello_agent_running": false,
             "cloud_provider": "ms",
             "captured_date": "ex2",
-            "sap_system": true,
+            "sap_system": false,
             "sap_instance_number": "05",
             "sap_version": "2.00.122.04.1478575636",
             "tuned_profile": "example",
             "selinux_current_mode": "not_enforcing",
             "selinux_config_file": "sleepy",
-            "host_type": "edge",
-            "greenboot_status": "green",
-            "greenboot_fallback_detected": true,
+            "host_type": "not_edge",
+            "greenboot_status": "red",
+            "greenboot_fallback_detected": false,
             "network_interfaces": {
                 "ipv4_addresses": "123.456.789.012 123.456.789.012",
                 "ipv6_addresses": "abcd:4567:89ab:cdef:0123:4567:89ab:cdef",
                 "mtu": 1,
                 "mac_address": "10:00:00:00:00:00",
-                "name": "eth1"
+                "name": "eth1",
+                "state": "DOWN",
+                "type": "infiniband"
             },
-            "disk_devices": {},
+            "disk_devices": {
+                "device": "/dev/fdd1",
+                "mount_point": "/mnt/local_nfs",
+                "type": "ext2"
+            },
             "cpu_flags": "ex2",
             "kernel_modules": "ex2",
             "dnf_modules": {
@@ -226,8 +232,13 @@
             "enabled_services": "ex2",
             "sap_sids": "ABC",
             "rpm_ostree_deployments": {
-                "booted": true,
-                "pinned": true
+                "id": "fedora-blackpink-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0",
+                "checksum": "73335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb",
+                "origin": "fedora/31/x86_64/blackpink",
+                "osname": "fedora-blackpink",
+                "version": "31.12",
+                "booted": false,
+                "pinned": false
             },
             "rhsm": {
                 "version": "7.5"
@@ -277,7 +288,7 @@
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904lbop",
             "os_release": "7.5",
             "os_kernel_version": "5.1.0",
-            "infrastructure_type": "virtual",
+            "infrastructure_type": "imaginary",
             "infrastructure_vendor": "baremetal",
             "last_boot_time": "2021-01-12T15:10:10.000Z",
             "number_of_sockets": 2,
@@ -295,7 +306,7 @@
             "operating_system": {
                 "major": 2,
                 "minor": 2,
-                "name": "FED"
+                "name": "RHEL"
             },
             "host_type": "edge",
             "rhc_config_state": "2fa3e796-10e2-11ec-82a8-0242ac130003",
@@ -318,9 +329,15 @@
                 "ipv6_addresses": "qwer:4567:89ab:cdef:0123:4567:89ab:cdef",
                 "mtu": 2,
                 "mac_address": "20:00:00:00:00:00",
-                "name": "eth2"
+                "name": "eth2",
+                "state": "UNKNOWN",
+                "type": "loopback"
             },
-            "disk_devices": {},
+            "disk_devices": {
+                "device": "/dev/fdd2",
+                "mount_point": "/mnt/foo",
+                "type": "ext3"
+            },
             "cpu_flags": "ex3",
             "kernel_modules": "ex3",
             "dnf_modules": {
@@ -338,6 +355,11 @@
             "enabled_services": "ex3",
             "sap_sids": "XYZ",
             "rpm_ostree_deployments": {
+                "id": "fedora-orangeblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0",
+                "checksum": "83335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb",
+                "origin": "fedora/34/x86_64/orangeblue",
+                "osname": "fedora-orangeblue",
+                "version": "33.45",
                 "booted": true,
                 "pinned": true
             },

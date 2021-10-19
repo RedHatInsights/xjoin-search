@@ -19,13 +19,13 @@ $defs:
     type: object
     properties:
       device:
-        example: "/dev/fdd0"
+        example: "/dev/fdd0, /dev/fdd1, /dev/fdd2"
         type: string
         maxLength: 2048
       label:
         description: User-defined mount label
         type: string
-        example: "beans, frogs, main"
+        example: "foo, bar, baz"
         maxLength: 1024
       # options:
       #   description: Mount options for nested object
@@ -36,12 +36,12 @@ $defs:
         x-indexed: false
       mount_point:
         description: The mount point
-        example: "/mnt/remote_nfs_shares"
+        example: "/mnt/remote_nfs_shares, /mnt/local_nfs, /mnt/foo"
         type: string
         maxLength: 2048
       type:
         description: The mount type
-        example: "ext3"
+        example: "ext1, ext2, ext3"
         type: string
         maxLength: 256
   YumRepo:
@@ -127,18 +127,18 @@ $defs:
       name:
         description: Name of interface
         type: string
-        example: eth0, eth1, eth2
+        example: "eth0, eth1, eth2"
         minLength: 1
         maxLength: 50
       state:
         description: Interface state (UP, DOWN, UNKNOWN)
         type: string
-        example: "UP"
+        example: "UP, DOWN, UNKNOWN"
         maxLength: 25
       type:
         description: Interface type (ether, loopback)
         type: string
-        example: "ether"
+        example: "ether, infiniband, loopback"
         maxLength: 18
   RPMOSTreeDeployment:
     description: Limited deployment information from systems managed by rpm-ostree as reported by rpm-ostree status --json
@@ -147,41 +147,39 @@ $defs:
     properties:
       id:
         description: ID of the deployment
-        example: "fedora-silverblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0"
+        example: "fedora-silverblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0, fedora-blackpink-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0, fedora-orangeblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0"
         type: string
         minLength: 1
         maxLength: 255
       checksum:
         description: The checksum / commit of the deployment
-        example: "63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb"
+        example: "63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb, 73335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb, 83335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb"
         type: string
         maxLength: 64
         pattern: "^[a-fA-F0-9]{64}$"
       origin:
         description: The origin repo from which the commit was installed
-        example: "fedora/33/x86_64/silverblue"
+        example: "fedora/33/x86_64/silverblue, fedora/31/x86_64/blackpink, fedora/34/x86_64/orangeblue"
         type: string
         minLength: 1
         maxLength: 255
       osname:
         description: The operating system name
-        example: "fedora-silverblue"
+        example: "fedora-silverblue, fedora-blackpink, fedora-orangeblue"
         type: string
         minLength: 1
         maxLength: 255
       version:
         description: The version of the deployment
-        example: "33.21"
+        example: "33.21, 31.12, 33.45"
         type: string
         minLength: 1
         maxLength: 255
       booted:
         description: Whether the deployment is currently booted
-        example: True
         type: boolean
       pinned:
         description: Whether the deployment is currently pinned
-        example: False
         type: boolean
   SystemProfile:
     title: SystemProfile
@@ -231,7 +229,7 @@ $defs:
       infrastructure_type:
         type: string
         maxLength: 100
-        example: "physical, physical, virtual"
+        example: "physical, virtual, imaginary"
       infrastructure_vendor:
         type: string
         maxLength: 100
@@ -286,7 +284,7 @@ $defs:
             type: string
             maxLength: 4
             enum: [RHEL]
-            example: "RHEL, RHEL, FED"
+            example: "RHEL, FED, RHEL"
       os_release:
         type: string
         maxLength: 100
@@ -313,7 +311,6 @@ $defs:
         type: string
         format: date-time
         maxLength: 50
-        example: "ex1, ex2, ex3"
       running_processes:
         type: array  # techincally a set, ordering is not important
         x-indexed: false
@@ -447,13 +444,13 @@ $defs:
         enum: [edge]
         maxLength: 4
         description: Indicates the type of host.
-        example: 'edge, edge, edge'
+        example: 'edge, not_edge, edge'
       greenboot_status:
         type: string
         enum: [red, green]
         maxLength: 5
         description: Indicates the greenboot status of an edge device.
-        example: 'red, green, green'
+        example: 'green, red, green'
       greenboot_fallback_detected:
         type: boolean
         description: Indicates whether greenboot detected a rolled back update on an edge device.
