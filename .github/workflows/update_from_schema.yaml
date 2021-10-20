@@ -1,10 +1,7 @@
-# TODO: this probably doesn't do what it's supposed to anymore. Make it
-
-
-# This workflow updates the operator configuration based on the latest version
-# of the system_profile schema from insights-schemas
-# It then opens a pull request on this repo with the changes and information
-# about the change that triggered the update
+# This workflow updates xjoin-schema to support the latest changes to
+# the system_profile schema from insights-schemas.
+# The workflow is triggered by a workflow in the insights-schema repo
+# that runs when a change to the system profile schema is merged.
 
 name: update mapping
 
@@ -40,7 +37,7 @@ jobs:
           npm ci
           npm run updateFromSchema
           git add -A
-          git commit -m "update mapping ${{ steps.vars.outputs.schema_sha }}"
+          git commit -m "updated xjoin-search to support schema changes. SHA: ${{ steps.vars.outputs.schema_sha }}"
       - name: remove schema submodule
         run: rm -r inventory-schemas
       - name: Create Pull Request
@@ -55,4 +52,4 @@ jobs:
           delete-branch: true
           title: '[Automated] Update mapping'
           body: |
-            Updated the mapping based on the latest inventory-schemas change
+            Updated xjoin-search to support the latest inventory-schemas changes
