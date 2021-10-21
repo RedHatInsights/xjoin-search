@@ -28,15 +28,24 @@ The most recent version of the schema is stored at:
 
 /// <reference path="decs.d.ts"/>
 import * as _ from 'lodash';
-// import * as fs from 'fs';
 import * as fs from 'graceful-fs';
 import { buildMappingsFor } from 'json-schema-to-es-mapping';
 import { JSONSchema, dereference } from '@apidevtools/json-schema-ref-parser';
-import { validateSDL } from 'graphql/validation/validate';
 
-//import { getSchema, getItemsIfArray, getFieldType, getSchemaChunkProperties, getFieldFormat } from '../src/util/systemProfile'
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean" | "date-time"
 
+const FILTER_TYPES = {
+    string: "FilterString",
+    boolean: "FilterBoolean",
+    integer: "FilterInt",
+    wildcard: "FilterStringWithWildcard",
+    timestamp: "FilterTimestamp",
+};
+
+const HOSTS_FILE_PATH = '../test/hosts.json';
+const GRAPHQL_FILE_PATH = '../src/schema/schema.graphql';
+const SPF_TEST_DATA_FILE_PATH = '../test/spf_test_data.json';
+const NUM_TEST_HOSTS = 3;
 
 function removeBlockedFields(schema:JSONSchema) {
     if (!schema["properties"]) {
@@ -58,7 +67,6 @@ function removeBlockedFields(schema:JSONSchema) {
     return schema;
 }
 
-
 export function getItemsIfArray(field_value:any) {
     if (_.has(field_value,"items")) {
         field_value = field_value["items"];
@@ -66,7 +74,6 @@ export function getItemsIfArray(field_value:any) {
 
     return field_value;
 }
-
 
 export async function getSchema(schemaFilePath:string="inventory-schemas/system_profile_schema.yaml"): Promise<JSONSchema> {
     let schema: any;
@@ -85,13 +92,11 @@ export async function getSchema(schemaFilePath:string="inventory-schemas/system_
     return removeBlockedFields(schema["$defs"]["SystemProfile"]);
 }
 
-
 export function getFieldFormat(field_value: JSONSchema): string|undefined {
     const format = _.get(field_value, "format");
 
     return format;
 }
-
 
 export function getFieldType(field_name: string, field_value: any): PrimativeTypeString {
     let type: PrimativeTypeString | undefined = _.get(field_value, "type");
@@ -127,22 +132,7 @@ export function getSchemaChunkProperties(schema_chunk: JSONSchema): JSONSchema {
     return properties;
 }
 
-//end experimental copy-paste import
-
-
-const FILTER_TYPES = {
-    string: "FilterString",
-    boolean: "FilterBoolean",
-    integer: "FilterInt",
-    wildcard: "FilterStringWithWildcard",
-    timestamp: "FilterTimestamp",
-};
-
-const HOSTS_FILE_PATH = '../test/hosts.json';
-const GRAPHQL_FILE_PATH = '../src/schema/schema.graphql';
-const SPF_TEST_DATA_FILE_PATH = '../test/spf_test_data.json';
-const NUM_TEST_HOSTS = 3;
-
+//end copy-paste import
 
 function snakeToTitle(str: string):string {
     return str.split('_').map((w:string) => w[0].toUpperCase() + w.substr(1).toLowerCase()).join('')
@@ -152,7 +142,6 @@ function snakeToTitle(str: string):string {
 function graphQLTypeName(str: string):string {
     return "Filter" + snakeToTitle(str);
 }
-
 
 /*
 From the properties of the field in the system profile schema determine the type
@@ -180,7 +169,6 @@ function determineFilterType(field_name: string, field_value:JSONSchema) {
     }
 }
 
-
 function updateMapping(schema: JSONSchema) {
     console.log("\n### updating elasticsearch mapping ###");
 
@@ -194,7 +182,6 @@ function updateMapping(schema: JSONSchema) {
 
     fs.writeFileSync(mappingFilePath, JSON.stringify(template, null, 2));
 }
-
 
 function createGraphqlFields(schema:JSONSchema, parent_name:string = "system profile", prefix:string = "spf_"):string[] {
     let graphqlFieldsArray:string[] = [];
@@ -210,31 +197,28 @@ function createGraphqlFields(schema:JSONSchema, parent_name:string = "system pro
     return graphqlFieldsArray;
 }
 
-
 function createTypeForObject(field_name:string, field_value:JSONSchema):string[] {
     let type_array: string[] = []
     type_array.push(`"""\nFilter by '${field_name}' field of system profile\n"""\ninput ${graphQLTypeName(field_name)} {\n`);
     type_array.push(...createGraphqlFields(field_value, field_name, ""));
-    type_array.push("\n}\n");
+    type_array.push("}\n");
 
     return type_array;
 }
 
-
-function createGraphqlTypes(schema:JSONSchema):string[] {
-    let graphql_type_array:string[] = [];
+function createGraphqlTypes(schema:JSONSchema):string[][] {
+    let graphql_type_array:string[][] = [];
 
     const schema_properties: JSONSchema = getSchemaChunkProperties(schema);
 
     _.forEach(schema_properties, (field_value:JSONSchema, field_name:string):void => {
         if (getFieldType(field_name, field_value) == "object") {
-                graphql_type_array.push(...createTypeForObject(field_name, field_value));
+                graphql_type_array.push(createTypeForObject(field_name, field_value));
             }
     });
 
     return graphql_type_array;
 }
-
 
 function updateGraphQLSchema(schema:JSONSchema):void {
     console.log("\n### updating GraphQL schema ###");
@@ -262,20 +246,18 @@ function updateGraphQLSchema(schema:JSONSchema):void {
     //remove existing types, but leave padding
     graphqlStringArray.splice(typeInsertIndex, typeEndIndex - typeInsertIndex - 3);
 
-    _.forEach(createGraphqlTypes(schema), (field) => {
-        graphqlStringArray.splice(typeInsertIndex, 0, field);
+    _.forEach(createGraphqlTypes(schema), (new_type) => {
+        graphqlStringArray.splice(typeInsertIndex, 0, ...new_type);
     })
 
     let newGraphqlFileContent = graphqlStringArray.join("\n");
     fs.writeFileSync(GRAPHQL_FILE_PATH, newGraphqlFileContent);
 }
 
-
 function getHosts() {
     let hosts_file_content = fs.readFileSync(HOSTS_FILE_PATH, 'utf8');
     return JSON.parse(hosts_file_content);
 }
-
 
 function getExampleValues(field_name: string, field_value: JSONSchema, host_number: number) {
     let example = _.get(field_value, "example");
@@ -294,7 +276,6 @@ function getExampleValues(field_name: string, field_value: JSONSchema, host_numb
 
     return value;
 }
-
 
 /*
 Generates example values for each field in the system profile for use on test hosts.
@@ -353,7 +334,6 @@ function generateSystemProfileValues(schema_chunk: Object, host_number: number):
     return values;
 }
 
-
 function generateNewSystemProfileFacts(schema: JSONSchema, number_of_hosts: number): Object[] {
     let new_host_system_profile_facts = [];
 
@@ -363,7 +343,6 @@ function generateNewSystemProfileFacts(schema: JSONSchema, number_of_hosts: numb
 
     return new_host_system_profile_facts;
 }
-
 
 function updateHostsJson(new_host_system_profile_facts: any): void {
     console.log("\n### updating example data for tests in hosts.json ###");
@@ -382,7 +361,6 @@ function updateHostsJson(new_host_system_profile_facts: any): void {
 
     fs.writeFileSync(HOSTS_FILE_PATH, JSON.stringify(hosts, null, 4));
 }
-
 
 function getOperationsForType(type: string): string[] {
     const operations_by_type_map = new Map();
@@ -417,12 +395,10 @@ function createFilterQueriesForEquality(field_name: string, field_type: string, 
     return test_data;
 }
 
-
 function createFilterQueryForRange(field_name: string, lower_value: string|number, test_value: string) {
     const filter_name = 'spf_' + field_name;
     return {[filter_name]:{"gt": lower_value, "lte": test_value}};
 }
-
 
 // assuming int if not a date-time string
 function createFilterQueriesForRange(field_name: string, field_format: string|undefined, test_value: string) {
@@ -438,7 +414,6 @@ function createFilterQueriesForRange(field_name: string, field_format: string|un
 
 }
 
-
 function createFilterQueriesForField(field_name: string, field_type: string, field_format: string|undefined, test_value: string): Object[] {
     const equality_types = ["string", "wildcard", "boolean"];
 
@@ -449,7 +424,6 @@ function createFilterQueriesForField(field_name: string, field_type: string, fie
     }
 }
 
-
 function _checkSchemaAndHostChunkValid(field_name: string, schema_chunk: JSONSchema, host_chunk: Object): void {
     if (schema_chunk == null) {
         throw `${field_name} object has no contents in schema`
@@ -459,7 +433,6 @@ function _checkSchemaAndHostChunkValid(field_name: string, schema_chunk: JSONSch
         throw `${field_name} object has no contents in host`
     }
 }
-
 
 function createFilterQuerys(schema_chunk:JSONSchema, test_host_chunk:Object): Object[] {
     let test_data: Object[] = [];
@@ -508,7 +481,6 @@ function createFilterQuerys(schema_chunk:JSONSchema, test_host_chunk:Object): Ob
 
     return test_data;
 }
-
 
 function updateTestData(schema: JSONSchema, host_facts: Object) {
     console.log("\n### updating test queries in spf_test_data.json ###");
