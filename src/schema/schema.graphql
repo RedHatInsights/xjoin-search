@@ -395,136 +395,179 @@ input SapSidFilter {
 #
 # Generated system_profile input types
 #
+
+}
+
+    "Filter by 'sso_version' field of ansible"
+    sso_version: FilterString
+
+    "Filter by 'catalog_worker_version' field of ansible"
+    catalog_worker_version: FilterString
+
+    "Filter by 'hub_version' field of ansible"
+    hub_version: FilterString
+
+    "Filter by 'controller_version' field of ansible"
+    controller_version: FilterString
+
 """
 Filter by 'ansible' field of system profile
 """
 input FilterAnsible {
-    "Filter by 'controller_version' field of ansible"
-    controller_version: FilterString
-,    "Filter by 'hub_version' field of ansible"
-    hub_version: FilterString
-,    "Filter by 'catalog_worker_version' field of ansible"
-    catalog_worker_version: FilterString
-,    "Filter by 'sso_version' field of ansible"
-    sso_version: FilterString
+
 
 }
+
+    "Filter by 'sla' field of system_purpose"
+    sla: FilterString
+
+    "Filter by 'role' field of system_purpose"
+    role: FilterString
+
+    "Filter by 'usage' field of system_purpose"
+    usage: FilterString
 
 """
 Filter by 'system_purpose' field of system profile
 """
 input FilterSystemPurpose {
-    "Filter by 'usage' field of system_purpose"
-    usage: FilterString
-,    "Filter by 'role' field of system_purpose"
-    role: FilterString
-,    "Filter by 'sla' field of system_purpose"
-    sla: FilterString
+
 
 }
+
+    "Filter by 'version' field of rhsm"
+    version: FilterString
 
 """
 Filter by 'rhsm' field of system profile
 """
 input FilterRhsm {
-    "Filter by 'version' field of rhsm"
-    version: FilterString
+
 
 }
+
+    "Filter by 'pinned' field of rpm_ostree_deployments"
+    pinned: FilterBoolean
+
+    "Filter by 'booted' field of rpm_ostree_deployments"
+    booted: FilterBoolean
+
+    "Filter by 'version' field of rpm_ostree_deployments"
+    version: FilterString
+
+    "Filter by 'osname' field of rpm_ostree_deployments"
+    osname: FilterString
+
+    "Filter by 'origin' field of rpm_ostree_deployments"
+    origin: FilterString
+
+    "Filter by 'checksum' field of rpm_ostree_deployments"
+    checksum: FilterString
+
+    "Filter by 'id' field of rpm_ostree_deployments"
+    id: FilterString
 
 """
 Filter by 'rpm_ostree_deployments' field of system profile
 """
 input FilterRpmOstreeDeployments {
-    "Filter by 'id' field of rpm_ostree_deployments"
-    id: FilterString
-,    "Filter by 'checksum' field of rpm_ostree_deployments"
-    checksum: FilterString
-,    "Filter by 'origin' field of rpm_ostree_deployments"
-    origin: FilterString
-,    "Filter by 'osname' field of rpm_ostree_deployments"
-    osname: FilterString
-,    "Filter by 'version' field of rpm_ostree_deployments"
-    version: FilterString
-,    "Filter by 'booted' field of rpm_ostree_deployments"
-    booted: FilterBoolean
-,    "Filter by 'pinned' field of rpm_ostree_deployments"
-    pinned: FilterBoolean
+
 
 }
+
+    "Filter by 'status' field of installed_products"
+    status: FilterString
+
+    "Filter by 'id' field of installed_products"
+    id: FilterString
+
+    "Filter by 'name' field of installed_products"
+    name: FilterString
 
 """
 Filter by 'installed_products' field of system profile
 """
 input FilterInstalledProducts {
-    "Filter by 'name' field of installed_products"
-    name: FilterString
-,    "Filter by 'id' field of installed_products"
-    id: FilterString
-,    "Filter by 'status' field of installed_products"
-    status: FilterString
+
 
 }
+
+    "Filter by 'stream' field of dnf_modules"
+    stream: FilterString
+
+    "Filter by 'name' field of dnf_modules"
+    name: FilterString
 
 """
 Filter by 'dnf_modules' field of system profile
 """
 input FilterDnfModules {
-    "Filter by 'name' field of dnf_modules"
-    name: FilterString
-,    "Filter by 'stream' field of dnf_modules"
-    stream: FilterString
+
 
 }
+
+    "Filter by 'name' field of operating_system"
+    name: FilterString
+
+    "Filter by 'minor' field of operating_system"
+    minor: FilterInt
+
+    "Filter by 'major' field of operating_system"
+    major: FilterInt
 
 """
 Filter by 'operating_system' field of system profile
 """
 input FilterOperatingSystem {
-    "Filter by 'major' field of operating_system"
-    major: FilterInt
-,    "Filter by 'minor' field of operating_system"
-    minor: FilterInt
-,    "Filter by 'name' field of operating_system"
-    name: FilterString
+
 
 }
+
+    "Filter by 'type' field of disk_devices"
+    type: FilterString
+
+    "Filter by 'mount_point' field of disk_devices"
+    mount_point: FilterString
+
+    "Filter by 'label' field of disk_devices"
+    label: FilterString
+
+    "Filter by 'device' field of disk_devices"
+    device: FilterString
 
 """
 Filter by 'disk_devices' field of system profile
 """
 input FilterDiskDevices {
-    "Filter by 'device' field of disk_devices"
-    device: FilterString
-,    "Filter by 'label' field of disk_devices"
-    label: FilterString
-,    "Filter by 'mount_point' field of disk_devices"
-    mount_point: FilterString
-,    "Filter by 'type' field of disk_devices"
-    type: FilterString
+
 
 }
+
+    "Filter by 'type' field of network_interfaces"
+    type: FilterString
+
+    "Filter by 'state' field of network_interfaces"
+    state: FilterString
+
+    "Filter by 'name' field of network_interfaces"
+    name: FilterString
+
+    "Filter by 'mac_address' field of network_interfaces"
+    mac_address: FilterString
+
+    "Filter by 'mtu' field of network_interfaces"
+    mtu: FilterInt
+
+    "Filter by 'ipv6_addresses' field of network_interfaces"
+    ipv6_addresses: FilterString
+
+    "Filter by 'ipv4_addresses' field of network_interfaces"
+    ipv4_addresses: FilterString
 
 """
 Filter by 'network_interfaces' field of system profile
 """
 input FilterNetworkInterfaces {
-    "Filter by 'ipv4_addresses' field of network_interfaces"
-    ipv4_addresses: FilterString
-,    "Filter by 'ipv6_addresses' field of network_interfaces"
-    ipv6_addresses: FilterString
-,    "Filter by 'mtu' field of network_interfaces"
-    mtu: FilterInt
-,    "Filter by 'mac_address' field of network_interfaces"
-    mac_address: FilterString
-,    "Filter by 'name' field of network_interfaces"
-    name: FilterString
-,    "Filter by 'state' field of network_interfaces"
-    state: FilterString
-,    "Filter by 'type' field of network_interfaces"
-    type: FilterString
-
-}
 
 
 

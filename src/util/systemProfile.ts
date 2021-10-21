@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import $RefParser, { JSONSchema } from "@apidevtools/json-schema-ref-parser";
+import { JSONSchema, dereference } from "@apidevtools/json-schema-ref-parser";
 import { filterTimestamp } from '../resolvers/inputTimestamp';
 import { filterString, filterStringWithWildcard } from '../resolvers/inputString';
 import { filterBoolean } from '../resolvers/inputBoolean';
@@ -8,11 +8,9 @@ import { filterInt } from '../resolvers/inputInt';
 import { HostFilterResolver } from '../resolvers/hosts';
 
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean" | "date-time"
-const schemaFilePath = "inventory-schemas/system_profile_schema.yaml";
 
 
-
-function removeBlockedFields(schema: JSONSchema) {
+function removeBlockedFields(schema:JSONSchema) {
     if (!schema["properties"]) {
         throw "schema doesn't exist"
     }
@@ -33,7 +31,7 @@ function removeBlockedFields(schema: JSONSchema) {
 }
 
 
-function getItemsIfArray(field_value: any) {
+export function getItemsIfArray(field_value:any) {
     if (_.has(field_value,"items")) {
         field_value = field_value["items"];
     }
@@ -42,11 +40,11 @@ function getItemsIfArray(field_value: any) {
 }
 
 
-export async function getSchema() {
+export async function getSchema(schemaFilePath:string="inventory-schemas/system_profile_schema.yaml"): Promise<JSONSchema> {
     let schema: any;
 
     try {
-        schema = await $RefParser.dereference(schemaFilePath);
+        schema = await dereference(schemaFilePath);
     } catch(err) {
         console.error(err);
         throw("error: System Profile Schema can not be read");
@@ -60,7 +58,18 @@ export async function getSchema() {
 }
 
 
-export function getTypeOfField(key: string, field_value: any): PrimativeTypeString {
+export function getFieldFormat(field_name: string, field_value: JSONSchema): string {
+    const format = _.get(field_value, "format");
+
+    if (!format) {
+        throw `Field ${field_name} has no format`;
+    }
+
+    return format;
+}
+
+
+export function getFieldType(field_name: string, field_value: any): PrimativeTypeString {
     let type: PrimativeTypeString | undefined = _.get(field_value, "type");
 
     //special string types
@@ -74,11 +83,11 @@ export function getTypeOfField(key: string, field_value: any): PrimativeTypeStri
     }
 
     if (type == "array") {
-        type = getTypeOfField(key, field_value["items"]);
+        type = getFieldType(field_name, field_value["items"]);
     }
 
     if (type == undefined) {
-        throw `error: no type for entry ${key}`;
+        throw `error: no type for entry ${field_name}`;
     }
 
     return type;
@@ -104,7 +113,7 @@ export function getSubFieldTypes(field_value: any): PrimativeTypeString[] {
     field_value = getItemsIfArray(field_value);
 
     _.forEach(field_value["properties"], (value, key) => {
-        sub_field_types.push(getTypeOfField(key, value)); 
+        sub_field_types.push(getFieldType(key, value)); 
     })
     
     return sub_field_types;
@@ -160,4 +169,15 @@ export function getOperationsForType(type: PrimativeTypeString):string[] {
     }
 
     return operations;
+}
+
+
+export function getSchemaChunkProperties(schema_chunk: JSONSchema): JSONSchema {
+    const properties = _.get(schema_chunk, "properties");
+
+    if (!properties) {
+        throw "No properties in schema chunk";
+    }
+
+    return properties;
 }

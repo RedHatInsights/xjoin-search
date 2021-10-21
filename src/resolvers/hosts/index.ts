@@ -15,7 +15,7 @@ import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
 import { formatTags } from './format';
 import { filterString } from '../inputString';
-import { getSchema, getTypeOfField, getResolver }from '../../util/systemProfile';
+import { getSchema, getFieldType, getResolver } from '../../util/systemProfile';
 
 export type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -65,25 +65,26 @@ function getPredefinedResolvers() {
         optional((filter: HostFilter) => filter.NOT, common.not(resolveFilter))
     ];
 }
+
 async function resolverMapFromSchema(): Promise<HostFilterResolver[]> {
     const schema = await getSchema()
 
     // Pre-defined resolvers for fields that are not part of the system profile
     let resolvers: HostFilterResolver[] = getPredefinedResolvers() 
 
-    _.forEach(_.get(schema, "properties"), (value: any, key: any) => {
-        if (typeof(key) === "undefined" && typeof(value) === "undefined") {
+    _.forEach(_.get(schema, "properties"), (field_value: any, field_name: any) => {
+        if (typeof(field_name) === "undefined" && typeof(field_value) === "undefined") {
             throw "error processing schema";
         }
 
-        let type: string = getTypeOfField(key, value);
+        let type: string = getFieldType(field_name, field_value);
             
-        let resolver: FilterResolver<any> | null = getResolver(key, type, value);
+        let resolver: FilterResolver<any> | null = getResolver(field_name, type, field_value);
 
         if (resolver != null) {       
             resolvers.push(
                 optional(
-                    (filter: HostFilter) => _.get(filter, "spf_"+key, null), _.partial(resolver, "system_profile_facts."+key)
+                    (filter: HostFilter) => _.get(filter, "spf_"+field_name, null), _.partial(resolver, "system_profile_facts."+field_name)
                 )
             );
         }

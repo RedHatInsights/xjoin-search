@@ -259,10 +259,26 @@
     }
   },
   {
+    "field_name": "os_release",
+    "field_query": {
+      "spf_os_release": {
+        "matches": "8.2"
+      }
+    }
+  },
+  {
     "field_name": "os_kernel_version",
     "field_query": {
       "spf_os_kernel_version": {
         "eq": "4.5.0"
+      }
+    }
+  },
+  {
+    "field_name": "os_kernel_version",
+    "field_query": {
+      "spf_os_kernel_version": {
+        "matches": "4.5.0"
       }
     }
   },
@@ -386,6 +402,14 @@
     "field_query": {
       "spf_insights_client_version": {
         "eq": "5.0.6-2.el7_6"
+      }
+    }
+  },
+  {
+    "field_name": "insights_client_version",
+    "field_query": {
+      "spf_insights_client_version": {
+        "matches": "5.0.6-2.el7_6"
       }
     }
   },
