@@ -18,12 +18,6 @@ to your custom version of the schema to test things out.
 If the automation that runs this script to keep xjoin-search up to date has
 failed please see the README for more information about performing the maintenance
 manually
-
-HOW TO RUN:
-When running this script add the path to the schema file you want to use as argv
-e.g. node update_mapping.js path/to/schema_file.yml
-The most recent version of the schema is stored at:
-    /inventory-schemas/system_profile_schema
 */
 
 /// <reference path="decs.d.ts"/>
@@ -490,10 +484,6 @@ function updateTestData(schema: JSONSchema, host_facts: Object) {
 }
 
 async function main() {
-    let myArgs = process.argv.slice(2);
-    let schema_path: string = myArgs[0];
-
-    //TODO: have it check if argv has been set. Typescript is weird about argv
     const schema = await getSchema("../inventory-schemas/system_profile_schema.yaml");
     const new_spf_facts = generateNewSystemProfileFacts(schema, NUM_TEST_HOSTS);
 
