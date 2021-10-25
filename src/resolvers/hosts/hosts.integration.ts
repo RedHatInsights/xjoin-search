@@ -574,6 +574,77 @@ describe('hosts query', function () {
                     data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
                 });
             });
+
+            describe('ansible', function () {
+
+                test('spf_ansible_controller_version_eq', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {controller_version: { eq: '1.2.3' }}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                });
+
+                test('spf_ansible_controller_version_wildcards', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {controller_version: { matches: '*2*' }}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                });
+
+                test('spf_ansible_hub_version_eq', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {hub_version: { eq: '4.5.6' }}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+                });
+
+                test('spf_ansible_hub_version_wildcards', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {hub_version: { matches: '*5*' }}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+                });
+
+                test('spf_ansible_catalog_worker_version_eq', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {catalog_worker_version: { eq: '7.8.9'}}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+                });
+
+                test('spf_ansible_catalog_worker_version_wildcards', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {catalog_worker_version: { matches: '*8*'}}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+                });
+
+                test('spf_ansible_sso_version_eq', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {catalog_worker_version: { eq: '7.8.9'}}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+                });
+
+                test('spf_ansible_sso_version_wildcards', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {catalog_worker_version: { matches: '*8*'}}}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+                });
+
+                test('spf_ansible_combined', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {
+                            controller_version: { eq: '1.2.3' },
+                            hub_version: { eq: '1.2.3' },
+                            catalog_worker_version: { eq: '1.2.3' },
+                            sso_version: { eq: '1.2.3' }
+                        }}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                });
+            });
         });
 
         describe('identity header', function () {
