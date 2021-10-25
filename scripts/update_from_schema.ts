@@ -232,8 +232,6 @@ function updateGraphQLSchema(schema:JSONSchema):void {
         graphqlStringArray.splice(insertIndex, 0, field);
     })
 
-    // TODO: relying on comments for this to function already sucks, maybe use a more explicit one for the end
-    // at least make sure to add do not removes
     let typeInsertIndex = graphqlStringArray.indexOf("# Generated system_profile input types") + 2;
     let typeEndIndex = graphqlStringArray.indexOf("# Output types");
 

@@ -251,7 +251,6 @@ $defs:
         maxLength: 100
         example: "ex1, ex2, ex3"
       bios_release_date:
-        #TODO: make sure this doesn't need regex support 
         type: string
         x-indexed: false
         x-wildcard: true
