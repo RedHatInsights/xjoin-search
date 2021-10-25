@@ -497,24 +497,28 @@ $defs:
           controller_version:
             description: The ansible-tower or automation-controller version on the host
             type: string
-            example:  '1.2.3, 2.4.2, 3.2.1'
+            example:  '1.2.3, 4.5.6, 7.8.9'
             maxLength: 30
             pattern: '^\d+(\.\d+)+$'
+            x-wildcard: true
           hub_version:
             description: The automation-hub version on the host
             type: string
-            example:  '4.5.6, 2.3.5, 1.2.3'
+            example:  '1.2.3, 4.5.6, 7.8.9'
             maxLength: 30
             pattern: '^\d+(\.\d+)+$'
+            x-wildcard: true
           catalog_worker_version:
             description: The catalog-worker version on the host
             type: string
-            example:  '7.8.9, 1.2.3, 4.5.6'
+            example:  '1.2.3, 4.5.6, 7.8.9'
             maxLength: 30
             pattern: '^\d+(\.\d+)+$'
+            x-wildcard: true
           sso_version:
             description: The SSO version on the host
             type: string
-            example:  '10.11.12, 7.8.9, 3.2.1'
+            example:  '1.2.3, 4.5.6, 7.8.9'
             maxLength: 30
             pattern: '^\d+(\.\d+)+$'
+            x-wildcard: true

@@ -106,9 +106,9 @@
             },
             "ansible": {
                 "controller_version": "1.2.3",
-                "hub_version": "4.5.6",
-                "catalog_worker_version": "7.8.9",
-                "sso_version": "10.11.12"
+                "hub_version": "1.2.3",
+                "catalog_worker_version": "1.2.3",
+                "sso_version": "1.2.3"
             }
         },
         "tags_structured": [
@@ -262,12 +262,11 @@
                 "sla": "Standard"
             },
             "ansible": {
-                "controller_version": "2.4.2",
-                "hub_version": "2.3.5",
-                "catalog_worker_version": "1.2.3",
-                "sso_version": "7.8.9"
+                "controller_version": "4.5.6",
+                "hub_version": "4.5.6",
+                "catalog_worker_version": "4.5.6",
+                "sso_version": "4.5.6"
             }
-
         },
         "tags_structured": [
             {
@@ -399,10 +398,10 @@
                 "sla": "Self-Support"
             },
             "ansible": {
-                "controller_version": "3.2.1",
-                "hub_version": "1.2.3",
-                "catalog_worker_version": "4.5.6",
-                "sso_version": "3.2.1"
+                "controller_version": "7.8.9",
+                "hub_version": "7.8.9",
+                "catalog_worker_version": "7.8.9",
+                "sso_version": "7.8.9"
             }
         },
         "tags_structured": [

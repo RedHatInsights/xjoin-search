@@ -41,13 +41,13 @@ export type CollectionMeta = {
 /** Filter by 'ansible' field of system profile */
 export type FilterAnsible = {
   /** Filter by 'controller_version' field of ansible */
-  controller_version?: Maybe<FilterString>;
+  controller_version?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'hub_version' field of ansible */
-  hub_version?: Maybe<FilterString>;
+  hub_version?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'catalog_worker_version' field of ansible */
-  catalog_worker_version?: Maybe<FilterString>;
+  catalog_worker_version?: Maybe<FilterStringWithWildcard>;
   /** Filter by 'sso_version' field of ansible */
-  sso_version?: Maybe<FilterString>;
+  sso_version?: Maybe<FilterStringWithWildcard>;
 };
 
 /** Basic filter for boolean fields. */

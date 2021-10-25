@@ -664,7 +664,17 @@
     "field_query": {
       "spf_ansible": {
         "controller_version": {
-          "eq": "2.4.2"
+          "eq": "4.5.6"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "ansible controller_version",
+    "field_query": {
+      "spf_ansible": {
+        "controller_version": {
+          "matches": "4.5.6"
         }
       }
     }
@@ -674,7 +684,17 @@
     "field_query": {
       "spf_ansible": {
         "hub_version": {
-          "eq": "2.3.5"
+          "eq": "4.5.6"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "ansible hub_version",
+    "field_query": {
+      "spf_ansible": {
+        "hub_version": {
+          "matches": "4.5.6"
         }
       }
     }
@@ -684,7 +704,17 @@
     "field_query": {
       "spf_ansible": {
         "catalog_worker_version": {
-          "eq": "1.2.3"
+          "eq": "4.5.6"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "ansible catalog_worker_version",
+    "field_query": {
+      "spf_ansible": {
+        "catalog_worker_version": {
+          "matches": "4.5.6"
         }
       }
     }
@@ -694,7 +724,17 @@
     "field_query": {
       "spf_ansible": {
         "sso_version": {
-          "eq": "7.8.9"
+          "eq": "4.5.6"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "ansible sso_version",
+    "field_query": {
+      "spf_ansible": {
+        "sso_version": {
+          "matches": "4.5.6"
         }
       }
     }

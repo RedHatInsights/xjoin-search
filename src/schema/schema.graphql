@@ -401,16 +401,16 @@ Filter by 'ansible' field of system profile
 input FilterAnsible {
 
     "Filter by 'controller_version' field of ansible"
-    controller_version: FilterString
+    controller_version: FilterStringWithWildcard
 
     "Filter by 'hub_version' field of ansible"
-    hub_version: FilterString
+    hub_version: FilterStringWithWildcard
 
     "Filter by 'catalog_worker_version' field of ansible"
-    catalog_worker_version: FilterString
+    catalog_worker_version: FilterStringWithWildcard
 
     "Filter by 'sso_version' field of ansible"
-    sso_version: FilterString
+    sso_version: FilterStringWithWildcard
 
 }
 
