@@ -25,6 +25,7 @@ import * as _ from 'lodash';
 import * as fs from 'graceful-fs';
 import { buildMappingsFor } from 'json-schema-to-es-mapping';
 import { JSONSchema, dereference } from '@apidevtools/json-schema-ref-parser';
+import { integer } from '@elastic/elasticsearch/api/types';
 
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean" | "date-time"
 
@@ -269,6 +270,16 @@ function getExampleValues(field_name: string, field_value: JSONSchema, host_numb
     return value;
 }
 
+function hostNumberToDatetime(host_number: integer):Date {
+    if (host_number < 0 || host_number >= 10) {
+        //The 10 host limit is keep from making invalid dates with this simple approach
+        //a more general aproach could support as many as you want
+        throw "Too many hosts to generate test date-time values. Must be fewer than 10.";
+    }
+
+    return new Date(`2021-01-1${host_number}T10:10:10`);
+}
+
 /*
 Generates example values for each field in the system profile for use on test hosts.
 
@@ -288,6 +299,7 @@ for ints:
     gets the host_number
 
 */
+
 function generateSystemProfileValues(schema_chunk: Object, host_number: number): Object {
     if(host_number < 0 || host_number > NUM_TEST_HOSTS) {
         throw `Cannot generate system profile values for test host number ${host_number}. Out of range.`
@@ -309,7 +321,7 @@ function generateSystemProfileValues(schema_chunk: Object, host_number: number):
                 values[field_name] = getExampleValues(field_name, field_value, host_number);
                 break;
             case "date-time":
-                values[field_name] = new Date(`2021-01-1${host_number}T10:10:10`).toISOString();
+                values[field_name] = hostNumberToDatetime(host_number).toISOString();
                 break;
             case "boolean":
                 values[field_name] = Boolean(host_number - 1);
