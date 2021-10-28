@@ -1,6 +1,6 @@
 # This workflow updates xjoin-schema to support the latest changes to
-# the system_profile schema from insights-schemas.
-# The workflow is triggered by a workflow in the insights-schema repo
+# the system_profile schema from inventory-schemas.
+# The workflow is triggered by a workflow in the inventory-schema repo
 # that runs when a change to the system profile schema is merged.
 
 name: update mapping
