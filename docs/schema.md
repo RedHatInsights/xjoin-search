@@ -1363,6 +1363,10 @@ As a result, "=" and "/" appear in every tag.
 <td valign="top"><strong>modified_on</strong></td>
 <td></td>
 </tr>
+<tr>
+<td valign="top"><strong>operating_system</strong></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 
