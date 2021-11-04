@@ -32,7 +32,7 @@ export function resolveFilter(filter: HostFilter): Record<string, any>[] {
     }, []);
 }
 
-export function resolveFilters(filters: HostFilter[]) {
+export function resolveFilters(filters: HostFilter[]): Record<any, any>[] {
     return _.flatMap(filters, resolveFilter);
 }
 
@@ -67,37 +67,36 @@ function getPredefinedResolvers() {
 }
 
 async function resolverMapFromSchema(): Promise<HostFilterResolver[]> {
-    const schema = await getSchema()
+    const schema = await getSchema();
 
     // Pre-defined resolvers for fields that are not part of the system profile
-    let resolvers: HostFilterResolver[] = getPredefinedResolvers() 
+    const resolvers: HostFilterResolver[] = getPredefinedResolvers();
 
-    _.forEach(_.get(schema, "properties"), (field_value: any, field_name: any) => {
-        if (typeof(field_name) === "undefined" && typeof(field_value) === "undefined") {
-            throw "error processing schema";
+    _.forEach(_.get(schema, 'properties'), (field_value: any, field_name: any) => {
+        if (typeof(field_name) === 'undefined' && typeof(field_value) === 'undefined') {
+            throw 'error processing schema';
         }
 
-        let type: string = getFieldType(field_name, field_value);
-            
-        let resolver: FilterResolver<any> | null = getResolver(field_name, type, field_value);
+        const type: string = getFieldType(field_name, field_value);
 
-        if (resolver != null) {       
+        const resolver: FilterResolver<any> | null = getResolver(field_name, type, field_value);
+
+        if (resolver !== null) {
             resolvers.push(
                 optional(
-                    (filter: HostFilter) => _.get(filter, "spf_"+field_name, null), _.partial(resolver, "system_profile_facts."+field_name)
+                    (filter: HostFilter) => _.get(filter, 'spf_' + field_name, null),
+                    _.partial(resolver, 'system_profile_facts.' + field_name)
                 )
             );
         }
-    })
+    });
     return resolvers;
 }
-
 
 let RESOLVERS: HostFilterResolver[];
 resolverMapFromSchema().then((resolvers: HostFilterResolver[])=>{
     RESOLVERS = resolvers;
 });
-
 
 export function buildFilterQuery(filter: HostFilter | null | undefined, account_number: string): any {
     return {

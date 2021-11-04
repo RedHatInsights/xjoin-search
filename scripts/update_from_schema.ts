@@ -270,7 +270,7 @@ function getExampleValues(field_name: string, field_value: JSONSchema, host_numb
     return value;
 }
 
-function hostNumberToDatetime(host_number: integer):Date {
+export function hostNumberToDatetime(host_number: integer):Date {
     if (host_number < 0 || host_number >= 10) {
         //The 10 host limit is keep from making invalid dates with this simple approach
         //a more general aproach could support as many as you want

@@ -8,6 +8,7 @@ import { getContext } from '../../../test';
 import { testLimitOffset } from '../test.common';
 import _ from 'lodash';
 import * as fs from 'fs';
+import { type } from 'os';
 
 const BASIC_QUERY = `
     query hosts (
@@ -86,8 +87,11 @@ const SP_QUERY = `
     }
 `;
 
-const TEST_ACCOUNT_HOST_IDS: string[] = ['22cd8e39-13bb-4d02-8316-84b850dc5136', '6e7b6317-0a2d-4552-a2f2-b7da0aece49d', 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee']
-
+const TEST_ACCOUNT_HOST_IDS: string[] = [
+    '22cd8e39-13bb-4d02-8316-84b850dc5136',
+    '6e7b6317-0a2d-4552-a2f2-b7da0aece49d',
+    'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee'
+];
 
 describe('hosts query', function () {
     test('fetch hosts', async () => {
@@ -331,22 +335,21 @@ describe('hosts query', function () {
         });
 
         describe('system_profile', function () {
-            function getSPFTestData(): {"field_name": string, "field_query": Object}[] {
-                let spf_data_file = fs.readFileSync('test/spf_test_data.json', 'utf8');
-                let parsed: {"field_name": string, "field_query": Object}[] = JSON.parse(spf_data_file);
+            type TEST_QUERY = {'field_name': string, 'field_query': JSON};
+            function getSPFTestData(): TEST_QUERY[] {
+                const spf_data_file = fs.readFileSync('test/spf_test_data.json', 'utf8');
+                const parsed: TEST_QUERY[] = JSON.parse(spf_data_file);
                 return parsed;
             }
 
-            function _checkTestDataExists(test_data: Object[]) {
-                if (test_data == []) {
-                    console.error("no test data for all SPF fields test")
-                    fail
+            function _checkTestDataExists(test_data: TEST_QUERY[]) {
+                if (test_data === []) {
+                    throw 'No test data';
                 }
             }
 
-
             describe('all_spf_fields', () => {
-                let test_data: {"field_name": string, "field_query": Object}[] = getSPFTestData();
+                const test_data: {'field_name': string, 'field_query': JSON}[] = getSPFTestData();
                 _checkTestDataExists(test_data);
 
                 test.each(test_data)('$field_name $field_query', async ({field_name, field_query}) => {
@@ -355,7 +358,6 @@ describe('hosts query', function () {
                     await expect(data.hosts.data[0].id).toEqual(TEST_ACCOUNT_HOST_IDS[1]);
                 });
             });
-
 
             test('arch', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_arch: { eq: 'x86_64' }}});
@@ -424,10 +426,6 @@ describe('hosts query', function () {
                     { filter: { spf_insights_client_version: { matches: '5.*'}}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
-            });
-
-            describe('generated_spf_tests', function () {
-
             });
 
             describe('sap_system', function () {
@@ -948,7 +946,6 @@ describe('hosts query', function () {
             }
         `;
 
-        
         test('simple system profile query', async () => {
             const { data } = await runQuery(QUERY, {
                 filter: { id: { eq: TEST_ACCOUNT_HOST_IDS[2] }},
@@ -999,14 +996,6 @@ describe('hosts query', function () {
 
         function expectId (data: any, id: string) {
             data.hosts.data.should.eql([{id}]);
-        }
-
-        function expectIds(data: any, id_list: [string]) {
-            let expected_data: any = [];
-            _.forEach(id_list, (id) => {
-                expected_data.push({"id": id})
-            })
-            data.hosts.data.should.eql(expected_data);
         }
 
         test('eq with value', async () => {

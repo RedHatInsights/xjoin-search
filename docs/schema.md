@@ -20,12 +20,19 @@
   * [Inputs](#inputs)
     * [FilterAnsible](#filteransible)
     * [FilterBoolean](#filterboolean)
+    * [FilterDiskDevices](#filterdiskdevices)
+    * [FilterDnfModules](#filterdnfmodules)
+    * [FilterInstalledProducts](#filterinstalledproducts)
     * [FilterInt](#filterint)
+    * [FilterNetworkInterfaces](#filternetworkinterfaces)
     * [FilterOperatingSystem](#filteroperatingsystem)
+    * [FilterRhsm](#filterrhsm)
+    * [FilterRpmOstreeDeployments](#filterrpmostreedeployments)
     * [FilterString](#filterstring)
     * [FilterStringWithRegex](#filterstringwithregex)
     * [FilterStringWithWildcard](#filterstringwithwildcard)
     * [FilterStringWithWildcardWithLowercase](#filterstringwithwildcardwithlowercase)
+    * [FilterSystemPurpose](#filtersystempurpose)
     * [FilterTag](#filtertag)
     * [FilterTimestamp](#filtertimestamp)
     * [HostFilter](#hostfilter)
@@ -620,7 +627,7 @@ Structured representation of a tag
 
 ### FilterAnsible
 
-Filters hosts by Ansible facts
+Filter by 'ansible' field of system profile
 
 <table>
 <thead>
@@ -636,7 +643,7 @@ Filters hosts by Ansible facts
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
-Ansible Controller version
+Filter by 'controller_version' field of ansible
 
 </td>
 </tr>
@@ -645,7 +652,7 @@ Ansible Controller version
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
-Ansible Hub version
+Filter by 'hub_version' field of ansible
 
 </td>
 </tr>
@@ -654,7 +661,7 @@ Ansible Hub version
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
-Ansible Catalog Worker version
+Filter by 'catalog_worker_version' field of ansible
 
 </td>
 </tr>
@@ -663,7 +670,7 @@ Ansible Catalog Worker version
 <td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
 <td>
 
-Ansible SSO version
+Filter by 'sso_version' field of ansible
 
 </td>
 </tr>
@@ -690,6 +697,135 @@ Basic filter for boolean fields.
 
 Compares the document field with the provided value.
 If `null` is provided then documents where the given field does not exist are returned.
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterDiskDevices
+
+Filter by 'disk_devices' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>device</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'device' field of disk_devices
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>label</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'label' field of disk_devices
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>mount_point</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'mount_point' field of disk_devices
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>type</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'type' field of disk_devices
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterDnfModules
+
+Filter by 'dnf_modules' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>name</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'name' field of dnf_modules
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>stream</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'stream' field of dnf_modules
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterInstalledProducts
+
+Filter by 'installed_products' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>name</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'name' field of installed_products
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>id</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'id' field of installed_products
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>status</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'status' field of installed_products
 
 </td>
 </tr>
@@ -748,9 +884,88 @@ Greater than or equal to
 </tbody>
 </table>
 
+### FilterNetworkInterfaces
+
+Filter by 'network_interfaces' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>ipv4_addresses</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'ipv4_addresses' field of network_interfaces
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>ipv6_addresses</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'ipv6_addresses' field of network_interfaces
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>mtu</strong></td>
+<td valign="top"><a href="#filterint">FilterInt</a></td>
+<td>
+
+Filter by 'mtu' field of network_interfaces
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>mac_address</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'mac_address' field of network_interfaces
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>name</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'name' field of network_interfaces
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>state</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'state' field of network_interfaces
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>type</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'type' field of network_interfaces
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### FilterOperatingSystem
 
-Filters hosts by the operating system
+Filter by 'operating_system' field of system profile
 
 <table>
 <thead>
@@ -766,7 +981,7 @@ Filters hosts by the operating system
 <td valign="top"><a href="#filterint">FilterInt</a></td>
 <td>
 
-Major release version (0-99)
+Filter by 'major' field of operating_system
 
 </td>
 </tr>
@@ -775,7 +990,7 @@ Major release version (0-99)
 <td valign="top"><a href="#filterint">FilterInt</a></td>
 <td>
 
-Minor release version (0-99
+Filter by 'minor' field of operating_system
 
 </td>
 </tr>
@@ -784,7 +999,111 @@ Minor release version (0-99
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
 
-Name of distro (max 4 chars e.g. RHEL)
+Filter by 'name' field of operating_system
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterRhsm
+
+Filter by 'rhsm' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>version</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'version' field of rhsm
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterRpmOstreeDeployments
+
+Filter by 'rpm_ostree_deployments' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>id</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'id' field of rpm_ostree_deployments
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>checksum</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'checksum' field of rpm_ostree_deployments
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>origin</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'origin' field of rpm_ostree_deployments
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>osname</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'osname' field of rpm_ostree_deployments
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>version</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'version' field of rpm_ostree_deployments
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>booted</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td>
+
+Filter by 'booted' field of rpm_ostree_deployments
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>pinned</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td>
+
+Filter by 'pinned' field of rpm_ostree_deployments
 
 </td>
 </tr>
@@ -839,11 +1158,6 @@ Compares the document field with the provided value.
 If `null` is provided then documents where the given field does not exist are returned.
 
 </td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>eq_lc</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>regex</strong></td>
@@ -953,6 +1267,49 @@ See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/
 <td>
 
 This operator is like [FilterStringWithWildcard.matches](#filterstringwithwildcard) except that it performs case-insensitive matching.
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterSystemPurpose
+
+Filter by 'system_purpose' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>usage</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'usage' field of system_purpose
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>role</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'role' field of system_purpose
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>sla</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'sla' field of system_purpose
 
 </td>
 </tr>
@@ -1149,92 +1506,65 @@ Filter by provider_id
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_arch</strong></td>
-<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td colspan="2" valign="top"><strong>spf_ansible</strong></td>
+<td valign="top"><a href="#filteransible">FilterAnsible</a></td>
 <td>
 
-Filter by 'arch' field of system profile
+Filter by 'ansible' field of system profile
 
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_os_release</strong></td>
-<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td colspan="2" valign="top"><strong>spf_system_purpose</strong></td>
+<td valign="top"><a href="#filtersystempurpose">FilterSystemPurpose</a></td>
 <td>
 
-Filter by 'os_release' field of system profile
+Filter by 'system_purpose' field of system profile
 
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_os_kernel_version</strong></td>
-<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td colspan="2" valign="top"><strong>spf_rhsm</strong></td>
+<td valign="top"><a href="#filterrhsm">FilterRhsm</a></td>
 <td>
 
-Filter by 'os_kernel_version' field of system profile
+Filter by 'rhsm' field of system profile
 
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_infrastructure_type</strong></td>
-<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td colspan="2" valign="top"><strong>spf_rpm_ostree_deployments</strong></td>
+<td valign="top"><a href="#filterrpmostreedeployments">FilterRpmOstreeDeployments</a></td>
 <td>
 
-Filter by 'infrastructure_type' field of system profile
+Filter by 'rpm_ostree_deployments' field of system profile
 
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_infrastructure_vendor</strong></td>
-<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
-<td>
-
-Filter by 'infrastructure_vendor' field of system profile
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>spf_sap_system</strong></td>
+<td colspan="2" valign="top"><strong>spf_greenboot_fallback_detected</strong></td>
 <td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
 <td>
 
-Filter by 'sap_system' field of system profile
+Filter by 'greenboot_fallback_detected' field of system profile
 
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_sap_sids</strong></td>
+<td colspan="2" valign="top"><strong>spf_greenboot_status</strong></td>
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
 
-Filter by 'sap_sids' field of system profile
+Filter by 'greenboot_status' field of system profile
 
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_owner_id</strong></td>
+<td colspan="2" valign="top"><strong>spf_host_type</strong></td>
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
 
-Filter by 'owner_id' field of system profile
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>spf_insights_client_version</strong></td>
-<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
-<td>
-
-Filter by 'insights_client_version' field of system profile
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>spf_rhc_client_id</strong></td>
-<td valign="top"><a href="#filterstring">FilterString</a></td>
-<td>
-
-Filter by 'rhc_client_id' field of system profile
+Filter by 'host_type' field of system profile
 
 </td>
 </tr>
@@ -1248,6 +1578,240 @@ Filter by 'is_marketplace' field of system profile
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>spf_selinux_config_file</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'selinux_config_file' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_selinux_current_mode</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'selinux_current_mode' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_tuned_profile</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'tuned_profile' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_sap_version</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'sap_version' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_sap_instance_number</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'sap_instance_number' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_sap_sids</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'sap_sids' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_sap_system</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td>
+
+Filter by 'sap_system' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_enabled_services</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'enabled_services' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_installed_services</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'installed_services' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_gpg_pubkeys</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'gpg_pubkeys' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_installed_packages</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'installed_packages' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_captured_date</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'captured_date' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_insights_egg_version</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'insights_egg_version' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_insights_client_version</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Filter by 'insights_client_version' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_installed_products</strong></td>
+<td valign="top"><a href="#filterinstalledproducts">FilterInstalledProducts</a></td>
+<td>
+
+Filter by 'installed_products' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_dnf_modules</strong></td>
+<td valign="top"><a href="#filterdnfmodules">FilterDnfModules</a></td>
+<td>
+
+Filter by 'dnf_modules' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_cloud_provider</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'cloud_provider' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_satellite_managed</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td>
+
+Filter by 'satellite_managed' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_katello_agent_running</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td>
+
+Filter by 'katello_agent_running' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_subscription_auto_attach</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'subscription_auto_attach' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_subscription_status</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'subscription_status' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_last_boot_time</strong></td>
+<td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
+<td>
+
+Filter by 'last_boot_time' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_kernel_modules</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'kernel_modules' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_arch</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'arch' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_os_kernel_version</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Filter by 'os_kernel_version' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_os_release</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Filter by 'os_release' field of system profile
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>spf_operating_system</strong></td>
 <td valign="top"><a href="#filteroperatingsystem">FilterOperatingSystem</a></td>
 <td>
@@ -1257,20 +1821,137 @@ Filter by 'operating_system' field of system profile
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_ansible</strong></td>
-<td valign="top"><a href="#filteransible">FilterAnsible</a></td>
+<td colspan="2" valign="top"><strong>spf_cpu_flags</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
 
-Filter by 'ansible' field of system profile
+Filter by 'cpu_flags' field of system profile
 
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_host_type</strong></td>
+<td colspan="2" valign="top"><strong>spf_bios_version</strong></td>
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
 
-Filter by 'host_type' field of system profile
+Filter by 'bios_version' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_bios_vendor</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'bios_vendor' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_disk_devices</strong></td>
+<td valign="top"><a href="#filterdiskdevices">FilterDiskDevices</a></td>
+<td>
+
+Filter by 'disk_devices' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_network_interfaces</strong></td>
+<td valign="top"><a href="#filternetworkinterfaces">FilterNetworkInterfaces</a></td>
+<td>
+
+Filter by 'network_interfaces' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_infrastructure_vendor</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'infrastructure_vendor' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_infrastructure_type</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'infrastructure_type' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_system_memory_bytes</strong></td>
+<td valign="top"><a href="#filterint">FilterInt</a></td>
+<td>
+
+Filter by 'system_memory_bytes' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_cores_per_socket</strong></td>
+<td valign="top"><a href="#filterint">FilterInt</a></td>
+<td>
+
+Filter by 'cores_per_socket' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_number_of_sockets</strong></td>
+<td valign="top"><a href="#filterint">FilterInt</a></td>
+<td>
+
+Filter by 'number_of_sockets' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_number_of_cpus</strong></td>
+<td valign="top"><a href="#filterint">FilterInt</a></td>
+<td>
+
+Filter by 'number_of_cpus' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_cpu_model</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'cpu_model' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_rhc_config_state</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'rhc_config_state' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_rhc_client_id</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'rhc_client_id' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_owner_id</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'owner_id' field of system profile
 
 </td>
 </tr>
