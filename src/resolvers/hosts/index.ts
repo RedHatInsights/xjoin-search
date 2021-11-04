@@ -133,8 +133,7 @@ function buildSourceList(selectionSet: any) {
 }
 
 function customOperatingSystemSort(order_how: any) {
-    // Return the script sort:
-    // https://www.elastic.co/guide/en/elasticsearch/reference/current/sort-search-results.html#script-based-sorting
+    // Use a custom script sort
     return {
         _script: {
             type: 'string',
@@ -193,19 +192,6 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
         sort: processSort(args.order_by, args.order_how),
         _source: sourceList
     };
-
-    // const query: any = {
-    //     from: args.offset,
-    //     size: args.limit,
-    //     track_total_hits: true,
-
-    //     sort: [{
-    //         [processOrderBy(args.order_by, args.order_how)]: String(args.order_how)
-    //     }, {
-    //         id: 'ASC' // for deterministic sort order
-    //     }],
-    //     _source: sourceList
-    // };
 
     query.query = buildFilterQuery(args.filter, account_number);
 
