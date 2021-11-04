@@ -142,6 +142,26 @@ describe('hosts query', function () {
             expect(data).toMatchSnapshot();
         });
 
+        test('operating_system ASC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'operating_system',
+                order_how: 'ASC'
+            });
+
+            expect(status).toEqual(200);
+            expect(data).toMatchSnapshot();
+        });
+
+        test('operating_system DESC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'operating_system',
+                order_how: 'DESC'
+            });
+
+            expect(status).toEqual(200);
+            expect(data).toMatchSnapshot();
+        });
+
         test('modified_on DESC', async () => {
             const { data, status } = await runQuery(BASIC_QUERY, {
                 order_by: 'modified_on',
