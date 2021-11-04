@@ -1,5 +1,5 @@
 import { HostFilter } from '../generated/graphql';
-import { getResolver } from '../util/systemProfile';
+import { getTypeResolverFunction } from '../util/systemProfile';
 import { PrimativeTypeString } from '../util/systemProfile';
 import _ from 'lodash';
 
@@ -15,7 +15,7 @@ function term (field: string, filter: HostFilter | null | undefined, resolver: a
 
 export function filterObject(
     field: string,
-    filter: any,
+    filter: unknown,
     sub_field_names: string[],
     sub_field_types: PrimativeTypeString[]
 ): Record<string, any>[] {
@@ -29,9 +29,9 @@ export function filterObject(
         const type = sub_field[1];
 
         if (name !== undefined && type !== undefined) {
-            const resolver = getResolver(name, type, null);
+            const resolver = getTypeResolverFunction(type);
             if (resolver !== null) {
-                filter_terms.push(term(`${field}.${name}`, filter[name], resolver));
+                filter_terms.push(term(`${field}.${name}`, _.get(filter, `${name}`), resolver));
             }
         }
     });

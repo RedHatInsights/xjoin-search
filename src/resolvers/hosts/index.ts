@@ -79,7 +79,7 @@ async function resolverMapFromSchema(): Promise<HostFilterResolver[]> {
 
         const type: string = getFieldType(field_name, field_value);
 
-        const resolver: FilterResolver<any> | null = getResolver(field_name, type, field_value);
+        const resolver: FilterResolver<any> | null = getResolver(type, field_value);
 
         if (resolver !== null) {
             resolvers.push(
@@ -163,7 +163,12 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
     return query;
 }
 
-export default async function hosts(parent: any, args: QueryHostsArgs, context: any, info: any) {
+export default async function hosts(
+    parent: unknown,
+    args: QueryHostsArgs,
+    context: {account_number: string},
+    info: unknown): Promise<unknown>
+{
     checkLimit(args.limit);
     checkOffset(args.offset);
 

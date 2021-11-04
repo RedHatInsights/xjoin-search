@@ -6,9 +6,7 @@ import client from '../../es';
 import * as probes from '../../probes';
 import { getContext } from '../../../test';
 import { testLimitOffset } from '../test.common';
-import _ from 'lodash';
 import * as fs from 'fs';
-import { type } from 'os';
 
 const BASIC_QUERY = `
     query hosts (
@@ -352,6 +350,7 @@ describe('hosts query', function () {
                 const test_data: {'field_name': string, 'field_query': JSON}[] = getSPFTestData();
                 _checkTestDataExists(test_data);
 
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 test.each(test_data)('$field_name $field_query', async ({field_name, field_query}) => {
                     const { data } = await runQuery(BASIC_QUERY, {filter: field_query});
                     data.hosts.data.should.have.length(1);

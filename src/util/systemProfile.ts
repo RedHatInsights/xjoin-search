@@ -8,6 +8,7 @@ import { filterInt } from '../resolvers/inputInt';
 import { HostFilterResolver } from '../resolvers/hosts';
 
 export type PrimativeTypeString = 'string' | 'integer' | 'array' | 'wildcard' | 'object' | 'boolean' | 'date-time'
+export type PossiblyNestedJSONschema = JSONSchema | {JSONSchema: JSONSchema}
 
 function removeBlockedFields(schema:JSONSchema) {
     if (!schema.properties) {
@@ -15,7 +16,12 @@ function removeBlockedFields(schema:JSONSchema) {
     }
 
     for (const [key, value] of Object.entries(schema.properties)) {
-        if ('x-indexed' in value && value['x-indexed'] === false && key in schema.properties) {
+        if ('x-indexed' in value && value['x-indexed'] === false) {
+            // eslint incorrectly identifies the delete call as an object
+            // injection sink because of the use of a variable as the key.
+            // because we know the key exist on the object since we are iterating
+            // over the keys IN the object it is not a security risk.
+            // eslint-disable-next-line security/detect-object-injection
             delete schema.properties[key];
         } else if (value.type === 'object') {
             removeBlockedFields(value);
@@ -29,9 +35,20 @@ function removeBlockedFields(schema:JSONSchema) {
     return schema;
 }
 
-export function getItemsIfArray(field_value: {JSONSchema: JSONSchema}): JSONSchema {
+// verify that an object is JSONSchema type by checking for the "type"
+// property. Not foolproof theoretically, but all the fields we need
+// to check must hace a type anyways so it should work for all our applications
+function isJSONschema(obj: unknown): obj is JSONSchema {
+    return _.get(obj, 'type') !== undefined;
+}
+
+export function getItemsIfArray(field_value: JSONSchema): JSONSchema {
     if (_.has(field_value, 'items')) {
-        return _.get(field_value, "items");
+        if (isJSONschema(field_value.items)) {
+            return field_value.items;
+        }
+
+        throw 'Field_value is not JSONSchema';
     }
 
     return field_value;
@@ -77,7 +94,7 @@ export function getFieldType(field_name: string, field_value: unknown): Primativ
     }
 
     if (type === 'array') {
-        type = getFieldType(field_name, _.get(field_value, "items"));
+        type = getFieldType(field_name, _.get(field_value, 'items'));
     }
 
     if (type === undefined) {
@@ -99,7 +116,7 @@ export function getSubFieldNames(field_value: JSONSchema):string[] {
     return sub_field_names;
 }
 
-export function getSubFieldTypes(field_value: any):PrimativeTypeString[] {
+export function getSubFieldTypes(field_value: JSONSchema):PrimativeTypeString[] {
     const sub_field_types: PrimativeTypeString[] = [];
 
     field_value = getItemsIfArray(field_value);
@@ -111,34 +128,39 @@ export function getSubFieldTypes(field_value: any):PrimativeTypeString[] {
     return sub_field_types;
 }
 
-function createTypeResolverMap(): Map<string, any> {
-    const typeResolverMap = new Map<string, any>();
-    typeResolverMap.set('string', filterString);
-    typeResolverMap.set('integer', filterInt);
-    typeResolverMap.set('wildcard', filterStringWithWildcard);
-    typeResolverMap.set('boolean', filterBoolean);
-    typeResolverMap.set('object', filterObject);
-    typeResolverMap.set('date-time', filterTimestamp);
+function getTypeResolverMap(): Map<string, any> {
+    const type_resolver_map = new Map<string, any>();
+    type_resolver_map.set('string', filterString);
+    type_resolver_map.set('integer', filterInt);
+    type_resolver_map.set('wildcard', filterStringWithWildcard);
+    type_resolver_map.set('boolean', filterBoolean);
+    type_resolver_map.set('object', filterObject);
+    type_resolver_map.set('date-time', filterTimestamp);
 
-    return typeResolverMap;
+    return type_resolver_map;
 }
 
-export function getResolver(name: string, type: string, value: any): HostFilterResolver | null {
-    const typeResolverMap = createTypeResolverMap();
+export function getTypeResolverFunction(type: string): HostFilterResolver {
+    const type_resolver_map = getTypeResolverMap();
+    const resolver_function = type_resolver_map.get(type);
 
-    let resolverFunction = typeResolverMap.get(type);
-
-    if (resolverFunction === undefined) {
+    if (resolver_function === undefined) {
         throw 'resolver not found for schema entry ' + type;
     }
 
-    if (resolverFunction === filterObject) {
-        const sub_field_names: string[] = getSubFieldNames(value);
-        const sub_field_types: PrimativeTypeString[] = getSubFieldTypes(value);
-        resolverFunction = _.partialRight(resolverFunction, sub_field_names, sub_field_types);
+    return resolver_function;
+}
+
+export function getResolver(type: string, field_value: JSONSchema): HostFilterResolver {
+    let resolver_function = getTypeResolverFunction(type);
+
+    if (resolver_function === filterObject) {
+        const sub_field_names: string[] = getSubFieldNames(field_value);
+        const sub_field_types: PrimativeTypeString[] = getSubFieldTypes(field_value);
+        resolver_function = _.partialRight(resolver_function, sub_field_names, sub_field_types);
     }
 
-    return resolverFunction;
+    return resolver_function;
 }
 
 export function getOperationsForType(type: PrimativeTypeString):string[] {
