@@ -143,7 +143,7 @@ describe('hosts query', function () {
         });
 
         test('operating_system ASC', async () => {
-            const { data, status } = await runQuery(BASIC_QUERY, {
+            const { data, status } = await runQuery(SP_QUERY, {
                 order_by: 'operating_system',
                 order_how: 'ASC'
             });
@@ -153,7 +153,7 @@ describe('hosts query', function () {
         });
 
         test('operating_system DESC', async () => {
-            const { data, status } = await runQuery(BASIC_QUERY, {
+            const { data, status } = await runQuery(SP_QUERY, {
                 order_by: 'operating_system',
                 order_how: 'DESC'
             });
