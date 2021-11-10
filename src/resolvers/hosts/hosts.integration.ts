@@ -571,56 +571,56 @@ describe('hosts query', function () {
 
                 test('spf_ansible_controller_version_eq', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_ansible: {controller_version: { eq: '1.2.3' }}}});
+                        { filter: { spf_ansible: {controller_version: { AND: [{eq: '1.2.3'}]}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
 
                 test('spf_ansible_controller_version_wildcards', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_ansible: {controller_version: { matches: '*2*' }}}});
+                        { filter: { spf_ansible: {controller_version: { AND: [{ matches: '*2*'}]}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
 
                 test('spf_ansible_hub_version_eq', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_ansible: {hub_version: { eq: '4.5.6' }}}});
+                        { filter: { spf_ansible: {hub_version: { AND: [{ eq: '4.5.6' }]}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
                 });
 
                 test('spf_ansible_hub_version_wildcards', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_ansible: {hub_version: { matches: '*5*' }}}});
+                        { filter: { spf_ansible: {hub_version: { AND: [{ matches: '*5*' }]}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
                 });
 
                 test('spf_ansible_catalog_worker_version_eq', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_ansible: {catalog_worker_version: { eq: '7.8.9'}}}});
+                        { filter: { spf_ansible: {catalog_worker_version: { AND: [{ eq: '7.8.9'}]}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_ansible_catalog_worker_version_wildcards', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_ansible: {catalog_worker_version: { matches: '*8*'}}}});
+                        { filter: { spf_ansible: {catalog_worker_version: { AND: [{ matches: '*8*'}]}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_ansible_sso_version_eq', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_ansible: {catalog_worker_version: { eq: '7.8.9'}}}});
+                        { filter: { spf_ansible: {catalog_worker_version: { AND: [{ eq: '7.8.9'}]}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_ansible_sso_version_wildcards', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_ansible: {catalog_worker_version: { matches: '*8*'}}}});
+                        { filter: { spf_ansible: {catalog_worker_version: { AND: [{ matches: '*8*'}]}}}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
@@ -632,6 +632,25 @@ describe('hosts query', function () {
                             hub_version: { eq: '1.2.3' },
                             catalog_worker_version: { eq: '1.2.3' },
                             sso_version: { eq: '1.2.3' }
+                        }}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                });
+
+                test('spf_ansible_conjunction_or', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {
+                            controller_version: { OR: [{ eq: '1.2.3' }, { eq: '4.5.6' }]}
+                        }}});
+                    data.hosts.data.should.have.length(2);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                    data.hosts.data[1].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+                });
+
+                test('spf_ansible_conjunction_and', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_ansible: {
+                            controller_version: { AND: [{ matches: '1.*' }, { matches: '*.3' }]}
                         }}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');

@@ -41,13 +41,13 @@ export type CollectionMeta = {
 /** Filters hosts by Ansible facts */
 export type FilterAnsible = {
   /** Ansible Controller version */
-  controller_version?: Maybe<FilterStringWithWildcard>;
+  controller_version?: Maybe<Conjunction<FilterStringWithWildcard>>;
   /** Ansible Hub version */
-  hub_version?: Maybe<FilterStringWithWildcard>;
+  hub_version?: Maybe<Conjunction<FilterStringWithWildcard>>;
   /** Ansible Catalog Worker version */
-  catalog_worker_version?: Maybe<FilterStringWithWildcard>;
+  catalog_worker_version?: Maybe<Conjunction<FilterStringWithWildcard>>;
   /** Ansible SSO version */
-  sso_version?: Maybe<FilterStringWithWildcard>;
+  sso_version?: Maybe<Conjunction<FilterStringWithWildcard>>;
 };
 
 /** Basic filter for boolean fields. */
@@ -118,6 +118,18 @@ export type FilterStringWithWildcard = {
    * See [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html) for more details.
    */
   matches?: Maybe<Scalars['String']>;
+};
+
+/** Allows a field to be described as a conjunction of multiple values. */
+export type Conjunction<T> = {
+  /**
+   * Conjunction junction
+   */
+  AND?: Maybe<Array<T>>;
+  /**
+   * Disjunction junction
+   */
+   OR?: Maybe<Array<T>>;
 };
 
 /**
