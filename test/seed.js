@@ -15,24 +15,28 @@ async function run () {
         index
     });
 
-    await client.ingest.putPipeline({
-        id: 'test.hosts.v1',
-        body: {
-            description: 'Ingest pipeline for xjoin.inventory.hosts',
-            processors: [{
-                set: {
-                    field: 'ingest_timestamp',
-                    value: '{{_ingest.timestamp}}'
-                },
-                script: {
-                    lang: 'painless',
-                    if: 'ctx.tags_structured != null',
-                    // eslint-disable-next-line max-len
-                    source: `ctx.tags_search = ctx.tags_structured.stream().map(t -> { StringBuilder builder = new StringBuilder(); if (t.namespace != null && t.namespace != 'null') { builder.append(t.namespace); } builder.append('/'); builder.append(t.key); builder.append('='); if (t.value != null) { builder.append(t.value); } return builder.toString() }).collect(Collectors.toList()); ctx.tags_search_combined = ctx.tags_search[0].toLowerCase() + "|" + ctx.tags_search[0]`
-                }
-            }]
-        }
-    });
+    try {
+        await client.ingest.putPipeline({
+            id: 'test.hosts.v1',
+            body: {
+                description: 'Ingest pipeline for xjoin.inventory.hosts',
+                processors: [{
+                    set: {
+                        field: 'ingest_timestamp',
+                        value: '{{_ingest.timestamp}}'
+                    },
+                    script: {
+                        lang: 'painless',
+                        if: 'ctx.tags_structured != null',
+                        // eslint-disable-next-line max-len
+                        source: `ctx.tags_search = ctx.tags_structured.stream().map(t -> { StringBuilder builder = new StringBuilder(); if (t.namespace != null && t.namespace != 'null') { builder.append(t.namespace); } builder.append('/'); builder.append(t.key); builder.append('='); if (t.value != null) { builder.append(t.value); } return builder.toString() }).collect(Collectors.toList()); ctx.tags_search_combined = ctx.tags_search.stream().map(t -> {return t + "|" + t.toLowerCase()}).collect(Collectors.toList());`
+                    }
+                }]
+            }
+        });
+    } catch (error) {
+        console.log(error)
+    }
 
     await client.indices.putSettings({
         index,

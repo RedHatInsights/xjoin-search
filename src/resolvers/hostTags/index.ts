@@ -24,36 +24,30 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         _source: [],
         query: buildFilterQuery(args.hostFilter, context.account_number),
         size: 0,
-        // runtime_mappings: {
-        //     tags_search: {
-        //       type: "keyword",
-        //       script: "emit(doc['tags_search.lowercase'].value + \"|\" doc['tags_search.raw'].value)"
-        //     }
-        // },
         aggs: {
             tags: {
                 terms: {
+                    field: 'tags_search_combined',
                     size: config.queries.maxBuckets,
                     order: [{
                         [TAG_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
                     }, {
                         _key: 'ASC' // for deterministic sort order
                     }],
-                    show_term_doc_count_error: true,
+                    show_term_doc_count_error: true
                 }
             }
         }
     };
 
-    // search is done here
     if (args.filter && args.filter.search) {
         const search = args.filter.search;
         if (search.eq) {
-            body.aggs.tags.terms.field = 'tags_search'
+            body.aggs.tags.terms.field = 'tags_search';
             body.aggs.tags.terms.include = [search.eq];
         } else if (search.regex) {
-            body.aggs.tags.terms.field = 'tags_search_combined'
-            body.aggs.tags.terms.include = search.regex.toLowerCase() + "[|].*";
+            body.aggs.tags.terms.field = 'tags_search_combined';
+            body.aggs.tags.terms.include = '.*[|]' + search.regex.toLowerCase();
         }
     }
 
@@ -68,7 +62,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         offset
     );
 
-    console.log(page)
+    console.log(page);
 
     const data = _.map(page, bucket => {
 
@@ -91,9 +85,10 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         }
 
         let cased_tag: string;
-        //We need to prune of the case insensitive part
-        if (bucket.key.includes("|")) {
-            cased_tag = split(bucket.key, "|")[1];
+
+        // We need to prune of the case insensitive part if we used a Regex query
+        if (bucket.key.includes('|')) {
+            cased_tag = split(bucket.key, '|')[0];
         } else {
             cased_tag = bucket.key;
         }
