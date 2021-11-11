@@ -12,7 +12,7 @@ const TAG_ORDER_BY_MAPPING: { [key: string]: string } = {
     tag: '_key'
 };
 
-const TAG_CASE_DELIMITER = "{C|L}"
+const TAG_CASE_DELIMITER = 'c6509b6d-9646-4122-a16c-f536660c22ee';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default async function hostTags(parent: any, args: QueryHostTagsArgs, context: any): Promise<Record<string, unknown>> {
@@ -49,7 +49,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
             body.aggs.tags.terms.include = [search.eq];
         } else if (search.regex) {
             body.aggs.tags.terms.field = 'tags_search_combined';
-            body.aggs.tags.terms.include = '.*({C[|]L})' + search.regex.toLowerCase();
+            body.aggs.tags.terms.include = '.*(' + TAG_CASE_DELIMITER + ')' + search.regex.toLowerCase();
         }
     }
 
