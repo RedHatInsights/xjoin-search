@@ -53,7 +53,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
             body.aggs.tags.terms.include = [search.eq];
         } else if (search.regex) {
             body.aggs.tags.terms.field = 'tags_search_combined'
-            body.aggs.tags.terms.include = search.regex + "[|].*";
+            body.aggs.tags.terms.include = search.regex.toLowerCase() + "[|].*";
         }
     }
 
