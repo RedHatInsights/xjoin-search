@@ -62,8 +62,6 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         offset
     );
 
-    console.log(page);
-
     const data = _.map(page, bucket => {
 
         function split (value: string, delimiter: string) {

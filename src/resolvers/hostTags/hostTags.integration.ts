@@ -339,7 +339,7 @@ describe('host tags', function () {
                         }
                     }
                 });
-    
+
                 expect(status).toEqual(200);
                 data.hostTags.meta.should.have.property('total', 2);
                 data.hostTags.meta.should.have.property('count', 2);
@@ -355,7 +355,7 @@ describe('host tags', function () {
                         }
                     }
                 });
-    
+
                 expect(status).toEqual(200);
                 data.hostTags.meta.should.have.property('total', 2);
                 data.hostTags.meta.should.have.property('count', 2);
