@@ -47,7 +47,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
             body.aggs.tags.terms.include = [search.eq];
         } else if (search.regex) {
             body.aggs.tags.terms.field = 'tags_search_combined';
-            body.aggs.tags.terms.include = '.*[|]' + search.regex.toLowerCase();
+            body.aggs.tags.terms.include = '.*[{C|L}]' + search.regex.toLowerCase();
         }
     }
 
@@ -71,7 +71,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
                 throw new Error(`cannot split ${value} using ${delimiter}`);
             }
 
-            return [value.substring(0, index), value.substring(index + 1)];
+            return [value.substring(0, index), value.substring(index + delimiter.length)];
         }
 
         function normalizeTag (value: string, key: string) {
@@ -85,8 +85,8 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         let cased_tag: string;
 
         // We need to prune of the case insensitive part if we used a Regex query
-        if (bucket.key.includes('|')) {
-            cased_tag = split(bucket.key, '|')[0];
+        if (bucket.key.includes('{C|L}')) {
+            cased_tag = split(bucket.key, '{C|L}')[0];
         } else {
             cased_tag = bucket.key;
         }
