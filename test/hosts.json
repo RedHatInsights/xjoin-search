@@ -65,13 +65,18 @@
             "namespace": "insights-client",
             "key": "special/keyΔwithčhars",
             "value": "special/valueΔwithčhars!"
+        }, {
+            "namespace": "Sat",
+            "key": "MiXed",
+            "value": "CaSE"
         }],
         "tags_string": [
             "Sat/env/prod",
             "aws/region/us-east-2",
             "insights-client/web/",
             "insights-client/os/fedora",
-            "insights-client/special%2Fkey%CE%94with%C4%8Dhars/special%2Fvalue%CE%94with%C4%8Dhars%21"
+            "insights-client/special%2Fkey%CE%94with%C4%8Dhars/special%2Fvalue%CE%94with%C4%8Dhars%21",
+            "Sat/MiXed/CaSE"
         ],
         "facts": {
             "os": {
@@ -144,11 +149,16 @@
             "namespace": "insights-client",
             "key": "database",
             "value": null
+        }, {
+            "namespace": "saT",
+            "key": "mIXeD",
+            "value": "cASe"
         }],
         "tags_string": [
             "Sat/env/prod",
             "aws/region/us-east-1",
-            "insights-client/database/"
+            "insights-client/database/",
+            "saT/mIXeD/cASe"
         ]
     },
     {

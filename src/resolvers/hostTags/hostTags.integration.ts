@@ -238,6 +238,22 @@ describe('host tags', function () {
             expect(data).toMatchSnapshot();
         });
 
+        test('case insensitive', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                filter: {
+                    search: {
+                        regex: 'sat/mixed=case'
+                    }
+                }
+            });
+
+            expect(status).toEqual(200);
+            data.hostTags.meta.should.have.property('total', 2);
+            data.hostTags.meta.should.have.property('count', 2);
+            data.hostTags.data[0].should.have.property('count', 1);
+            data.hostTags.data[1].should.have.property('count', 1);
+        });
+
         describe('special characters', function () {
             const headers = {
                 [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'hostTagsSpecialChars', 'hostTagsSpecialChars', false)

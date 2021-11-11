@@ -31,6 +31,14 @@ Object {
       Object {
         "count": 1,
         "tag": Object {
+          "key": "MiXed",
+          "namespace": "Sat",
+          "value": "CaSE",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
           "key": "region",
           "namespace": "aws",
           "value": "us-east-1",
@@ -68,10 +76,18 @@ Object {
           "value": null,
         },
       },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "mIXeD",
+          "namespace": "saT",
+          "value": "cASe",
+        },
+      },
     ],
     "meta": Object {
-      "count": 8,
-      "total": 8,
+      "count": 10,
+      "total": 10,
     },
   },
 }
@@ -81,6 +97,14 @@ exports[`host tags host filters by id 1`] = `
 Object {
   "hostTags": Object {
     "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "MiXed",
+          "namespace": "Sat",
+          "value": "CaSE",
+        },
+      },
       Object {
         "count": 1,
         "tag": Object {
@@ -123,8 +147,8 @@ Object {
       },
     ],
     "meta": Object {
-      "count": 5,
-      "total": 5,
+      "count": 6,
+      "total": 6,
     },
   },
 }
@@ -174,10 +198,18 @@ Object {
           "value": "fedora",
         },
       },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "mIXeD",
+          "namespace": "saT",
+          "value": "cASe",
+        },
+      },
     ],
     "meta": Object {
-      "count": 5,
-      "total": 5,
+      "count": 6,
+      "total": 6,
     },
   },
 }
@@ -232,6 +264,14 @@ exports[`host tags ordering 1`] = `
 Object {
   "hostTags": Object {
     "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "MiXed",
+          "namespace": "Sat",
+          "value": "CaSE",
+        },
+      },
       Object {
         "count": 3,
         "tag": Object {
@@ -296,10 +336,18 @@ Object {
           "value": null,
         },
       },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "mIXeD",
+          "namespace": "saT",
+          "value": "cASe",
+        },
+      },
     ],
     "meta": Object {
-      "count": 8,
-      "total": 8,
+      "count": 10,
+      "total": 10,
     },
   },
 }
