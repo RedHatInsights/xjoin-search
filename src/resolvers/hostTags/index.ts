@@ -12,6 +12,8 @@ const TAG_ORDER_BY_MAPPING: { [key: string]: string } = {
     tag: '_key'
 };
 
+const TAG_CASE_DELIMITER = "{C|L}"
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default async function hostTags(parent: any, args: QueryHostTagsArgs, context: any): Promise<Record<string, unknown>> {
     checkLimit(args.limit);
@@ -47,7 +49,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
             body.aggs.tags.terms.include = [search.eq];
         } else if (search.regex) {
             body.aggs.tags.terms.field = 'tags_search_combined';
-            body.aggs.tags.terms.include = '.*[{C|L}]' + search.regex.toLowerCase();
+            body.aggs.tags.terms.include = '.*({C[|]L})' + search.regex.toLowerCase();
         }
     }
 
@@ -85,8 +87,8 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
         let cased_tag: string;
 
         // We need to prune of the case insensitive part if we used a Regex query
-        if (bucket.key.includes('{C|L}')) {
-            cased_tag = split(bucket.key, '{C|L}')[0];
+        if (bucket.key.includes(TAG_CASE_DELIMITER)) {
+            cased_tag = split(bucket.key, TAG_CASE_DELIMITER)[0];
         } else {
             cased_tag = bucket.key;
         }
