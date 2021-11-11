@@ -153,12 +153,17 @@
             "namespace": "saT",
             "key": "mIXeD",
             "value": "cASe"
+        }, {
+            "namespace": "sat",
+            "key": "mIxed",
+            "value": "spEcδČ"
         }],
         "tags_string": [
             "Sat/env/prod",
             "aws/region/us-east-1",
             "insights-client/database/",
-            "saT/mIXeD/cASe"
+            "saT/mIXeD/cASe",
+            "sat/mIxed/spEcδČ"
         ]
     },
     {
@@ -227,12 +232,17 @@
             "namespace": "insights-client",
             "key": "os",
             "value": "fedora"
+        }, {
+            "namespace": "Sat",
+            "key": "mixEd",
+            "value": "specΔč"
         }],
         "tags_string": [
             "Sat/env/prod",
             "aws/region/us-east-3",
             "insights-client/database/",
-            "insights-client/os/fedora"
+            "insights-client/os/fedora",
+            "Sat/mixEd/specΔč"
         ]
     },
     {

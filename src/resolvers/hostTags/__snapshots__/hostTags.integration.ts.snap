@@ -39,6 +39,14 @@ Object {
       Object {
         "count": 1,
         "tag": Object {
+          "key": "mixEd",
+          "namespace": "Sat",
+          "value": "specΔč",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
           "key": "region",
           "namespace": "aws",
           "value": "us-east-1",
@@ -76,18 +84,10 @@ Object {
           "value": null,
         },
       },
-      Object {
-        "count": 1,
-        "tag": Object {
-          "key": "mIXeD",
-          "namespace": "saT",
-          "value": "cASe",
-        },
-      },
     ],
     "meta": Object {
       "count": 10,
-      "total": 10,
+      "total": 12,
     },
   },
 }
@@ -177,6 +177,14 @@ Object {
       Object {
         "count": 1,
         "tag": Object {
+          "key": "mixEd",
+          "namespace": "Sat",
+          "value": "specΔč",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
           "key": "region",
           "namespace": "aws",
           "value": "us-east-1",
@@ -206,10 +214,18 @@ Object {
           "value": "cASe",
         },
       },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "mIxed",
+          "namespace": "sat",
+          "value": "spEcδČ",
+        },
+      },
     ],
     "meta": Object {
-      "count": 6,
-      "total": 6,
+      "count": 8,
+      "total": 8,
     },
   },
 }
@@ -225,6 +241,14 @@ Object {
           "key": "env",
           "namespace": "Sat",
           "value": "prod",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "mixEd",
+          "namespace": "Sat",
+          "value": "specΔč",
         },
       },
       Object {
@@ -253,8 +277,8 @@ Object {
       },
     ],
     "meta": Object {
-      "count": 4,
-      "total": 4,
+      "count": 5,
+      "total": 5,
     },
   },
 }
@@ -278,6 +302,14 @@ Object {
           "key": "env",
           "namespace": "Sat",
           "value": "prod",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "mixEd",
+          "namespace": "Sat",
+          "value": "specΔč",
         },
       },
       Object {
@@ -336,18 +368,10 @@ Object {
           "value": null,
         },
       },
-      Object {
-        "count": 1,
-        "tag": Object {
-          "key": "mIXeD",
-          "namespace": "saT",
-          "value": "cASe",
-        },
-      },
     ],
     "meta": Object {
       "count": 10,
-      "total": 10,
+      "total": 12,
     },
   },
 }
