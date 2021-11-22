@@ -139,9 +139,20 @@ function customOperatingSystemSort(order_how: any) {
             type: 'string',
             script: {
                 lang: 'painless',
-                source: `doc['system_profile_facts.operating_system.name'].value + ' '
-                + doc['system_profile_facts.operating_system.major'].value + '.'
-                + doc['system_profile_facts.operating_system.minor'].value`
+                source: `
+                String name = '';
+                long major = 0;
+                long minor = 0;
+                if (doc['system_profile_facts.operating_system.name'].size() != 0) {
+                    name = doc['system_profile_facts.operating_system.name'].value;
+                }
+                if (doc['system_profile_facts.operating_system.major'].size() != 0) {
+                    major = doc['system_profile_facts.operating_system.major'].value;
+                }
+                if (doc['system_profile_facts.operating_system.minor'].size() != 0) {
+                    minor = doc['system_profile_facts.operating_system.minor'].value;
+                }
+                return name + ' ' + major + '.' + minor;`
             },
             order: String(order_how)
         }

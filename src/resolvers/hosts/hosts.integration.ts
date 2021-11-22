@@ -550,9 +550,12 @@ describe('hosts query', function () {
                 test('spf_operating_system_name', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {name: { eq: 'RHEL'}}}});
-                    data.hosts.data.should.have.length(2);
+                    data.hosts.data.should.have.length(5);
                     data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
                     data.hosts.data[1].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                    data.hosts.data[2].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bc01');
+                    data.hosts.data[3].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bc03');
+                    data.hosts.data[4].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bc04');
                 });
 
                 test('spf_operating_system_combined', async () => {

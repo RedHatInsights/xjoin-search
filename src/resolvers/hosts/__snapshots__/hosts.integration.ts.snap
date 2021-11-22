@@ -151,6 +151,42 @@ Object {
         "reporter": "puptoo",
         "stale_timestamp": "2030-03-10T08:07:03.354307Z",
       },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test04.rhel.aprice.local",
+        "display_name": "test4.rhel.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
     ],
   },
 }
@@ -187,6 +223,42 @@ Object {
         "reporter": "puptoo",
         "stale_timestamp": "2030-03-10T08:07:03.354307Z",
       },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test04.rhel.aprice.local",
+        "display_name": "test4.rhel.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
     ],
   },
 }
@@ -196,6 +268,42 @@ exports[`hosts query ordering display_name DESC 1`] = `
 Object {
   "hosts": Object {
     "data": Array [
+      Object {
+        "account": "test",
+        "ansible_host": "test04.rhel.aprice.local",
+        "display_name": "test4.rhel.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
       Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
@@ -234,6 +342,42 @@ Object {
     "data": Array [
       Object {
         "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test04.rhel.aprice.local",
+        "display_name": "test4.rhel.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
@@ -270,6 +414,17 @@ Object {
     "data": Array [
       Object {
         "account": "test",
+        "display_name": "test2.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "system_profile_facts": Object {
+          "operating_system": Object {
+            "major": 8,
+          },
+          "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
+        },
+      },
+      Object {
+        "account": "test",
         "display_name": "test03.rhel7.jharting.local",
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "system_profile_facts": Object {
@@ -304,6 +459,29 @@ Object {
           "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
           "satellite_managed": false,
           "system_memory_bytes": 511451136,
+        },
+      },
+      Object {
+        "account": "test",
+        "display_name": "test1.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "system_profile_facts": Object {
+          "operating_system": Object {
+            "name": "RHEL",
+          },
+          "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
+        },
+      },
+      Object {
+        "account": "test",
+        "display_name": "test4.rhel.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "system_profile_facts": Object {
+          "operating_system": Object {
+            "minor": 7,
+            "name": "RHEL",
+          },
+          "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
         },
       },
       Object {
@@ -375,6 +553,18 @@ Object {
           "rhc_client_id": "33cd8e39-13bb-4d02-8316-84b850dc5136",
           "satellite_managed": false,
           "system_memory_bytes": 511451136,
+        },
+      },
+      Object {
+        "account": "test",
+        "display_name": "test3.rhel8.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "system_profile_facts": Object {
+          "operating_system": Object {
+            "major": 8,
+            "name": "RHEL",
+          },
+          "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
         },
       },
     ],
@@ -388,6 +578,18 @@ Object {
     "data": Array [
       Object {
         "account": "test",
+        "display_name": "test3.rhel8.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "system_profile_facts": Object {
+          "operating_system": Object {
+            "major": 8,
+            "name": "RHEL",
+          },
+          "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
+        },
+      },
+      Object {
+        "account": "test",
         "display_name": "test01.rhel7.jharting.local",
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
         "system_profile_facts": Object {
@@ -459,6 +661,29 @@ Object {
       },
       Object {
         "account": "test",
+        "display_name": "test4.rhel.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "system_profile_facts": Object {
+          "operating_system": Object {
+            "minor": 7,
+            "name": "RHEL",
+          },
+          "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
+        },
+      },
+      Object {
+        "account": "test",
+        "display_name": "test1.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "system_profile_facts": Object {
+          "operating_system": Object {
+            "name": "RHEL",
+          },
+          "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
+        },
+      },
+      Object {
+        "account": "test",
         "display_name": "test03.rhel7.jharting.local",
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "system_profile_facts": Object {
@@ -493,6 +718,17 @@ Object {
           "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
           "satellite_managed": false,
           "system_memory_bytes": 511451136,
+        },
+      },
+      Object {
+        "account": "test",
+        "display_name": "test2.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "system_profile_facts": Object {
+          "operating_system": Object {
+            "major": 8,
+          },
+          "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
         },
       },
     ],
@@ -627,6 +863,42 @@ Object {
         "reporter": "puptoo",
         "stale_timestamp": "2030-03-10T08:07:03.354307Z",
       },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test04.rhel.aprice.local",
+        "display_name": "test4.rhel.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
     ],
   },
 }
@@ -650,6 +922,42 @@ Object {
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test04.rhel.aprice.local",
+        "display_name": "test4.rhel.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "reporter": "puptoo",
         "stale_timestamp": "2030-03-10T08:07:03.354307Z",
@@ -879,6 +1187,46 @@ Object {
           ],
           "meta": Object {
             "total": 4,
+          },
+        },
+      },
+      Object {
+        "display_name": "test1.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "tags": Object {
+          "data": Array [],
+          "meta": Object {
+            "total": 0,
+          },
+        },
+      },
+      Object {
+        "display_name": "test2.rhel7.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "tags": Object {
+          "data": Array [],
+          "meta": Object {
+            "total": 0,
+          },
+        },
+      },
+      Object {
+        "display_name": "test3.rhel8.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "tags": Object {
+          "data": Array [],
+          "meta": Object {
+            "total": 0,
+          },
+        },
+      },
+      Object {
+        "display_name": "test4.rhel.aprice.local",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "tags": Object {
+          "data": Array [],
+          "meta": Object {
+            "total": 0,
           },
         },
       },
