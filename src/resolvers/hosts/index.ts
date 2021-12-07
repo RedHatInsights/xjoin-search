@@ -142,7 +142,7 @@ function customOperatingSystemSort(order_how: any) {
                 source: `
                 String name = '';
                 long major = 0;
-                long minor = 0;
+                String minor = '0';
                 if (doc['system_profile_facts.operating_system.name'].size() != 0) {
                     name = doc['system_profile_facts.operating_system.name'].value;
                 }
@@ -150,7 +150,7 @@ function customOperatingSystemSort(order_how: any) {
                     major = doc['system_profile_facts.operating_system.major'].value;
                 }
                 if (doc['system_profile_facts.operating_system.minor'].size() != 0) {
-                    minor = doc['system_profile_facts.operating_system.minor'].value;
+                    minor = String.format('%010d', new def[] {doc['system_profile_facts.operating_system.minor'].value});
                 }
                 return name + ' ' + major + '.' + minor;`
             },
