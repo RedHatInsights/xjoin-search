@@ -21,7 +21,10 @@ function buildDestination () {
         stream: pino.destination(1),
         level: config.logging.level as Level
     }, {
-        stream: pinoCW(cwOptions),
+        stream: pinoCW(cwOptions, (e: any) => {
+            console.log("Unable to connect to cloudwatch")
+            console.log(e);
+        }),
         level: config.logging.level as Level
     }]);
 }
