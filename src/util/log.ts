@@ -22,7 +22,9 @@ function buildDestination () {
         level: config.logging.level as Level
     }, {
         stream: pinoCW(cwOptions, (e: any) => {
-            console.log("Unable to connect to cloudwatch")
+            // eslint-disable-next-line
+            console.log("Unable to connect to cloudwatch");
+            // eslint-disable-next-line
             console.log(e);
         }),
         level: config.logging.level as Level
