@@ -710,6 +710,15 @@ Timestamp field filter with support for common operations.
 </thead>
 <tbody>
 <tr>
+<td colspan="2" valign="top"><strong>eq</strong></td>
+<td valign="top"><a href="#int">Int</a></td>
+<td>
+
+Equal to
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>lt</strong></td>
 <td valign="top"><a href="#int">Int</a></td>
 <td>
@@ -775,7 +784,7 @@ Major release version (0-99)
 <td valign="top"><a href="#filterint">FilterInt</a></td>
 <td>
 
-Minor release version (0-99
+Minor release version (0-99)
 
 </td>
 </tr>

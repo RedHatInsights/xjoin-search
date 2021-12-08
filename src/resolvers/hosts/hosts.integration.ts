@@ -568,6 +568,17 @@ describe('hosts query', function () {
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
+
+                test('spf_operating_system_eq', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_operating_system: {
+                            name: { eq: 'RHEL'},
+                            major: { eq: 7 },
+                            minor: { eq: 3 }
+                        }}});
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                });
             });
 
             describe('ansible', function () {
