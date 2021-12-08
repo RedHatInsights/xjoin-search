@@ -3,242 +3,501 @@ kind: Template
 metadata:
   name: xjoin-search
 objects:
-
-- apiVersion: cloud.redhat.com/v1alpha1
-  kind: ClowdApp
-  metadata:
-    name: xjoin-search
-  spec:
-    envName: ${ENV_NAME}
-
-    deployments:
-    - name: api
-      minReplicas: ${{NUM_REPLICAS}}
-      web: true
-      podSpec:
-        image: ${IMAGE}:${IMAGE_TAG}
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /health
-            port: metrics
-            scheme: HTTP
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 5
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /health
-            port: metrics
-            scheme: HTTP
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 5
-        env:
-          - name: LOG_LEVEL
-            value: ${LOG_LEVEL}
-          - name: LOG_PRETTY
-            value: ${LOG_PRETTY}
-          - name: NODE_ENV
-            value: ${NODE_ENV}
-          - name: ES_NODES
-            value: "http://xjoin-elasticsearch-es-default:9200"
-          - name: ES_USERNAME
-            value: "elastic"
-          - name: ES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: elastic
-                name: xjoin-elasticsearch-es-elastic-user
-          - name: HOSTS_INDEX
-            value: ${HOSTS_INDEX}
-
-        resources:
-          limits:
-            cpu: ${CPU_LIMITS}
-            memory: ${MEMORY_LIMITS}
-          requests:
-            cpu: ${CPU_REQUESTS}
-            memory: ${MEMORY_REQUESTS}
-
-    jobs:
-    - name: heartbeat
-      schedule: ${HEARTBEAT_SCHEDULE}
-      suspend: ${{HEARTBEAT_SUSPEND}}
-      podSpec:
-        image: ${HEARTBEAT_IMAGE}:${HEARTBEAT_IMAGE_TAG}
-        restartPolicy: Never
-        env:
-          - name: INGRESS_HOST
-            value: ${INGRESS_HOST}
-          - name: INGRESS_PORT
-            value: ${INGRESS_PORT}
-          - name: INGRESS_PROTOCOL
-            value: ${INGRESS_PROTOCOL}
-        resources:
-          limits:
-            cpu: 51m
-            memory: 51Mi
-          requests:
-            cpu: 50m
-            memory: 50Mi
-
-# this service proxies requests for the old URL (xjoin-search:4000) to the clowderized service (xjoin-search-api:8000)
-- apiVersion: v1
-  kind: Service
-  metadata:
-    labels:
-      app: xjoin-search
-    name: xjoin-search
-  spec:
-    ports:
-    - port: 4000
-      protocol: TCP
-      targetPort: web
-    selector:
-      pod: xjoin-search-api
-
-# xjoin pipeline components
-- apiVersion: elasticsearch.k8s.elastic.co/v1
-  kind: Elasticsearch
-  metadata:
-    name: xjoin-elasticsearch
-  spec:
-    http:
-      service:
-        metadata:
-          creationTimestamp: null
-        spec: {}
-      tls:
-        selfSignedCertificate:
-          disabled: true
-    version: 7.13.0
-    nodeSets:
-      - name: default
-        podTemplate:
-          spec:
-            volumes:
-            - name: elasticsearch-data
-              emptyDir: {}
-            containers:
-            - name: elasticsearch
-              resources:
-                limits:
-                  cpu: 1
-                  memory: 2Gi
-                requests:
-                  cpu: 250m
-                  memory: 1Gi
-        count: 1
-        config:
-          node.store.allow_mmap: false
-
-- apiVersion: xjoin.cloud.redhat.com/v1alpha1
-  kind: XJoinPipeline
-  metadata:
-    name: xjoinpipeline
-  spec:
-    pause: false
-    ephemeral: true
-
-- apiVersion: networking.k8s.io/v1
-  kind: NetworkPolicy
-  metadata:
-    name: allow-from-xjoin-operator-namespace
-  spec:
-    ingress:
-      - from:
-          - namespaceSelector:
-              matchLabels:
-                kubernetes.io/metadata.name: xjoin
-    podSelector: {}
-    policyTypes:
-      - Ingress
-
-- apiVersion: v1
-  kind: ConfigMap
-  metadata:
-    name: xjoin
-  data:
-    init.validation.attempts.threshold: "5"
-    init.validation.interval: "15"
-    init.validation.percentage.threshold: "5"
-    standard.interval: "60"
-    validation.attempts.threshold: "5"
-    validation.interval: "60"
-    validation.percentage.threshold: "5"
-    debezium.connector.config: >-
-      {
-        "tasks.max": "{{.DebeziumTasksMax}}",
-        "database.hostname": "{{.HBIDBHost}}",
-        "database.port": "{{.HBIDBPort}}",
-        "database.user": "{{.HBIDBUser}}",
-        "database.password": "{{.HBIDBPassword}}",
-        "database.dbname": "{{.HBIDBName}}",
-        "database.server.name": "{{.ResourceNamePrefix}}.{{.Version}}",
-        "database.sslmode": "{{.HBIDBSSLMode}}",
-        "database.sslrootcert": "{{.HBIDBSSLRootCert}}",
-        "table.whitelist": "public.hosts",
-        "plugin.name": "pgoutput",
-        "transforms": "unwrap",
-        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
-        "transforms.unwrap.delete.handling.mode": "rewrite",
-        "errors.log.enable": {{.DebeziumErrorsLogEnable}},
-        "errors.log.include.messages": true,
-        "slot.name": "{{.ReplicationSlotName}}",
-        "max.queue.size": {{.DebeziumQueueSize}},
-        "max.batch.size": {{.DebeziumMaxBatchSize}},
-        "poll.interval.ms": {{.DebeziumPollIntervalMS}}
-      }
-
+  - apiVersion: cloud.redhat.com/v1alpha1
+    kind: ClowdApp
+    metadata:
+      name: xjoin-search
+    spec:
+      envName: ${ENV_NAME}
+      deployments:
+        - name: api
+          minReplicas: ${{NUM_REPLICAS}}
+          web: true
+          podSpec:
+            image: ${IMAGE}:${IMAGE_TAG}
+            livenessProbe:
+              failureThreshold: 3
+              httpGet:
+                path: /health
+                port: metrics
+                scheme: HTTP
+              initialDelaySeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 5
+            readinessProbe:
+              failureThreshold: 3
+              httpGet:
+                path: /health
+                port: metrics
+                scheme: HTTP
+              initialDelaySeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 5
+            env:
+              - name: LOG_LEVEL
+                value: ${LOG_LEVEL}
+              - name: LOG_PRETTY
+                value: ${LOG_PRETTY}
+              - name: NODE_ENV
+                value: ${NODE_ENV}
+              - name: ES_NODES
+                value: http://xjoin-elasticsearch-es-default:9200
+              - name: ES_USERNAME
+                value: elastic
+              - name: ES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    key: elastic
+                    name: xjoin-elasticsearch-es-elastic-user
+              - name: HOSTS_INDEX
+                value: ${HOSTS_INDEX}
+            resources:
+              limits:
+                cpu: ${CPU_LIMITS}
+                memory: ${MEMORY_LIMITS}
+              requests:
+                cpu: ${CPU_REQUESTS}
+                memory: ${MEMORY_REQUESTS}
+      jobs:
+        - name: heartbeat
+          schedule: ${HEARTBEAT_SCHEDULE}
+          suspend: ${{HEARTBEAT_SUSPEND}}
+          podSpec:
+            image: ${HEARTBEAT_IMAGE}:${HEARTBEAT_IMAGE_TAG}
+            restartPolicy: Never
+            env:
+              - name: INGRESS_HOST
+                value: ${INGRESS_HOST}
+              - name: INGRESS_PORT
+                value: ${INGRESS_PORT}
+              - name: INGRESS_PROTOCOL
+                value: ${INGRESS_PROTOCOL}
+            resources:
+              limits:
+                cpu: 51m
+                memory: 51Mi
+              requests:
+                cpu: 50m
+                memory: 50Mi
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: xjoin-search
+      name: xjoin-search
+    spec:
+      ports:
+        - port: 4000
+          protocol: TCP
+          targetPort: web
+      selector:
+        pod: xjoin-search-api
+  - apiVersion: elasticsearch.k8s.elastic.co/v1
+    kind: Elasticsearch
+    metadata:
+      name: xjoin-elasticsearch
+    spec:
+      http:
+        service:
+          metadata:
+            creationTimestamp: null
+          spec: {}
+        tls:
+          selfSignedCertificate:
+            disabled: true
+      version: 7.13.0
+      nodeSets:
+        - name: default
+          podTemplate:
+            spec:
+              volumes:
+                - name: elasticsearch-data
+                  emptyDir: {}
+              containers:
+                - name: elasticsearch
+                  resources:
+                    limits:
+                      cpu: 1
+                      memory: 2Gi
+                    requests:
+                      cpu: 250m
+                      memory: 1Gi
+          count: 1
+          config:
+            node.store.allow_mmap: false
+  - apiVersion: xjoin.cloud.redhat.com/v1alpha1
+    kind: XJoinPipeline
+    metadata:
+      name: xjoinpipeline
+    spec:
+      pause: false
+      ephemeral: true
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: allow-from-xjoin-operator-namespace
+    spec:
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  kubernetes.io/metadata.name: xjoin
+      podSelector: {}
+      policyTypes:
+        - Ingress
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: xjoin
+    data:
+      init.validation.attempts.threshold: '5'
+      init.validation.interval: '15'
+      init.validation.percentage.threshold: '5'
+      standard.interval: '60'
+      validation.attempts.threshold: '5'
+      validation.interval: '60'
+      validation.percentage.threshold: '5'
+      debezium.connector.config: |-
+        {
+          "tasks.max": "{{.DebeziumTasksMax}}",
+          "database.hostname": "{{.HBIDBHost}}",
+          "database.port": "{{.HBIDBPort}}",
+          "database.user": "{{.HBIDBUser}}",
+          "database.password": "{{.HBIDBPassword}}",
+          "database.dbname": "{{.HBIDBName}}",
+          "database.server.name": "{{.ResourceNamePrefix}}.{{.Version}}",
+          "database.sslmode": "{{.HBIDBSSLMode}}",
+          "database.sslrootcert": "{{.HBIDBSSLRootCert}}",
+          "table.whitelist": "public.hosts",
+          "plugin.name": "pgoutput",
+          "transforms": "unwrap",
+          "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+          "transforms.unwrap.delete.handling.mode": "rewrite",
+          "errors.log.enable": {{.DebeziumErrorsLogEnable}},
+          "errors.log.include.messages": true,
+          "slot.name": "{{.ReplicationSlotName}}",
+          "max.queue.size": {{.DebeziumQueueSize}},
+          "max.batch.size": {{.DebeziumMaxBatchSize}},
+          "poll.interval.ms": {{.DebeziumPollIntervalMS}}
+        }
+      elasticsearch.index.template: |-
+        >-
+        {
+          "owner_id": {
+            "type": "keyword"
+          },
+          "rhc_client_id": {
+            "type": "keyword"
+          },
+          "rhc_config_state": {
+            "type": "keyword"
+          },
+          "cpu_model": {
+            "type": "keyword"
+          },
+          "number_of_cpus": {
+            "type": "integer"
+          },
+          "number_of_sockets": {
+            "type": "integer"
+          },
+          "cores_per_socket": {
+            "type": "integer"
+          },
+          "system_memory_bytes": {
+            "type": "integer"
+          },
+          "infrastructure_type": {
+            "type": "keyword"
+          },
+          "infrastructure_vendor": {
+            "type": "keyword"
+          },
+          "network_interfaces": {
+            "type": "object",
+            "properties": {
+              "ipv4_addresses": {
+                "type": "keyword"
+              },
+              "ipv6_addresses": {
+                "type": "keyword"
+              },
+              "mtu": {
+                "type": "integer"
+              },
+              "mac_address": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "keyword"
+              },
+              "state": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          },
+          "disk_devices": {
+            "type": "object",
+            "properties": {
+              "device": {
+                "type": "keyword"
+              },
+              "label": {
+                "type": "text"
+              },
+              "mount_point": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          },
+          "bios_vendor": {
+            "type": "keyword"
+          },
+          "bios_version": {
+            "type": "keyword"
+          },
+          "cpu_flags": {
+            "type": "keyword"
+          },
+          "operating_system": {
+            "type": "object",
+            "properties": {
+              "major": {
+                "type": "integer"
+              },
+              "minor": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "keyword"
+              }
+            }
+          },
+          "os_release": {
+            "type": "keyword"
+          },
+          "os_kernel_version": {
+            "type": "keyword"
+          },
+          "arch": {
+            "type": "keyword"
+          },
+          "kernel_modules": {
+            "type": "keyword"
+          },
+          "last_boot_time": {
+            "type": "keyword"
+          },
+          "subscription_status": {
+            "type": "keyword"
+          },
+          "subscription_auto_attach": {
+            "type": "keyword"
+          },
+          "katello_agent_running": {
+            "type": "boolean"
+          },
+          "satellite_managed": {
+            "type": "boolean"
+          },
+          "cloud_provider": {
+            "type": "keyword"
+          },
+          "dnf_modules": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "keyword"
+              },
+              "stream": {
+                "type": "keyword"
+              }
+            }
+          },
+          "installed_products": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "keyword"
+              },
+              "id": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "keyword"
+              }
+            }
+          },
+          "insights_client_version": {
+            "type": "keyword"
+          },
+          "insights_egg_version": {
+            "type": "keyword"
+          },
+          "captured_date": {
+            "type": "keyword"
+          },
+          "installed_packages": {
+            "type": "keyword"
+          },
+          "gpg_pubkeys": {
+            "type": "keyword"
+          },
+          "installed_services": {
+            "type": "keyword"
+          },
+          "enabled_services": {
+            "type": "keyword"
+          },
+          "sap_system": {
+            "type": "boolean"
+          },
+          "sap_sids": {
+            "type": "keyword"
+          },
+          "sap_instance_number": {
+            "type": "keyword"
+          },
+          "sap_version": {
+            "type": "keyword"
+          },
+          "tuned_profile": {
+            "type": "keyword"
+          },
+          "selinux_current_mode": {
+            "type": "keyword"
+          },
+          "selinux_config_file": {
+            "type": "keyword"
+          },
+          "is_marketplace": {
+            "type": "boolean"
+          },
+          "host_type": {
+            "type": "keyword"
+          },
+          "greenboot_status": {
+            "type": "keyword"
+          },
+          "greenboot_fallback_detected": {
+            "type": "boolean"
+          },
+          "rpm_ostree_deployments": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "keyword"
+              },
+              "checksum": {
+                "type": "keyword"
+              },
+              "origin": {
+                "type": "keyword"
+              },
+              "osname": {
+                "type": "keyword"
+              },
+              "version": {
+                "type": "keyword"
+              },
+              "booted": {
+                "type": "boolean"
+              },
+              "pinned": {
+                "type": "boolean"
+              }
+            }
+          },
+          "rhsm": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "keyword"
+              }
+            }
+          },
+          "system_purpose": {
+            "type": "object",
+            "properties": {
+              "usage": {
+                "type": "keyword"
+              },
+              "role": {
+                "type": "keyword"
+              },
+              "sla": {
+                "type": "keyword"
+              }
+            }
+          },
+          "ansible": {
+            "type": "object",
+            "properties": {
+              "controller_version": {
+                "type": "keyword"
+              },
+              "hub_version": {
+                "type": "keyword"
+              },
+              "catalog_worker_version": {
+                "type": "keyword"
+              },
+              "sso_version": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
 parameters:
-- name: LOG_LEVEL
-  value: debug
-- name: LOG_PRETTY
-  value: 'false'
-- description: Can be "production", "development", "test"
-  name: NODE_ENV
-  value: production
-- name: HOSTS_INDEX
-  value: xjoin.inventory.hosts
-- name: CPU_REQUESTS
-  value: 100m
-- name: CPU_LIMITS
-  value: 200m
-- name: MEMORY_REQUESTS
-  value: 256Mi
-- name: MEMORY_LIMITS
-  value: 512Mi
-- name: NUM_REPLICAS
-  value: '1'
-- name: ES_USERNAME
-  value: ''
-- name: ES_PASSWORD
-  value: ''
-
-- name: INGRESS_HOST
-  value: ingress-service
-- name: INGRESS_PORT
-  value: '8000'
-- name: INGRESS_PROTOCOL
-  value: 'http'
-- name: HEARTBEAT_IMAGE
-  value: 'quay.io/cloudservices/inventory-heartbeat'
-- name: HEARTBEAT_IMAGE_TAG
-  value: 'latest'
-- name: HEARTBEAT_SUSPEND
-  value: 'true'
-- name: HEARTBEAT_SCHEDULE
-  value: '@hourly'
-
-- name: IMAGE_TAG
-  required: true
-- name: IMAGE
-  value: quay.io/cloudservices/xjoin-search
-
-- description : ClowdEnvironment name
-  name: ENV_NAME
-  required: true
+  - name: LOG_LEVEL
+    value: debug
+  - name: LOG_PRETTY
+    value: 'false'
+  - description: Can be "production", "development", "test"
+    name: NODE_ENV
+    value: production
+  - name: HOSTS_INDEX
+    value: xjoin.inventory.hosts
+  - name: CPU_REQUESTS
+    value: 100m
+  - name: CPU_LIMITS
+    value: 200m
+  - name: MEMORY_REQUESTS
+    value: 256Mi
+  - name: MEMORY_LIMITS
+    value: 512Mi
+  - name: NUM_REPLICAS
+    value: '1'
+  - name: ES_USERNAME
+    value: ''
+  - name: ES_PASSWORD
+    value: ''
+  - name: INGRESS_HOST
+    value: ingress-service
+  - name: INGRESS_PORT
+    value: '8000'
+  - name: INGRESS_PROTOCOL
+    value: http
+  - name: HEARTBEAT_IMAGE
+    value: quay.io/cloudservices/inventory-heartbeat
+  - name: HEARTBEAT_IMAGE_TAG
+    value: latest
+  - name: HEARTBEAT_SUSPEND
+    value: 'true'
+  - name: HEARTBEAT_SCHEDULE
+    value: '@hourly'
+  - name: IMAGE_TAG
+    required: true
+  - name: IMAGE
+    value: quay.io/cloudservices/xjoin-search
+  - description: ClowdEnvironment name
+    name: ENV_NAME
+    required: true
