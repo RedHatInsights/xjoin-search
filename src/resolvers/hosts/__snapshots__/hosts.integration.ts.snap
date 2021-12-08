@@ -545,7 +545,7 @@ Object {
           "number_of_sockets": 1,
           "operating_system": Object {
             "major": 7,
-            "minor": 4,
+            "minor": 11,
             "name": "RHEL",
           },
           "os_kernel_version": "3.10.0",
@@ -614,7 +614,7 @@ Object {
           "number_of_sockets": 1,
           "operating_system": Object {
             "major": 7,
-            "minor": 4,
+            "minor": 11,
             "name": "RHEL",
           },
           "os_kernel_version": "3.10.0",
