@@ -226,6 +226,9 @@ input FilterTag {
 Timestamp field filter with support for common operations.
 """
 input FilterInt {
+    "Equal to"
+    eq: Int
+
     "Less than"
     lt: Int
 
@@ -246,7 +249,7 @@ input FilterOperatingSystem {
     "Major release version (0-99)"
     major: FilterInt,
 
-    "Minor release version (0-99"
+    "Minor release version (0-99)"
     minor: FilterInt,
 
     "Name of distro (max 4 chars e.g. RHEL)"

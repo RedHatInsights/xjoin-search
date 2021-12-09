@@ -61,6 +61,8 @@ export type FilterBoolean = {
 
 /** Timestamp field filter with support for common operations. */
 export type FilterInt = {
+  /** Equal to */
+  eq?: Maybe<Scalars['Int']>;
   /** Less than */
   lt?: Maybe<Scalars['Int']>;
   /** Less than or equal to */
@@ -75,7 +77,7 @@ export type FilterInt = {
 export type FilterOperatingSystem = {
   /** Major release version (0-99) */
   major?: Maybe<FilterInt>;
-  /** Minor release version (0-99 */
+  /** Minor release version (0-99) */
   minor?: Maybe<FilterInt>;
   /** Name of distro (max 4 chars e.g. RHEL) */
   name?: Maybe<FilterString>;
