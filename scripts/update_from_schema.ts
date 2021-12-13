@@ -149,11 +149,10 @@ function updateEphemeralMapping(schema: JSONSchema) {
     })
 
     if(_.has(xjoinConfigMap, "data")) {
-        console.log("modifying!")
-        xjoinConfigMap["data"]["elasticsearch.index.template"] = JSON.stringify(mapping, null, 2);
+        let xjoinConfigMapIndexTemplate = JSON.parse(xjoinConfigMap["data"]["elasticsearch.index.template"]);
+        xjoinConfigMapIndexTemplate["mappings"] = mapping;
+        xjoinConfigMap["data"]["elasticsearch.index.template"] = JSON.stringify(xjoinConfigMapIndexTemplate, null, 2);
     }
-
-    console.log(xjoinConfigMap);
 
     let i = 0
     _.forEach(objects, (o: any) => {
