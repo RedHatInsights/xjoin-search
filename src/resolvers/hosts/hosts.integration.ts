@@ -597,14 +597,12 @@ describe('hosts query', function () {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {
                             name: { eq: 'RHEL'},
-                            major: { eq: 0 },
-                            minor: { eq: 0 }
+                            major: { eq: 2 },
+                            minor: { eq: 2 }
                         }}});
 
-                    console.log(data.hosts);
-
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
                 });
             });
 
