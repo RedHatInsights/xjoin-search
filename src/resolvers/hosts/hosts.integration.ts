@@ -88,7 +88,8 @@ const SP_QUERY = `
 const TEST_ACCOUNT_HOST_IDS: string[] = [
     '22cd8e39-13bb-4d02-8316-84b850dc5136',
     '6e7b6317-0a2d-4552-a2f2-b7da0aece49d',
-    'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee'
+    'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee',
+    'f5ac67e1-ad65-4b62-bc27-845cc6d4bc01'
 ];
 
 describe('hosts query', function () {
@@ -142,6 +143,26 @@ describe('hosts query', function () {
         test('display_name DESC', async () => {
             const { data, status } = await runQuery(BASIC_QUERY, {
                 order_by: 'display_name',
+                order_how: 'DESC'
+            });
+
+            expect(status).toEqual(200);
+            expect(data).toMatchSnapshot();
+        });
+
+        test('operating_system ASC', async () => {
+            const { data, status } = await runQuery(SP_QUERY, {
+                order_by: 'operating_system',
+                order_how: 'ASC'
+            });
+
+            expect(status).toEqual(200);
+            expect(data).toMatchSnapshot();
+        });
+
+        test('operating_system DESC', async () => {
+            const { data, status } = await runQuery(SP_QUERY, {
+                order_by: 'operating_system',
                 order_how: 'DESC'
             });
 
@@ -555,9 +576,10 @@ describe('hosts query', function () {
                 test('spf_operating_system_name', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {name: { eq: 'RHEL'}}}});
-                    data.hosts.data.should.have.length(2);
+                    data.hosts.data.should.have.length(3);
                     data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
                     data.hosts.data[1].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                    data.hosts.data[2].id.should.equal(TEST_ACCOUNT_HOST_IDS[3]);
                 });
 
                 test('spf_operating_system_combined', async () => {
@@ -569,6 +591,20 @@ describe('hosts query', function () {
                         }}});
                     data.hosts.data.should.have.length(1);
                     data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                });
+
+                test('spf_operating_system_eq', async () => {
+                    const { data } = await runQuery(BASIC_QUERY,
+                        { filter: { spf_operating_system: {
+                            name: { eq: 'RHEL'},
+                            major: { eq: 0 },
+                            minor: { eq: 0 }
+                        }}});
+
+                    console.log(data.hosts);
+
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
             });
 

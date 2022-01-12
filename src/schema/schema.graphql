@@ -23,7 +23,8 @@ type CollectionMeta {
 
 enum HOSTS_ORDER_BY {
     display_name,
-    modified_on
+    modified_on,
+    operating_system
 }
 
 enum HOST_TAGS_ORDER_BY {
@@ -354,6 +355,9 @@ input FilterTag {
 Timestamp field filter with support for common operations.
 """
 input FilterInt {
+    "Equal to"
+    eq: Int
+
     "Less than"
     lt: Int
 

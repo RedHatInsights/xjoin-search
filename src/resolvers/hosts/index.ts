@@ -127,6 +127,33 @@ function buildSourceList(selectionSet: any) {
     return dataSelectionSet.selectionSet.selections.map((o: any) => o.name.value).map(translateFilterName);
 }
 
+function customOperatingSystemSort(order_how: any) {
+    // Use a custom script sort
+    return {
+        _script: {
+            type: 'string',
+            script: {
+                lang: 'painless',
+                source: `
+                String name = '';
+                String major = '0';
+                String minor = '0';
+                if (doc['system_profile_facts.operating_system.name'].size() != 0) {
+                    name = doc['system_profile_facts.operating_system.name'].value;
+                }
+                if (doc['system_profile_facts.operating_system.major'].size() != 0) {
+                    major = String.format('%010d', new def[] {doc['system_profile_facts.operating_system.major'].value});
+                }
+                if (doc['system_profile_facts.operating_system.minor'].size() != 0) {
+                    minor = String.format('%010d', new def[] {doc['system_profile_facts.operating_system.minor'].value});
+                }
+                return name + ' ' + major + '.' + minor;`
+            },
+            order: String(order_how)
+        }
+    };
+}
+
 function processOrderBy(order_by: any) {
     let string_order_by = String(order_by);
 
@@ -135,6 +162,24 @@ function processOrderBy(order_by: any) {
     }
 
     return string_order_by;
+}
+
+function processSort(order_by: any, order_how: any) {
+    const string_order_by = String(order_by);
+    let processedSort = {};
+
+    if (string_order_by === 'operating_system') {
+        processedSort = customOperatingSystemSort(order_how);
+    } else {
+        // Return the standard sort
+        processedSort = [{
+            [processOrderBy(string_order_by)]: String(order_how)
+        }, {
+            id: 'ASC' // for deterministic sort order
+        }];
+    }
+
+    return processedSort;
 }
 
 /**
@@ -150,11 +195,7 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
         size: args.limit,
         track_total_hits: true,
 
-        sort: [{
-            [processOrderBy(args.order_by)]: String(args.order_how)
-        }, {
-            id: 'ASC' // for deterministic sort order
-        }],
+        sort: processSort(args.order_by, args.order_how),
         _source: sourceList
     };
 

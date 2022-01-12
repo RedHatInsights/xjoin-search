@@ -12,7 +12,7 @@
     "lint": "eslint 'src/**/*.ts'",
     "seed": "ts-node test/seed.js",
     "start": "tsc && LOG_PRETTY=true ts-node-dev --respawn src/app.ts",
-    "test": "npm run compile && npm run seed && NODE_ENV=test LOG_LEVEL=fatal jest -i",
+    "test": "npm run compile && npm run seed && NODE_ENV=test LOG_LEVEL=fatal jest -i --watch --verbose false",
     "verify": "npm-run-all docs lint coverage",
     "preinstall": "npx npm-force-resolutions",
     "updateFromSchema": "cd scripts && ts-node update_from_schema.ts"
@@ -67,6 +67,7 @@
     "graphql": "^15.5.1",
     "graphql-request": "^3.4.0",
     "graphql-type-json": "^0.3.2",
+    "js-yaml": "^4.1.0",
     "json-schema-deref-sync": "^0.14.0",
     "json-schema-to-es-mapping": "git+https://github.com/RedHatInsights/json-schema-to-es-mapping.git#master",
     "lodash": "^4.17.21",

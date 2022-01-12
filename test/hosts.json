@@ -434,6 +434,96 @@
         ]
     },
     {
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "account": "test",
+        "display_name": "test1.rhel7.aprice.local",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test1.rhel7.aprice.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad9801",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db701",
+            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee01"
+        },
+        "system_profile_facts": {
+            "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
+            "operating_system": {
+                "name": "RHEL"
+            }
+        }
+    },
+    {
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "account": "test",
+        "display_name": "test2.rhel7.aprice.local",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test2.rhel7.aprice.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad9802",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db702",
+            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee02"
+        },
+        "system_profile_facts": {
+            "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
+            "operating_system": {
+                "major": 8
+            }
+        }
+    },
+    {
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "account": "test",
+        "display_name": "test3.rhel8.aprice.local",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test3.rhel8.aprice.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad9803",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db703",
+            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee03"
+        },
+        "system_profile_facts": {
+            "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
+            "operating_system": {
+                "name": "CENT",
+                "major": 8
+            }
+        }
+    },
+    {
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "account": "test",
+        "display_name": "test4.rhel.aprice.local",
+        "created_on": "2019-03-10T08:07:03.354307Z",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "test04.rhel.aprice.local",
+        "canonical_facts": {
+            "fqdn": "fqdn.test4.rhel.aprice.local",
+            "insights_id": "371e0253-b145-4428-9f7a-7d934aad9804",
+            "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db704",
+            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee04"
+        },
+        "system_profile_facts": {
+            "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
+            "operating_system": {
+                "name": "CENT",
+                "minor": 7
+            }
+        }
+    },
+    {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcea",
         "account": "12345",
         "display_name": "test03.rhel7.jharting.local",

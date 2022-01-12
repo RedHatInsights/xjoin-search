@@ -22,10 +22,11 @@ manually
 
 /// <reference path="decs.d.ts"/>
 import * as _ from 'lodash';
-import * as fs from 'graceful-fs';
+import fs from 'fs';
 import { buildMappingsFor } from 'json-schema-to-es-mapping';
 import { JSONSchema, dereference } from '@apidevtools/json-schema-ref-parser';
 import { integer } from '@elastic/elasticsearch/api/types';
+import * as YAML from 'js-yaml';
 
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean" | "date-time"
 
@@ -166,7 +167,7 @@ function determineFilterType(field_name: string, field_value:JSONSchema) {
 
 function updateMapping(schema: JSONSchema) {
     console.log("\n### updating elasticsearch mapping ###");
-
+    
     let mappingFilePath = '../test/mapping.json'
     let mappingFileContent = fs.readFileSync(mappingFilePath, 'utf8');
     let template = JSON.parse(mappingFileContent);
@@ -176,6 +177,18 @@ function updateMapping(schema: JSONSchema) {
     template["properties"]["system_profile_facts"]["properties"] = new_mapping["mappings"]["system_profile_facts"]["properties"];
 
     fs.writeFileSync(mappingFilePath, JSON.stringify(template, null, 2));
+}
+
+function getFullMapping(schema: JSONSchema) {
+    let mappingFilePath = '../test/mapping.json'
+    let mappingFileContent = fs.readFileSync(mappingFilePath, 'utf8');
+    let template = JSON.parse(mappingFileContent);
+
+    let new_mapping:any = buildMappingsFor("system_profile_facts", schema);
+
+    template["properties"]["system_profile_facts"]["properties"] = new_mapping["mappings"]["system_profile_facts"]["properties"];
+
+    return template;
 }
 
 function createGraphqlFields(schema:JSONSchema, parent_name:string = "system profile", prefix:string = "spf_"):string[] {
@@ -359,11 +372,54 @@ function updateHostsJson(new_host_system_profile_facts: any): void {
             _.forEach(new_host_system_profile_facts[i], (_, field_name:string):void => {
                 host["system_profile_facts"][field_name] = new_host_system_profile_facts[i][field_name];
             })
+        i++;
+        }
+    })
+
+    fs.writeFileSync(HOSTS_FILE_PATH, JSON.stringify(hosts, null, 4));
+}
+
+
+function updateEphemeralMapping(schema: JSONSchema) {
+    console.log("\n### updating elasticsearch mapping for ephemeral environments ###");
+
+    let mapping = getFullMapping(schema);
+    let filePath = '../deploy/ephemeral.yaml'
+    let fileContent = fs.readFileSync(filePath, 'utf8');
+    let loaded: any = YAML.load(fileContent);
+    let objects: any[] = [{}];
+
+    if(typeof(loaded) == "object") {
+        objects = _.get(loaded, "objects");
+    }
+
+    let xjoinConfigMap: any;
+
+    _.forEach(objects, (o: any) => {
+        if(_.get(o, "metadata") && _.get(o, "metadata.name") == "xjoin") {
+            xjoinConfigMap = o;
+        }
+    })
+
+    if(_.has(xjoinConfigMap, "data")) {
+        let xjoinConfigMapIndexTemplate = JSON.parse(xjoinConfigMap["data"]["elasticsearch.index.template"]);
+        xjoinConfigMapIndexTemplate["mappings"] = mapping;
+        xjoinConfigMap["data"]["elasticsearch.index.template"] = JSON.stringify(xjoinConfigMapIndexTemplate, null, 2);
+    }
+
+    let i = 0
+    _.forEach(objects, (o: any) => {
+        if(_.get(o, "metadata") && _.get(o, "metadata.name") == "xjoin") {
+            objects[i] = xjoinConfigMap;
         }
         i++;
     })
 
-    fs.writeFileSync(HOSTS_FILE_PATH, JSON.stringify(hosts, null, 4));
+    if(typeof(loaded) == "object" && _.has(loaded, "objects")) {
+        loaded["objects"] = objects
+    }
+
+    fs.writeFileSync(filePath, YAML.dump(loaded));
 }
 
 function getOperationsForType(type: string): string[] {
@@ -501,6 +557,7 @@ async function main() {
     updateGraphQLSchema(schema);
     updateHostsJson(new_spf_facts);
     updateTestData(schema, new_spf_facts[1]);
+    updateEphemeralMapping(schema);
 }
 
 try {

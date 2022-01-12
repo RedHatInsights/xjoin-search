@@ -21,7 +21,12 @@ function buildDestination () {
         stream: pino.destination(1),
         level: config.logging.level as Level
     }, {
-        stream: pinoCW(cwOptions),
+        stream: pinoCW(cwOptions, (e: any) => {
+            // eslint-disable-next-line
+            console.log("Unable to connect to cloudwatch");
+            // eslint-disable-next-line
+            console.log(e);
+        }),
         level: config.logging.level as Level
     }]);
 }

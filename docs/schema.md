@@ -846,6 +846,15 @@ Timestamp field filter with support for common operations.
 </thead>
 <tbody>
 <tr>
+<td colspan="2" valign="top"><strong>eq</strong></td>
+<td valign="top"><a href="#int">Int</a></td>
+<td>
+
+Equal to
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>lt</strong></td>
 <td valign="top"><a href="#int">Int</a></td>
 <td>
@@ -2047,6 +2056,10 @@ As a result, "=" and "/" appear in every tag.
 </tr>
 <tr>
 <td valign="top"><strong>modified_on</strong></td>
+<td></td>
+</tr>
+<tr>
+<td valign="top"><strong>operating_system</strong></td>
 <td></td>
 </tr>
 </tbody>

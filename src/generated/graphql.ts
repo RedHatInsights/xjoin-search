@@ -91,6 +91,8 @@ export type FilterInstalledProducts = {
 
 /** Timestamp field filter with support for common operations. */
 export type FilterInt = {
+  /** Equal to */
+  eq?: Maybe<Scalars['Int']>;
   /** Less than */
   lt?: Maybe<Scalars['Int']>;
   /** Less than or equal to */
@@ -255,7 +257,8 @@ export type FilterTimestamp = {
 
 export enum Hosts_Order_By {
   DisplayName = 'display_name',
-  ModifiedOn = 'modified_on'
+  ModifiedOn = 'modified_on',
+  OperatingSystem = 'operating_system'
 }
 
 export enum Host_Tags_Order_By {
