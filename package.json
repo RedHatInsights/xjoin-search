@@ -12,7 +12,7 @@
     "lint": "eslint 'src/**/*.ts'",
     "seed": "ts-node test/seed.js",
     "start": "tsc && LOG_PRETTY=true ts-node-dev --respawn src/app.ts",
-    "test": "npm run compile && npm run seed && NODE_ENV=test LOG_LEVEL=fatal jest -i --watch --verbose false",
+    "test": "npm run compile && npm run seed && NODE_ENV=test LOG_LEVEL=fatal jest -i",
     "verify": "npm-run-all docs lint coverage",
     "preinstall": "npx npm-force-resolutions",
     "updateFromSchema": "cd scripts && ts-node update_from_schema.ts"
