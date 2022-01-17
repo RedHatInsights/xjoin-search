@@ -1,6 +1,6 @@
 # xjoin-search
 
-Search server that exposes Elasticsearch indexes via GraphQL API. 
+Search server that exposes Elasticsearch indexes via GraphQL API.
 
 ## Getting started
 
