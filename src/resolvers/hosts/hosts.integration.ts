@@ -6,7 +6,6 @@ import client from '../../es';
 import * as probes from '../../probes';
 import { getContext } from '../../../test';
 import { testLimitOffset } from '../test.common';
-import * as fs from 'fs';
 
 const BASIC_QUERY = `
     query hosts (
@@ -84,13 +83,6 @@ const SP_QUERY = `
         }
     }
 `;
-
-const TEST_ACCOUNT_HOST_IDS: string[] = [
-    '22cd8e39-13bb-4d02-8316-84b850dc5136',
-    '6e7b6317-0a2d-4552-a2f2-b7da0aece49d',
-    'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee',
-    'f5ac67e1-ad65-4b62-bc27-845cc6d4bc01'
-];
 
 describe('hosts query', function () {
     test('fetch hosts', async () => {
@@ -275,7 +267,7 @@ describe('hosts query', function () {
             test('substring', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { display_name: { matches: '*est03.*' }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
         });
 
@@ -283,7 +275,7 @@ describe('hosts query', function () {
             test('substring', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { fqdn: { matches: '*dn.test02.*' }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
+                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
         });
 
@@ -291,7 +283,7 @@ describe('hosts query', function () {
             test('substring', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { provider_type: { eq: 'alibaba' }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
         });
 
@@ -301,7 +293,7 @@ describe('hosts query', function () {
                     { filter: { provider_id: { eq: 'ce87bfac-a6cb-43a0-80ce-95d9669db71f' }}}
                 );
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
+                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
         });
 
@@ -313,7 +305,7 @@ describe('hosts query', function () {
                         provider_id: { eq: '1d073c47-8467-4372-b585-7b0d40d2ee3c' }
                     }});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
             });
         });
 
@@ -323,7 +315,7 @@ describe('hosts query', function () {
                     eq: '17c52679-f0b9-4e9b-9bac-a3c7fae5070c'
                 }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
+                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
 
             test('substring no wildcards', async () => {
@@ -334,7 +326,7 @@ describe('hosts query', function () {
             test('substring', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { insights_id: { matches: '*a3c7fae507*' }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
+                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
         });
 
@@ -345,7 +337,7 @@ describe('hosts query', function () {
                         fqdn: { matches: '*dn.test02.rhel7.jharting.local'},
                         display_name: { matches: '*est02*'}
                     }, {
-                        id: { eq: TEST_ACCOUNT_HOST_IDS[2] },
+                        id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' },
                         insights_id: { matches: '*7d934aad983d' }
                     }]
                 }
@@ -354,34 +346,9 @@ describe('hosts query', function () {
         });
 
         describe('system_profile', function () {
-            type TEST_QUERY = {'field_name': string, 'field_query': JSON};
-            function getSPFTestData(): TEST_QUERY[] {
-                const spf_data_file = fs.readFileSync('test/spf_test_data.json', 'utf8');
-                const parsed: TEST_QUERY[] = JSON.parse(spf_data_file);
-                return parsed;
-            }
-
-            function _checkTestDataExists(test_data: TEST_QUERY[]) {
-                if (test_data === []) {
-                    throw 'No test data';
-                }
-            }
-
-            describe('all_spf_fields', () => {
-                const test_data: {'field_name': string, 'field_query': JSON}[] = getSPFTestData();
-                _checkTestDataExists(test_data);
-
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                test.each(test_data)('$field_name $field_query', async ({field_name, field_query}) => {
-                    const { data } = await runQuery(BASIC_QUERY, {filter: field_query});
-                    data.hosts.data.should.have.length(1);
-                    await expect(data.hosts.data[0].id).toEqual(TEST_ACCOUNT_HOST_IDS[1]);
-                });
-            });
-
             test('arch', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_arch: { eq: 'x86_64' }}});
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                expect(data).toMatchSnapshot();
             });
 
             test('os_release', async () => {
@@ -393,59 +360,66 @@ describe('hosts query', function () {
                         }
                     }
                 });
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                expect(data).toMatchSnapshot();
             });
 
-            test('os_kernel_version', async () => {
+            test('os_kernel_release', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_os_kernel_version: { matches: '4.18.*' }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
+                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
             });
 
             test('os_infrastructure_type', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_infrastructure_type: { eq: 'virtual' }}});
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                expect(data).toMatchSnapshot();
             });
 
             test('os_infrastructure_vendor', async () => {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { spf_infrastructure_vendor: { eq: 'baremetal' }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
             test('spf_owner_id', async () => {
                 const { data } = await runQuery(BASIC_QUERY,
                     { filter: { spf_owner_id: { eq: 'it8i99u1-48ut-1rdf-bc10-84opf904lbop' }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
             test('spf_is_marketplace', async () => {
                 const { data } = await runQuery(BASIC_QUERY,
                     { filter: { spf_is_marketplace: { is: false }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
             test('spf_rhc_client_id', async () => {
                 const { data } = await runQuery(BASIC_QUERY,
                     { filter: { spf_rhc_client_id: { eq: '33cd8e39-13bb-4d02-8316-84b850dc5136'}}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
             });
 
             test('spf_insights_client_version', async () => {
                 const { data } = await runQuery(BASIC_QUERY,
                     { filter: { spf_insights_client_version: { eq: '5.0.6-2.el7_6'}}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
             });
 
             test('spf_insights_client_version_wildcard', async () => {
                 const { data } = await runQuery(BASIC_QUERY,
                     { filter: { spf_insights_client_version: { matches: '5.*'}}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+            });
+
+            test('spf_host_type', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { spf_host_type: { eq: 'edge'}}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
             describe('sap_system', function () {
@@ -561,48 +535,49 @@ describe('hosts query', function () {
 
                 test('spf_operating_system_major_version', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_operating_system: {major: { gte: 2, lt: 7}}}});
+                        { filter: { spf_operating_system: {major: { gte: 6, lt: 7}}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_operating_system_minor_version', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
-                        { filter: { spf_operating_system: {minor: { gte: 2, lt: 6}}}});
+                        { filter: { spf_operating_system: {minor: { gte: 5, lt: 6}}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_operating_system_name', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {name: { eq: 'RHEL'}}}});
-                    data.hosts.data.should.have.length(3);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
-                    data.hosts.data[1].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
-                    data.hosts.data[2].id.should.equal(TEST_ACCOUNT_HOST_IDS[3]);
+                    data.hosts.data.should.have.length(5);
+                    data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+                    data.hosts.data[1].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                    data.hosts.data[2].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bc01');
+                    data.hosts.data[3].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bc03');
+                    data.hosts.data[4].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bc04');
                 });
 
                 test('spf_operating_system_combined', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {
-                            name: { eq: 'FED'},
-                            major: { gte: 1, lt: 2 },
-                            minor: { gte: 1, lt: 2 }
+                            name: { eq: 'RHEL'},
+                            major: { gte: 7, lt: 8 },
+                            minor: { gte: 3, lt: 4 }
                         }}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
 
                 test('spf_operating_system_eq', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {
                             name: { eq: 'RHEL'},
-                            major: { eq: 2 },
-                            minor: { eq: 2 }
+                            major: { eq: 7 },
+                            minor: { eq: 3 }
                         }}});
-
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
             });
 
@@ -612,56 +587,56 @@ describe('hosts query', function () {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_ansible: {controller_version: { eq: '1.2.3' }}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
 
                 test('spf_ansible_controller_version_wildcards', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_ansible: {controller_version: { matches: '*2*' }}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
 
                 test('spf_ansible_hub_version_eq', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_ansible: {hub_version: { eq: '4.5.6' }}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                    data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
                 });
 
                 test('spf_ansible_hub_version_wildcards', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_ansible: {hub_version: { matches: '*5*' }}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
+                    data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
                 });
 
                 test('spf_ansible_catalog_worker_version_eq', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_ansible: {catalog_worker_version: { eq: '7.8.9'}}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_ansible_catalog_worker_version_wildcards', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_ansible: {catalog_worker_version: { matches: '*8*'}}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_ansible_sso_version_eq', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_ansible: {catalog_worker_version: { eq: '7.8.9'}}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_ansible_sso_version_wildcards', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_ansible: {catalog_worker_version: { matches: '*8*'}}}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[2]);
+                    data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
                 });
 
                 test('spf_ansible_combined', async () => {
@@ -673,7 +648,7 @@ describe('hosts query', function () {
                             sso_version: { eq: '1.2.3' }
                         }}});
                     data.hosts.data.should.have.length(1);
-                    data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[0]);
+                    data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
                 });
             });
         });
@@ -932,7 +907,7 @@ describe('hosts query', function () {
 
             test('all facts', async () => {
                 const { data } = await runQuery(QUERY, { filter: {
-                    id: { eq: TEST_ACCOUNT_HOST_IDS[0] }
+                    id: { eq: '22cd8e39-13bb-4d02-8316-84b850dc5136' }
                 }});
 
                 expect(data).toMatchSnapshot();
@@ -940,7 +915,7 @@ describe('hosts query', function () {
 
             test('specific fact key', async () => {
                 const { data } = await runQuery(QUERY, {
-                    filter: { id: { eq: TEST_ACCOUNT_HOST_IDS[0] }},
+                    filter: { id: { eq: '22cd8e39-13bb-4d02-8316-84b850dc5136' }},
                     fact_filter: ['bios']
                 });
 
@@ -949,7 +924,7 @@ describe('hosts query', function () {
 
             test('facts not available', async () => {
                 const { data } = await runQuery(QUERY, { filter: {
-                    id: { eq: TEST_ACCOUNT_HOST_IDS[1] }
+                    id: { eq: '6e7b6317-0a2d-4552-a2f2-b7da0aece49d' }
                 }});
 
                 expect(data).toMatchSnapshot();
@@ -981,31 +956,29 @@ describe('hosts query', function () {
 
         test('simple system profile query', async () => {
             const { data } = await runQuery(QUERY, {
-                filter: { id: { eq: TEST_ACCOUNT_HOST_IDS[2] }},
+                filter: { id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' }},
                 system_profile_filter: ['arch', 'os_release']
             });
 
-            expect(data.hosts.data[0].system_profile_facts).toMatchSnapshot();
+            expect(data).toMatchSnapshot();
         });
 
         test('simple canonical fact query', async () => {
             const { data } = await runQuery(QUERY, {
-                filter: { id: { eq: TEST_ACCOUNT_HOST_IDS[2] }},
+                filter: { id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' }},
                 canonical_fact_filter: ['insights_id', 'satellite_id']
             });
 
-            expect(data.hosts.data[0].canonical_facts).toMatchSnapshot();
+            expect(data).toMatchSnapshot();
         });
 
-        // TODO: figure out a way to make this not break when new SPF fields are added
-        // I believe the desired behavior is to return all of the SPF fields
         test('empty', async () => {
             const { data } = await runQuery(QUERY, {
-                filter: { id: { eq: TEST_ACCOUNT_HOST_IDS[2] }},
+                filter: { id: { eq: 'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee' }},
                 system_profile_filter: []
             });
 
-            expect(data.hosts.data[0].system_profile_facts).toMatchSnapshot();
+            expect(data).toMatchSnapshot();
         });
     });
 

@@ -16,93 +16,27 @@
             "provider_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f"
         },
         "system_profile_facts": {
-            "owner_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
-            "os_release": "7.4",
-            "os_kernel_version": "4.18.2",
-            "infrastructure_type": "physical",
-            "infrastructure_vendor": "ex1",
-            "last_boot_time": "2021-01-10T15:10:10.000Z",
-            "number_of_sockets": 0,
-            "insights_egg_version": "ex1",
+            "arch": "x86_64",
+            "owner_id": "plxi13y1-99ut-3rdf-bc10-84opf904lfad",
+            "os_release": "7.3",
+            "os_kernel_version": "4.18.0",
+            "infrastructure_type": "virtual",
+            "infrastructure_vendor": "virtualbox",
+            "last_boot_time": "2019-08-07T08:45:13",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
             "bios_release_date": "12/01/2006",
-            "bios_vendor": "ex1",
-            "number_of_cpus": 0,
-            "insights_client_version": "3.0.1-2.el4_2",
-            "system_memory_bytes": 0,
-            "satellite_managed": true,
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "satellite_managed": false,
             "is_marketplace": true,
             "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
             "operating_system": {
-                "major": 0,
-                "minor": 0,
+                "major": 7,
+                "minor": 3,
                 "name": "RHEL"
-            },
-            "rhc_config_state": "22cd8e39-13bb-4d02-8316-84b850dc5136",
-            "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
-            "cores_per_socket": 0,
-            "bios_version": "ex1",
-            "subscription_status": "ex1",
-            "subscription_auto_attach": "ex1",
-            "katello_agent_running": true,
-            "cloud_provider": "aws",
-            "captured_date": "ex1",
-            "sap_system": true,
-            "sap_instance_number": "03",
-            "sap_version": "1.00.122.04.1478575636",
-            "tuned_profile": "desktop",
-            "selinux_current_mode": "enforcing",
-            "selinux_config_file": "permissive",
-            "host_type": "edge",
-            "greenboot_status": "green",
-            "greenboot_fallback_detected": true,
-            "rhsm": {
-                "version": "8.1"
-            },
-            "network_interfaces": {
-                "ipv4_addresses": "123.456.789.012 123.456.789.012 123.456.789.012",
-                "ipv6_addresses": "0123:4567:89ab:cdef:0123:4567:89ab:cdef",
-                "mtu": 0,
-                "mac_address": "00:00:00:00:00:00",
-                "name": "eth0",
-                "state": "UP",
-                "type": "ether"
-            },
-            "disk_devices": {
-                "device": "/dev/fdd0",
-                "label": "foo",
-                "mount_point": "/mnt/remote_nfs_shares",
-                "type": "ext1"
-            },
-            "cpu_flags": "ex1",
-            "kernel_modules": "ex1",
-            "dnf_modules": {
-                "name": "abc",
-                "stream": "abc"
-            },
-            "installed_products": {
-                "name": "abc",
-                "id": "abc",
-                "status": "Subscribed"
-            },
-            "installed_packages": "krb5-libs-0:-1.16.1-23.fc29.i686",
-            "gpg_pubkeys": "gpg-pubkey-11111111-22222222",
-            "installed_services": "ex1",
-            "enabled_services": "ex1",
-            "sap_sids": "H2O",
-            "rpm_ostree_deployments": {
-                "id": "fedora-silverblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0",
-                "checksum": "63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb",
-                "origin": "fedora/33/x86_64/silverblue",
-                "osname": "fedora-silverblue",
-                "version": "33.21",
-                "booted": true,
-                "pinned": true
-            },
-            "arch": "ARM",
-            "system_purpose": {
-                "usage": "Production",
-                "role": "Red Hat Enterprise Linux Server",
-                "sla": "Premium"
             },
             "ansible": {
                 "controller_version": "1.2.3",
@@ -111,33 +45,27 @@
                 "sso_version": "1.2.3"
             }
         },
-        "tags_structured": [
-            {
-                "namespace": "Sat",
-                "key": "env",
-                "value": "prod"
-            },
-            {
-                "namespace": "aws",
-                "key": "region",
-                "value": "us-east-2"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "web",
-                "value": null
-            },
-            {
-                "namespace": "insights-client",
-                "key": "os",
-                "value": "fedora"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "special/keyΔwithčhars",
-                "value": "special/valueΔwithčhars!"
-            }
-        ],
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-2"
+        }, {
+            "namespace": "insights-client",
+            "key": "web",
+            "value": null
+        }, {
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }, {
+            "namespace": "insights-client",
+            "key": "special/keyΔwithčhars",
+            "value": "special/valueΔwithčhars!"
+        }],
         "tags_string": [
             "Sat/env/prod",
             "aws/region/us-east-2",
@@ -150,9 +78,9 @@
                 "os.release": "Red Hat Enterprise Linux Server"
             },
             "bios": {
-                "bios.vendor": "SeaBIOS",
-                "bios.version": "1.11.0-2.el7",
-                "bios.release_date": "2014-04-01"
+                "bios.vendor":"SeaBIOS",
+                "bios.version":"1.11.0-2.el7",
+                "bios.release_date":"2014-04-01"
             }
         }
     },
@@ -174,92 +102,27 @@
         },
         "system_profile_facts": {
             "arch": "x86_64",
-            "os_release": "8.2",
-            "os_kernel_version": "4.5.0",
+            "os_release": "7.4",
+            "os_kernel_version": "3.10.0",
             "infrastructure_type": "virtual",
-            "infrastructure_vendor": "ex2",
-            "last_boot_time": "2021-01-11T15:10:10.000Z",
+            "infrastructure_vendor": "kvm",
+            "last_boot_time": "2019-08-07T08:45:02",
             "number_of_sockets": 1,
-            "insights_egg_version": "ex2",
+            "insights_egg_version": "3.0.115-1",
             "bios_release_date": "12/01/2006",
             "cores_per_socket": 1,
-            "bios_version": "ex2",
-            "bios_vendor": "ex2",
+            "bios_version": "VirtualBox",
+            "bios_vendor": "innotek GmbH",
             "number_of_cpus": 1,
             "insights_client_version": "5.0.6-2.el7_6",
-            "system_memory_bytes": 1,
+            "system_memory_bytes": 511451136,
             "satellite_managed": false,
-            "is_marketplace": false,
+            "is_marketplace": true,
             "rhc_client_id": "33cd8e39-13bb-4d02-8316-84b850dc5136",
             "operating_system": {
-                "major": 1,
-                "minor": 1,
-                "name": "FED"
-            },
-            "owner_id": "2c68e8ec-10e2-11ec-82a8-0242ac130003",
-            "rhc_config_state": "2c68e8ec-10e2-11ec-82a8-0242ac130003",
-            "cpu_model": "Intel(R) Xeon(R) CPU E9-7800 0 @ 1.90GHz",
-            "subscription_status": "ex2",
-            "subscription_auto_attach": "ex2",
-            "katello_agent_running": false,
-            "cloud_provider": "ms",
-            "captured_date": "ex2",
-            "sap_system": false,
-            "sap_instance_number": "05",
-            "sap_version": "2.00.122.04.1478575636",
-            "tuned_profile": "example",
-            "selinux_current_mode": "not_enforcing",
-            "selinux_config_file": "sleepy",
-            "host_type": "not_edge",
-            "greenboot_status": "red",
-            "greenboot_fallback_detected": false,
-            "network_interfaces": {
-                "ipv4_addresses": "123.456.789.012 123.456.789.012",
-                "ipv6_addresses": "abcd:4567:89ab:cdef:0123:4567:89ab:cdef",
-                "mtu": 1,
-                "mac_address": "10:00:00:00:00:00",
-                "name": "eth1",
-                "state": "DOWN",
-                "type": "infiniband"
-            },
-            "disk_devices": {
-                "device": "/dev/fdd1",
-                "label": "bar",
-                "mount_point": "/mnt/local_nfs",
-                "type": "ext2"
-            },
-            "cpu_flags": "ex2",
-            "kernel_modules": "ex2",
-            "dnf_modules": {
-                "name": "dfg",
-                "stream": "dfg"
-            },
-            "installed_products": {
-                "name": "dfg",
-                "id": "dfg",
-                "status": "inactive"
-            },
-            "installed_packages": "arb5-libs-0:-1.16.1-23.fc29.i686",
-            "gpg_pubkeys": "gpg-pubkey-22222222-22222222",
-            "installed_services": "ex2",
-            "enabled_services": "ex2",
-            "sap_sids": "ABC",
-            "rpm_ostree_deployments": {
-                "id": "fedora-blackpink-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0",
-                "checksum": "73335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb",
-                "origin": "fedora/31/x86_64/blackpink",
-                "osname": "fedora-blackpink",
-                "version": "31.12",
-                "booted": false,
-                "pinned": false
-            },
-            "rhsm": {
-                "version": "7.5"
-            },
-            "system_purpose": {
-                "usage": "Development/Test",
-                "role": "Red Hat Enterprise Linux Workstation",
-                "sla": "Standard"
+                "major": 7,
+                "minor": 11,
+                "name": "RHEL"
             },
             "ansible": {
                 "controller_version": "4.5.6",
@@ -267,24 +130,21 @@
                 "catalog_worker_version": "4.5.6",
                 "sso_version": "4.5.6"
             }
+
         },
-        "tags_structured": [
-            {
-                "namespace": "Sat",
-                "key": "env",
-                "value": "prod"
-            },
-            {
-                "namespace": "aws",
-                "key": "region",
-                "value": "us-east-1"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "database",
-                "value": null
-            }
-        ],
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-1"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }],
         "tags_string": [
             "Sat/env/prod",
             "aws/region/us-east-1",
@@ -304,128 +164,60 @@
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c",
             "provider_type": "alibaba",
             "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
+            "arch": "x86_64",
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904lbop",
-            "os_release": "7.5",
-            "os_kernel_version": "5.1.0",
-            "infrastructure_type": "imaginary",
+            "os_release": "6.5",
+            "os_kernel_version": "3.10.0",
+            "infrastructure_type": "physical",
             "infrastructure_vendor": "baremetal",
-            "last_boot_time": "2021-01-12T15:10:10.000Z",
-            "number_of_sockets": 2,
-            "insights_egg_version": "ex3",
+            "last_boot_time": "2019-08-07T08:46:16",
+            "number_of_sockets": 1,
+            "insights_egg_version": "3.0.115-1",
             "bios_release_date": "12/01/2006",
-            "cores_per_socket": 2,
-            "bios_version": "ex3",
-            "bios_vendor": "ex3",
-            "number_of_cpus": 2,
-            "insights_client_version": "6.0.6-2.el8_4",
-            "system_memory_bytes": 2,
-            "satellite_managed": true,
-            "is_marketplace": true,
-            "rhc_client_id": "2fa3e796-10e2-11ec-82a8-0242ac130003",
+            "cores_per_socket": 1,
+            "bios_version": "VirtualBox",
+            "bios_vendor": "innotek GmbH",
+            "number_of_cpus": 1,
+            "insights_client_version": "3.0.6-2.el7_6",
+            "system_memory_bytes": 511451136,
+            "satellite_managed": false,
+            "is_marketplace": false,
+            "rhc_client_id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
             "operating_system": {
-                "major": 2,
-                "minor": 2,
-                "name": "RHEL"
-            },
-            "host_type": "edge",
-            "rhc_config_state": "2fa3e796-10e2-11ec-82a8-0242ac130003",
-            "cpu_model": "Intel(R) I7(R) CPU I7-10900k 0 @ 4.90GHz",
-            "subscription_status": "ex3",
-            "subscription_auto_attach": "ex3",
-            "katello_agent_running": true,
-            "cloud_provider": "ibm",
-            "captured_date": "ex3",
-            "sap_system": true,
-            "sap_instance_number": "99",
-            "sap_version": "3.00.122.04.1478575636",
-            "tuned_profile": "laptop",
-            "selinux_current_mode": "sleeping",
-            "selinux_config_file": "authoritative",
-            "greenboot_status": "green",
-            "greenboot_fallback_detected": true,
-            "network_interfaces": {
-                "ipv4_addresses": "123.456.789.012",
-                "ipv6_addresses": "qwer:4567:89ab:cdef:0123:4567:89ab:cdef",
-                "mtu": 2,
-                "mac_address": "20:00:00:00:00:00",
-                "name": "eth2",
-                "state": "UNKNOWN",
-                "type": "loopback"
-            },
-            "disk_devices": {
-                "device": "/dev/fdd2",
-                "label": "baz",
-                "mount_point": "/mnt/foo",
-                "type": "ext3"
-            },
-            "cpu_flags": "ex3",
-            "kernel_modules": "ex3",
-            "dnf_modules": {
-                "name": "pop",
-                "stream": "pop"
-            },
-            "installed_products": {
-                "name": "pop",
-                "id": "pop",
-                "status": "canceled"
-            },
-            "installed_packages": "brb5-libs-0:-1.16.1-23.fc29.i686",
-            "gpg_pubkeys": "gpg-pubkey-22222222-33333333",
-            "installed_services": "ex3",
-            "enabled_services": "ex3",
-            "sap_sids": "XYZ",
-            "rpm_ostree_deployments": {
-                "id": "fedora-orangeblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0",
-                "checksum": "83335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb",
-                "origin": "fedora/34/x86_64/orangeblue",
-                "osname": "fedora-orangeblue",
-                "version": "33.45",
-                "booted": true,
-                "pinned": true
-            },
-            "rhsm": {
-                "version": "9.9"
-            },
-            "arch": null,
-            "system_purpose": {
-                "usage": "Disaster Recovery",
-                "role": "Red Hat Enterprise Linux Compute Node",
-                "sla": "Self-Support"
+                "major": 6,
+                "minor": 5,
+                "name": "FED"
             },
             "ansible": {
                 "controller_version": "7.8.9",
                 "hub_version": "7.8.9",
                 "catalog_worker_version": "7.8.9",
                 "sso_version": "7.8.9"
-            }
+            },
+            "host_type": "edge"
         },
-        "tags_structured": [
-            {
-                "namespace": "Sat",
-                "key": "env",
-                "value": "prod"
-            },
-            {
-                "namespace": "aws",
-                "key": "region",
-                "value": "us-east-3"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "database",
-                "value": null
-            },
-            {
-                "namespace": "insights-client",
-                "key": "os",
-                "value": "fedora"
-            }
-        ],
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-3"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }, {
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }],
         "tags_string": [
             "Sat/env/prod",
             "aws/region/us-east-3",
@@ -446,7 +238,7 @@
             "fqdn": "fqdn.test1.rhel7.aprice.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad9801",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db701",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee01"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee01"
         },
         "system_profile_facts": {
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
@@ -468,7 +260,7 @@
             "fqdn": "fqdn.test2.rhel7.aprice.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad9802",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db702",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee02"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee02"
         },
         "system_profile_facts": {
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
@@ -490,12 +282,12 @@
             "fqdn": "fqdn.test3.rhel8.aprice.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad9803",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db703",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee03"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee03"
         },
         "system_profile_facts": {
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
             "operating_system": {
-                "name": "CENT",
+                "name": "RHEL",
                 "major": 8
             }
         }
@@ -513,12 +305,12 @@
             "fqdn": "fqdn.test4.rhel.aprice.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad9804",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db704",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee04"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee04"
         },
         "system_profile_facts": {
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
             "operating_system": {
-                "name": "CENT",
+                "name": "RHEL",
                 "minor": 7
             }
         }
@@ -536,7 +328,7 @@
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",
@@ -571,7 +363,7 @@
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c",
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c",
             "provider_type": "aws",
             "provider_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
@@ -607,7 +399,7 @@
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",
@@ -641,7 +433,7 @@
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",
@@ -675,7 +467,7 @@
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",
@@ -709,7 +501,7 @@
             "fqdn": "fqdn.test03.rhel7.jharting.local",
             "insights_id": "371e0253-b145-4428-9f7a-7d934aad983d",
             "satellite_id": "ce87bfac-a6cb-43a0-80ce-95d9669db71f",
-            "subscription_manager_id": "1d073c47-8467-4372-b585-7b0d40d2ee3c"
+            "subscription_manager_id":"1d073c47-8467-4372-b585-7b0d40d2ee3c"
         },
         "system_profile_facts": {
             "arch": "x86_64",
@@ -762,23 +554,19 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         },
-        "tags_structured": [
-            {
-                "namespace": "Sat",
-                "key": "env",
-                "value": "prod"
-            },
-            {
-                "namespace": "aws",
-                "key": "region",
-                "value": "us-east-1"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "database",
-                "value": null
-            }
-        ],
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-1"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }],
         "tags_string": [
             "Sat/env/prod",
             "aws/region/us-east-1",
@@ -817,23 +605,19 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         },
-        "tags_structured": [
-            {
-                "namespace": "Sat",
-                "key": "env",
-                "value": "prod"
-            },
-            {
-                "namespace": "aws",
-                "key": "region",
-                "value": "us-east-1"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "database",
-                "value": null
-            }
-        ],
+        "tags_structured": [{
+            "namespace": "Sat",
+            "key": "env",
+            "value": "prod"
+        }, {
+            "namespace": "aws",
+            "key": "region",
+            "value": "us-east-1"
+        }, {
+            "namespace": "insights-client",
+            "key": "database",
+            "value": null
+        }],
         "tags_string": [
             "Sat/env/prod",
             "aws/region/us-east-1",
@@ -872,6 +656,7 @@
         },
         "system_profile_facts": {}
     },
+
     {
         "id": "df63bdd7-3cad-4261-8116-e6d7bdbaea71",
         "account": "hostTagsTest",
@@ -886,48 +671,39 @@
             "insights_id": "dc88db78-75f6-4815-9401-7a30df6a35ea"
         },
         "system_profile_facts": {},
-        "tags_structured": [
-            {
-                "namespace": "insights-client",
-                "key": "foo",
-                "value": "1"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "foo",
-                "value": "2"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "foo",
-                "value": "3"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "foo",
-                "value": "4"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "foo",
-                "value": "5"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "foo",
-                "value": "6"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "foo",
-                "value": "7"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "foo",
-                "value": "8"
-            }
-        ],
+        "tags_structured": [{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "1"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "2"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "3"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "4"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "5"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "6"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "7"
+        },{
+            "namespace": "insights-client",
+            "key": "foo",
+            "value": "8"
+        }],
         "tags_string": [
             "insights-client/foo/1",
             "insights-client/foo/2",
@@ -953,48 +729,39 @@
             "insights_id": "f2fea2de-5dd5-4f32-a6c1-142c7affc321"
         },
         "system_profile_facts": {},
-        "tags_structured": [
-            {
-                "namespace": "insights-client",
-                "key": "bar",
-                "value": "1"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "bar",
-                "value": "2"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "bar",
-                "value": "3"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "bar",
-                "value": "4"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "bar",
-                "value": "5"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "bar",
-                "value": "6"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "bar",
-                "value": "7"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "bar",
-                "value": "8"
-            }
-        ],
+        "tags_structured": [{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "1"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "2"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "3"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "4"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "5"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "6"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "7"
+        },{
+            "namespace": "insights-client",
+            "key": "bar",
+            "value": "8"
+        }],
         "tags_string": [
             "insights-client/bar/1",
             "insights-client/bar/2",
@@ -1020,13 +787,11 @@
             "insights_id": "295f1ac0-fcf4-4255-83cb-b0c779de3951"
         },
         "system_profile_facts": {},
-        "tags_structured": [
-            {
-                "namespace": "null",
-                "key": "foo",
-                "value": null
-            }
-        ],
+        "tags_structured": [{
+            "namespace": "null",
+            "key": "foo",
+            "value": null
+        }],
         "tags_string": [
             "null/foo"
         ]
@@ -1045,13 +810,11 @@
             "insights_id": "d4d30804-93a5-463c-86d4-e639443fb5c5"
         },
         "system_profile_facts": {},
-        "tags_structured": [
-            {
-                "namespace": "insights-client",
-                "key": "os",
-                "value": "fedora"
-            }
-        ]
+        "tags_structured": [{
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }]
     },
     {
         "id": "b72cf877-3433-4755-b172-65700a56545a",
@@ -1067,27 +830,22 @@
             "insights_id": "67d876f0-2e8e-45fc-becb-bc40cf1f92b2"
         },
         "system_profile_facts": {},
-        "tags_structured": [
-            {
-                "namespace": "insights-client",
-                "key": "os",
-                "value": "fedora"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "keyΔwithčhars*+!.,-_ ",
-                "value": "value"
-            },
-            {
-                "namespace": "insights-client",
-                "key": "key",
-                "value": "keyΔwithčhars*+!.,-_ "
-            },
-            {
-                "namespace": "keyΔwithčhars*+!.,-_ ",
-                "key": "key",
-                "value": "value"
-            }
-        ]
+        "tags_structured": [{
+            "namespace": "insights-client",
+            "key": "os",
+            "value": "fedora"
+        }, {
+            "namespace": "insights-client",
+            "key": "keyΔwithčhars*+!.,-_ ",
+            "value": "value"
+        }, {
+            "namespace": "insights-client",
+            "key": "key",
+            "value": "keyΔwithčhars*+!.,-_ "
+        }, {
+            "namespace": "keyΔwithčhars*+!.,-_ ",
+            "key": "key",
+            "value": "value"
+        }]
     }
 ]

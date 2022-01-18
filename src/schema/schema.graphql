@@ -61,163 +61,34 @@ input HostFilter {
     "Filter by provider_id"
     provider_id: FilterString,
 
-    # DO NOT REMOVE. Used to automatically update this schema
-    # based on the system_profile JSONschema
-    # START: system_profile schema filters
-    "Filter by 'ansible' field of system profile"
-    spf_ansible: FilterAnsible
-
-    "Filter by 'system_purpose' field of system profile"
-    spf_system_purpose: FilterSystemPurpose
-
-    "Filter by 'rhsm' field of system profile"
-    spf_rhsm: FilterRhsm
-
-    "Filter by 'rpm_ostree_deployments' field of system profile"
-    spf_rpm_ostree_deployments: FilterRpmOstreeDeployments
-
-    "Filter by 'greenboot_fallback_detected' field of system profile"
-    spf_greenboot_fallback_detected: FilterBoolean
-
-    "Filter by 'greenboot_status' field of system profile"
-    spf_greenboot_status: FilterString
-
-    "Filter by 'host_type' field of system profile"
-    spf_host_type: FilterString
-
-    "Filter by 'is_marketplace' field of system profile"
-    spf_is_marketplace: FilterBoolean
-
-    "Filter by 'selinux_config_file' field of system profile"
-    spf_selinux_config_file: FilterString
-
-    "Filter by 'selinux_current_mode' field of system profile"
-    spf_selinux_current_mode: FilterString
-
-    "Filter by 'tuned_profile' field of system profile"
-    spf_tuned_profile: FilterString
-
-    "Filter by 'sap_version' field of system profile"
-    spf_sap_version: FilterString
-
-    "Filter by 'sap_instance_number' field of system profile"
-    spf_sap_instance_number: FilterString
-
+    "Filter by 'arch' field of system profile"
+    spf_arch: FilterStringWithWildcard,
+    "Filter by 'os_release' field of system profile"
+    spf_os_release: FilterStringWithWildcard,
+    "Filter by 'os_kernel_version' field of system profile"
+    spf_os_kernel_version: FilterStringWithWildcard,
+    "Filter by 'infrastructure_type' field of system profile"
+    spf_infrastructure_type: FilterStringWithWildcard,
+    "Filter by 'infrastructure_vendor' field of system profile"
+    spf_infrastructure_vendor: FilterStringWithWildcard,
+    "Filter by 'sap_system' field of system profile"
+    spf_sap_system: FilterBoolean,
     "Filter by 'sap_sids' field of system profile"
     spf_sap_sids: FilterString
-
-    "Filter by 'sap_system' field of system profile"
-    spf_sap_system: FilterBoolean
-
-    "Filter by 'enabled_services' field of system profile"
-    spf_enabled_services: FilterString
-
-    "Filter by 'installed_services' field of system profile"
-    spf_installed_services: FilterString
-
-    "Filter by 'gpg_pubkeys' field of system profile"
-    spf_gpg_pubkeys: FilterString
-
-    "Filter by 'installed_packages' field of system profile"
-    spf_installed_packages: FilterString
-
-    "Filter by 'captured_date' field of system profile"
-    spf_captured_date: FilterString
-
-    "Filter by 'insights_egg_version' field of system profile"
-    spf_insights_egg_version: FilterString
-
-    "Filter by 'insights_client_version' field of system profile"
-    spf_insights_client_version: FilterStringWithWildcard
-
-    "Filter by 'installed_products' field of system profile"
-    spf_installed_products: FilterInstalledProducts
-
-    "Filter by 'dnf_modules' field of system profile"
-    spf_dnf_modules: FilterDnfModules
-
-    "Filter by 'cloud_provider' field of system profile"
-    spf_cloud_provider: FilterString
-
-    "Filter by 'satellite_managed' field of system profile"
-    spf_satellite_managed: FilterBoolean
-
-    "Filter by 'katello_agent_running' field of system profile"
-    spf_katello_agent_running: FilterBoolean
-
-    "Filter by 'subscription_auto_attach' field of system profile"
-    spf_subscription_auto_attach: FilterString
-
-    "Filter by 'subscription_status' field of system profile"
-    spf_subscription_status: FilterString
-
-    "Filter by 'last_boot_time' field of system profile"
-    spf_last_boot_time: FilterTimestamp
-
-    "Filter by 'kernel_modules' field of system profile"
-    spf_kernel_modules: FilterString
-
-    "Filter by 'arch' field of system profile"
-    spf_arch: FilterString
-
-    "Filter by 'os_kernel_version' field of system profile"
-    spf_os_kernel_version: FilterStringWithWildcard
-
-    "Filter by 'os_release' field of system profile"
-    spf_os_release: FilterStringWithWildcard
-
-    "Filter by 'operating_system' field of system profile"
-    spf_operating_system: FilterOperatingSystem
-
-    "Filter by 'cpu_flags' field of system profile"
-    spf_cpu_flags: FilterString
-
-    "Filter by 'bios_version' field of system profile"
-    spf_bios_version: FilterString
-
-    "Filter by 'bios_vendor' field of system profile"
-    spf_bios_vendor: FilterString
-
-    "Filter by 'disk_devices' field of system profile"
-    spf_disk_devices: FilterDiskDevices
-
-    "Filter by 'network_interfaces' field of system profile"
-    spf_network_interfaces: FilterNetworkInterfaces
-
-    "Filter by 'infrastructure_vendor' field of system profile"
-    spf_infrastructure_vendor: FilterString
-
-    "Filter by 'infrastructure_type' field of system profile"
-    spf_infrastructure_type: FilterString
-
-    "Filter by 'system_memory_bytes' field of system profile"
-    spf_system_memory_bytes: FilterInt
-
-    "Filter by 'cores_per_socket' field of system profile"
-    spf_cores_per_socket: FilterInt
-
-    "Filter by 'number_of_sockets' field of system profile"
-    spf_number_of_sockets: FilterInt
-
-    "Filter by 'number_of_cpus' field of system profile"
-    spf_number_of_cpus: FilterInt
-
-    "Filter by 'cpu_model' field of system profile"
-    spf_cpu_model: FilterString
-
-    "Filter by 'rhc_config_state' field of system profile"
-    spf_rhc_config_state: FilterString
-
-    "Filter by 'rhc_client_id' field of system profile"
-    spf_rhc_client_id: FilterString
-
     "Filter by 'owner_id' field of system profile"
     spf_owner_id: FilterString
-
-
-
-    # END: system_profile schema filters
-    # DO NOT REMOVE.
+    "Filter by 'insights_client_version' field of system profile"
+    spf_insights_client_version: FilterStringWithWildcard
+    "Filter by 'rhc_client_id' field of system profile"
+    spf_rhc_client_id: FilterString
+    "Filter by 'is_marketplace' field of system profile"
+    spf_is_marketplace: FilterBoolean
+    "Filter by 'operating_system' field of system profile"
+    spf_operating_system: FilterOperatingSystem
+    "Filter by 'ansible' field of system profile"
+    spf_ansible: FilterAnsible
+    "Filter by 'host_type' field of system profile"
+    spf_host_type: FilterString
 
     "Filter by the stale_timestamp value"
     stale_timestamp: FilterTimestamp
@@ -372,6 +243,37 @@ input FilterInt {
 }
 
 """
+Filters hosts by the operating system
+"""
+input FilterOperatingSystem {
+    "Major release version (0-99)"
+    major: FilterInt,
+
+    "Minor release version (0-99)"
+    minor: FilterInt,
+
+    "Name of distro (max 4 chars e.g. RHEL)"
+    name: FilterString
+}
+
+"""
+Filters hosts by Ansible facts
+"""
+input FilterAnsible {
+    "Ansible Controller version"
+    controller_version: FilterStringWithWildcard,
+
+    "Ansible Hub version"
+    hub_version: FilterStringWithWildcard,
+
+    "Ansible Catalog Worker version"
+    catalog_worker_version: FilterStringWithWildcard,
+
+    "Ansible SSO version"
+    sso_version: FilterStringWithWildcard
+}
+
+"""
 Defines the criteria by which tags are filtered in the `hostTags` query.
 """
 input TagAggregationFilter {
@@ -395,176 +297,6 @@ input SapSidFilter {
     """
     search: FilterStringWithRegex
 }
-
-#
-# Generated system_profile input types
-#
-"""
-Filter by 'ansible' field of system profile
-"""
-input FilterAnsible {
-
-    "Filter by 'controller_version' field of ansible"
-    controller_version: FilterStringWithWildcard
-
-    "Filter by 'hub_version' field of ansible"
-    hub_version: FilterStringWithWildcard
-
-    "Filter by 'catalog_worker_version' field of ansible"
-    catalog_worker_version: FilterStringWithWildcard
-
-    "Filter by 'sso_version' field of ansible"
-    sso_version: FilterStringWithWildcard
-
-}
-
-"""
-Filter by 'system_purpose' field of system profile
-"""
-input FilterSystemPurpose {
-
-    "Filter by 'usage' field of system_purpose"
-    usage: FilterString
-
-    "Filter by 'role' field of system_purpose"
-    role: FilterString
-
-    "Filter by 'sla' field of system_purpose"
-    sla: FilterString
-
-}
-
-"""
-Filter by 'rhsm' field of system profile
-"""
-input FilterRhsm {
-
-    "Filter by 'version' field of rhsm"
-    version: FilterString
-
-}
-
-"""
-Filter by 'rpm_ostree_deployments' field of system profile
-"""
-input FilterRpmOstreeDeployments {
-
-    "Filter by 'id' field of rpm_ostree_deployments"
-    id: FilterString
-
-    "Filter by 'checksum' field of rpm_ostree_deployments"
-    checksum: FilterString
-
-    "Filter by 'origin' field of rpm_ostree_deployments"
-    origin: FilterString
-
-    "Filter by 'osname' field of rpm_ostree_deployments"
-    osname: FilterString
-
-    "Filter by 'version' field of rpm_ostree_deployments"
-    version: FilterString
-
-    "Filter by 'booted' field of rpm_ostree_deployments"
-    booted: FilterBoolean
-
-    "Filter by 'pinned' field of rpm_ostree_deployments"
-    pinned: FilterBoolean
-
-}
-
-"""
-Filter by 'installed_products' field of system profile
-"""
-input FilterInstalledProducts {
-
-    "Filter by 'name' field of installed_products"
-    name: FilterString
-
-    "Filter by 'id' field of installed_products"
-    id: FilterString
-
-    "Filter by 'status' field of installed_products"
-    status: FilterString
-
-}
-
-"""
-Filter by 'dnf_modules' field of system profile
-"""
-input FilterDnfModules {
-
-    "Filter by 'name' field of dnf_modules"
-    name: FilterString
-
-    "Filter by 'stream' field of dnf_modules"
-    stream: FilterString
-
-}
-
-"""
-Filter by 'operating_system' field of system profile
-"""
-input FilterOperatingSystem {
-
-    "Filter by 'major' field of operating_system"
-    major: FilterInt
-
-    "Filter by 'minor' field of operating_system"
-    minor: FilterInt
-
-    "Filter by 'name' field of operating_system"
-    name: FilterString
-
-}
-
-"""
-Filter by 'disk_devices' field of system profile
-"""
-input FilterDiskDevices {
-
-    "Filter by 'device' field of disk_devices"
-    device: FilterString
-
-    "Filter by 'label' field of disk_devices"
-    label: FilterString
-
-    "Filter by 'mount_point' field of disk_devices"
-    mount_point: FilterString
-
-    "Filter by 'type' field of disk_devices"
-    type: FilterString
-
-}
-
-"""
-Filter by 'network_interfaces' field of system profile
-"""
-input FilterNetworkInterfaces {
-
-    "Filter by 'ipv4_addresses' field of network_interfaces"
-    ipv4_addresses: FilterString
-
-    "Filter by 'ipv6_addresses' field of network_interfaces"
-    ipv6_addresses: FilterString
-
-    "Filter by 'mtu' field of network_interfaces"
-    mtu: FilterInt
-
-    "Filter by 'mac_address' field of network_interfaces"
-    mac_address: FilterString
-
-    "Filter by 'name' field of network_interfaces"
-    name: FilterString
-
-    "Filter by 'state' field of network_interfaces"
-    state: FilterString
-
-    "Filter by 'type' field of network_interfaces"
-    type: FilterString
-
-}
-
-
 
 #
 # Output types
