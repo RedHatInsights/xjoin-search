@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-
 import {QueryHostsArgs, HostFilter} from '../../generated/graphql';
 
 import {runQuery} from '../es';
@@ -11,16 +10,14 @@ import {
     filterStringWithWildcard,
     filterStringWithWildcardWithLowercase
 } from '../inputString';
-import { filterBoolean } from '../inputBoolean';
 import { FilterResolver } from '../common';
 import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
 import { formatTags } from './format';
 import { filterString } from '../inputString';
-import { filterOperatingSystem } from '../inputOperatingSystem';
-import { filterAnsible } from '../inputAnsible';
+import { getSchema, getFieldType, getResolver } from '../../util/systemProfile';
 
-type HostFilterResolver = FilterResolver<HostFilter>;
+export type HostFilterResolver = FilterResolver<HostFilter>;
 
 export function resolveFilter(filter: HostFilter): Record<string, any>[] {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define, no-use-before-define
@@ -35,7 +32,7 @@ export function resolveFilter(filter: HostFilter): Record<string, any>[] {
     }, []);
 }
 
-export function resolveFilters(filters: HostFilter[]): Record<string, unknown>[] {
+export function resolveFilters(filters: HostFilter[]): Record<any, any>[] {
     return _.flatMap(filters, resolveFilter);
 }
 
@@ -51,59 +48,57 @@ function optional<FILTER, TYPE, TYPE_NULLABLE extends TYPE | null | undefined> (
     };
 }
 
-const RESOLVERS: HostFilterResolver[] = [
-    optional((filter: HostFilter) => filter.id, _.partial(filterStringWithWildcard, 'id')),
-    optional((filter: HostFilter) =>
-        filter.insights_id, _.partial(filterStringWithWildcard, 'canonical_facts.insights_id')),
-    optional((filter: HostFilter) =>
-        filter.display_name, _.partial(filterStringWithWildcardWithLowercase, 'display_name')),
-    optional((filter: HostFilter) => filter.fqdn, _.partial(filterStringWithWildcardWithLowercase, 'canonical_facts.fqdn')),
-    optional((filter: HostFilter) => filter.provider_type, _.partial(filterString, 'canonical_facts.provider_type')),
-    optional((filter: HostFilter) => filter.provider_id, _.partial(filterString, 'canonical_facts.provider_id')),
+function getPredefinedResolvers() {
+    return [
+        optional((filter: HostFilter) => filter.id, _.partial(filterStringWithWildcard, 'id')),
+        optional((filter: HostFilter) =>
+            filter.insights_id, _.partial(filterStringWithWildcard, 'canonical_facts.insights_id')),
+        optional((filter: HostFilter) =>
+            filter.display_name, _.partial(filterStringWithWildcardWithLowercase, 'display_name')),
+        optional((filter: HostFilter) => filter.fqdn, _.partial(filterStringWithWildcard, 'canonical_facts.fqdn')),
+        optional((filter: HostFilter) => filter.provider_type, _.partial(filterString, 'canonical_facts.provider_type')),
+        optional((filter: HostFilter) => filter.provider_id, _.partial(filterString, 'canonical_facts.provider_id')),
+        optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
+        optional((filter: HostFilter) => filter.tag, filterTag),
+        optional((filter: HostFilter) => filter.OR, common.or(resolveFilters)),
+        optional((filter: HostFilter) => filter.AND, common.and(resolveFilters)),
+        optional((filter: HostFilter) => filter.NOT, common.not(resolveFilter))
+    ];
+}
 
-    optional((filter: HostFilter) => filter.spf_arch, _.partial(filterStringWithWildcard, 'system_profile_facts.arch')),
-    optional((filter: HostFilter) =>
-        filter.spf_os_release, _.partial(filterStringWithWildcard, 'system_profile_facts.os_release')),
-    optional((filter: HostFilter) =>
-        filter.spf_os_kernel_version, _.partial(filterStringWithWildcard, 'system_profile_facts.os_kernel_version')),
-    optional((filter: HostFilter) =>
-        filter.spf_infrastructure_type, _.partial(filterStringWithWildcard, 'system_profile_facts.infrastructure_type')),
-    optional((filter: HostFilter) =>
-        filter.spf_insights_client_version, _.partial(filterStringWithWildcard, 'system_profile_facts.insights_client_version')),
-    optional((filter: HostFilter) =>
-        filter.spf_rhc_client_id, _.partial(filterString, 'system_profile_facts.rhc_client_id')),
-    optional((filter: HostFilter) =>
-        filter.spf_is_marketplace, _.partial(filterBoolean, 'system_profile_facts.is_marketplace')),
-    optional((filter: HostFilter) =>
-        filter.spf_host_type, _.partial(filterString, 'system_profile_facts.host_type')),
-    optional(
-        (filter: HostFilter) => filter.spf_infrastructure_vendor,
-        _.partial(filterStringWithWildcard, 'system_profile_facts.infrastructure_vendor')
-    ),
-    optional(
-        (filter: HostFilter) => filter.spf_sap_system,
-        _.partial(filterBoolean, 'system_profile_facts.sap_system')
-    ),
-    optional(
-        (filter: HostFilter) => filter.spf_sap_sids,
-        _.partial(filterStringWithWildcard, 'system_profile_facts.sap_sids')
-    ),
-    optional(
-        (filter: HostFilter) => filter.spf_owner_id,
-        _.partial(filterStringWithWildcard, 'system_profile_facts.owner_id')
-    ),
-    optional((filter: HostFilter) => filter.spf_operating_system, filterOperatingSystem),
-    optional((filter: HostFilter) => filter.spf_ansible, filterAnsible),
+async function resolverMapFromSchema(): Promise<HostFilterResolver[]> {
+    const schema = await getSchema();
 
-    optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
-    optional((filter: HostFilter) => filter.tag, filterTag),
+    // Pre-defined resolvers for fields that are not part of the system profile
+    const resolvers: HostFilterResolver[] = getPredefinedResolvers();
 
-    optional((filter: HostFilter) => filter.OR, common.or(resolveFilters)),
-    optional((filter: HostFilter) => filter.AND, common.and(resolveFilters)),
-    optional((filter: HostFilter) => filter.NOT, common.not(resolveFilter))
-];
+    _.forEach(_.get(schema, 'properties'), (field_value: any, field_name: any) => {
+        if (typeof(field_name) === 'undefined' && typeof(field_value) === 'undefined') {
+            throw 'error processing schema';
+        }
 
-export function buildFilterQuery(filter: HostFilter | null | undefined, account_number: string): Record<string, unknown> {
+        const type: string = getFieldType(field_name, field_value);
+
+        const resolver: FilterResolver<any> | null = getResolver(type, field_value);
+
+        if (resolver !== null) {
+            resolvers.push(
+                optional(
+                    (filter: HostFilter) => _.get(filter, 'spf_' + field_name, null),
+                    _.partial(resolver, 'system_profile_facts.' + field_name)
+                )
+            );
+        }
+    });
+    return resolvers;
+}
+
+let RESOLVERS: HostFilterResolver[];
+resolverMapFromSchema().then((resolvers: HostFilterResolver[])=>{
+    RESOLVERS = resolvers;
+});
+
+export function buildFilterQuery(filter: HostFilter | null | undefined, account_number: string): any {
     return {
         bool: {
             filter: [
@@ -210,9 +205,11 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
 }
 
 export default async function hosts(
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    parent: any, args: QueryHostsArgs, context: any, info: any): Promise<Record<string, unknown>> {
-
+    parent: unknown,
+    args: QueryHostsArgs,
+    context: {account_number: string},
+    info: unknown): Promise<unknown>
+{
     checkLimit(args.limit);
     checkOffset(args.offset);
 

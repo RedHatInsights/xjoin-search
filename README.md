@@ -171,7 +171,32 @@ npm run verify
 1. Why when I run queries on [http://localhost:4000/graphql](http://localhost:4000/graphql) I can't see all hosts?
     It is because **x-rh-identity** header object and by default on xjoin-search runs on development mode so only hosts from
     test account will be listed.
+## Maintenance
+### Update SystemProfile Filters using schema
 
+`xjoin-search` automatically creates filters for most* fields in the system profile based on the schema defined in
+the [inventory-schemas](https://github.com/RedHatInsights/inventory-schemas) repo. Specifically [this file](https://github.com/RedHatInsights/inventory-schemas/blob/master/schemas/system_profile/v1.yaml).
+When a new field is added to the schema a GitHub action should be triggered running the command `npm updateFromSchema`.
+That script will automatically update the following files to accommodate the new field:
+
+* `/test/mapping.json`
+  * This file contains the ElasticSearch mapping that is applied by `seed.js` when `npm run seed` is called.
+  The update script uses the schema data to define new document fields and data types as needed.
+* `/src/schema.graphql`
+  * This file defines the inputs and types of inputs that can be used in the GraphQL API.
+  The update script uses the schema data to define new inputs and types as needed.
+* `/test/hosts.json`
+  * This file contains test data for hosts used in automated and manual testing.
+  The script uses the example fields in the schema to populate the file with example values for testing.
+* `/test/spf_test_data.json`
+  * This file contains the queries used to test that the automatically added field filters work as expected.
+
+If you want to update things manually you can update the schema file `inventory-schemas/system_profile_schema.yaml` and run `npm run updateFromSchema`. If you intend to commit the change remember to update `inventory-schemas/system_profile_schema_sha.txt` as well with the SHA of the associated `inventory-schemas` commit. This should not be done unless the automated action is not working. Any change out of sync with the `inventory-schemas` repo will be removed the next time the action is run, but they should ideally never be out of sync.
+
+Changes to the mapping, graphql schema or hosts file that are unrelated to system profile fields should be unaffected.
+
+\* Some fields are intentionally ignored for performance reasons, or because the data is not useful to filter on.
+Fields in the schema with `x-indexed: false` will not be indexed by ElasticSearch and are ignored during the update.
 
 ## Contact
 For questions or comments join **#platform-xjoin** at ansible.slack.com or contact [Jozef Hartinger](https://github.com/jharting) directly.
