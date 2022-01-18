@@ -14,9 +14,13 @@
     },
     "include": [
         "./src/**/*",
-        "./test/**/*"
+        "./test/**/*",
+        "./scripts"
     ],
     "types": [
         "node"
-    ]
+    ],
+    "ts-node": {
+        "files": true
+    }
 }
