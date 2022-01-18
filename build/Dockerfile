@@ -6,6 +6,9 @@ WORKDIR /opt/app-root/src
 
 COPY package.json package-lock.json /opt/app-root/src/
 
+# This line is for 'json-schema-to-es'.
+# The repo is public, this avoids needing a secret key unnecessarily.
+RUN git config --global url."https://github.com/".insteadOf ssh://git@github.com/
 RUN npm ci --only=production --ignore-scripts
 
 COPY . /opt/app-root/src
