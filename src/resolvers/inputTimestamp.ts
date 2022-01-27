@@ -1,6 +1,6 @@
 import { FilterTimestamp } from '../generated/graphql';
 import { checkTimestamp } from './validation';
-import { term } from './es';
+import { term, negate, exists } from './es';
 
 export function filterTimestamp(field: string, filter: FilterTimestamp): Record<string, any>[] {
     checkTimestamp(filter.gte);
@@ -9,7 +9,7 @@ export function filterTimestamp(field: string, filter: FilterTimestamp): Record<
     checkTimestamp(filter.lt);
     checkTimestamp(filter.eq);
 
-    if (!filter.eq) {
+    if (filter.gt || filter.gte || filter.lt || filter.lte) {
         return [{
             range: {
                 [field]: {
@@ -20,6 +20,8 @@ export function filterTimestamp(field: string, filter: FilterTimestamp): Record<
                 }
             }
         }];
+    } else if (filter.eq === null) {
+        return [negate(exists(field))];
     } else if (filter.eq !== undefined) {
         return [term(field, filter.eq)];
     }
