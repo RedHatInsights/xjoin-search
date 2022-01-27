@@ -14,6 +14,10 @@ objects:
       name: xjoin-search
     spec:
       envName: ${ENV_NAME}
+      testing:
+        iqePlugin: xjoin
+      dependencies:
+      - host-inventory
       deployments:
         - name: api
           minReplicas: ${{NUM_REPLICAS}}
