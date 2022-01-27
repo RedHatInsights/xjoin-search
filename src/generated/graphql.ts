@@ -253,6 +253,8 @@ export type FilterTimestamp = {
   gt?: Maybe<Scalars['String']>;
   /** Greater than or equal to */
   gte?: Maybe<Scalars['String']>;
+  /** Equal */
+  eq?: Maybe<Scalars['String']>;
 };
 
 export enum Hosts_Order_By {

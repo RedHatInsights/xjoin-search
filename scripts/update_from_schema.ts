@@ -427,8 +427,8 @@ function getOperationsForType(type: string): string[] {
     operations_by_type_map.set("string", ["eq"]);
     operations_by_type_map.set("wildcard", ["eq", "matches"]);
     operations_by_type_map.set("boolean", ["is"]);
-    operations_by_type_map.set("integer", ["gt", "lt", "gte", "lte"]);
-    operations_by_type_map.set("date-time", ["gt", "lt", "gte", "lte"]);
+    operations_by_type_map.set("integer", ["gt", "lt", "gte", "lte", "eq"]);
+    operations_by_type_map.set("date-time", ["gt", "lt", "gte", "lte", "eq"]);
 
     const operations = operations_by_type_map.get(type);
 

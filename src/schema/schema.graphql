@@ -335,6 +335,9 @@ input FilterTimestamp {
 
     "Greater than or equal to"
     gte: String
+
+    "Equal"
+    eq: String
 }
 
 """
