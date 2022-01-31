@@ -403,7 +403,7 @@ function updateEphemeralMapping(schema: JSONSchema) {
 
     if(_.has(xjoinConfigMap, "data")) {
         let xjoinConfigMapIndexTemplate = JSON.parse(xjoinConfigMap["data"]["elasticsearch.index.template"]);
-        xjoinConfigMapIndexTemplate["mappings"] = mapping;
+        xjoinConfigMapIndexTemplate["mappings"]["properties"]["system_profile_facts"] = mapping["properties"]["system_profile_facts"];
         xjoinConfigMap["data"]["elasticsearch.index.template"] = JSON.stringify(xjoinConfigMapIndexTemplate, null, 2);
     }
 
