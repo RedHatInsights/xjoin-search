@@ -19,6 +19,7 @@
   },
   "author": "Jozef Hartinger",
   "devDependencies": {
+    "@ckyrouac/json-schema-to-es-mapping": "^0.3.7",
     "@digitak/esrun": "^1.2.8",
     "@graphql-codegen/cli": "^1.21.7",
     "@graphql-codegen/introspection": "^1.18.2",
@@ -69,7 +70,6 @@
     "graphql-type-json": "^0.3.2",
     "js-yaml": "^4.1.0",
     "json-schema-deref-sync": "^0.14.0",
-    "json-schema-to-es-mapping": "git+https://github.com/RedHatInsights/json-schema-to-es-mapping.git#master",
     "lodash": "^4.17.21",
     "pino": "^6.12.0",
     "pino-cloudwatch": "^0.7.0",
