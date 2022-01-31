@@ -448,6 +448,70 @@ describe('hosts query', function () {
                 data.hosts.data[0].id.should.equal(TEST_ACCOUNT_HOST_IDS[1]);
             });
 
+            describe('integers', function () {
+                const hosts = [
+                    {system_profile_facts: {number_of_cpus: 1}},
+                    {system_profile_facts: {number_of_cpus: 2000}},
+                    {system_profile_facts: {}}
+                ];
+
+                test('null', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { spf_number_of_cpus: { eq: null }}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].system_profile_facts.should.be.empty();
+                });
+
+                test('not null', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { NOT: { spf_number_of_cpus: { eq: null }}}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(2);
+                    data.hosts.data.forEach((host: any) => host.system_profile_facts.should.have.property('number_of_cpus'));
+                });
+            });
+
+            describe('timestamps', function () {
+                const hosts = [
+                    {system_profile_facts: {last_boot_time: '2021-01-10T15:10:10.000Z'}},
+                    {system_profile_facts: {last_boot_time: '2021-01-11T15:10:10.000Z'}},
+                    {system_profile_facts: {}}
+                ];
+
+                test('null', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { spf_last_boot_time: { eq: null }}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].system_profile_facts.should.be.empty();
+                });
+
+                test('not null', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { NOT: { spf_last_boot_time: { eq: null }}}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(2);
+                    data.hosts.data.forEach((host: any) => host.system_profile_facts.should.have.property('last_boot_time'));
+                });
+            });
+
             describe('sap_system', function () {
                 const hosts = [
                     {system_profile_facts: {sap_system: true}},

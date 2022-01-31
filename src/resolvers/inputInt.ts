@@ -1,8 +1,8 @@
 import { FilterInt } from '../generated/graphql';
-import { term } from './es';
+import { term, negate, exists } from './es';
 
 export function filterInt(field: string, filter: FilterInt): Record<string, any>[] {
-    if (!filter.eq) {
+    if (filter.gt || filter.gte || filter.lt || filter.lte) {
         return [{
             range: {
                 [field]: {
@@ -13,6 +13,8 @@ export function filterInt(field: string, filter: FilterInt): Record<string, any>
                 }
             }
         }];
+    } else if (filter.eq === null) {
+        return [negate(exists(field))];
     } else if (filter.eq !== undefined) {
         return [term(field, filter.eq)];
     }
