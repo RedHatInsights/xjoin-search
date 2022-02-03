@@ -1,4 +1,5 @@
 import GraphQLJSON, { GraphQLJSONObject } from 'graphql-type-json';
+import BigInt from "apollo-type-bigint";
 import hosts from './hosts';
 import hostTags from './hostTags';
 import hostSystemProfile from './hostSystemProfile';
@@ -24,7 +25,8 @@ const resolvers = {
     },
 
     JSON: GraphQLJSON,
-    JSONObject: GraphQLJSONObject
+    JSONObject: GraphQLJSONObject,
+    BigInt: new BigInt("safe")
 };
 
 export default resolvers;
