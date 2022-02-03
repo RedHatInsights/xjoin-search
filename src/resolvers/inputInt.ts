@@ -2,7 +2,7 @@ import { FilterInt } from '../generated/graphql';
 import { term, negate, exists } from './es';
 
 export function filterInt(field: string, filter: FilterInt): Record<string, any>[] {
-    if (filter.gt !== undefined || filter.gte !== undefined || filter.lt !== undefined || filter.lte !== undefined ) {
+    if (filter.gt !== undefined || filter.gte !== undefined || filter.lt !== undefined || filter.lte !== undefined) {
         return [{
             range: {
                 [field]: {
