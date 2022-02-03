@@ -11,7 +11,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  BigInt: any;
+  BigInt: number;
   JSON: any;
   JSONObject: { [key: string]: any };
 };

@@ -6,6 +6,7 @@ generates:
     config:
       scalars:
         JSONObject: '{ [key: string]: any }'
+        BigInt: number
     plugins:
       - "typescript"
       - "typescript-resolvers"
