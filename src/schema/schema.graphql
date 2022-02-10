@@ -64,6 +64,9 @@ input HostFilter {
     # DO NOT REMOVE. Used to automatically update this schema
     # based on the system_profile JSONschema
     # START: system_profile schema filters
+    "Filter by 'mssql' field of system profile"
+    spf_mssql: FilterMssql
+
     "Filter by 'ansible' field of system profile"
     spf_ansible: FilterAnsible
 
@@ -402,6 +405,16 @@ input SapSidFilter {
 #
 # Generated system_profile input types
 #
+"""
+Filter by 'mssql' field of system profile
+"""
+input FilterMssql {
+
+    "Filter by 'version' field of mssql"
+    version: FilterStringWithWildcard
+
+}
+
 """
 Filter by 'ansible' field of system profile
 """
