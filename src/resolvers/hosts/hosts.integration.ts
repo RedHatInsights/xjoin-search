@@ -649,7 +649,7 @@ describe('hosts query', function () {
                 test('spf_operating_system_combined', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {
-                            name: { eq: 'FED'},
+                            name: { eq: 'CentOS'},
                             major: { gte: 1, lt: 2 },
                             minor: { gte: 1, lt: 2 }
                         }}});

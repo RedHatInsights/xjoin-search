@@ -103,6 +103,12 @@ export type FilterInt = {
   gte?: Maybe<Scalars['Int']>;
 };
 
+/** Filter by 'mssql' field of system profile */
+export type FilterMssql = {
+  /** Filter by 'version' field of mssql */
+  version?: Maybe<FilterStringWithWildcard>;
+};
+
 /** Filter by 'network_interfaces' field of system profile */
 export type FilterNetworkInterfaces = {
   /** Filter by 'ipv4_addresses' field of network_interfaces */
@@ -326,6 +332,8 @@ export type HostFilter = {
   provider_type?: Maybe<FilterString>;
   /** Filter by provider_id */
   provider_id?: Maybe<FilterString>;
+  /** Filter by 'mssql' field of system profile */
+  spf_mssql?: Maybe<FilterMssql>;
   /** Filter by 'ansible' field of system profile */
   spf_ansible?: Maybe<FilterAnsible>;
   /** Filter by 'system_purpose' field of system profile */
@@ -679,6 +687,7 @@ export type ResolversTypes = {
   FilterDnfModules: FilterDnfModules;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
+  FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
   FilterRhsm: FilterRhsm;
@@ -726,6 +735,7 @@ export type ResolversParentTypes = {
   FilterDnfModules: FilterDnfModules;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
+  FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
   FilterRhsm: FilterRhsm;

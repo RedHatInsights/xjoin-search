@@ -109,6 +109,9 @@
                 "hub_version": "1.2.3",
                 "catalog_worker_version": "1.2.3",
                 "sso_version": "1.2.3"
+            },
+            "mssql": {
+                "version": "15.2.0"
             }
         },
         "tags_structured": [
@@ -194,7 +197,7 @@
             "operating_system": {
                 "major": 1,
                 "minor": 1,
-                "name": "FED"
+                "name": "CentOS"
             },
             "owner_id": "2c68e8ec-10e2-11ec-82a8-0242ac130003",
             "rhc_config_state": "2c68e8ec-10e2-11ec-82a8-0242ac130003",
@@ -266,6 +269,9 @@
                 "hub_version": "4.5.6",
                 "catalog_worker_version": "4.5.6",
                 "sso_version": "4.5.6"
+            },
+            "mssql": {
+                "version": "12.5.3"
             }
         },
         "tags_structured": [
@@ -346,7 +352,7 @@
             "tuned_profile": "laptop",
             "selinux_current_mode": "sleeping",
             "selinux_config_file": "authoritative",
-            "greenboot_status": "green",
+            "greenboot_status": "purple",
             "greenboot_fallback_detected": true,
             "network_interfaces": {
                 "ipv4_addresses": "123.456.789.012",
@@ -402,6 +408,9 @@
                 "hub_version": "7.8.9",
                 "catalog_worker_version": "7.8.9",
                 "sso_version": "7.8.9"
+            },
+            "mssql": {
+                "version": "10.1.0"
             }
         },
         "tags_structured": [

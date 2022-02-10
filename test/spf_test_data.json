@@ -245,7 +245,7 @@
     "field_query": {
       "spf_operating_system": {
         "name": {
-          "eq": "FED"
+          "eq": "CentOS"
         }
       }
     }
@@ -735,6 +735,26 @@
       "spf_ansible": {
         "sso_version": {
           "matches": "4.5.6"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "mssql version",
+    "field_query": {
+      "spf_mssql": {
+        "version": {
+          "eq": "12.5.3"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "mssql version",
+    "field_query": {
+      "spf_mssql": {
+        "version": {
+          "matches": "12.5.3"
         }
       }
     }
