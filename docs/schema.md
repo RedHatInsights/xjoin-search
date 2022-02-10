@@ -24,6 +24,7 @@
     * [FilterDnfModules](#filterdnfmodules)
     * [FilterInstalledProducts](#filterinstalledproducts)
     * [FilterInt](#filterint)
+    * [FilterMssql](#filtermssql)
     * [FilterNetworkInterfaces](#filternetworkinterfaces)
     * [FilterOperatingSystem](#filteroperatingsystem)
     * [FilterRhsm](#filterrhsm)
@@ -893,6 +894,31 @@ Greater than or equal to
 </tbody>
 </table>
 
+### FilterMssql
+
+Filter by 'mssql' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>version</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Filter by 'version' field of mssql
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### FilterNetworkInterfaces
 
 Filter by 'network_interfaces' field of system profile
@@ -1520,6 +1546,15 @@ Filter by provider_type
 <td>
 
 Filter by provider_id
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_mssql</strong></td>
+<td valign="top"><a href="#filtermssql">FilterMssql</a></td>
+<td>
+
+Filter by 'mssql' field of system profile
 
 </td>
 </tr>

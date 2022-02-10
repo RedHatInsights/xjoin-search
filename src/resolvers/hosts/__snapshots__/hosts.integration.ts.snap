@@ -413,6 +413,9 @@ Object {
           "katello_agent_running": false,
           "kernel_modules": "ex2",
           "last_boot_time": "2021-01-11T15:10:10.000Z",
+          "mssql": Object {
+            "version": "12.5.3",
+          },
           "network_interfaces": Object {
             "ipv4_addresses": "123.456.789.012 123.456.789.012",
             "ipv6_addresses": "abcd:4567:89ab:cdef:0123:4567:89ab:cdef",
@@ -525,6 +528,9 @@ Object {
           "katello_agent_running": true,
           "kernel_modules": "ex1",
           "last_boot_time": "2021-01-10T15:10:10.000Z",
+          "mssql": Object {
+            "version": "15.2.0",
+          },
           "network_interfaces": Object {
             "ipv4_addresses": "123.456.789.012 123.456.789.012 123.456.789.012",
             "ipv6_addresses": "0123:4567:89ab:cdef:0123:4567:89ab:cdef",
@@ -626,6 +632,9 @@ Object {
           "katello_agent_running": true,
           "kernel_modules": "ex3",
           "last_boot_time": "2021-01-12T15:10:10.000Z",
+          "mssql": Object {
+            "version": "10.1.0",
+          },
           "network_interfaces": Object {
             "ipv4_addresses": "123.456.789.012",
             "ipv6_addresses": "qwer:4567:89ab:cdef:0123:4567:89ab:cdef",
@@ -736,6 +745,9 @@ Object {
           "katello_agent_running": true,
           "kernel_modules": "ex3",
           "last_boot_time": "2021-01-12T15:10:10.000Z",
+          "mssql": Object {
+            "version": "10.1.0",
+          },
           "network_interfaces": Object {
             "ipv4_addresses": "123.456.789.012",
             "ipv6_addresses": "qwer:4567:89ab:cdef:0123:4567:89ab:cdef",
@@ -837,6 +849,9 @@ Object {
           "katello_agent_running": true,
           "kernel_modules": "ex1",
           "last_boot_time": "2021-01-10T15:10:10.000Z",
+          "mssql": Object {
+            "version": "15.2.0",
+          },
           "network_interfaces": Object {
             "ipv4_addresses": "123.456.789.012 123.456.789.012 123.456.789.012",
             "ipv6_addresses": "0123:4567:89ab:cdef:0123:4567:89ab:cdef",
@@ -949,6 +964,9 @@ Object {
           "katello_agent_running": false,
           "kernel_modules": "ex2",
           "last_boot_time": "2021-01-11T15:10:10.000Z",
+          "mssql": Object {
+            "version": "12.5.3",
+          },
           "network_interfaces": Object {
             "ipv4_addresses": "123.456.789.012 123.456.789.012",
             "ipv6_addresses": "abcd:4567:89ab:cdef:0123:4567:89ab:cdef",
