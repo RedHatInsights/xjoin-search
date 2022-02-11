@@ -45,6 +45,7 @@
     * [ORDER_DIR](#order_dir)
     * [VALUES_ORDER_BY](#values_order_by)
   * [Scalars](#scalars)
+    * [BigInt](#bigint)
     * [Boolean](#boolean)
     * [ID](#id)
     * [Int](#int)
@@ -848,7 +849,7 @@ Timestamp field filter with support for common operations.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>eq</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Equal to
@@ -857,7 +858,7 @@ Equal to
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>lt</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Less than
@@ -866,7 +867,7 @@ Less than
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>lte</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Less than or equal to
@@ -875,7 +876,7 @@ Less than or equal to
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>gt</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Greater than
@@ -884,7 +885,7 @@ Greater than
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>gte</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Greater than or equal to
@@ -2167,6 +2168,8 @@ As a result, "=" and "/" appear in every tag.
 </table>
 
 ## Scalars
+
+### BigInt
 
 ### Boolean
 
