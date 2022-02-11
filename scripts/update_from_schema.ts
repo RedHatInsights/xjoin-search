@@ -26,7 +26,7 @@ import fs from 'fs';
 import { buildMappingsFor } from '@ckyrouac/json-schema-to-es-mapping';
 import { JSONSchema, dereference } from '@apidevtools/json-schema-ref-parser';
 import { integer } from '@elastic/elasticsearch/api/types';
-import * as YAML from 'js-yaml';
+import * as YAML from 'yaml'
 
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean" | "date-time"
 
@@ -386,7 +386,7 @@ function updateEphemeralMapping(schema: JSONSchema) {
     let mapping = getFullMapping(schema);
     let filePath = '../deploy/ephemeral.yaml'
     let fileContent = fs.readFileSync(filePath, 'utf8');
-    let loaded: any = YAML.load(fileContent);
+    let loaded: any = YAML.parseDocument(fileContent);
     let objects: any[] = [{}];
 
     if(typeof(loaded) == "object") {
@@ -419,7 +419,7 @@ function updateEphemeralMapping(schema: JSONSchema) {
         loaded["objects"] = objects
     }
 
-    fs.writeFileSync(filePath, YAML.dump(loaded));
+    fs.writeFileSync(filePath, YAML.stringify(loaded));
 }
 
 function getOperationsForType(type: string): string[] {
