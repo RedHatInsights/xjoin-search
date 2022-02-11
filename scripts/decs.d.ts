@@ -1,1 +1,1 @@
-declare module 'json-schema-to-es-mapping';
+declare module '@ckyrouac/json-schema-to-es-mapping';

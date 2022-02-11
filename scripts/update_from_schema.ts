@@ -23,7 +23,7 @@ manually
 /// <reference path="decs.d.ts"/>
 import * as _ from 'lodash';
 import fs from 'fs';
-import { buildMappingsFor } from 'json-schema-to-es-mapping';
+import { buildMappingsFor } from '@ckyrouac/json-schema-to-es-mapping';
 import { JSONSchema, dereference } from '@apidevtools/json-schema-ref-parser';
 import { integer } from '@elastic/elasticsearch/api/types';
 import * as YAML from 'js-yaml';
