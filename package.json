@@ -67,6 +67,7 @@
     "express-prom-bundle": "^6.3.6",
     "graphql": "^15.5.1",
     "graphql-request": "^3.4.0",
+    "graphql-scalars": "^1.14.1",
     "graphql-type-json": "^0.3.2",
     "js-yaml": "^4.1.0",
     "json-schema-deref-sync": "^0.14.0",
