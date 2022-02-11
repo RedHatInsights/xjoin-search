@@ -3,6 +3,7 @@
 #
 scalar JSON
 scalar JSONObject
+scalar BigInt
 
 enum ORDER_DIR {
     ASC,
@@ -362,19 +363,19 @@ Timestamp field filter with support for common operations.
 """
 input FilterInt {
     "Equal to"
-    eq: Int
+    eq: BigInt
 
     "Less than"
-    lt: Int
+    lt: BigInt
 
     "Less than or equal to"
-    lte: Int
+    lte: BigInt
 
     "Greater than"
-    gt: Int
+    gt: BigInt
 
     "Greater than or equal to"
-    gte: Int
+    gte: BigInt
 }
 
 """

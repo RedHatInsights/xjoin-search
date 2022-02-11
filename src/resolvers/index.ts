@@ -1,4 +1,5 @@
 import GraphQLJSON, { GraphQLJSONObject } from 'graphql-type-json';
+import { SafeIntResolver } from 'graphql-scalars';
 import hosts from './hosts';
 import hostTags from './hostTags';
 import hostSystemProfile from './hostSystemProfile';
@@ -24,7 +25,8 @@ const resolvers = {
     },
 
     JSON: GraphQLJSON,
-    JSONObject: GraphQLJSONObject
+    JSONObject: GraphQLJSONObject,
+    BigInt: SafeIntResolver
 };
 
 export default resolvers;
