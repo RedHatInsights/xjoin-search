@@ -536,12 +536,12 @@ Lists unique values of the `sap_sids` field
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>major</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="#int">Int</a></td>
 <td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>minor</strong></td>
-<td valign="top"><a href="#int">Int</a>!</td>
+<td valign="top"><a href="#int">Int</a></td>
 <td></td>
 </tr>
 </tbody>

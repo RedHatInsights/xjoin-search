@@ -502,8 +502,8 @@ export enum Order_Dir {
 export type OperatingSystem = {
   __typename?: 'OperatingSystem';
   name: Scalars['String'];
-  major: Scalars['Int'];
-  minor: Scalars['Int'];
+  major?: Maybe<Scalars['Int']>;
+  minor?: Maybe<Scalars['Int']>;
 };
 
 export type Query = {
@@ -872,8 +872,8 @@ export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<Resolver
 
 export type OperatingSystemResolvers<ContextType = any, ParentType extends ResolversParentTypes['OperatingSystem'] = ResolversParentTypes['OperatingSystem']> = {
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  major?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  minor?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  major?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  minor?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

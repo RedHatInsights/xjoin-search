@@ -693,8 +693,8 @@ type StringValueInfo {
 
 type OperatingSystem {
     name: String!
-    major: Int!
-    minor: Int!
+    major: Int
+    minor: Int
 }
 
 type operatingSystemValueInfo {
