@@ -598,6 +598,9 @@ type Host {
     reporter: String,
     ansible_host: String,
 
+    "Per reporter staleness of a host. The subset of keys can be requested using `filter`."
+    per_reporter_staleness (filter: [String!]): JSONObject
+
     "Canonical facts of a host. The subset of keys can be requested using `filter`."
     canonical_facts (filter: [String!]): JSONObject,
 

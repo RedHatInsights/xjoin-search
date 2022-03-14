@@ -287,6 +287,8 @@ export type Host = {
   stale_timestamp?: Maybe<Scalars['String']>;
   reporter?: Maybe<Scalars['String']>;
   ansible_host?: Maybe<Scalars['String']>;
+  /** Per reporter staleness of a host. The subset of keys can be requested using `filter`. */
+  per_reporter_staleness?: Maybe<Scalars['JSONObject']>;
   /** Canonical facts of a host. The subset of keys can be requested using `filter`. */
   canonical_facts?: Maybe<Scalars['JSONObject']>;
   /** System profile of a host. The subset of keys can be requested using `filter`. */
@@ -294,6 +296,12 @@ export type Host = {
   tags?: Maybe<Tags>;
   /** Facts of a host. The subset of keys can be requested using `filter`. */
   facts?: Maybe<Scalars['JSONObject']>;
+};
+
+
+/** Inventory host */
+export type HostPer_Reporter_StalenessArgs = {
+  filter?: Maybe<Array<Scalars['String']>>;
 };
 
 
@@ -801,6 +809,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   ansible_host?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  per_reporter_staleness?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostPer_Reporter_StalenessArgs, never>>;
   canonical_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostCanonical_FactsArgs, never>>;
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostSystem_Profile_FactsArgs, never>>;
   tags?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType>;

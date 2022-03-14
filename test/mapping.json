@@ -51,6 +51,25 @@
         }
       }
     },
+    "per_reporter_staleness": {
+      "type": "object",
+      "properties": {
+        "reporter": {
+          "type": "object",
+          "properties": {
+            "last_check_in": {
+              "type": "date_nanos"
+            },
+            "stale_timestamp": {
+              "type": "date_nanos"
+            },
+            "check_in_succeeded": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
     "system_profile_facts": {
       "properties": {
         "owner_id": {

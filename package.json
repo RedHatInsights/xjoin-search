@@ -21,7 +21,7 @@
   "devDependencies": {
     "@ckyrouac/json-schema-to-es-mapping": "^0.3.7",
     "@digitak/esrun": "^1.2.8",
-    "@graphql-codegen/cli": "^1.21.7",
+    "@graphql-codegen/cli": "^1.9.0",
     "@graphql-codegen/introspection": "^1.18.2",
     "@graphql-codegen/typescript": "^1.22.4",
     "@graphql-codegen/typescript-resolvers": "^1.19.5",
@@ -72,7 +72,7 @@
     "json-schema-deref-sync": "^0.14.0",
     "lodash": "^4.17.21",
     "pino": "^6.12.0",
-    "pino-cloudwatch": "^0.7.0",
+    "pino-cloudwatch": "^0.5.1",
     "pino-multi-stream": "^5.3.0",
     "pino-pretty": "^5.1.1",
     "prom-client": "^13.1.0",
