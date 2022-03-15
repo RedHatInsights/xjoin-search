@@ -17,7 +17,7 @@ objects:
       testing:
         iqePlugin: xjoin
       dependencies:
-      - host-inventory
+        - host-inventory
       deployments:
         - name: api
           minReplicas: ${{NUM_REPLICAS}}
@@ -535,6 +535,14 @@ objects:
                         "type": "keyword"
                       },
                       "sso_version": {
+                        "type": "keyword"
+                      }
+                    }
+                  },
+                  "mssql": {
+                    "type": "object",
+                    "properties": {
+                      "version": {
                         "type": "keyword"
                       }
                     }

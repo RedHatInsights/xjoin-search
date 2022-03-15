@@ -11,9 +11,11 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  BigInt: number;
   JSON: any;
   JSONObject: { [key: string]: any };
 };
+
 
 /** Represents a single Boolean value. The `count` field indicates how many systems with the given value were returned by a query */
 export type BooleanValueInfo = {
@@ -92,15 +94,21 @@ export type FilterInstalledProducts = {
 /** Timestamp field filter with support for common operations. */
 export type FilterInt = {
   /** Equal to */
-  eq?: Maybe<Scalars['Int']>;
+  eq?: Maybe<Scalars['BigInt']>;
   /** Less than */
-  lt?: Maybe<Scalars['Int']>;
+  lt?: Maybe<Scalars['BigInt']>;
   /** Less than or equal to */
-  lte?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['BigInt']>;
   /** Greater than */
-  gt?: Maybe<Scalars['Int']>;
+  gt?: Maybe<Scalars['BigInt']>;
   /** Greater than or equal to */
-  gte?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['BigInt']>;
+};
+
+/** Filter by 'mssql' field of system profile */
+export type FilterMssql = {
+  /** Filter by 'version' field of mssql */
+  version?: Maybe<FilterStringWithWildcard>;
 };
 
 /** Filter by 'network_interfaces' field of system profile */
@@ -326,6 +334,8 @@ export type HostFilter = {
   provider_type?: Maybe<FilterString>;
   /** Filter by provider_id */
   provider_id?: Maybe<FilterString>;
+  /** Filter by 'mssql' field of system profile */
+  spf_mssql?: Maybe<FilterMssql>;
   /** Filter by 'ansible' field of system profile */
   spf_ansible?: Maybe<FilterAnsible>;
   /** Filter by 'system_purpose' field of system profile */
@@ -668,6 +678,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  BigInt: ResolverTypeWrapper<Scalars['BigInt']>;
   BooleanValueInfo: ResolverTypeWrapper<BooleanValueInfo>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
@@ -679,6 +690,7 @@ export type ResolversTypes = {
   FilterDnfModules: FilterDnfModules;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
+  FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
   FilterRhsm: FilterRhsm;
@@ -715,6 +727,7 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  BigInt: Scalars['BigInt'];
   BooleanValueInfo: BooleanValueInfo;
   Boolean: Scalars['Boolean'];
   Int: Scalars['Int'];
@@ -726,6 +739,7 @@ export type ResolversParentTypes = {
   FilterDnfModules: FilterDnfModules;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
+  FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
   FilterRhsm: FilterRhsm;
@@ -755,6 +769,10 @@ export type ResolversParentTypes = {
   TagInfo: TagInfo;
   Tags: Tags;
 };
+
+export interface BigIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['BigInt'], any> {
+  name: 'BigInt';
+}
 
 export type BooleanValueInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['BooleanValueInfo'] = ResolversParentTypes['BooleanValueInfo']> = {
   value?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -854,6 +872,7 @@ export type TagsResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  BigInt?: GraphQLScalarType;
   BooleanValueInfo?: BooleanValueInfoResolvers<ContextType>;
   BooleanValues?: BooleanValuesResolvers<ContextType>;
   CollectionMeta?: CollectionMetaResolvers<ContextType>;

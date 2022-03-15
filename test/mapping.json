@@ -322,6 +322,14 @@
               "type": "keyword"
             }
           }
+        },
+        "mssql": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "keyword"
+            }
+          }
         }
       }
     },

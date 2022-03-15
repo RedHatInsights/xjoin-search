@@ -491,6 +491,61 @@ describe('hosts query', function () {
                 });
             });
 
+            describe('bigInt', function () {
+                const hosts = [
+                    {system_profile_facts: {system_memory_bytes: 1}},
+                    {system_profile_facts: {system_memory_bytes: 9007199254740991}},
+                    {system_profile_facts: {}}
+                ];
+
+                test('non-number', async () => {
+                    await createHosts(...hosts);
+
+                    const err = await runQueryCatchError(
+                        getContext().headers,
+                        SP_QUERY,
+                        { filter: { spf_system_memory_bytes: { eq: 'foo' }}}
+                    );
+                    expect(err.response.status).toEqual(400);
+                });
+
+                test('limit', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { spf_system_memory_bytes: { eq: 9007199254740991 }}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].system_profile_facts.system_memory_bytes.should.equal(9007199254740991);
+                });
+
+                test('null', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { spf_system_memory_bytes: { eq: null }}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(1);
+                    data.hosts.data[0].system_profile_facts.should.be.empty();
+                });
+
+                test('not null', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { NOT: { spf_system_memory_bytes: { eq: null }}}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(2);
+                    data.hosts.data.forEach((host: any) => host.system_profile_facts.should.have.property('system_memory_bytes'));
+                });
+            });
+
             describe('timestamps', function () {
                 const hosts = [
                     {system_profile_facts: {last_boot_time: '2021-01-10T15:10:10.000Z'}},

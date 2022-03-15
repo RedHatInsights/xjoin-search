@@ -24,6 +24,7 @@
     * [FilterDnfModules](#filterdnfmodules)
     * [FilterInstalledProducts](#filterinstalledproducts)
     * [FilterInt](#filterint)
+    * [FilterMssql](#filtermssql)
     * [FilterNetworkInterfaces](#filternetworkinterfaces)
     * [FilterOperatingSystem](#filteroperatingsystem)
     * [FilterRhsm](#filterrhsm)
@@ -44,6 +45,7 @@
     * [ORDER_DIR](#order_dir)
     * [VALUES_ORDER_BY](#values_order_by)
   * [Scalars](#scalars)
+    * [BigInt](#bigint)
     * [Boolean](#boolean)
     * [ID](#id)
     * [Int](#int)
@@ -847,7 +849,7 @@ Timestamp field filter with support for common operations.
 <tbody>
 <tr>
 <td colspan="2" valign="top"><strong>eq</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Equal to
@@ -856,7 +858,7 @@ Equal to
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>lt</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Less than
@@ -865,7 +867,7 @@ Less than
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>lte</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Less than or equal to
@@ -874,7 +876,7 @@ Less than or equal to
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>gt</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Greater than
@@ -883,10 +885,35 @@ Greater than
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>gte</strong></td>
-<td valign="top"><a href="#int">Int</a></td>
+<td valign="top"><a href="#bigint">BigInt</a></td>
 <td>
 
 Greater than or equal to
+
+</td>
+</tr>
+</tbody>
+</table>
+
+### FilterMssql
+
+Filter by 'mssql' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>version</strong></td>
+<td valign="top"><a href="#filterstringwithwildcard">FilterStringWithWildcard</a></td>
+<td>
+
+Filter by 'version' field of mssql
 
 </td>
 </tr>
@@ -1524,6 +1551,15 @@ Filter by provider_id
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>spf_mssql</strong></td>
+<td valign="top"><a href="#filtermssql">FilterMssql</a></td>
+<td>
+
+Filter by 'mssql' field of system profile
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>spf_ansible</strong></td>
 <td valign="top"><a href="#filteransible">FilterAnsible</a></td>
 <td>
@@ -2132,6 +2168,8 @@ As a result, "=" and "/" appear in every tag.
 </table>
 
 ## Scalars
+
+### BigInt
 
 ### Boolean
 
