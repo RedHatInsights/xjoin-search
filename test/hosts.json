@@ -157,6 +157,13 @@
                 "bios.version": "1.11.0-2.el7",
                 "bios.release_date": "2014-04-01"
             }
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
         }
     },
     {
@@ -295,7 +302,14 @@
             "Sat/env/prod",
             "aws/region/us-east-1",
             "insights-client/database/"
-        ]
+        ],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        }
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
@@ -440,7 +454,14 @@
             "aws/region/us-east-3",
             "insights-client/database/",
             "insights-client/os/fedora"
-        ]
+        ],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        }
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
@@ -461,6 +482,13 @@
             "owner_id": "it8i99u1-48ut-1rdf-bc10-84opf904test",
             "operating_system": {
                 "name": "RHEL"
+            }
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
             }
         }
     },
@@ -507,6 +535,13 @@
                 "name": "CENT",
                 "major": 8
             }
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
         }
     },
     {
@@ -529,6 +564,13 @@
             "operating_system": {
                 "name": "CENT",
                 "minor": 7
+            }
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
             }
         }
     },
@@ -565,6 +607,13 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
         }
     },
     {
@@ -601,6 +650,13 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
         }
     },
     {
@@ -635,6 +691,13 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
         }
     },
     {
@@ -669,6 +732,13 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
         }
     },
     {
@@ -703,6 +773,13 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
         }
     },
     {
@@ -737,6 +814,13 @@
             "insights_client_version": "3.0.6-2.el7_6",
             "system_memory_bytes": 511451136,
             "satellite_managed": false
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
         }
     },
     {
@@ -792,7 +876,14 @@
             "Sat/env/prod",
             "aws/region/us-east-1",
             "insights-client/database/"
-        ]
+        ],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        }
     },
     {
         "id": "6e7b6339-9y2d-4552-a2f2-b7da0aece49d",
@@ -847,7 +938,14 @@
             "Sat/env/prod",
             "aws/region/us-east-1",
             "insights-client/database/"
-        ]
+        ],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        }
     },
     {
         "id": "d1119a66-ffb7-4529-a8ca-15439aed29ad",
@@ -864,6 +962,13 @@
         },
         "system_profile_facts": {
             "arch": "x86_64"
+        },
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
         }
     },
     {
@@ -946,7 +1051,14 @@
             "insights-client/foo/6",
             "insights-client/foo/7",
             "insights-client/foo/8"
-        ]
+        ],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        }
     },
     {
         "id": "f2fea2de-5dd5-4f32-a6c1-142c7affc321",
@@ -1013,7 +1125,14 @@
             "insights-client/bar/6",
             "insights-client/bar/7",
             "insights-client/bar/8"
-        ]
+        ],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        }
     },
     {
         "id": "399886f1-fcb5-43d8-be70-f4bbdb02d4b0",
@@ -1038,7 +1157,14 @@
         ],
         "tags_string": [
             "null/foo"
-        ]
+        ],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        }
     },
     {
         "id": "bd37baad-ce97-4488-ba0c-fb93edd36f7f",
@@ -1060,7 +1186,14 @@
                 "key": "os",
                 "value": "fedora"
             }
-        ]
+        ],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        }
     },
     {
         "id": "b72cf877-3433-4755-b172-65700a56545a",
@@ -1097,6 +1230,13 @@
                 "key": "key",
                 "value": "value"
             }
-        ]
+        ],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        }
     }
 ]
