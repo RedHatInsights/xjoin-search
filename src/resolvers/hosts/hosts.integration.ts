@@ -128,6 +128,26 @@ describe('hosts query', function () {
         expect(data).toMatchSnapshot();
     });
 
+    test('fetch host with per-reporter staleness', async () => {
+        const { data, status } = await runQuery(`
+            {
+                hosts (
+                    filter: {
+                        id: {
+                            eq: "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee"
+                        }
+                    }
+                ) {
+                    data {
+                        id, per_reporter_staleness
+                    }
+                }
+            }`,
+        {});
+        expect(status).toEqual(200);
+        expect(data).toMatchSnapshot();
+    });
+
     describe ('ordering', function () {
 
         test('display_name ASC', async () => {

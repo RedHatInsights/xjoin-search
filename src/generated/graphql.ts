@@ -294,6 +294,8 @@ export type Host = {
   tags?: Maybe<Tags>;
   /** Facts of a host. The subset of keys can be requested using `filter`. */
   facts?: Maybe<Scalars['JSONObject']>;
+  /** Per-reporter staleness data for a host. The subset of keys can be requested using `filter`. */
+  per_reporter_staleness?: Maybe<Scalars['JSONObject']>;
 };
 
 
@@ -311,6 +313,12 @@ export type HostSystem_Profile_FactsArgs = {
 
 /** Inventory host */
 export type HostFactsArgs = {
+  filter?: Maybe<Array<Scalars['String']>>;
+};
+
+
+/** Inventory host */
+export type HostPer_Reporter_StalenessArgs = {
   filter?: Maybe<Array<Scalars['String']>>;
 };
 
@@ -805,6 +813,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostSystem_Profile_FactsArgs, never>>;
   tags?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType>;
   facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostFactsArgs, never>>;
+  per_reporter_staleness?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostPer_Reporter_StalenessArgs, never>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
