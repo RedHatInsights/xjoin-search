@@ -359,6 +359,20 @@ Facts of a host. The subset of keys can be requested using `filter`.
 <td valign="top">[<a href="#string">String</a>!]</td>
 <td></td>
 </tr>
+<tr>
+<td colspan="2" valign="top"><strong>per_reporter_staleness</strong></td>
+<td valign="top"><a href="#jsonobject">JSONObject</a></td>
+<td>
+
+Per-reporter staleness data for a host. The subset of keys can be requested using `filter`.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top">[<a href="#string">String</a>!]</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 

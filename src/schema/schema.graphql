@@ -608,6 +608,9 @@ type Host {
 
     "Facts of a host. The subset of keys can be requested using `filter`."
     facts (filter: [String!]): JSONObject
+
+    "Per-reporter staleness data for a host. The subset of keys can be requested using `filter`."
+    per_reporter_staleness (filter: [String!]): JSONObject,
 }
 
 type Hosts {
