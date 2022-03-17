@@ -132,6 +132,10 @@ export function OSResolver() {
         );
 
         const data = _.map(page, bucket => {
+            // Toss unknown and incomplete OS versions
+            if (bucket.key === '') {
+                return;
+            }
             const versionSplit = bucket.key.split(' ');
             return {
                 value: {

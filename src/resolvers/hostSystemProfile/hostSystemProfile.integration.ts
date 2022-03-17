@@ -532,5 +532,21 @@ describe('host system profile', function () {
                 data.hostSystemProfile.operating_system.data.should.eql([R12, R11, C33]);
             });
         });
+
+        test('host filter', async () => {
+            await createHosts(...hosts);
+
+            const { data, status } = await runQuery(QUERY, {
+                hostFilter: {
+                    display_name: {
+                        matches: 'foo*'
+                    }
+                }
+            }, getContext().headers);
+            expect(status).toEqual(200);
+
+            data.hostSystemProfile.operating_system.meta.should.eql({total: 3, count: 3});
+            data.hostSystemProfile.operating_system.data.should.eql([C33, R11, R12]);
+        });
     });
 });
