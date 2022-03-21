@@ -136,6 +136,7 @@ export function OSResolver() {
             if (bucket.key === '') {
                 return;
             }
+
             const versionSplit = bucket.key.split(' ');
             return {
                 value: {
