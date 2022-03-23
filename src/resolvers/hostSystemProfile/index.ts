@@ -143,6 +143,7 @@ export function OSResolver() {
                     count: bucket.doc_count
                 });
             }
+
             return result;
         }, []);
 

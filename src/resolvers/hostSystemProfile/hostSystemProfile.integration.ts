@@ -469,7 +469,7 @@ describe('host system profile', function () {
             {
                 display_name: 'foo06',
                 system_profile_facts: {
-                    arch: "x86"
+                    arch: 'x86'
                 }
             },
             {
