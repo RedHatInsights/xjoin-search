@@ -98,7 +98,7 @@ export function OSResolver() {
                 terms: {
                     terms: {
                         // eslint-disable-next-line max-len, quotes
-                        script: "if(doc['system_profile_facts.operating_system.name'].size()==0 || doc['system_profile_facts.operating_system.major'].size()==0 || doc['system_profile_facts.operating_system.minor'].size()==0){return '';} def someString = doc['system_profile_facts.operating_system.name'].value + ' ' + doc['system_profile_facts.operating_system.major'].value + ' ' + doc['system_profile_facts.operating_system.minor'].value ; return someString;",
+                        script: "if(doc['system_profile_facts.operating_system.name'].size()==0 || doc['system_profile_facts.operating_system.major'].size()==0 || doc['system_profile_facts.operating_system.minor'].size()==0){return '';} def someString = doc['system_profile_facts.operating_system.name'].value + '|' + doc['system_profile_facts.operating_system.major'].value + '|' + doc['system_profile_facts.operating_system.minor'].value ; return someString;",
                         size: config.queries.maxBuckets,
                         order: [{
                             [VALUES_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
@@ -131,22 +131,20 @@ export function OSResolver() {
             offset
         );
 
-        const data = _.map(page, bucket => {
-            // Toss unknown and incomplete OS versions
-            if (bucket.key === '') {
-                return;
+        const data = page.reduce((result: any[], bucket: any) => {
+            if (bucket.key !== '') {
+                const versionSplit = bucket.key.split('|');
+                result.push({
+                    value: {
+                        name: versionSplit[0],
+                        major: versionSplit[1],
+                        minor: versionSplit[2]
+                    },
+                    count: bucket.doc_count
+                });
             }
-
-            const versionSplit = bucket.key.split(' ');
-            return {
-                value: {
-                    name: versionSplit[0],
-                    major: versionSplit[1],
-                    minor: versionSplit[2]
-                },
-                count: bucket.doc_count
-            };
-        });
+            return result;
+        }, []);
 
         return {
             data,

@@ -457,6 +457,39 @@ describe('host system profile', function () {
             }
         ];
 
+        const partialOSHosts = [
+            {
+                display_name: 'foo05',
+                system_profile_facts: {
+                    operating_system: {
+                        name: 'RHEL'
+                    }
+                }
+            },
+            {
+                display_name: 'foo06',
+                system_profile_facts: {
+                    arch: "x86"
+                }
+            },
+            {
+                display_name: 'foo07',
+                system_profile_facts: {
+                    operating_system: {
+                        major: 1
+                    }
+                }
+            },
+            {
+                display_name: 'foo08',
+                system_profile_facts: {
+                    operating_system: {
+                        minor: 3
+                    }
+                }
+            }
+        ];
+
         const R11 = {
             value: {
                 name: 'RHEL',
@@ -539,13 +572,24 @@ describe('host system profile', function () {
             const { data, status } = await runQuery(QUERY, {
                 hostFilter: {
                     display_name: {
-                        matches: 'foo*'
+                        matches: 'foo04'
                     }
                 }
             }, getContext().headers);
             expect(status).toEqual(200);
 
-            data.hostSystemProfile.operating_system.meta.should.eql({total: 3, count: 3});
+            data.hostSystemProfile.operating_system.meta.should.eql({total: 1, count: 1});
+            data.hostSystemProfile.operating_system.data.should.eql([C33]);
+        });
+
+        test('Query hosts with partial operating system', async () => {
+            await createHosts(...hosts);
+            //All hosts with partial OS versions should effectively be ignored
+            await createHosts(...partialOSHosts);
+
+            const { data, status } = await runQuery(QUERY, {}, getContext().headers);
+            expect(status).toEqual(200);
+            data.hostSystemProfile.operating_system.meta.should.eql({total: 4, count: 3});
             data.hostSystemProfile.operating_system.data.should.eql([C33, R11, R12]);
         });
     });
