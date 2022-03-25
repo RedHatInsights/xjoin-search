@@ -1,5 +1,5 @@
 {
-    "webPort": 8000,
+    "webPort": 10000,
     "metricsPort": 9001,
     "metricsPath": "/metrics",
     "logging": {
