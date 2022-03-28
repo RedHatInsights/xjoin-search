@@ -126,7 +126,7 @@ if (acgConfig) {
     const clowdAppConfig = require(acgConfig); // eslint-disable-line security/detect-non-literal-require
 
     const data: any = {
-        port: clowdAppConfig.webPort,
+        port: clowdAppConfig.privatePort,
         metrics: {
             port: clowdAppConfig.metricsPort,
             path: clowdAppConfig.metricsPath
