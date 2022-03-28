@@ -589,7 +589,7 @@ describe('host system profile', function () {
 
             const { data, status } = await runQuery(QUERY, {}, getContext().headers);
             expect(status).toEqual(200);
-            data.hostSystemProfile.operating_system.meta.should.eql({total: 4, count: 3});
+            data.hostSystemProfile.operating_system.meta.should.eql({total: 3, count: 3});
             data.hostSystemProfile.operating_system.data.should.eql([C33, R11, R12]);
         });
     });
