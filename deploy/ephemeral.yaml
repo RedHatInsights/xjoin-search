@@ -21,7 +21,9 @@ objects:
       deployments:
         - name: api
           minReplicas: ${{NUM_REPLICAS}}
-          web: true
+          webServices:
+            private:
+              enabled: true
           podSpec:
             image: ${IMAGE}:${IMAGE_TAG}
             livenessProbe:
@@ -100,7 +102,7 @@ objects:
       ports:
         - port: 4000
           protocol: TCP
-          targetPort: web
+          targetPort: private
       selector:
         pod: xjoin-search-api
   - apiVersion: elasticsearch.k8s.elastic.co/v1
