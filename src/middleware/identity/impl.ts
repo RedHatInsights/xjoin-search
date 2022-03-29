@@ -32,7 +32,7 @@ export default function identity(req: express.Request, res: express.Response, ne
         }
 
         next();
-    } catch (e) {
+    } catch (e: any) {
         log.error(e);
         return next(new HttpErrorBadRequest());
     }

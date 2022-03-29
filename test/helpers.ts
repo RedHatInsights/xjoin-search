@@ -58,7 +58,9 @@ export function createHosts (...hosts: any[]) {
     return Promise.all(hosts.map(createHost));
 }
 
-export async function runQuery(query: string, variables: Record<string, any>,
+export async function runQuery(
+    query: string,
+    variables: Record<string, any>,
     headers: any = { [constants.IDENTITY_HEADER]: createIdentityHeader()}) {
 
     const client = new GraphQLClient('http://localhost:4000/graphql', { headers });
@@ -66,14 +68,13 @@ export async function runQuery(query: string, variables: Record<string, any>,
 }
 
 export async function runQueryCatchError(headers: any, query = '{ hosts { data { id }}}', variables = {}) {
-    let err = null;
     try {
         await runQuery(query, variables, headers);
     } catch (e) {
-        err = e;
+        return e;
     }
 
-    return err;
+    return;
 }
 
 export function createHeaders (username: string, account: string, is_internal = true) {
