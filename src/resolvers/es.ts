@@ -13,7 +13,7 @@ export async function runQuery (query: any, id: string): Promise<any> {
         log.trace(result, 'query finished');
         esResponseHistogram.labels(id).observe(result.body.took / 1000); // ms -> seconds
         return result;
-    } catch (err) {
+    } catch (err: any) {
         log.error(err);
 
         if (_.get(err, 'meta.body.error.root_cause[0].reason', '').startsWith('Result window is too large')) {

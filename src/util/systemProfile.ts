@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
-import { JSONSchema, dereference } from '@apidevtools/json-schema-ref-parser';
+import { JSONSchema} from '@apidevtools/json-schema-ref-parser';
+import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { filterTimestamp } from '../resolvers/inputTimestamp';
 import { filterString, filterStringWithWildcard } from '../resolvers/inputString';
 import { filterBoolean } from '../resolvers/inputBoolean';
@@ -58,7 +59,7 @@ export async function getSchema(schemaFilePath = 'inventory-schemas/system_profi
     let schema: any;
 
     try {
-        schema = await dereference(schemaFilePath);
+        schema = await $RefParser.dereference(schemaFilePath);
     } catch (err) {
         throw (`System Profile Schema can not be read. error: ${err}`);
     }
