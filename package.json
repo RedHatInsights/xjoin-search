@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.9",
-    "@elastic/elasticsearch": "^7.13.0",
+    "@elastic/elasticsearch": "7.13.0",
     "@godaddy/terminus": "^4.9.0",
     "@types/pino-multi-stream": "^5.1.2",
     "@types/sinon": "^10.0.2",
