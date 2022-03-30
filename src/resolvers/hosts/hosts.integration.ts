@@ -521,7 +521,7 @@ describe('hosts query', function () {
                 test('non-number', async () => {
                     await createHosts(...hosts);
 
-                    const err = await runQueryCatchError(
+                    const err: any = await runQueryCatchError(
                         getContext().headers,
                         SP_QUERY,
                         { filter: { spf_system_memory_bytes: { eq: 'foo' }}}
@@ -832,39 +832,39 @@ describe('hosts query', function () {
             test('correct identity header', async () => {
                 const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader()};
                 const err = await runQueryCatchError(headers);
-                expect(err).toBeNull();
+                expect(err).toBeUndefined();
             });
 
             test('no identity header', async () => {
-                const err = await runQueryCatchError({});
+                const err: any = await runQueryCatchError({});
                 expect(err.response.status).toEqual(401);
             });
 
             test('no account number', async () => {
                 const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
                     data => { delete data.identity.account_number; return data; })};
-                const err = await runQueryCatchError(headers);
+                const err: any = await runQueryCatchError(headers);
                 expect(err.response.status).toEqual(400);
             });
 
             test('null account number', async () => {
                 const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
                     data => { data.identity.account_number = null; return data; })};
-                const err = await runQueryCatchError(headers);
+                const err: any = await runQueryCatchError(headers);
                 expect(err.response.status).toEqual(400);
             });
 
             test('wrong identity type', async () => {
                 const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
                     data => { data.identity.type = 'foo'; return data; })};
-                const err = await runQueryCatchError(headers);
+                const err: any = await runQueryCatchError(headers);
                 expect(err.response.status).toEqual(403);
             });
 
             test('missing user obj', async () => {
                 const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
                     data => { delete data.identity.user; return data; })};
-                const err = await runQueryCatchError(headers);
+                const err: any = await runQueryCatchError(headers);
                 expect(err.response.status).toEqual(400);
             });
 
@@ -876,7 +876,7 @@ describe('hosts query', function () {
                         data.system = {cn: 'cert_name'};
                         return data; })};
                 const err = await runQueryCatchError(headers);
-                expect(err).toBeNull();
+                expect(err).toBeUndefined();
             });
         });
 
@@ -934,7 +934,7 @@ describe('hosts query', function () {
             });
             test('not valid gte', async () => {
                 const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader()};
-                const err = await runQueryCatchError(headers, BASIC_QUERY, {
+                const err: any = await runQueryCatchError(headers, BASIC_QUERY, {
                     filter: {
                         stale_timestamp: {
                             gte: 'xxx'
@@ -1222,7 +1222,7 @@ describe('hosts query', function () {
         });
 
         test('matches null', async () => {
-            const error = await runQueryCatchError(headers, QUERY, {
+            const error: any = await runQueryCatchError(headers, QUERY, {
                 filter: {display_name: { matches: null }}
             });
 
@@ -1247,7 +1247,7 @@ describe('hosts query', function () {
             });
 
             test('eq null', async () => {
-                const error = await runQueryCatchError(headers, QUERY, {
+                const error: any = await runQueryCatchError(headers, QUERY, {
                     filter: {display_name: { eq_lc: null }}
                 });
 
@@ -1287,7 +1287,7 @@ describe('hosts query', function () {
             });
 
             test('matches null', async () => {
-                const error = await runQueryCatchError(headers, QUERY, {
+                const error: any = await runQueryCatchError(headers, QUERY, {
                     filter: {display_name: { matches_lc: null }}
                 });
 
@@ -1337,7 +1337,7 @@ describe('hosts query', function () {
                 }
             ));
 
-            const err = await runQueryCatchError(undefined, BASIC_QUERY, {
+            const err: any = await runQueryCatchError(undefined, BASIC_QUERY, {
                 offset: 50001
             });
 
@@ -1368,7 +1368,7 @@ describe('hosts query', function () {
         test('Generic elastic search error', async () => {
             createClientSearchStub(({}), ({}));
 
-            const err = await runQueryCatchError(undefined, BASIC_QUERY);
+            const err: any = await runQueryCatchError(undefined, BASIC_QUERY);
 
             expect(err.message.startsWith('Elastic search error')).toBeTruthy();
         });
