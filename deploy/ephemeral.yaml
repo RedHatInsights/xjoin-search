@@ -118,7 +118,7 @@ objects:
         tls:
           selfSignedCertificate:
             disabled: true
-      version: 7.1.0
+      version: 7.10.0
       nodeSets:
         - name: default
           podTemplate:
