@@ -498,6 +498,17 @@ describe('hosts query', function () {
                     data.hosts.data.should.have.length(2);
                     data.hosts.data.forEach((host: any) => host.system_profile_facts.should.have.property('number_of_cpus'));
                 });
+
+                test('0', async () => {
+                    await createHosts(...hosts);
+
+                    const { data } = await runQuery(
+                        SP_QUERY,
+                        { filter: { spf_number_of_cpus: { gt: 0 }}},
+                        getContext().headers
+                    );
+                    data.hosts.data.should.have.length(2);
+                });
             });
 
             describe('bigInt', function () {
