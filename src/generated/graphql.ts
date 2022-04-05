@@ -163,6 +163,14 @@ export type FilterRpmOstreeDeployments = {
   version?: Maybe<FilterString>;
 };
 
+/** Per reporter timestamp field filter. */
+export type FilterPerReporterStaleness = {
+  reporter?: Maybe<FilterString>;
+  stale_timestamp?: Maybe<FilterTimestamp>;
+  last_check_in?: Maybe<FilterTimestamp>;
+  check_in_succeeded?: Maybe<FilterBoolean>;
+};
+
 /** Basic filter for string fields that allows filtering based on exact match. */
 export type FilterString = {
   /**
@@ -289,13 +297,13 @@ export type Host = {
   facts?: Maybe<Scalars['JSONObject']>;
   id: Scalars['ID'];
   modified_on?: Maybe<Scalars['String']>;
-  /** Per-reporter staleness data for a host. The subset of keys can be requested using `filter`. */
-  per_reporter_staleness?: Maybe<Scalars['JSONObject']>;
   reporter?: Maybe<Scalars['String']>;
   stale_timestamp?: Maybe<Scalars['String']>;
   /** System profile of a host. The subset of keys can be requested using `filter`. */
   system_profile_facts?: Maybe<Scalars['JSONObject']>;
   tags?: Maybe<Tags>;
+  /** per reporter staleness of the host */
+  per_reporter_staleness?: Maybe<Array<Maybe<PerReporterStaleness>>>;
 };
 
 
@@ -448,6 +456,8 @@ export type HostFilter = {
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
   tag?: Maybe<FilterTag>;
+  /** Filter by 'stale_timestamp' field of per_reporter_staleness */
+  per_reporter_staleness?: Maybe<FilterPerReporterStaleness>;
 };
 
 /** Lists unique system profile values. */
@@ -496,6 +506,14 @@ export enum Order_Dir {
   Asc = 'ASC',
   Desc = 'DESC'
 }
+
+export type PerReporterStaleness = {
+  __typename?: 'PerReporterStaleness';
+  reporter?: Maybe<Scalars['String']>;
+  last_check_in?: Maybe<Scalars['String']>;
+  stale_timestamp?: Maybe<Scalars['String']>;
+  check_in_succeeded?: Maybe<Scalars['Boolean']>;
+};
 
 export type Query = {
   __typename?: 'Query';
@@ -700,6 +718,7 @@ export type ResolversTypes = {
   FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
   FilterString: FilterString;
@@ -721,6 +740,7 @@ export type ResolversTypes = {
   JSON: ResolverTypeWrapper<Scalars['JSON']>;
   JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>;
   ORDER_DIR: Order_Dir;
+  PerReporterStaleness: ResolverTypeWrapper<PerReporterStaleness>;
   Query: ResolverTypeWrapper<{}>;
   SapSidFilter: SapSidFilter;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -757,6 +777,7 @@ export type ResolversParentTypes = {
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
   FilterSystemPurpose: FilterSystemPurpose;
   FilterTag: FilterTag;
+  FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterTimestamp: FilterTimestamp;
   Host: Host;
   HostFilter: HostFilter;
@@ -767,6 +788,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   JSON: Scalars['JSON'];
   JSONObject: Scalars['JSONObject'];
+  PerReporterStaleness: PerReporterStaleness;
   Query: {};
   SapSidFilter: SapSidFilter;
   String: Scalars['String'];
@@ -809,7 +831,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostFactsArgs, never>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  per_reporter_staleness?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostPer_Reporter_StalenessArgs, never>>;
+  per_reporter_staleness?: Resolver<Maybe<Array<Maybe<ResolversTypes['PerReporterStaleness']>>>, ParentType, ContextType>;
   reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostSystem_Profile_FactsArgs, never>>;
