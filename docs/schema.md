@@ -21,7 +21,6 @@
   * [Inputs](#inputs)
     * [FilterAnsible](#filteransible)
     * [FilterBoolean](#filterboolean)
-    * [FilterPerReporterStaleness](#filterperreporterstaleness)
     * [FilterDiskDevices](#filterdiskdevices)
     * [FilterDnfModules](#filterdnfmodules)
     * [FilterInstalledProducts](#filterinstalledproducts)
@@ -29,6 +28,7 @@
     * [FilterMssql](#filtermssql)
     * [FilterNetworkInterfaces](#filternetworkinterfaces)
     * [FilterOperatingSystem](#filteroperatingsystem)
+    * [FilterPerReporterStaleness](#filterperreporterstaleness)
     * [FilterRhsm](#filterrhsm)
     * [FilterRpmOstreeDeployments](#filterrpmostreedeployments)
     * [FilterString](#filterstring)
@@ -363,14 +363,9 @@ Facts of a host. The subset of keys can be requested using `filter`.
 <td valign="top">[<a href="#perreporterstaleness">PerReporterStaleness</a>]</td>
 <td>
 
-Per-reporter staleness data for a host.
+Per-reporter staleness of the host
 
 </td>
-</tr>
-<tr>
-<td colspan="2" align="right" valign="top">filter</td>
-<td valign="top">[<a href="#string">String</a>!]</td>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -1093,6 +1088,42 @@ Filter by 'name' field of operating_system
 </tbody>
 </table>
 
+### FilterPerReporterStaleness
+
+Per reporter timestamp field filter.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>reporter</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
+<td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>last_check_in</strong></td>
+<td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>check_in_succeeded</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
 ### FilterRhsm
 
 Filter by 'rhsm' field of system profile
@@ -1193,42 +1224,6 @@ Filter by 'booted' field of rpm_ostree_deployments
 Filter by 'pinned' field of rpm_ostree_deployments
 
 </td>
-</tr>
-</tbody>
-</table>
-
-### FilterPerReporterStaleness
-
-Per reporter timestamp field filter.
-
-<table>
-<thead>
-<tr>
-<th colspan="2" align="left">Field</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="2" valign="top"><strong>reporter</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
-<td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>last_check_in</strong></td>
-<td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>check_in_succeeded</strong></td>
-<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
-<td></td>
 </tr>
 </tbody>
 </table>

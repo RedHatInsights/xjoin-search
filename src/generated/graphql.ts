@@ -139,6 +139,14 @@ export type FilterOperatingSystem = {
   name?: Maybe<FilterString>;
 };
 
+/** Per reporter timestamp field filter. */
+export type FilterPerReporterStaleness = {
+  check_in_succeeded?: Maybe<FilterBoolean>;
+  last_check_in?: Maybe<FilterTimestamp>;
+  reporter?: Maybe<FilterString>;
+  stale_timestamp?: Maybe<FilterTimestamp>;
+};
+
 /** Filter by 'rhsm' field of system profile */
 export type FilterRhsm = {
   /** Filter by 'version' field of rhsm */
@@ -161,14 +169,6 @@ export type FilterRpmOstreeDeployments = {
   pinned?: Maybe<FilterBoolean>;
   /** Filter by 'version' field of rpm_ostree_deployments */
   version?: Maybe<FilterString>;
-};
-
-/** Per reporter timestamp field filter. */
-export type FilterPerReporterStaleness = {
-  reporter?: Maybe<FilterString>;
-  stale_timestamp?: Maybe<FilterTimestamp>;
-  last_check_in?: Maybe<FilterTimestamp>;
-  check_in_succeeded?: Maybe<FilterBoolean>;
 };
 
 /** Basic filter for string fields that allows filtering based on exact match. */
@@ -297,13 +297,13 @@ export type Host = {
   facts?: Maybe<Scalars['JSONObject']>;
   id: Scalars['ID'];
   modified_on?: Maybe<Scalars['String']>;
+  /** Per-reporter staleness of the host */
+  per_reporter_staleness?: Maybe<Array<Maybe<PerReporterStaleness>>>;
   reporter?: Maybe<Scalars['String']>;
   stale_timestamp?: Maybe<Scalars['String']>;
   /** System profile of a host. The subset of keys can be requested using `filter`. */
   system_profile_facts?: Maybe<Scalars['JSONObject']>;
   tags?: Maybe<Tags>;
-  /** per reporter staleness of the host */
-  per_reporter_staleness?: Maybe<Array<Maybe<PerReporterStaleness>>>;
 };
 
 
@@ -315,12 +315,6 @@ export type HostCanonical_FactsArgs = {
 
 /** Inventory host */
 export type HostFactsArgs = {
-  filter?: Maybe<Array<Scalars['String']>>;
-};
-
-
-/** Inventory host */
-export type HostPer_Reporter_StalenessArgs = {
   filter?: Maybe<Array<Scalars['String']>>;
 };
 
@@ -346,6 +340,8 @@ export type HostFilter = {
   id?: Maybe<FilterStringWithWildcard>;
   /** Filter by insights id */
   insights_id?: Maybe<FilterStringWithWildcard>;
+  /** Filter by 'stale_timestamp' field of per_reporter_staleness */
+  per_reporter_staleness?: Maybe<FilterPerReporterStaleness>;
   /** Filter by provider_id */
   provider_id?: Maybe<FilterString>;
   /** Filter by provider_type */
@@ -456,8 +452,6 @@ export type HostFilter = {
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */
   tag?: Maybe<FilterTag>;
-  /** Filter by 'stale_timestamp' field of per_reporter_staleness */
-  per_reporter_staleness?: Maybe<FilterPerReporterStaleness>;
 };
 
 /** Lists unique system profile values. */
@@ -509,10 +503,10 @@ export enum Order_Dir {
 
 export type PerReporterStaleness = {
   __typename?: 'PerReporterStaleness';
-  reporter?: Maybe<Scalars['String']>;
-  last_check_in?: Maybe<Scalars['String']>;
-  stale_timestamp?: Maybe<Scalars['String']>;
   check_in_succeeded?: Maybe<Scalars['Boolean']>;
+  last_check_in?: Maybe<Scalars['String']>;
+  reporter?: Maybe<Scalars['String']>;
+  stale_timestamp?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -769,6 +763,7 @@ export type ResolversParentTypes = {
   FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
   FilterString: FilterString;
@@ -777,7 +772,6 @@ export type ResolversParentTypes = {
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
   FilterSystemPurpose: FilterSystemPurpose;
   FilterTag: FilterTag;
-  FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterTimestamp: FilterTimestamp;
   Host: Host;
   HostFilter: HostFilter;
@@ -865,6 +859,14 @@ export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<Resolver
   name: 'JSONObject';
 }
 
+export type PerReporterStalenessResolvers<ContextType = any, ParentType extends ResolversParentTypes['PerReporterStaleness'] = ResolversParentTypes['PerReporterStaleness']> = {
+  check_in_succeeded?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  last_check_in?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hostSystemProfile?: Resolver<Maybe<ResolversTypes['HostSystemProfile']>, ParentType, ContextType, RequireFields<QueryHostSystemProfileArgs, never>>;
   hostTags?: Resolver<Maybe<ResolversTypes['HostTags']>, ParentType, ContextType, RequireFields<QueryHostTagsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
@@ -913,6 +915,7 @@ export type Resolvers<ContextType = any> = {
   Hosts?: HostsResolvers<ContextType>;
   JSON?: GraphQLScalarType;
   JSONObject?: GraphQLScalarType;
+  PerReporterStaleness?: PerReporterStalenessResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   StringValueInfo?: StringValueInfoResolvers<ContextType>;
   StringValues?: StringValuesResolvers<ContextType>;

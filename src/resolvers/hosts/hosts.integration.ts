@@ -169,7 +169,13 @@ describe('hosts query', function () {
                     }
                 ) {
                     data {
-                        id, per_reporter_staleness
+                        id,
+                        per_reporter_staleness {
+                            reporter
+                            last_check_in
+                            stale_timestamp
+                            check_in_succeeded
+                        }
                     }
                 }
             }`,
@@ -1139,7 +1145,7 @@ describe('hosts query', function () {
         describe('per_reporter_staleness', function () {
             test('reporter', async () => {
                 const { data } = await runQuery(PRS_QUERY,
-                    { filter: { per_reporter_staleness: { reporter: 'yupana' }}});
+                    { filter: { per_reporter_staleness: { reporter: { eq: 'yupana' }}}});
                 data.hosts.data.should.have.length(2);
                 data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
                 data.hosts.data[1].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
@@ -1147,7 +1153,7 @@ describe('hosts query', function () {
 
             test('reporter and check in succeeded', async () => {
                 const { data } = await runQuery(PRS_QUERY,
-                    { filter: { per_reporter_staleness: { reporter: 'yupana', check_in_succeeded: {is: true}}}});
+                    { filter: { per_reporter_staleness: { reporter: {eq: 'yupana'}, check_in_succeeded: {is: true}}}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
             });
@@ -1181,7 +1187,7 @@ describe('hosts query', function () {
                         check_in_succeeded: {is: true}
                     }}});
                 data.hosts.data.should.have.length(1);
-                data.hosts.data[0].id.should.equal('22cd8e39-13bb-4d02-8316-84b850dc5136');
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
             });
 
         });
