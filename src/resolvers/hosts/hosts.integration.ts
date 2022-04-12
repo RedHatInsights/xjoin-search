@@ -112,9 +112,9 @@ const PRS_QUERY = `
                 account,
                 display_name,
                 per_reporter_staleness {
-                    reporter
-                    last_check_in
-                    stale_timestamp
+                    reporter,
+                    last_check_in,
+                    stale_timestamp,
                     check_in_succeeded
                 }
             }
