@@ -37,13 +37,12 @@ export function filterPerReporterStaleness(filter: FilterPerReporterStaleness) {
             path: 'per_reporter_staleness',
             query: {
                 bool: {
-                    must: [
-                        stringTerm(filter.reporter),
-                        booleanTerm(filter.check_in_succeeded),
-                        timestampTerm('per_reporter_staleness.last_check_in', filter.last_check_in),
-                        timestampTerm('per_reporter_staleness.stale_timestamp', filter.stale_timestamp)
-                    ]
-
+                    must:
+                        stringTerm(filter.reporter).concat(
+                            booleanTerm(filter.check_in_succeeded),
+                            timestampTerm('per_reporter_staleness.last_check_in', filter.last_check_in),
+                            timestampTerm('per_reporter_staleness.stale_timestamp', filter.stale_timestamp)
+                        )
                 }
             }
         }
