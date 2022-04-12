@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
 
   elasticsearch:
-    image: elasticsearch:7.3.1
+    image: elasticsearch:7.10.1
     ports:
       - "9200:9200"
       - "9300:9300"
