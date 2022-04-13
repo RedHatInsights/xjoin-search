@@ -158,13 +158,14 @@
                 "bios.release_date": "2014-04-01"
             }
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
@@ -303,13 +304,14 @@
             "aws/region/us-east-1",
             "insights-client/database/"
         ],
-        "per_reporter_staleness": {
-            "puptoo": {
-                "last_check_in": "2019-01-10T08:07:03.354312Z",
-                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+        "per_reporter_staleness": [
+            {
+                "reporter": "yupana",
+                "last_check_in":"2029-02-09T08:07:03.354307Z",
+                "stale_timestamp": "2029-02-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
@@ -455,13 +457,20 @@
             "insights-client/database/",
             "insights-client/os/fedora"
         ],
-        "per_reporter_staleness": {
-            "puptoo": {
-                "last_check_in": "2019-01-10T08:07:03.354312Z",
-                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-03-09T08:07:03.354307Z",
+                "stale_timestamp": "2019-03-10T08:07:03.354307Z",
                 "check_in_succeeded": true
+            },
+            {
+                "reporter": "yupana",
+                "last_check_in": "2019-01-10T08:07:03.354307Z",
+                "stale_timestamp": "2019-01-11T08:07:03.354307Z",
+                "check_in_succeeded": false
             }
-        }
+        ]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
@@ -484,13 +493,14 @@
                 "name": "RHEL"
             }
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
@@ -536,13 +546,14 @@
                 "major": 8
             }
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
@@ -566,13 +577,14 @@
                 "minor": 7
             }
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcea",
@@ -608,13 +620,14 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
@@ -651,13 +664,14 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
@@ -692,13 +706,14 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
@@ -733,13 +748,14 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
@@ -774,13 +790,14 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-5c79-bc27-845cc6d4bc69",
@@ -815,13 +832,14 @@
             "system_memory_bytes": 511451136,
             "satellite_managed": false
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "6e7b6339-0a2d-4552-a2f2-b7da0aece49d",
@@ -877,13 +895,14 @@
             "aws/region/us-east-1",
             "insights-client/database/"
         ],
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "6e7b6339-9y2d-4552-a2f2-b7da0aece49d",
@@ -939,13 +958,14 @@
             "aws/region/us-east-1",
             "insights-client/database/"
         ],
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "d1119a66-ffb7-4529-a8ca-15439aed29ad",
@@ -963,13 +983,14 @@
         "system_profile_facts": {
             "arch": "x86_64"
         },
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "5212d66b-62bf-49ee-8f96-dbb5d866fa2a",
@@ -1052,13 +1073,14 @@
             "insights-client/foo/7",
             "insights-client/foo/8"
         ],
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "f2fea2de-5dd5-4f32-a6c1-142c7affc321",
@@ -1126,13 +1148,14 @@
             "insights-client/bar/7",
             "insights-client/bar/8"
         ],
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "399886f1-fcb5-43d8-be70-f4bbdb02d4b0",
@@ -1158,13 +1181,14 @@
         "tags_string": [
             "null/foo"
         ],
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "bd37baad-ce97-4488-ba0c-fb93edd36f7f",
@@ -1187,13 +1211,14 @@
                 "value": "fedora"
             }
         ],
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     },
     {
         "id": "b72cf877-3433-4755-b172-65700a56545a",
@@ -1231,12 +1256,13 @@
                 "value": "value"
             }
         ],
-        "per_reporter_staleness": {
-            "puptoo": {
+        "per_reporter_staleness": [
+            {
+                "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        ]
     }
 ]

@@ -12,6 +12,7 @@
     * [HostSystemProfile](#hostsystemprofile)
     * [HostTags](#hosttags)
     * [Hosts](#hosts)
+    * [PerReporterStaleness](#perreporterstaleness)
     * [StringValueInfo](#stringvalueinfo)
     * [StringValues](#stringvalues)
     * [StructuredTag](#structuredtag)
@@ -27,6 +28,7 @@
     * [FilterMssql](#filtermssql)
     * [FilterNetworkInterfaces](#filternetworkinterfaces)
     * [FilterOperatingSystem](#filteroperatingsystem)
+    * [FilterPerReporterStaleness](#filterperreporterstaleness)
     * [FilterRhsm](#filterrhsm)
     * [FilterRpmOstreeDeployments](#filterrpmostreedeployments)
     * [FilterString](#filterstring)
@@ -358,17 +360,12 @@ Facts of a host. The subset of keys can be requested using `filter`.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>per_reporter_staleness</strong></td>
-<td valign="top"><a href="#jsonobject">JSONObject</a></td>
+<td valign="top">[<a href="#perreporterstaleness">PerReporterStaleness</a>]</td>
 <td>
 
-Per-reporter staleness data for a host. The subset of keys can be requested using `filter`.
+Per-reporter staleness of the host
 
 </td>
-</tr>
-<tr>
-<td colspan="2" align="right" valign="top">filter</td>
-<td valign="top">[<a href="#string">String</a>!]</td>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -498,6 +495,41 @@ Lists unique values of the `sap_sids` field
 <tr>
 <td colspan="2" valign="top"><strong>meta</strong></td>
 <td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### PerReporterStaleness
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>reporter</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>last_check_in</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>check_in_succeeded</strong></td>
+<td valign="top"><a href="#boolean">Boolean</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -1052,6 +1084,42 @@ Filter by 'minor' field of operating_system
 Filter by 'name' field of operating_system
 
 </td>
+</tr>
+</tbody>
+</table>
+
+### FilterPerReporterStaleness
+
+Per reporter timestamp field filter.
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>reporter</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
+<td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>last_check_in</strong></td>
+<td valign="top"><a href="#filtertimestamp">FilterTimestamp</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>check_in_succeeded</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -2038,6 +2106,15 @@ Filter by the stale_timestamp value
 <td>
 
 Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>per_reporter_staleness</strong></td>
+<td valign="top"><a href="#filterperreporterstaleness">FilterPerReporterStaleness</a></td>
+<td>
+
+Filter by 'stale_timestamp' field of per_reporter_staleness
 
 </td>
 </tr>
