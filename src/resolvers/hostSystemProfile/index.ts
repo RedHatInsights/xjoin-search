@@ -99,7 +99,7 @@ export function OSResolver() {
                     terms: {
                         // eslint-disable-next-line max-len, quotes
                         script: "if(doc['system_profile_facts.operating_system.name'].size()==0 || doc['system_profile_facts.operating_system.major'].size()==0 || doc['system_profile_facts.operating_system.minor'].size()==0){return '';} def someString = doc['system_profile_facts.operating_system.name'].value + '|' + doc['system_profile_facts.operating_system.major'].value + '|' + doc['system_profile_facts.operating_system.minor'].value ; return someString;",
-                        exclude: "",
+                        exclude: '',
                         size: config.queries.maxBuckets,
                         order: [{
                             [VALUES_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)

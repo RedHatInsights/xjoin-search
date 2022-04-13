@@ -453,11 +453,20 @@ export type HostFilter = {
 /** Lists unique system profile values. */
 export type HostSystemProfile = {
   __typename?: 'HostSystemProfile';
+  operating_system: OperatingSystemValues;
   /** Lists unique values of the `sap_sids` field */
   sap_sids: StringValues;
-  operating_system: OperatingSystemValues;
   /** Lists unique values of the `sap_system` field */
   sap_system: BooleanValues;
+};
+
+
+/** Lists unique system profile values. */
+export type HostSystemProfileOperating_SystemArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Values_Order_By>;
+  order_how?: Maybe<Order_Dir>;
 };
 
 
@@ -473,15 +482,6 @@ export type HostSystemProfileSap_SidsArgs = {
 
 /** Lists unique system profile values. */
 export type HostSystemProfileSap_SystemArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Values_Order_By>;
-  order_how?: Maybe<Order_Dir>;
-};
-
-
-/** Lists unique system profile values. */
-export type HostSystemProfileOperating_SystemArgs = {
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
   order_by?: Maybe<Values_Order_By>;
@@ -509,9 +509,9 @@ export enum Order_Dir {
 
 export type OperatingSystem = {
   __typename?: 'OperatingSystem';
-  name: Scalars['String'];
   major?: Maybe<Scalars['Int']>;
   minor?: Maybe<Scalars['Int']>;
+  name: Scalars['String'];
 };
 
 export type Query = {
@@ -622,8 +622,8 @@ export enum Values_Order_By {
 
 export type OperatingSystemValueInfo = {
   __typename?: 'operatingSystemValueInfo';
-  value?: Maybe<OperatingSystem>;
   count: Scalars['Int'];
+  value?: Maybe<OperatingSystem>;
 };
 
 export type OperatingSystemValues = {
@@ -853,10 +853,9 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type HostSystemProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostSystemProfile'] = ResolversParentTypes['HostSystemProfile']> = {
+  operating_system?: Resolver<ResolversTypes['operatingSystemValues'], ParentType, ContextType, RequireFields<HostSystemProfileOperating_SystemArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   sap_sids?: Resolver<ResolversTypes['StringValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SidsArgs, 'filter' | 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   sap_system?: Resolver<ResolversTypes['BooleanValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SystemArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
-  sap_sids?: Resolver<ResolversTypes['StringValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SidsArgs, 'limit' | 'offset' | 'filter' | 'order_by' | 'order_how'>>;
-  operating_system?: Resolver<ResolversTypes['operatingSystemValues'], ParentType, ContextType, RequireFields<HostSystemProfileOperating_SystemArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -881,9 +880,9 @@ export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<Resolver
 }
 
 export type OperatingSystemResolvers<ContextType = any, ParentType extends ResolversParentTypes['OperatingSystem'] = ResolversParentTypes['OperatingSystem']> = {
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   major?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   minor?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -925,8 +924,8 @@ export type TagsResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type OperatingSystemValueInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['operatingSystemValueInfo'] = ResolversParentTypes['operatingSystemValueInfo']> = {
-  value?: Resolver<Maybe<ResolversTypes['OperatingSystem']>, ParentType, ContextType>;
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['OperatingSystem']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
