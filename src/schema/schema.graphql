@@ -621,19 +621,12 @@ type Host {
     facts (filter: [String!]): JSONObject
 
     "Per-reporter staleness of the host"
-    per_reporter_staleness: [PerReporterStaleness]
+    per_reporter_staleness (filter: [String!]): [JSONObject]
 }
 
 type Hosts {
     data: [Host]!
     meta: CollectionMeta!
-}
-
-type PerReporterStaleness {
-    reporter: String,
-    last_check_in: String,
-    stale_timestamp: String,
-    check_in_succeeded: Boolean
 }
 
 "Structured representation of a tag"

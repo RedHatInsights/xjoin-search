@@ -111,12 +111,7 @@ const PRS_QUERY = `
                 id,
                 account,
                 display_name,
-                per_reporter_staleness {
-                    reporter,
-                    last_check_in,
-                    stale_timestamp,
-                    check_in_succeeded
-                }
+                per_reporter_staleness
             }
         }
     }
@@ -170,12 +165,7 @@ describe('hosts query', function () {
                 ) {
                     data {
                         id,
-                        per_reporter_staleness {
-                            reporter
-                            last_check_in
-                            stale_timestamp
-                            check_in_succeeded
-                        }
+                        per_reporter_staleness
                     }
                 }
             }`,

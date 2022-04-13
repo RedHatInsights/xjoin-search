@@ -12,7 +12,6 @@
     * [HostSystemProfile](#hostsystemprofile)
     * [HostTags](#hosttags)
     * [Hosts](#hosts)
-    * [PerReporterStaleness](#perreporterstaleness)
     * [StringValueInfo](#stringvalueinfo)
     * [StringValues](#stringvalues)
     * [StructuredTag](#structuredtag)
@@ -360,12 +359,17 @@ Facts of a host. The subset of keys can be requested using `filter`.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>per_reporter_staleness</strong></td>
-<td valign="top">[<a href="#perreporterstaleness">PerReporterStaleness</a>]</td>
+<td valign="top">[<a href="#jsonobject">JSONObject</a>]</td>
 <td>
 
 Per-reporter staleness of the host
 
 </td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top">[<a href="#string">String</a>!]</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -495,41 +499,6 @@ Lists unique values of the `sap_sids` field
 <tr>
 <td colspan="2" valign="top"><strong>meta</strong></td>
 <td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-### PerReporterStaleness
-
-<table>
-<thead>
-<tr>
-<th align="left">Field</th>
-<th align="right">Argument</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="2" valign="top"><strong>reporter</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>last_check_in</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>stale_timestamp</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>check_in_succeeded</strong></td>
-<td valign="top"><a href="#boolean">Boolean</a></td>
 <td></td>
 </tr>
 </tbody>
