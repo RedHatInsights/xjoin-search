@@ -360,23 +360,6 @@
           "normalizer": "case_insensitive"
         }
       }
-    },
-    "per_reporter_staleness": {
-      "type": "nested",
-      "properties": {
-        "reporter": {
-          "type": "keyword"
-        },
-        "last_check_in": {
-          "type": "date_nanos"
-        },
-        "stale_timestamp": {
-          "type": "date_nanos"
-        },
-        "check_in_succeeded": {
-          "type": "boolean"
-        }
-      }
     }
   }
 }
