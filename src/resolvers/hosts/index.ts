@@ -16,6 +16,7 @@ import { filterTag } from '../inputTag';
 import { formatTags } from './format';
 import { filterString } from '../inputString';
 import { getSchema, getFieldType, getResolver } from '../../util/systemProfile';
+import { filterPerReporterStaleness } from '../inputPerReporterStaleness';
 
 export type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -62,7 +63,11 @@ function getPredefinedResolvers() {
         optional((filter: HostFilter) => filter.tag, filterTag),
         optional((filter: HostFilter) => filter.OR, common.or(resolveFilters)),
         optional((filter: HostFilter) => filter.AND, common.and(resolveFilters)),
-        optional((filter: HostFilter) => filter.NOT, common.not(resolveFilter))
+        optional((filter: HostFilter) => filter.NOT, common.not(resolveFilter)),
+        optional(
+            (filter: HostFilter) => filter.per_reporter_staleness,
+            _.partial(filterPerReporterStaleness)
+        )
     ];
 }
 
