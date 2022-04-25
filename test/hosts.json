@@ -320,7 +320,7 @@
         },
         "per_reporter_staleness_flat": [
             {
-                "reporter": "yupana",
+                "reporter": "puptoo",
                 "last_check_in":"2029-02-09T08:07:03.354307Z",
                 "stale_timestamp": "2029-02-10T08:07:03.354307Z",
                 "check_in_succeeded": true
