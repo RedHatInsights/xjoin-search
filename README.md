@@ -199,4 +199,4 @@ Changes to the mapping, graphql schema or hosts file that are unrelated to syste
 Fields in the schema with `x-indexed: false` will not be indexed by ElasticSearch and are ignored during the update.
 
 ## Contact
-For questions or comments join **#platform-xjoin** at ansible.slack.com or contact [Jozef Hartinger](https://github.com/jharting) directly.
+For questions or comments join **#platform-xjoin** at ansible.slack.com or contact [Jozef Hartinger](https://github.com/jharting) directly. 

@@ -170,6 +170,60 @@ objects:
       validation.attempts.threshold: '5'
       validation.interval: '30'
       validation.percentage.threshold: '5'
+      elasticsearch.connector.config: |-
+        {
+            "tasks.max": "{{.ElasticSearchTasksMax}}",
+            "topics": "{{.Topic}}",
+            "key.ignore": "false",
+            "connection.url": "{{.ElasticSearchURL}}",
+            {{if .ElasticSearchUsername}}"connection.username": "{{.ElasticSearchUsername}}",{{end}}
+            {{if .ElasticSearchPassword}}"connection.password": "{{.ElasticSearchPassword}}",{{end}}
+            "type.name": "_doc",
+            "transforms": "valueToKey, extractKey, expandJSON, expandPRSJSON, deleteIf, flattenList, flattenListString, flattenPRS, renameTopic",
+            "transforms.valueToKey.type":"org.apache.kafka.connect.transforms.ValueToKey",
+            "transforms.valueToKey.fields":"id",
+            "transforms.extractKey.type":"org.apache.kafka.connect.transforms.ExtractField$Key",
+            "transforms.extractKey.field":"id",
+            "transforms.expandJSON.type": "com.redhat.insights.expandjsonsmt.ExpandJSON$Value",
+            "transforms.expandJSON.sourceFields": "tags",
+            "transforms.expandPRSJSON.type": "com.redhat.insights.expandjsonsmt.ExpandJSON$Value",
+            "transforms.expandPRSJSON.sourceFields": "per_reporter_staleness",
+            "transforms.deleteIf.type": "com.redhat.insights.deleteifsmt.DeleteIf$Value",
+            "transforms.deleteIf.field": "__deleted",
+            "transforms.deleteIf.value": "true",
+            "transforms.flattenList.type": "com.redhat.insights.flattenlistsmt.FlattenList$Value",
+            "transforms.flattenList.sourceField": "tags",
+            "transforms.flattenList.outputField": "tags_structured",
+            "transforms.flattenList.mode": "keys",
+            "transforms.flattenList.keys": "namespace,key,value",
+            "transforms.flattenListString.type": "com.redhat.insights.flattenlistsmt.FlattenList$Value",
+            "transforms.flattenListString.sourceField": "tags",
+            "transforms.flattenListString.outputField": "tags_string",
+            "transforms.flattenListString.mode": "join",
+            "transforms.flattenListString.delimiterJoin": "/",
+            "transforms.flattenListString.encode": true,
+            "transforms.flattenPRS.type": "com.redhat.insights.flattenlistsmt.FlattenList$Value",
+            "transforms.flattenPRS.sourceField": "per_reporter_staleness",
+            "transforms.flattenPRS.outputField": "per_reporter_staleness_flat",
+            "transforms.flattenPRS.mode": "object",
+            "transforms.flattenPRS.rootKey": "reporter",
+            "transforms.renameTopic.type": "org.apache.kafka.connect.transforms.RegexRouter",
+            "transforms.renameTopic.regex": "{{.Topic}}",
+            "transforms.renameTopic.replacement": "{{.RenameTopicReplacement}}",
+            "behavior.on.null.values":"delete",
+            "behavior.on.malformed.documents": "warn",
+            "auto.create.indices.at.start": false,
+            "schema.ignore": true,
+            "max.in.flight.requests": {{.ElasticSearchMaxInFlightRequests}},
+            "errors.log.enable": {{.ElasticSearchErrorsLogEnable}},
+            "errors.log.include.messages": true,
+            "max.retries": {{.ElasticSearchMaxRetries}},
+            "retry.backoff.ms": {{.ElasticSearchRetryBackoffMS}},
+            "batch.size": {{.ElasticSearchBatchSize}},
+            "max.buffered.records": {{.ElasticSearchMaxBufferedRecords}},
+            "linger.ms": {{.ElasticSearchLingerMS}}
+        }
+
       debezium.connector.config: |-
         {
           "tasks.max": "{{.DebeziumTasksMax}}",
@@ -193,6 +247,37 @@ objects:
           "max.batch.size": {{.DebeziumMaxBatchSize}},
           "poll.interval.ms": {{.DebeziumPollIntervalMS}}
         }
+      elasticsearch.pipeline.template: |-
+        {
+            "description" : "Ingest pipeline for {{.ResourceNamePrefix}}",
+            "processors" : [{
+                "set": {
+                    "field": "ingest_timestamp",
+                    "value": "{{"{{"}}_ingest.timestamp{{"}}"}}"
+                },
+                "json" : {
+                    "if" : "ctx.system_profile_facts != null",
+                    "field" : "system_profile_facts"
+                }
+            }, {
+                "json" : {
+                    "if" : "ctx.canonical_facts != null",
+                    "field" : "canonical_facts"
+                }
+            }, {
+                "json" : {
+                    "if" : "ctx.facts != null",
+                    "field" : "facts"
+                }
+            }, {
+                "script": {
+                    "lang": "painless",
+                    "if": "ctx.tags_structured != null",
+                    "source": "ctx.tags_search = ctx.tags_structured.stream().map(t -> { StringBuilder builder = new StringBuilder(); if (t.namespace != null && t.namespace != 'null') { builder.append(t.namespace); } builder.append('/'); builder.append(t.key); builder.append('='); if (t.value != null) { builder.append(t.value); } return builder.toString() }).collect(Collectors.toList())"
+                }
+            }]
+        }
+
       elasticsearch.index.template: |-
         {
           "settings": {
@@ -564,6 +649,23 @@ objects:
                   "value": {
                     "type": "keyword",
                     "null_value": "$$_XJOIN_SEARCH_NULL_VALUE"
+                  }
+                }
+              },
+              "per_reporter_staleness_flat": {
+                "type": "nested",
+                "properties": {
+                  "reporter": {
+                    "type": "keyword"
+                  },
+                  "last_check_in": {
+                    "type": "keyword"
+                  },
+                  "stale_timestamp": {
+                    "type": "keyword"
+                  },
+                  "check_in_succeeded": {
+                    "type": "boolean"
                   }
                 }
               },
