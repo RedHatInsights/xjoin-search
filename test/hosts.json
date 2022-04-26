@@ -316,12 +316,23 @@
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
+            },
+            "yupana": {
+                "last_check_in": "2022-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
             }
         },
         "per_reporter_staleness_flat": [
             {
                 "reporter": "puptoo",
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            },
+            {
+                "reporter": "yupana",
+                "last_check_in": "2022-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
