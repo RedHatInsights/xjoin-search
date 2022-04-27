@@ -32,6 +32,17 @@ const HOST_TEMPLATE =     {
             check_in_succeeded: true
         }
     },
+    per_reporter_staleness_flat: [{
+        reporter: 'puptoo',
+        last_check_in: '2019-03-10T08:07:03.354312Z',
+        stale_timestamp: '2030-03-10T08:07:03.354307Z',
+        check_in_succeeded: true
+    }, {
+        reporter: 'yupana',
+        last_check_in: '2019-03-10T08:07:03.354312Z',
+        stale_timestamp: '2030-03-10T08:07:03.354307Z',
+        check_in_succeeded: true
+    }],
     tags_structured: [{
         namespace: 'insights-client',
         key: 'os',

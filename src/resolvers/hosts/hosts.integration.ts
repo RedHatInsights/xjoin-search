@@ -92,6 +92,31 @@ const TEST_ACCOUNT_HOST_IDS: string[] = [
     'f5ac67e1-ad65-4b62-bc27-845cc6d4bc01'
 ];
 
+const PRS_QUERY = `
+    query hosts (
+        $filter: HostFilter,
+        $order_by: HOSTS_ORDER_BY,
+        $order_how: ORDER_DIR,
+        $limit: Int,
+        $offset: Int) {
+        hosts (
+            filter: $filter,
+            order_by: $order_by,
+            order_how: $order_how,
+            limit: $limit,
+            offset: $offset
+        )
+        {
+            data {
+                id,
+                account,
+                display_name,
+                per_reporter_staleness
+            }
+        }
+    }
+`;
+
 describe('hosts query', function () {
     test('fetch hosts', async () => {
         const { data, status } = await runQuery(BASIC_QUERY, {});
@@ -139,7 +164,8 @@ describe('hosts query', function () {
                     }
                 ) {
                     data {
-                        id, per_reporter_staleness
+                        id,
+                        per_reporter_staleness
                     }
                 }
             }`,
@@ -1104,6 +1130,56 @@ describe('hosts query', function () {
 
                 expect(data).toMatchSnapshot();
             });
+        });
+
+        describe('per_reporter_staleness', function () {
+            test('reporter', async () => {
+                const { data } = await runQuery(PRS_QUERY,
+                    { filter: { per_reporter_staleness: { reporter: { eq: 'yupana' }}}});
+                data.hosts.data.should.have.length(2);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+                data.hosts.data[1].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
+
+            test('reporter and check in succeeded', async () => {
+                const { data } = await runQuery(PRS_QUERY,
+                    { filter: { per_reporter_staleness: { reporter: {eq: 'yupana'}, check_in_succeeded: {is: true}}}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('6e7b6317-0a2d-4552-a2f2-b7da0aece49d');
+            });
+
+            test('reporter and stale_timestamp', async () => {
+                const { data } = await runQuery(PRS_QUERY,
+                    { filter: { per_reporter_staleness: {
+                        reporter: {eq: 'yupana'},
+                        stale_timestamp: {lte: '2020-01-11T08:07:03.354307Z'}
+                    }}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
+
+            test('reporter and last_check_in', async () => {
+                const { data } = await runQuery(PRS_QUERY,
+                    { filter: { per_reporter_staleness: {
+                        reporter: {eq: 'yupana'},
+                        last_check_in: {lte: '2020-01-10T08:07:03.354307Z'}
+                    }}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
+
+            test('all', async () => {
+                const { data } = await runQuery(PRS_QUERY,
+                    { filter: { per_reporter_staleness: {
+                        reporter: {eq: 'puptoo'},
+                        last_check_in: {lte: '2020-01-09T08:07:03.354307Z'},
+                        stale_timestamp: {lte: '2020-01-10T08:07:03.354307Z'},
+                        check_in_succeeded: {is: true}
+                    }}});
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal('f5ac67e1-ad65-4b62-bc27-845cc6d4bcee');
+            });
+
         });
     });
 

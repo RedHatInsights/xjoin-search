@@ -139,6 +139,14 @@ export type FilterOperatingSystem = {
   name?: Maybe<FilterString>;
 };
 
+/** Per-reporter staleness filter. */
+export type FilterPerReporterStaleness = {
+  check_in_succeeded?: Maybe<FilterBoolean>;
+  last_check_in?: Maybe<FilterTimestamp>;
+  reporter?: Maybe<FilterString>;
+  stale_timestamp?: Maybe<FilterTimestamp>;
+};
+
 /** Filter by 'rhsm' field of system profile */
 export type FilterRhsm = {
   /** Filter by 'version' field of rhsm */
@@ -289,8 +297,10 @@ export type Host = {
   facts?: Maybe<Scalars['JSONObject']>;
   id: Scalars['ID'];
   modified_on?: Maybe<Scalars['String']>;
-  /** Per-reporter staleness data for a host. The subset of keys can be requested using `filter`. */
+  /** The host's per-reporter staleness data in object format. */
   per_reporter_staleness?: Maybe<Scalars['JSONObject']>;
+  /** The host's per-reporter staleness, flattened into an array. */
+  per_reporter_staleness_flat?: Maybe<Array<Maybe<Scalars['JSONObject']>>>;
   reporter?: Maybe<Scalars['String']>;
   stale_timestamp?: Maybe<Scalars['String']>;
   /** System profile of a host. The subset of keys can be requested using `filter`. */
@@ -318,6 +328,12 @@ export type HostPer_Reporter_StalenessArgs = {
 
 
 /** Inventory host */
+export type HostPer_Reporter_Staleness_FlatArgs = {
+  filter?: Maybe<Array<Scalars['String']>>;
+};
+
+
+/** Inventory host */
 export type HostSystem_Profile_FactsArgs = {
   filter?: Maybe<Array<Scalars['String']>>;
 };
@@ -338,6 +354,8 @@ export type HostFilter = {
   id?: Maybe<FilterStringWithWildcard>;
   /** Filter by insights id */
   insights_id?: Maybe<FilterStringWithWildcard>;
+  /** Filter by per_reporter_staleness sub-fields */
+  per_reporter_staleness?: Maybe<FilterPerReporterStaleness>;
   /** Filter by provider_id */
   provider_id?: Maybe<FilterString>;
   /** Filter by provider_type */
@@ -729,6 +747,7 @@ export type ResolversTypes = {
   FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
   FilterString: FilterString;
@@ -781,6 +800,7 @@ export type ResolversParentTypes = {
   FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
+  FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
   FilterString: FilterString;
@@ -845,6 +865,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   per_reporter_staleness?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostPer_Reporter_StalenessArgs, never>>;
+  per_reporter_staleness_flat?: Resolver<Maybe<Array<Maybe<ResolversTypes['JSONObject']>>>, ParentType, ContextType, RequireFields<HostPer_Reporter_Staleness_FlatArgs, never>>;
   reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostSystem_Profile_FactsArgs, never>>;

@@ -228,6 +228,9 @@ input HostFilter {
 
     "Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with"
     tag: FilterTag
+
+    "Filter by per_reporter_staleness sub-fields"
+    per_reporter_staleness: FilterPerReporterStaleness
 }
 
 """
@@ -581,7 +584,15 @@ input FilterNetworkInterfaces {
 
 }
 
-
+"""
+Per-reporter staleness filter.
+"""
+input FilterPerReporterStaleness {
+    reporter: FilterString
+    stale_timestamp: FilterTimestamp
+    last_check_in: FilterTimestamp
+    check_in_succeeded: FilterBoolean
+}
 
 #
 # Output types
@@ -609,8 +620,11 @@ type Host {
     "Facts of a host. The subset of keys can be requested using `filter`."
     facts (filter: [String!]): JSONObject
 
-    "Per-reporter staleness data for a host. The subset of keys can be requested using `filter`."
-    per_reporter_staleness (filter: [String!]): JSONObject,
+    "The host's per-reporter staleness data in object format."
+    per_reporter_staleness (filter: [String!]): JSONObject
+
+    "The host's per-reporter staleness, flattened into an array."
+    per_reporter_staleness_flat (filter: [String!]): [JSONObject]
 }
 
 type Hosts {
