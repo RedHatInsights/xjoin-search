@@ -378,5 +378,219 @@ describe('host system profile', function () {
             });
         });
     });
-});
 
+    describe('operating_system', function () {
+        const QUERY = `
+            query hostSystemProfile (
+                $hostFilter: HostFilter,
+                $order_by: VALUES_ORDER_BY,
+                $order_how: ORDER_DIR,
+                $limit: Int,
+                $offset: Int) {
+                hostSystemProfile (
+                    hostFilter: $hostFilter
+                )
+                {
+                    operating_system (
+                        order_by: $order_by,
+                        order_how: $order_how,
+                        limit: $limit,
+                        offset: $offset
+                    ) {
+                        meta {
+                            count
+                            total
+                        }
+                        data {
+                            value {
+                                name,
+                                major,
+                                minor
+                            }
+                            count
+                        }
+                    }
+                }
+            }
+        `;
+
+        const hosts = [
+            {
+                display_name: 'foo01',
+                system_profile_facts: {
+                    operating_system: {
+                        name: 'RHEL',
+                        major: 1,
+                        minor: 1
+                    }
+                }
+            },
+            {
+                display_name: 'foo02',
+                system_profile_facts: {
+                    operating_system: {
+                        name: 'RHEL',
+                        major: 1,
+                        minor: 2
+                    }
+                }
+            },
+            {
+                display_name: 'foo03',
+                system_profile_facts: {
+                    operating_system: {
+                        name: 'RHEL',
+                        major: 1,
+                        minor: 1
+                    }
+                }
+            },
+            {
+                display_name: 'foo04',
+                system_profile_facts: {
+                    operating_system: {
+                        name: 'CENT',
+                        major: 3,
+                        minor: 3
+                    }
+                }
+            }
+        ];
+
+        const partialOSHosts = [
+            {
+                display_name: 'foo05',
+                system_profile_facts: {
+                    operating_system: {
+                        name: 'RHEL'
+                    }
+                }
+            },
+            {
+                display_name: 'foo06',
+                system_profile_facts: {
+                    arch: 'x86'
+                }
+            },
+            {
+                display_name: 'foo07',
+                system_profile_facts: {
+                    operating_system: {
+                        major: 1
+                    }
+                }
+            },
+            {
+                display_name: 'foo08',
+                system_profile_facts: {
+                    operating_system: {
+                        minor: 3
+                    }
+                }
+            }
+        ];
+
+        const R11 = {
+            value: {
+                name: 'RHEL',
+                major: 1,
+                minor: 1
+            },
+            count: 2
+        };
+        const R12 = {
+            value: {
+                name: 'RHEL',
+                major: 1,
+                minor: 2
+            },
+            count: 1
+        };
+        const C33 = {
+            value: {
+                name: 'CENT',
+                major: 3,
+                minor: 3
+            },
+            count: 1
+        };
+
+        test('basic query', async () => {
+            await createHosts(...hosts);
+
+            const { data, status } = await runQuery(QUERY, {}, getContext().headers);
+            expect(status).toEqual(200);
+            data.hostSystemProfile.operating_system.meta.should.eql({total: 3, count: 3});
+            data.hostSystemProfile.operating_system.data.should.eql([C33, R11, R12]);
+        });
+
+        describe('pagination', function () {
+            test('limit', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    limit: 2
+                }, getContext().headers);
+                expect(status).toEqual(200);
+
+                data.hostSystemProfile.operating_system.meta.should.eql({total: 3, count: 2});
+                data.hostSystemProfile.operating_system.data.should.eql([C33, R11]);
+            });
+
+            test('limit + offset', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    limit: 2,
+                    offset: 2
+                }, getContext().headers);
+                expect(status).toEqual(200);
+
+                data.hostSystemProfile.operating_system.meta.should.eql({total: 3, count: 1});
+                data.hostSystemProfile.operating_system.data.should.eql([R12]);
+            });
+        });
+
+        describe('ordering', function () {
+            test('ordering value DESC', async () => {
+                await createHosts(...hosts);
+
+                const { data, status } = await runQuery(QUERY, {
+                    order_by: 'value',
+                    order_how: 'DESC'
+                }, getContext().headers);
+                expect(status).toEqual(200);
+
+                data.hostSystemProfile.operating_system.meta.should.eql({total: 3, count: 3});
+                data.hostSystemProfile.operating_system.data.should.eql([R12, R11, C33]);
+            });
+        });
+
+        test('host filter', async () => {
+            await createHosts(...hosts);
+
+            const { data, status } = await runQuery(QUERY, {
+                hostFilter: {
+                    display_name: {
+                        matches: 'foo04'
+                    }
+                }
+            }, getContext().headers);
+            expect(status).toEqual(200);
+
+            data.hostSystemProfile.operating_system.meta.should.eql({total: 1, count: 1});
+            data.hostSystemProfile.operating_system.data.should.eql([C33]);
+        });
+
+        test('Query hosts with partial operating system', async () => {
+            await createHosts(...hosts);
+            //All hosts with partial OS versions should effectively be ignored
+            await createHosts(...partialOSHosts);
+
+            const { data, status } = await runQuery(QUERY, {}, getContext().headers);
+            expect(status).toEqual(200);
+            data.hostSystemProfile.operating_system.meta.should.eql({total: 3, count: 3});
+            data.hostSystemProfile.operating_system.data.should.eql([C33, R11, R12]);
+        });
+    });
+});

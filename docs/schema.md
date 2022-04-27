@@ -12,11 +12,14 @@
     * [HostSystemProfile](#hostsystemprofile)
     * [HostTags](#hosttags)
     * [Hosts](#hosts)
+    * [OperatingSystem](#operatingsystem)
     * [StringValueInfo](#stringvalueinfo)
     * [StringValues](#stringvalues)
     * [StructuredTag](#structuredtag)
     * [TagInfo](#taginfo)
     * [Tags](#tags)
+    * [operatingSystemValueInfo](#operatingsystemvalueinfo)
+    * [operatingSystemValues](#operatingsystemvalues)
   * [Inputs](#inputs)
     * [FilterAnsible](#filteransible)
     * [FilterBoolean](#filterboolean)
@@ -465,6 +468,31 @@ Lists unique values of the `sap_sids` field
 <td valign="top"><a href="#order_dir">ORDER_DIR</a></td>
 <td></td>
 </tr>
+<tr>
+<td colspan="2" valign="top"><strong>operating_system</strong></td>
+<td valign="top"><a href="#operatingsystemvalues">operatingSystemValues</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">limit</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">offset</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_by</td>
+<td valign="top"><a href="#values_order_by">VALUES_ORDER_BY</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_how</td>
+<td valign="top"><a href="#order_dir">ORDER_DIR</a></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 
@@ -513,6 +541,36 @@ Lists unique values of the `sap_sids` field
 <tr>
 <td colspan="2" valign="top"><strong>meta</strong></td>
 <td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### OperatingSystem
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>name</strong></td>
+<td valign="top"><a href="#string">String</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>major</strong></td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>minor</strong></td>
+<td valign="top"><a href="#int">Int</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -644,6 +702,56 @@ Structured representation of a tag
 <tr>
 <td colspan="2" valign="top"><strong>data</strong></td>
 <td valign="top">[<a href="#structuredtag">StructuredTag</a>]!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>meta</strong></td>
+<td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### operatingSystemValueInfo
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>value</strong></td>
+<td valign="top"><a href="#operatingsystem">OperatingSystem</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>count</strong></td>
+<td valign="top"><a href="#int">Int</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### operatingSystemValues
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>data</strong></td>
+<td valign="top">[<a href="#operatingsystemvalueinfo">operatingSystemValueInfo</a>]!</td>
 <td></td>
 </tr>
 <tr>

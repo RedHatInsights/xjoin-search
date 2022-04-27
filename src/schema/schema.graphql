@@ -675,6 +675,13 @@ type HostSystemProfile {
         order_by: VALUES_ORDER_BY = value,
         order_how: ORDER_DIR = ASC
     ): StringValues!
+
+    operating_system (
+        limit: Int = 10,
+        offset: Int = 0,
+        order_by: VALUES_ORDER_BY = value,
+        order_how: ORDER_DIR = ASC
+    ): operatingSystemValues!
 }
 
 "A list of Boolean values together with count information"
@@ -699,6 +706,22 @@ type StringValues {
 type StringValueInfo {
     value: String!
     count: Int!
+}
+
+type OperatingSystem {
+    name: String!
+    major: Int
+    minor: Int
+}
+
+type operatingSystemValueInfo {
+    value: OperatingSystem
+    count: Int!
+}
+
+type operatingSystemValues {
+    data: [operatingSystemValueInfo]!
+    meta: CollectionMeta!
 }
 
 #

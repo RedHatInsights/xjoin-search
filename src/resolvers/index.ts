@@ -3,7 +3,7 @@ import { SafeIntResolver } from 'graphql-scalars';
 import hosts from './hosts';
 import hostTags from './hostTags';
 import hostSystemProfile from './hostSystemProfile';
-import { enumerationResolver }  from './hostSystemProfile';
+import { enumerationResolver, OSResolver }  from './hostSystemProfile';
 import { jsonObjectFilter } from './common';
 
 const resolvers = {
@@ -21,7 +21,8 @@ const resolvers = {
 
     HostSystemProfile: {
         sap_system: enumerationResolver('system_profile_facts.sap_system', Boolean),
-        sap_sids: enumerationResolver('system_profile_facts.sap_sids', String)
+        sap_sids: enumerationResolver('system_profile_facts.sap_sids', String),
+        operating_system: OSResolver()
     },
 
     JSON: GraphQLJSON,

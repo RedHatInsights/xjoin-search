@@ -471,10 +471,20 @@ export type HostFilter = {
 /** Lists unique system profile values. */
 export type HostSystemProfile = {
   __typename?: 'HostSystemProfile';
+  operating_system: OperatingSystemValues;
   /** Lists unique values of the `sap_sids` field */
   sap_sids: StringValues;
   /** Lists unique values of the `sap_system` field */
   sap_system: BooleanValues;
+};
+
+
+/** Lists unique system profile values. */
+export type HostSystemProfileOperating_SystemArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Values_Order_By>;
+  order_how?: Maybe<Order_Dir>;
 };
 
 
@@ -514,6 +524,13 @@ export enum Order_Dir {
   Asc = 'ASC',
   Desc = 'DESC'
 }
+
+export type OperatingSystem = {
+  __typename?: 'OperatingSystem';
+  major?: Maybe<Scalars['Int']>;
+  minor?: Maybe<Scalars['Int']>;
+  name: Scalars['String'];
+};
 
 export type Query = {
   __typename?: 'Query';
@@ -620,6 +637,18 @@ export enum Values_Order_By {
   Count = 'count',
   Value = 'value'
 }
+
+export type OperatingSystemValueInfo = {
+  __typename?: 'operatingSystemValueInfo';
+  count: Scalars['Int'];
+  value?: Maybe<OperatingSystem>;
+};
+
+export type OperatingSystemValues = {
+  __typename?: 'operatingSystemValues';
+  data: Array<Maybe<OperatingSystemValueInfo>>;
+  meta: CollectionMeta;
+};
 
 
 
@@ -740,6 +769,7 @@ export type ResolversTypes = {
   JSON: ResolverTypeWrapper<Scalars['JSON']>;
   JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>;
   ORDER_DIR: Order_Dir;
+  OperatingSystem: ResolverTypeWrapper<OperatingSystem>;
   Query: ResolverTypeWrapper<{}>;
   SapSidFilter: SapSidFilter;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -750,6 +780,8 @@ export type ResolversTypes = {
   TagInfo: ResolverTypeWrapper<TagInfo>;
   Tags: ResolverTypeWrapper<Tags>;
   VALUES_ORDER_BY: Values_Order_By;
+  operatingSystemValueInfo: ResolverTypeWrapper<OperatingSystemValueInfo>;
+  operatingSystemValues: ResolverTypeWrapper<OperatingSystemValues>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -787,6 +819,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   JSON: Scalars['JSON'];
   JSONObject: Scalars['JSONObject'];
+  OperatingSystem: OperatingSystem;
   Query: {};
   SapSidFilter: SapSidFilter;
   String: Scalars['String'];
@@ -796,6 +829,8 @@ export type ResolversParentTypes = {
   TagAggregationFilter: TagAggregationFilter;
   TagInfo: TagInfo;
   Tags: Tags;
+  operatingSystemValueInfo: OperatingSystemValueInfo;
+  operatingSystemValues: OperatingSystemValues;
 };
 
 export interface BigIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['BigInt'], any> {
@@ -839,6 +874,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type HostSystemProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostSystemProfile'] = ResolversParentTypes['HostSystemProfile']> = {
+  operating_system?: Resolver<ResolversTypes['operatingSystemValues'], ParentType, ContextType, RequireFields<HostSystemProfileOperating_SystemArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   sap_sids?: Resolver<ResolversTypes['StringValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SidsArgs, 'filter' | 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   sap_system?: Resolver<ResolversTypes['BooleanValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SystemArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -863,6 +899,13 @@ export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSONObject'], any> {
   name: 'JSONObject';
 }
+
+export type OperatingSystemResolvers<ContextType = any, ParentType extends ResolversParentTypes['OperatingSystem'] = ResolversParentTypes['OperatingSystem']> = {
+  major?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  minor?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hostSystemProfile?: Resolver<Maybe<ResolversTypes['HostSystemProfile']>, ParentType, ContextType, RequireFields<QueryHostSystemProfileArgs, never>>;
@@ -901,6 +944,18 @@ export type TagsResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type OperatingSystemValueInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['operatingSystemValueInfo'] = ResolversParentTypes['operatingSystemValueInfo']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['OperatingSystem']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OperatingSystemValuesResolvers<ContextType = any, ParentType extends ResolversParentTypes['operatingSystemValues'] = ResolversParentTypes['operatingSystemValues']> = {
+  data?: Resolver<Array<Maybe<ResolversTypes['operatingSystemValueInfo']>>, ParentType, ContextType>;
+  meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   BigInt?: GraphQLScalarType;
   BooleanValueInfo?: BooleanValueInfoResolvers<ContextType>;
@@ -912,12 +967,15 @@ export type Resolvers<ContextType = any> = {
   Hosts?: HostsResolvers<ContextType>;
   JSON?: GraphQLScalarType;
   JSONObject?: GraphQLScalarType;
+  OperatingSystem?: OperatingSystemResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   StringValueInfo?: StringValueInfoResolvers<ContextType>;
   StringValues?: StringValuesResolvers<ContextType>;
   StructuredTag?: StructuredTagResolvers<ContextType>;
   TagInfo?: TagInfoResolvers<ContextType>;
   Tags?: TagsResolvers<ContextType>;
+  operatingSystemValueInfo?: OperatingSystemValueInfoResolvers<ContextType>;
+  operatingSystemValues?: OperatingSystemValuesResolvers<ContextType>;
 };
 
 
