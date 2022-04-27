@@ -164,7 +164,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
@@ -308,8 +316,27 @@
                 "last_check_in": "2019-01-10T08:07:03.354312Z",
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
+            },
+            "yupana": {
+                "last_check_in": "2022-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            },
+            {
+                "reporter": "yupana",
+                "last_check_in": "2022-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
@@ -457,11 +484,30 @@
         ],
         "per_reporter_staleness": {
             "puptoo": {
-                "last_check_in": "2019-01-10T08:07:03.354312Z",
-                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "last_check_in": "2019-03-09T08:07:03.354307Z",
+                "stale_timestamp": "2019-03-10T08:07:03.354307Z",
                 "check_in_succeeded": true
+            },
+            "yupana": {
+                "last_check_in": "2019-01-10T08:07:03.354307Z",
+                "stale_timestamp": "2019-01-11T08:07:03.354307Z",
+                "check_in_succeeded": false
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-03-09T08:07:03.354307Z",
+                "stale_timestamp": "2019-03-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            },
+            {
+                "reporter": "yupana",
+                "last_check_in": "2019-01-10T08:07:03.354307Z",
+                "stale_timestamp": "2019-01-11T08:07:03.354307Z",
+                "check_in_succeeded": false
+            }
+        ]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
@@ -490,7 +536,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
@@ -542,7 +596,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
@@ -572,7 +634,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcea",
@@ -614,7 +684,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bceb",
@@ -657,7 +735,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bcec",
@@ -698,7 +784,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bced",
@@ -739,7 +833,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-4b62-bc27-845cc6d4bc69",
@@ -780,7 +882,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "a5ac67e1-ad65-5c79-bc27-845cc6d4bc69",
@@ -821,7 +931,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "6e7b6339-0a2d-4552-a2f2-b7da0aece49d",
@@ -883,7 +1001,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "6e7b6339-9y2d-4552-a2f2-b7da0aece49d",
@@ -945,7 +1071,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "d1119a66-ffb7-4529-a8ca-15439aed29ad",
@@ -969,7 +1103,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "5212d66b-62bf-49ee-8f96-dbb5d866fa2a",
@@ -1058,7 +1200,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "f2fea2de-5dd5-4f32-a6c1-142c7affc321",
@@ -1132,7 +1282,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "399886f1-fcb5-43d8-be70-f4bbdb02d4b0",
@@ -1164,7 +1322,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "bd37baad-ce97-4488-ba0c-fb93edd36f7f",
@@ -1193,7 +1359,15 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     },
     {
         "id": "b72cf877-3433-4755-b172-65700a56545a",
@@ -1237,6 +1411,14 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
-        }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     }
 ]
