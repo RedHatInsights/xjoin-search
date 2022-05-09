@@ -26,6 +26,7 @@ const BASIC_QUERY = `
             data {
                 id,
                 account,
+                org_id,
                 display_name,
                 modified_on,
                 stale_timestamp,
@@ -78,6 +79,7 @@ const SP_QUERY = `
             data {
                 id,
                 account,
+                org_id,
                 display_name,
                 system_profile_facts
             }
@@ -110,6 +112,7 @@ const PRS_QUERY = `
             data {
                 id,
                 account,
+                org_id,
                 display_name,
                 per_reporter_staleness
             }
@@ -125,7 +128,7 @@ describe('hosts query', function () {
     });
 
     test('account isolation', async () => {
-        const headers = createHeaders('customer', '12345', false);
+        const headers = createHeaders('customer', '12345', '12345', false);
 
         const { data, status } = await runQuery(BASIC_QUERY, {}, headers);
         expect(status).toEqual(200);
@@ -228,7 +231,7 @@ describe('hosts query', function () {
     });
 
     describe ('case insensitive ordering', function () {
-        const headers = createHeaders('sorting_test', 'sorting_test');
+        const headers = createHeaders('sorting_test', 'sorting_test', 'sorting_test');
 
         test('display_name ASC', async () => {
             const { data, status } = await runQuery(BASIC_QUERY,
@@ -273,7 +276,7 @@ describe('hosts query', function () {
             test('substring', async () => {
                 const { data } = await runQuery(BASIC_QUERY,
                     { filter: { display_name: { eq: 'Ba' } }},
-                    createHeaders('sorting_test', 'sorting_test'));
+                    createHeaders('sorting_test', 'sorting_test', 'sorting_test'));
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].display_name.should.equal('Ba');
             });
@@ -281,7 +284,7 @@ describe('hosts query', function () {
     });
 
     describe('timestamp_ordering', function () {
-        const headers = createHeaders('timestamp_sorting_test', 'timestamp_sorting_test');
+        const headers = createHeaders('timestamp_sorting_test', 'timestamp_sorting_test', 'timestamp_sorting_test');
 
         test('timestamps DESC', async () => {
             const { data, status } = await runQuery(BASIC_QUERY,
@@ -978,7 +981,7 @@ describe('hosts query', function () {
             });
 
             test('null tags', async () => {
-                const headers = createHeaders('customer', '12345', false);
+                const headers = createHeaders('customer', '12345', '12345', false);
                 const { data, status } = await runQuery(TAG_QUERY, {}, headers);
                 expect(status).toEqual(200);
                 data.hosts.data.should.have.length(1);
@@ -1025,7 +1028,7 @@ describe('hosts query', function () {
             });
 
             test('simple tag filter with explicit null namespace', async () => {
-                const headers = createHeaders('noNamespace', 'noNamespace');
+                const headers = createHeaders('noNamespace', 'noNamespace', 'noNamespace');
                 const { data } = await runQuery(TAG_QUERY, {
                     filter: {
                         tag: {
@@ -1251,7 +1254,7 @@ describe('hosts query', function () {
             }
         `;
 
-        const headers = createHeaders('user', 'filter_test');
+        const headers = createHeaders('user', 'filter_test', 'filter_test');
 
         function expectId (data: any, id: string) {
             data.hosts.data.should.eql([{id}]);

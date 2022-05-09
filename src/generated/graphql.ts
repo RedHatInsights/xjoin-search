@@ -297,6 +297,7 @@ export type Host = {
   facts?: Maybe<Scalars['JSONObject']>;
   id: Scalars['ID'];
   modified_on?: Maybe<Scalars['String']>;
+  org_id?: Maybe<Scalars['String']>;
   /** The host's per-reporter staleness data in object format. */
   per_reporter_staleness?: Maybe<Scalars['JSONObject']>;
   /** The host's per-reporter staleness, flattened into an array. */
@@ -864,6 +865,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostFactsArgs, never>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  org_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   per_reporter_staleness?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostPer_Reporter_StalenessArgs, never>>;
   per_reporter_staleness_flat?: Resolver<Maybe<Array<Maybe<ResolversTypes['JSONObject']>>>, ParentType, ContextType, RequireFields<HostPer_Reporter_Staleness_FlatArgs, never>>;
   reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
