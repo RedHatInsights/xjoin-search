@@ -9,6 +9,7 @@ import { v4 } from 'uuid';
 const HOST_TEMPLATE =     {
     id: 'c9bfd617-0ec9-4122-8b01-4c7538d3e304',
     account: 'hostTagsSpecialChars',
+    org_id: 'hostTagsSpecialCharsOrgId',
     display_name: 'foo',
     created_on: '2019-03-10T08:07:03.354307Z',
     modified_on: '2019-03-10T08:07:03.354312Z',
@@ -53,7 +54,8 @@ const HOST_TEMPLATE =     {
 export async function createHost (overrides = {}) {
     const host = _.assign({}, HOST_TEMPLATE, {
         id: v4(),
-        account: getContext().account
+        account: getContext().account,
+        org_id: getContext().org_id
     }, overrides);
 
     await client.index({
@@ -88,8 +90,8 @@ export async function runQueryCatchError(headers: any, query = '{ hosts { data {
     return;
 }
 
-export function createHeaders (username: string, account: string, is_internal = true) {
+export function createHeaders (username: string, account: string, org_id: string, is_internal = true) {
     return {
-        [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, username, account, is_internal)
+        [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, username, account, org_id, is_internal)
     };
 }

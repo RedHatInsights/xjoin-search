@@ -284,6 +284,11 @@ Inventory host
 <td></td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>org_id</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>display_name</strong></td>
 <td valign="top"><a href="#string">String</a></td>
 <td></td>

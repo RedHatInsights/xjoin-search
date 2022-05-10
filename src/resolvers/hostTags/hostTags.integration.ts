@@ -43,7 +43,7 @@ describe('host tags', function () {
 
     test('account isolation', async () => {
         const headers = {
-            [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', false)
+            [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', '56789', false)
         };
 
         const { data, status } = await runQuery(TAG_FILTERS_QUERY, {}, headers);
@@ -54,7 +54,7 @@ describe('host tags', function () {
     });
 
     describe('pagination', function () {
-        const headers = createHeaders('hostTagsTest', 'hostTagsTest');
+        const headers = createHeaders('hostTagsTest', 'hostTagsTest', 'hostTagsTest');
 
         test('limit', async () => {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
@@ -240,7 +240,9 @@ describe('host tags', function () {
 
         describe('special characters', function () {
             const headers = {
-                [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'hostTagsSpecialChars', 'hostTagsSpecialChars', false)
+                [constants.IDENTITY_HEADER]: createIdentityHeader(
+                    f => f, 'hostTagsSpecialChars', 'hostTagsSpecialChars', 'hostTagsSpecialChars', false
+                )
             };
 
             const specialTags = [{

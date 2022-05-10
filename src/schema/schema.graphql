@@ -602,6 +602,7 @@ input FilterPerReporterStaleness {
 type Host {
     id: ID!
     account: String!
+    org_id: String
     display_name: String
     created_on: String
     modified_on: String
