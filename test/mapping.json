@@ -364,6 +364,15 @@
         }
       }
     },
+    "tags_search_combined": {
+      "type": "keyword",
+      "fields": {
+        "lowercase": {
+          "type": "keyword",
+          "normalizer": "case_insensitive"
+        }
+      }
+    },
     "per_reporter_staleness": {
       "type": "object",
       "properties": {

@@ -305,6 +305,64 @@ Object {
 }
 `;
 
+exports[`host tags pagination limit + offset + search + ignorecase + namespace + key 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "bar",
+          "namespace": "insights-client",
+          "value": "3",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "bar",
+          "namespace": "insights-client",
+          "value": "4",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 2,
+      "total": 16,
+    },
+  },
+}
+`;
+
+exports[`host tags pagination limit + offset + search + ignorecase + typeahead 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "bar",
+          "namespace": "insights-client",
+          "value": "3",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "bar",
+          "namespace": "insights-client",
+          "value": "4",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 2,
+      "total": 16,
+    },
+  },
+}
+`;
+
 exports[`host tags pagination limit + offset 1`] = `
 Object {
   "hostTags": Object {
@@ -358,6 +416,64 @@ Object {
     "meta": Object {
       "count": 2,
       "total": 16,
+    },
+  },
+}
+`;
+
+exports[`host tags tag filters by tag name + regex + different_case 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-1",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 1,
+      "total": 1,
+    },
+  },
+}
+`;
+
+exports[`host tags tag filters by tag name + regex type-ahead 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-1",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-2",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-3",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 3,
+      "total": 3,
     },
   },
 }
@@ -461,6 +577,35 @@ Object {
     "meta": Object {
       "count": 1,
       "total": 1,
+    },
+  },
+}
+`;
+
+exports[`host tags tag filters ignore cases case-insensitve 1`] = `
+Object {
+  "hostTags": Object {
+    "data": Array [
+      Object {
+        "count": 2,
+        "tag": Object {
+          "key": "os",
+          "namespace": "insights-client",
+          "value": "fedora",
+        },
+      },
+      Object {
+        "count": 1,
+        "tag": Object {
+          "key": "region",
+          "namespace": "aws",
+          "value": "us-east-1",
+        },
+      },
+    ],
+    "meta": Object {
+      "count": 2,
+      "total": 8,
     },
   },
 }
