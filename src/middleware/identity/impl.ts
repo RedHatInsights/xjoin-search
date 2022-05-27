@@ -27,8 +27,8 @@ export default function identity(req: express.Request, res: express.Response, ne
         }
 
         if (identity.type === 'User') {
-            req.username = identity.user.username;
-            req.is_internal = identity.user.is_internal;
+            req.username = identity.user?.username;
+            req.is_internal = identity.user?.is_internal;
         }
 
         next();
