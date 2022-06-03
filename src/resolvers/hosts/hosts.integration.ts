@@ -894,7 +894,7 @@ describe('hosts query', function () {
                 const headers = { [constants.IDENTITY_HEADER]: createIdentityHeader(
                     data => { delete data.identity.user; return data; })};
                 const err: any = await runQueryCatchError(headers);
-                expect(err.response.status).toEqual(400);
+                expect(err).toBeUndefined();
             });
 
             test('System identity type', async () => {
