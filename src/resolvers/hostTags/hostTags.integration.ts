@@ -100,6 +100,45 @@ describe('host tags', function () {
             data.hostTags.meta.should.have.property('total', 8);
         });
 
+        test('limit + offset + search + ignorecase + typeahead', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                limit: 2,
+                offset: 2,
+                filter: {
+                    search: {
+                        regex: 'S*'
+                    }
+                }
+            }, headers);
+
+            expect(status).toEqual(200);
+
+            data.hostTags.data.should.have.length(2);
+            data.hostTags.meta.should.have.property('count', 2);
+            data.hostTags.meta.should.have.property('total', 16);
+            expect(data).toMatchSnapshot();
+        });
+
+        test('limit + offset + search + ignorecase + namespace + key', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                limit: 2,
+                offset: 2,
+                filter: {
+                    search: {
+                        regex: 'insights-client/b*'
+                    }
+                }
+            }, headers);
+
+            expect(status).toEqual(200);
+            data.hostTags.data.should.have.length(2);
+            data.hostTags.meta.should.have.property('count', 2);
+            data.hostTags.meta.should.have.property('total', 16);
+            expect(status).toEqual(200);
+
+            expect(data).toMatchSnapshot();
+        });
+
         testLimitOffset(TAG_FILTERS_QUERY);
     });
 
@@ -182,6 +221,69 @@ describe('host tags', function () {
                     value: 'us-east-1'
                 }
             }]);
+        });
+
+        test('by tag name + regex', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                filter: {
+                    search: {
+                        regex: 'aws/region=us-east-1'
+                    }
+                }
+            });
+
+            expect(status).toEqual(200);
+            data.hostTags.data.should.have.length(1);
+            data.hostTags.meta.should.have.property('count', 1);
+            data.hostTags.meta.should.have.property('total', 1);
+            data.hostTags.data.should.eql([{
+                count: 1,
+                tag: {
+                    namespace: 'aws',
+                    key: 'region',
+                    value: 'us-east-1'
+                }
+            }]);
+        });
+
+        test('by tag name + regex + different_case', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                filter: {
+                    search: {
+                        regex: 'aws/REGION=us-east-1'
+                    }
+                }
+            });
+
+            expect(status).toEqual(200);
+            data.hostTags.data.should.have.length(1);
+            data.hostTags.meta.should.have.property('count', 1);
+            data.hostTags.meta.should.have.property('total', 1);
+            data.hostTags.data.should.eql([{
+                count: 1,
+                tag: {
+                    namespace: 'aws',
+                    key: 'region',
+                    value: 'us-east-1'
+                }
+            }]);
+            expect(data).toMatchSnapshot();
+        });
+
+        test('by tag name + regex type-ahead', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                filter: {
+                    search: {
+                        regex: 'aws/region'
+                    }
+                }
+            });
+
+            expect(status).toEqual(200);
+            data.hostTags.data.should.have.length(3);
+            data.hostTags.meta.should.have.property('count', 3);
+            data.hostTags.meta.should.have.property('total', 3);
+            expect(data).toMatchSnapshot();
         });
 
         test('by tag name negative', async () => {
@@ -301,5 +403,29 @@ describe('host tags', function () {
                 })
             );
         });
+    });
+
+    describe('tag filters ignore cases', function () {
+        const headers = createHeaders('test', 'test', 'test');
+
+        test('case-insensitve', async () => {
+            const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
+                limit: 2,
+                offset: 2,
+                filter: {
+                    search: {
+                        regex: 'S*'
+                    }
+                }
+            }, headers);
+
+            expect(status).toEqual(200);
+
+            data.hostTags.data.should.have.length(2);
+            data.hostTags.meta.should.have.property('count', 2);
+            data.hostTags.meta.should.have.property('total', 8);
+            expect(data).toMatchSnapshot();
+        });
+        testLimitOffset(TAG_FILTERS_QUERY);
     });
 });

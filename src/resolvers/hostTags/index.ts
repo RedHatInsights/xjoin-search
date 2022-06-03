@@ -12,6 +12,8 @@ const TAG_ORDER_BY_MAPPING: { [key: string]: string } = {
     tag: '_key'
 };
 
+const TAG_CASE_DELIMITER = 'c6509b6d-9646-4122-a16c-f536660c22ee';
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default async function hostTags(parent: any, args: QueryHostTagsArgs, context: any): Promise<Record<string, unknown>> {
     checkLimit(args.limit);
@@ -43,9 +45,11 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
     if (args.filter && args.filter.search) {
         const search = args.filter.search;
         if (search.eq) {
+            body.aggs.tags.terms.field = 'tags_search';
             body.aggs.tags.terms.include = [search.eq];
         } else if (search.regex) {
-            body.aggs.tags.terms.include = search.regex;
+            body.aggs.tags.terms.field = 'tags_search_combined';
+            body.aggs.tags.terms.include = '.*(' + TAG_CASE_DELIMITER + ')' + search.regex.toLowerCase() + '.*';
         }
     }
 
@@ -69,7 +73,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
                 throw new Error(`cannot split ${value} using ${delimiter}`);
             }
 
-            return [value.substring(0, index), value.substring(index + 1)];
+            return [value.substring(0, index), value.substring(index + delimiter.length)];
         }
 
         function normalizeTag (value: string, key: string) {
@@ -80,9 +84,18 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
             return value;
         }
 
+        let cased_tag: string;
+
+        // We need to prune of the case insensitive part if we used a Regex query
+        if (bucket.key.includes(TAG_CASE_DELIMITER)) {
+            cased_tag = split(bucket.key, TAG_CASE_DELIMITER)[0];
+        } else {
+            cased_tag = bucket.key;
+        }
+
         // This assumes that a namespace never contains '/'
         // We control the namespaces so this should be a safe assumption;
-        const [namespace, rest] = split(bucket.key, '/');
+        const [namespace, rest] = split(cased_tag, '/');
 
         // This assumes that the key ends with the first '='
         // That may not be accurate in a situation when someone defines a key that contains '='
