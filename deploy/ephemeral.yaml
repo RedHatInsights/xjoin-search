@@ -672,6 +672,9 @@ objects:
               "tags_string": {
                 "type": "keyword"
               },
+              "tags_search_combined": {
+                "type": "keyword"
+              },
               "tags_search": {
                 "type": "keyword",
                 "fields": {
