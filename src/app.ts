@@ -46,7 +46,7 @@ export default async function start (): Promise<Record<string, unknown>> {
     const apollo = new ApolloServer({
         typeDefs: schema,
         resolvers,
-        context: ({ req }) => ({ account_number: req.account_number, org_id: req.org_id }),
+        context: ({ req }) => ({ org_id: req.org_id }),
         introspection: true,
         plugins: [
             observabilityPlugin,

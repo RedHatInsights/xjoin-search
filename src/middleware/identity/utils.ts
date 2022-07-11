@@ -1,7 +1,6 @@
 
 const DEFAULTS = Object.freeze({
-    account_number: 'test',
-    org_id: 'testOrgId',
+    org_id: 'test',
     type: 'User',
     user: {
         username: 'tuser@redhat.com',
@@ -25,13 +24,11 @@ function encode(data: any) {
 export default function createIdentityHeader(
     modify_data = (d: any) => d,
     username = DEFAULTS.user.username,
-    account_number = DEFAULTS.account_number,
     org_id = DEFAULTS.org_id,
     is_internal = true): string {
 
     const data = {
         identity: {
-            account_number,
             org_id,
             type: DEFAULTS.type,
             user: {

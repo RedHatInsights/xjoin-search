@@ -1,7 +1,7 @@
 import 'should';
 import start from '../src/app';
 
-import { TestContext, ACCOUNT_PREFIX } from './TestContext';
+import { TestContext, ORG_ID_PREFIX } from './TestContext';
 import client from '../src/es';
 
 let app: any = null;
@@ -42,7 +42,7 @@ beforeAll(async function () {
         body: {
             query: {
                 wildcard: {
-                    account: `${ACCOUNT_PREFIX}*`
+                    org_id: `${ORG_ID_PREFIX}*`
                 }
             }
         }

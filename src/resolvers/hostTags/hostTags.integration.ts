@@ -41,9 +41,9 @@ describe('host tags', function () {
         expect(data).toMatchSnapshot();
     });
 
-    test('account isolation', async () => {
+    test('org_id isolation', async () => {
         const headers = {
-            [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', '56789', false)
+            [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, 'customer', '12345', false)
         };
 
         const { data, status } = await runQuery(TAG_FILTERS_QUERY, {}, headers);
@@ -54,7 +54,7 @@ describe('host tags', function () {
     });
 
     describe('pagination', function () {
-        const headers = createHeaders('hostTagsTest', 'hostTagsTest', 'hostTagsTest');
+        const headers = createHeaders('hostTagsTest', 'hostTagsTest');
 
         test('limit', async () => {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {
@@ -343,7 +343,7 @@ describe('host tags', function () {
         describe('special characters', function () {
             const headers = {
                 [constants.IDENTITY_HEADER]: createIdentityHeader(
-                    f => f, 'hostTagsSpecialChars', 'hostTagsSpecialChars', 'hostTagsSpecialChars', false
+                    f => f, 'hostTagsSpecialChars', 'hostTagsSpecialChars', false
                 )
             };
 
@@ -406,7 +406,7 @@ describe('host tags', function () {
     });
 
     describe('tag filters ignore cases', function () {
-        const headers = createHeaders('test', 'test', 'test');
+        const headers = createHeaders('test', 'test');
 
         test('case-insensitve', async () => {
             const { data, status } = await runQuery(TAG_FILTERS_QUERY, {

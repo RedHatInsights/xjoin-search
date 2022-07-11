@@ -98,14 +98,14 @@ Examples using curl:
 # no passing x-rh-identity object
 curl \
 -H 'Content-Type: application/json' \
---data-binary '{"query":"{hosts(limit:10,offset:0){meta{count,total}data{id account display_name}}}"}' \
+--data-binary '{"query":"{hosts(limit:10,offset:0){meta{count,total}data{id org_id display_name}}}"}' \
 http://localhost:4000/graphql
 
 # passing x-rh-identity object ( must be base64 encoded )
 curl \
 -H 'Content-Type: application/json' \
--H 'x-rh-identity: eyJpZGVudGl0eSI6eyJhY2NvdW50X251bWJlciI6InRlc3QiLCJ0eXBlIjoiVXNlciIsInVzZXIiOnsidXNlcm5hbWUiOiJ0dXNlckByZWRoYXQuY29tIiwiZW1haWwiOiJ0dXNlckByZWRoYXQuY29tIiwiZmlyc3RfbmFtZSI6InRlc3QiLCJsYXN0X25hbWUiOiJ1c2VyIiwiaXNfYWN0aXZlIjp0cnVlLCJpc19vcmdfYWRtaW4iOmZhbHNlLCJpc19pbnRlcm5hbCI6dHJ1ZSwibG9jYWxlIjoiZW5fVVMifX19' \
---data-binary '{"query":"{hosts(limit:10,offset:0){meta{count,total}data{id account display_name}}}"}' \
+-H 'x-rh-identity: eyJpZGVudGl0eSI6eyJvcmdfaWQiOiJ0ZXN0IiwidHlwZSI6IlVzZXIiLCJ1c2VyIjp7InVzZXJuYW1lIjoidHVzZXJAcmVkaGF0LmNvbSIsImVtYWlsIjoidHVzZXJAcmVkaGF0LmNvbSIsImZpcnN0X25hbWUiOiJ0ZXN0IiwibGFzdF9uYW1lIjoidXNlciIsImlzX2FjdGl2ZSI6dHJ1ZSwiaXNfb3JnX2FkbWluIjpmYWxzZSwiaXNfaW50ZXJuYWwiOnRydWUsImxvY2FsZSI6ImVuX1VTIn19fQ==' \
+--data-binary '{"query":"{hosts(limit:10,offset:0){meta{count,total}data{id org_id display_name}}}"}' \
 http://localhost:4000/graphql
 ```
 

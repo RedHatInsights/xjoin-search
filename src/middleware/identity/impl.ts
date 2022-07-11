@@ -15,9 +15,9 @@ export default function identity(req: express.Request, res: express.Response, ne
         const value = Buffer.from(raw, 'base64').toString('utf8');
         const identity = JSON.parse(value).identity;
 
-        req.account_number = identity.account_number;
-        if (req.account_number === undefined || req.account_number === null) {
-            log.info('rejecting request for undefined "account_number"');
+        req.org_id = identity.org_id;
+        if (req.org_id === undefined || req.org_id === null) {
+            log.info('rejecting request for undefined "org_id"');
             return next(new HttpErrorBadRequest());
         }
 

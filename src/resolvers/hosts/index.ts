@@ -103,11 +103,11 @@ resolverMapFromSchema().then((resolvers: HostFilterResolver[])=>{
     RESOLVERS = resolvers;
 });
 
-export function buildFilterQuery(filter: HostFilter | null | undefined, account_number: string): any {
+export function buildFilterQuery(filter: HostFilter | null | undefined, org_id: string): any {
     return {
         bool: {
             filter: [
-                {term: {account: account_number}}, // implicit filter based on x-rh-identity
+                {term: {org_id}}, // implicit filter based on x-rh-identity
                 ...(filter ? resolveFilter(filter) : [])
             ]
         }
@@ -190,7 +190,7 @@ function processSort(order_by: any, order_how: any) {
 /**
  * Build query for Elasticsearch based on GraphQL query.
  */
-function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
+function buildESQuery(args: QueryHostsArgs, org_id: string, info: any) {
 
     const selectionSet = info.fieldNodes[0].selectionSet.selections;
     const sourceList: string[] = buildSourceList(selectionSet);
@@ -204,7 +204,7 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
         _source: sourceList
     };
 
-    query.query = buildFilterQuery(args.filter, account_number);
+    query.query = buildFilterQuery(args.filter, org_id);
 
     return query;
 }
@@ -212,13 +212,13 @@ function buildESQuery(args: QueryHostsArgs, account_number: string, info: any) {
 export default async function hosts(
     parent: unknown,
     args: QueryHostsArgs,
-    context: {account_number: string},
+    context: {org_id: string},
     info: unknown): Promise<unknown>
 {
     checkLimit(args.limit);
     checkOffset(args.offset);
 
-    const body = buildESQuery(args, context.account_number, info);
+    const body = buildESQuery(args, context.org_id, info);
     const query = {
         index: config.queries.hosts.index,
         body
