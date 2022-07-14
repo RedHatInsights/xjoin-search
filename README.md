@@ -104,7 +104,7 @@ http://localhost:4000/graphql
 # passing x-rh-identity object ( must be base64 encoded )
 curl \
 -H 'Content-Type: application/json' \
--H 'x-rh-identity: eyJpZGVudGl0eSI6eyJvcmdfaWQiOiJ0ZXN0IiwidHlwZSI6IlVzZXIiLCJ1c2VyIjp7InVzZXJuYW1lIjoidHVzZXJAcmVkaGF0LmNvbSIsImVtYWlsIjoidHVzZXJAcmVkaGF0LmNvbSIsImZpcnN0X25hbWUiOiJ0ZXN0IiwibGFzdF9uYW1lIjoidXNlciIsImlzX2FjdGl2ZSI6dHJ1ZSwiaXNfb3JnX2FkbWluIjpmYWxzZSwiaXNfaW50ZXJuYWwiOnRydWUsImxvY2FsZSI6ImVuX1VTIn19fQ==' \
+-H 'x-rh-identity: eyJpZGVudGl0eSI6eyJvcmdfaWQiOiJ0ZXN0IiwidHlwZSI6IlVzZXIiLCJhdXRoX3R5cGUiOiJiYXNpYy1hdXRoIiwidXNlciI6eyJ1c2VybmFtZSI6InR1c2VyQHJlZGhhdC5jb20iLCJlbWFpbCI6InR1c2VyQHJlZGhhdC5jb20iLCJmaXJzdF9uYW1lIjoidGVzdCIsImxhc3RfbmFtZSI6InVzZXIiLCJpc19hY3RpdmUiOnRydWUsImlzX29yZ19hZG1pbiI6ZmFsc2UsImlzX2ludGVybmFsIjp0cnVlLCJsb2NhbGUiOiJlbl9VUyJ9fX0=' \
 --data-binary '{"query":"{hosts(limit:10,offset:0){meta{count,total}data{id org_id display_name}}}"}' \
 http://localhost:4000/graphql
 ```
