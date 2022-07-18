@@ -601,8 +601,8 @@ input FilterPerReporterStaleness {
 "Inventory host"
 type Host {
     id: ID!
-    account: String!
-    org_id: String
+    account: String
+    org_id: String!
     display_name: String
     created_on: String
     modified_on: String
@@ -742,7 +742,7 @@ type Query {
     """
     Fetches a list of unique tags and the number of their occurenes in the given set of systems.
 
-    By default the query operates on all known systems that are registered with the given account.
+    By default the query operates on all known systems that are registered with the given org_id.
     This can be altered using the `hostFilter` parameter.
 
     The tags themselves can be filtered further using the `filter` parameter.
@@ -759,7 +759,7 @@ type Query {
     """
     Fetches a list of unique values for a given system profile field.
 
-    By default the query operates on all known systems that are registered with the given account.
+    By default the query operates on all known systems that are registered with the given org_id.
     This can be altered using `hostFilter` parameter.
     """
     hostSystemProfile (

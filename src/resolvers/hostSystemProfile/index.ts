@@ -13,7 +13,7 @@ export default async function hostSystemProfile(
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     args: QueryHostSystemProfileArgs, context: any): Promise<Record<string, unknown>> {
 
-    context.hostQuery = buildFilterQuery(args.hostFilter, context.account_number);
+    context.hostQuery = buildFilterQuery(args.hostFilter, context.org_id);
     return {};
 }
 

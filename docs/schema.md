@@ -111,7 +111,7 @@ Fetches a list of hosts based on the given filtering, ordering and pagination cr
 
 Fetches a list of unique tags and the number of their occurenes in the given set of systems.
 
-By default the query operates on all known systems that are registered with the given account.
+By default the query operates on all known systems that are registered with the given org_id.
 This can be altered using the `hostFilter` parameter.
 
 The tags themselves can be filtered further using the `filter` parameter.
@@ -155,7 +155,7 @@ The tags themselves can be filtered further using the `filter` parameter.
 
 Fetches a list of unique values for a given system profile field.
 
-By default the query operates on all known systems that are registered with the given account.
+By default the query operates on all known systems that are registered with the given org_id.
 This can be altered using `hostFilter` parameter.
 
 </td>
@@ -280,12 +280,12 @@ Inventory host
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>account</strong></td>
-<td valign="top"><a href="#string">String</a>!</td>
+<td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>org_id</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top"><a href="#string">String</a>!</td>
 <td></td>
 </tr>
 <tr>

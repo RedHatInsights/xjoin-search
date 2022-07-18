@@ -54,7 +54,6 @@ const HOST_TEMPLATE =     {
 export async function createHost (overrides = {}) {
     const host = _.assign({}, HOST_TEMPLATE, {
         id: v4(),
-        account: getContext().account,
         org_id: getContext().org_id
     }, overrides);
 
@@ -90,8 +89,8 @@ export async function runQueryCatchError(headers: any, query = '{ hosts { data {
     return;
 }
 
-export function createHeaders (username: string, account: string, org_id: string, is_internal = true) {
+export function createHeaders (username: string, org_id: string, is_internal = true) {
     return {
-        [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, username, account, org_id, is_internal)
+        [constants.IDENTITY_HEADER]: createIdentityHeader(f => f, username, org_id, is_internal)
     };
 }

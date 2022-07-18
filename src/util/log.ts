@@ -43,9 +43,9 @@ export const serializers = {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     req: (value: any): void => {
         // the default serializer does not print the identity values attached by identity mw
-        // therefore we copy account_number and username so that they are logged
+        // therefore we copy org_id and username so that they are logged
         const result: any = pino.stdSerializers.req(value);
-        result.account_number = value.raw.account_number;
+        result.org_id = value.raw.org_id;
         result.username = value.raw.username;
 
         return result;

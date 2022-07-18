@@ -368,7 +368,7 @@ function updateHostsJson(new_host_system_profile_facts: any): void {
 
     let i = 0;
     _.forEach(hosts, (host:any) => {
-        if (host["account"] == "test") {
+        if (host["org_id"] == "test") {
             _.forEach(new_host_system_profile_facts[i], (_, field_name:string):void => {
                 host["system_profile_facts"][field_name] = new_host_system_profile_facts[i][field_name];
             })

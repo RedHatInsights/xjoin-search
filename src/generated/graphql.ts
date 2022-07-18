@@ -287,7 +287,7 @@ export enum Host_Tags_Order_By {
 /** Inventory host */
 export type Host = {
   __typename?: 'Host';
-  account: Scalars['String'];
+  account?: Maybe<Scalars['String']>;
   ansible_host?: Maybe<Scalars['String']>;
   /** Canonical facts of a host. The subset of keys can be requested using `filter`. */
   canonical_facts?: Maybe<Scalars['JSONObject']>;
@@ -297,7 +297,7 @@ export type Host = {
   facts?: Maybe<Scalars['JSONObject']>;
   id: Scalars['ID'];
   modified_on?: Maybe<Scalars['String']>;
-  org_id?: Maybe<Scalars['String']>;
+  org_id: Scalars['String'];
   /** The host's per-reporter staleness data in object format. */
   per_reporter_staleness?: Maybe<Scalars['JSONObject']>;
   /** The host's per-reporter staleness, flattened into an array. */
@@ -538,14 +538,14 @@ export type Query = {
   /**
    * Fetches a list of unique values for a given system profile field.
    *
-   * By default the query operates on all known systems that are registered with the given account.
+   * By default the query operates on all known systems that are registered with the given org_id.
    * This can be altered using `hostFilter` parameter.
    */
   hostSystemProfile?: Maybe<HostSystemProfile>;
   /**
    * Fetches a list of unique tags and the number of their occurenes in the given set of systems.
    *
-   * By default the query operates on all known systems that are registered with the given account.
+   * By default the query operates on all known systems that are registered with the given org_id.
    * This can be altered using the `hostFilter` parameter.
    *
    * The tags themselves can be filtered further using the `filter` parameter.
@@ -857,7 +857,7 @@ export type CollectionMetaResolvers<ContextType = any, ParentType extends Resolv
 };
 
 export type HostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Host'] = ResolversParentTypes['Host']> = {
-  account?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  account?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   ansible_host?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   canonical_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostCanonical_FactsArgs, never>>;
   created_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -865,7 +865,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostFactsArgs, never>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  org_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  org_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   per_reporter_staleness?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, RequireFields<HostPer_Reporter_StalenessArgs, never>>;
   per_reporter_staleness_flat?: Resolver<Maybe<Array<Maybe<ResolversTypes['JSONObject']>>>, ParentType, ContextType, RequireFields<HostPer_Reporter_Staleness_FlatArgs, never>>;
   reporter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

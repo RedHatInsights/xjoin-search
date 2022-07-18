@@ -24,7 +24,7 @@ export default async function hostTags(parent: any, args: QueryHostTagsArgs, con
 
     const body: any = {
         _source: [],
-        query: buildFilterQuery(args.hostFilter, context.account_number),
+        query: buildFilterQuery(args.hostFilter, context.org_id),
         size: 0,
         aggs: {
             tags: {
