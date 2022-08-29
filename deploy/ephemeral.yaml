@@ -167,6 +167,7 @@ objects:
       validation.attempts.threshold: '5'
       validation.interval: '30'
       validation.percentage.threshold: '5'
+      kafka.topic.replicas: '1'
       elasticsearch.connector.config: |-
         {
             "tasks.max": "{{.ElasticSearchTasksMax}}",
