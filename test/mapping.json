@@ -255,6 +255,9 @@
         "host_type": {
           "type": "keyword"
         },
+        "update_method": {
+          "type": "keyword"
+        },
         "greenboot_status": {
           "type": "keyword"
         },

@@ -54,6 +54,7 @@
             "selinux_current_mode": "enforcing",
             "selinux_config_file": "permissive",
             "host_type": "edge",
+            "update_method": "dnf",
             "greenboot_status": "green",
             "greenboot_fallback_detected": true,
             "rhsm": {
@@ -231,6 +232,7 @@
             "selinux_current_mode": "not_enforcing",
             "selinux_config_file": "sleepy",
             "host_type": "not_edge",
+            "update_method": "rpm-ostree",
             "greenboot_status": "red",
             "greenboot_fallback_detected": false,
             "network_interfaces": {
@@ -383,6 +385,7 @@
                 "name": "RHEL"
             },
             "host_type": "edge",
+            "update_method": "yum",
             "rhc_config_state": "2fa3e796-10e2-11ec-82a8-0242ac130003",
             "cpu_model": "Intel(R) I7(R) CPU I7-10900k 0 @ 4.90GHz",
             "subscription_status": "ex3",

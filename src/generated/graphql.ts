@@ -463,6 +463,8 @@ export type HostFilter = {
   spf_system_purpose?: Maybe<FilterSystemPurpose>;
   /** Filter by 'tuned_profile' field of system profile */
   spf_tuned_profile?: Maybe<FilterString>;
+  /** Filter by 'update_method' field of system profile */
+  spf_update_method?: Maybe<FilterString>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: Maybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */

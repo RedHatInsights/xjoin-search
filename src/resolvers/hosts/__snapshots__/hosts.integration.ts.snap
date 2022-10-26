@@ -521,6 +521,7 @@ Object {
             "usage": "Development/Test",
           },
           "tuned_profile": "example",
+          "update_method": "rpm-ostree",
         },
       },
       Object {
@@ -638,6 +639,7 @@ Object {
             "usage": "Production",
           },
           "tuned_profile": "desktop",
+          "update_method": "dnf",
         },
       },
       Object {
@@ -743,6 +745,7 @@ Object {
             "usage": "Disaster Recovery",
           },
           "tuned_profile": "laptop",
+          "update_method": "yum",
         },
       },
     ],
@@ -857,6 +860,7 @@ Object {
             "usage": "Disaster Recovery",
           },
           "tuned_profile": "laptop",
+          "update_method": "yum",
         },
       },
       Object {
@@ -962,6 +966,7 @@ Object {
             "usage": "Production",
           },
           "tuned_profile": "desktop",
+          "update_method": "dnf",
         },
       },
       Object {
@@ -1079,6 +1084,7 @@ Object {
             "usage": "Development/Test",
           },
           "tuned_profile": "example",
+          "update_method": "rpm-ostree",
         },
       },
       Object {
