@@ -2188,11 +2188,11 @@ Filter by 'owner_id' field of system profile
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_update_method</strong></td>
+<td colspan="2" valign="top"><strong>spf_system_update_method</strong></td>
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
 
-Filter by 'update_method' field of system profile
+Filter by 'system_update_method' field of system profile
 
 </td>
 </tr>

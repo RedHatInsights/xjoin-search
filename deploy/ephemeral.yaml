@@ -556,7 +556,7 @@ objects:
                   "host_type": {
                     "type": "keyword"
                   },
-                  "update_method": {
+                  "system_update_method": {
                     "type": "keyword"
                   },
                   "greenboot_status": {

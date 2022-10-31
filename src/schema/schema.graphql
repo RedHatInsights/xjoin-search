@@ -218,8 +218,8 @@ input HostFilter {
     "Filter by 'owner_id' field of system profile"
     spf_owner_id: FilterString
 
-    "Filter by 'update_method' field of system profile"
-    spf_update_method: FilterString
+    "Filter by 'system_update_method' field of system profile"
+    spf_system_update_method: FilterString
 
 
 
