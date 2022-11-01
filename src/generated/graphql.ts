@@ -460,9 +460,9 @@ export type HostFilter = {
   /** Filter by 'system_memory_bytes' field of system profile */
   spf_system_memory_bytes?: InputMaybe<FilterInt>;
   /** Filter by 'system_purpose' field of system profile */
-  spf_system_purpose?: Maybe<FilterSystemPurpose>;
+  spf_system_purpose?: InputMaybe<FilterSystemPurpose>;
   /** Filter by 'system_update_method' field of system profile */
-  spf_system_update_method?: Maybe<FilterString>;
+  spf_system_update_method?: InputMaybe<FilterString>;
   /** Filter by 'tuned_profile' field of system profile */
   spf_tuned_profile?: InputMaybe<FilterString>;
   /** Filter by the stale_timestamp value */
