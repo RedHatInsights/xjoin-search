@@ -113,6 +113,9 @@ input HostFilter {
     "Filter by 'sap_system' field of system profile"
     spf_sap_system: FilterBoolean
 
+    "Filter by 'sap' field of system profile"
+    spf_sap: FilterSap
+
     "Filter by 'enabled_services' field of system profile"
     spf_enabled_services: FilterString
 
@@ -489,6 +492,25 @@ input FilterRpmOstreeDeployments {
 
     "Filter by 'pinned' field of rpm_ostree_deployments"
     pinned: FilterBoolean
+
+}
+
+"""
+Filter by 'sap' field of system profile
+"""
+input FilterSap {
+
+    "Filter by 'sap_system' field of sap"
+    sap_system: FilterBoolean
+
+    "Filter by 'sids' field of sap"
+    sids: FilterString
+
+    "Filter by 'instance_number' field of sap"
+    instance_number: FilterString
+
+    "Filter by 'version' field of sap"
+    version: FilterString
 
 }
 

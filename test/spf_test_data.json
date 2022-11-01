@@ -3,7 +3,7 @@
     "field_name": "owner_id",
     "field_query": {
       "spf_owner_id": {
-        "eq": "2c68e8ec-10e2-11ec-82a8-0242ac130003"
+        "eq": "ffdfd200-f5b9-4e57-b080-f5e257349df0"
       }
     }
   },
@@ -88,7 +88,7 @@
     "field_query": {
       "spf_network_interfaces": {
         "ipv4_addresses": {
-          "eq": "123.456.789.012 123.456.789.012"
+          "eq": "60.209.47.155 40.124.217.134"
         }
       }
     }
@@ -98,7 +98,7 @@
     "field_query": {
       "spf_network_interfaces": {
         "ipv6_addresses": {
-          "eq": "abcd:4567:89ab:cdef:0123:4567:89ab:cdef"
+          "eq": "dd2e:879f:afff:7845:b346:bb88:bcf2:4b1b"
         }
       }
     }
@@ -119,7 +119,7 @@
     "field_query": {
       "spf_network_interfaces": {
         "mac_address": {
-          "eq": "10:00:00:00:00:00"
+          "eq": "100000000000"
         }
       }
     }
@@ -159,7 +159,7 @@
     "field_query": {
       "spf_disk_devices": {
         "device": {
-          "eq": "/dev/fdd1"
+          "eq": "/dev/sda1"
         }
       }
     }
@@ -245,7 +245,7 @@
     "field_query": {
       "spf_operating_system": {
         "name": {
-          "eq": "FED"
+          "eq": "CentOS"
         }
       }
     }
@@ -417,7 +417,7 @@
     "field_name": "insights_egg_version",
     "field_query": {
       "spf_insights_egg_version": {
-        "eq": "ex2"
+        "eq": "4.4"
       }
     }
   },
@@ -458,6 +458,46 @@
     "field_query": {
       "spf_enabled_services": {
         "eq": "ex2"
+      }
+    }
+  },
+  {
+    "field_name": "sap sap_system",
+    "field_query": {
+      "spf_sap": {
+        "sap_system": {
+          "is": false
+        }
+      }
+    }
+  },
+  {
+    "field_name": "sap sids",
+    "field_query": {
+      "spf_sap": {
+        "sids": {
+          "eq": "ABC"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "sap instance_number",
+    "field_query": {
+      "spf_sap": {
+        "instance_number": {
+          "eq": "05"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "sap version",
+    "field_query": {
+      "spf_sap": {
+        "version": {
+          "eq": "2.00.122.04.1478575636"
+        }
       }
     }
   },
@@ -529,7 +569,7 @@
     "field_name": "host_type",
     "field_query": {
       "spf_host_type": {
-        "eq": "not_edge"
+        "eq": "edge"
       }
     }
   },

@@ -25,8 +25,12 @@ import * as _ from 'lodash';
 import fs from 'fs';
 import { buildMappingsFor } from '@ckyrouac/json-schema-to-es-mapping';
 import { JSONSchema, dereference } from '@apidevtools/json-schema-ref-parser';
+import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { integer } from '@elastic/elasticsearch/api/types';
-import * as YAML from 'yaml'
+import * as YAML from 'yaml';
+
+$RefParser.dereference = $RefParser.dereference.bind($RefParser);
+$RefParser.resolve = $RefParser.resolve.bind($RefParser);
 
 export type PrimativeTypeString = "string" | "integer" | "array" | "wildcard" | "object" | "boolean" | "date-time"
 
