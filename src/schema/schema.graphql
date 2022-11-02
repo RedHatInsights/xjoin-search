@@ -412,6 +412,16 @@ input SapSidFilter {
     search: FilterStringWithRegex
 }
 
+"""
+Per-reporter staleness filter.
+"""
+input FilterPerReporterStaleness {
+    reporter: FilterString
+    stale_timestamp: FilterTimestamp
+    last_check_in: FilterTimestamp
+    check_in_succeeded: FilterBoolean
+}
+
 #
 # Generated system_profile input types
 #
@@ -609,15 +619,7 @@ input FilterNetworkInterfaces {
 
 }
 
-"""
-Per-reporter staleness filter.
-"""
-input FilterPerReporterStaleness {
-    reporter: FilterString
-    stale_timestamp: FilterTimestamp
-    last_check_in: FilterTimestamp
-    check_in_succeeded: FilterBoolean
-}
+
 
 #
 # Output types
