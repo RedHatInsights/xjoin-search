@@ -582,4 +582,4 @@ $defs:
         type: string
         maxLength: 10
         enum: [dnf, rpm-ostree, yum]
-        example: "rpm-ostree"
+        example: "dnf, rpm-ostree, yum"

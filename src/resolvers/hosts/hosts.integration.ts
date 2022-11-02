@@ -464,7 +464,7 @@ describe('hosts query', function () {
 
             test('spf_owner_id', async () => {
                 const { data } = await runQuery(BASIC_QUERY,
-                    { filter: { spf_owner_id: { eq: 'it8i99u1-48ut-1rdf-bc10-84opf904lbop' }}});
+                    { filter: { spf_owner_id: { eq: 'e2357169-f5e2-4afa-b509-ab1be3f30807' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[2]);
             });
@@ -764,7 +764,7 @@ describe('hosts query', function () {
                 test('spf_operating_system_combined', async () => {
                     const { data } = await runQuery(BASIC_QUERY,
                         { filter: { spf_operating_system: {
-                            name: { eq: 'FED'},
+                            name: { eq: 'CentOS'},
                             major: { gte: 1, lt: 2 },
                             minor: { gte: 1, lt: 2 }
                         }}});

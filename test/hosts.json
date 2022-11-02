@@ -54,7 +54,7 @@
             "selinux_current_mode": "enforcing",
             "selinux_config_file": "permissive",
             "host_type": "edge",
-            "system_update_method": "rpm-ostree",
+            "system_update_method": "dnf",
             "greenboot_status": "green",
             "greenboot_fallback_detected": true,
             "rhsm": {
@@ -302,7 +302,8 @@
                 "sids": "ABC",
                 "instance_number": "05",
                 "version": "2.00.122.04.1478575636"
-            }
+            },
+            "system_update_method": "rpm-ostree"
         },
         "tags_structured": [
             {
@@ -474,7 +475,8 @@
                 "sids": "XYZ",
                 "instance_number": "99",
                 "version": "3.00.122.04.1478575636"
-            }
+            },
+            "system_update_method": "yum"
         },
         "tags_structured": [
             {
