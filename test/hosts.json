@@ -237,7 +237,6 @@
             "tuned_profile": "example",
             "selinux_current_mode": "not_enforcing",
             "selinux_config_file": "sleepy",
-            "host_type": "edge",
             "greenboot_status": "red",
             "greenboot_fallback_detected": false,
             "network_interfaces": {
@@ -303,7 +302,8 @@
                 "instance_number": "05",
                 "version": "2.00.122.04.1478575636"
             },
-            "system_update_method": "rpm-ostree"
+            "system_update_method": "rpm-ostree",
+            "host_type": "not_edge"
         },
         "tags_structured": [
             {
@@ -396,7 +396,6 @@
                 "minor": 2,
                 "name": "RHEL"
             },
-            "host_type": "edge",
             "rhc_config_state": "2fa3e796-10e2-11ec-82a8-0242ac130003",
             "cpu_model": "Intel(R) I7(R) CPU I7-10900k 0 @ 4.90GHz",
             "subscription_status": "ex3",
@@ -476,7 +475,8 @@
                 "instance_number": "99",
                 "version": "3.00.122.04.1478575636"
             },
-            "system_update_method": "yum"
+            "system_update_method": "yum",
+            "host_type": "edge"
         },
         "tags_structured": [
             {
