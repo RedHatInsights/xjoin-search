@@ -798,5 +798,11 @@
         }
       }
     }
+  },
+  {
+    "field_name": "system_update_method",
+    "field_query": {
+      "spf_system_update_method": {}
+    }
   }
 ]

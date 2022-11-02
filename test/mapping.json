@@ -272,9 +272,6 @@
         "host_type": {
           "type": "keyword"
         },
-        "system_update_method": {
-          "type": "keyword"
-        },
         "greenboot_status": {
           "type": "keyword"
         },
@@ -353,6 +350,9 @@
               "type": "keyword"
             }
           }
+        },
+        "system_update_method": {
+          "type": "keyword"
         }
       }
     },

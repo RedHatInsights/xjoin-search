@@ -65,6 +65,9 @@ input HostFilter {
     # DO NOT REMOVE. Used to automatically update this schema
     # based on the system_profile JSONschema
     # START: system_profile schema filters
+    "Filter by 'system_update_method' field of system profile"
+    spf_system_update_method: FilterString
+
     "Filter by 'mssql' field of system profile"
     spf_mssql: FilterMssql
 
@@ -220,9 +223,6 @@ input HostFilter {
 
     "Filter by 'owner_id' field of system profile"
     spf_owner_id: FilterString
-
-    "Filter by 'system_update_method' field of system profile"
-    spf_system_update_method: FilterString
 
 
 

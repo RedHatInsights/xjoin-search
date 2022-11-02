@@ -338,7 +338,7 @@ $defs:
           example: "ex1, ex2, ex3"
       subscription_status:
         type: string
-        maxLength: 100  
+        maxLength: 100
         example: "ex1, ex2, ex3"
       subscription_auto_attach:
         type: string
@@ -572,8 +572,14 @@ $defs:
         type: object
         properties:
           version:
-            description: MSSQL version number 
+            description: MSSQL version number
             type: string
             example: '15.2.0, 12.5.3, 10.1.0'
             maxLength: 30
             x-wildcard: true
+      system_update_method:
+        description: System update method
+        type: string
+        maxLength: 10
+        enum: [dnf, rpm-ostree, yum]
+        example: "rpm-ostree"
