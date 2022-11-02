@@ -303,7 +303,7 @@
                 "version": "2.00.122.04.1478575636"
             },
             "system_update_method": "rpm-ostree",
-            "host_type": "not_edge"
+            "host_type": "None"
         },
         "tags_structured": [
             {
@@ -475,8 +475,7 @@
                 "instance_number": "99",
                 "version": "3.00.122.04.1478575636"
             },
-            "system_update_method": "yum",
-            "host_type": "edge"
+            "system_update_method": "yum"
         },
         "tags_structured": [
             {

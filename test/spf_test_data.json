@@ -569,7 +569,7 @@
     "field_name": "host_type",
     "field_query": {
       "spf_host_type": {
-        "eq": "not_edge"
+        "eq": "None"
       }
     }
   },
