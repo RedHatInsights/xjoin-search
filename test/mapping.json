@@ -228,6 +228,23 @@
         "enabled_services": {
           "type": "keyword"
         },
+        "sap": {
+          "type": "object",
+          "properties": {
+            "sap_system": {
+              "type": "boolean"
+            },
+            "sids": {
+              "type": "keyword"
+            },
+            "instance_number": {
+              "type": "keyword"
+            },
+            "version": {
+              "type": "keyword"
+            }
+          }
+        },
         "sap_system": {
           "type": "boolean"
         },
@@ -253,9 +270,6 @@
           "type": "boolean"
         },
         "host_type": {
-          "type": "keyword"
-        },
-        "system_update_method": {
           "type": "keyword"
         },
         "greenboot_status": {
@@ -336,6 +350,9 @@
               "type": "keyword"
             }
           }
+        },
+        "system_update_method": {
+          "type": "keyword"
         }
       }
     },

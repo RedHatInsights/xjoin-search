@@ -65,6 +65,9 @@ input HostFilter {
     # DO NOT REMOVE. Used to automatically update this schema
     # based on the system_profile JSONschema
     # START: system_profile schema filters
+    "Filter by 'system_update_method' field of system profile"
+    spf_system_update_method: FilterString
+
     "Filter by 'mssql' field of system profile"
     spf_mssql: FilterMssql
 
@@ -112,6 +115,9 @@ input HostFilter {
 
     "Filter by 'sap_system' field of system profile"
     spf_sap_system: FilterBoolean
+
+    "Filter by 'sap' field of system profile"
+    spf_sap: FilterSap
 
     "Filter by 'enabled_services' field of system profile"
     spf_enabled_services: FilterString
@@ -217,9 +223,6 @@ input HostFilter {
 
     "Filter by 'owner_id' field of system profile"
     spf_owner_id: FilterString
-
-    "Filter by 'system_update_method' field of system profile"
-    spf_system_update_method: FilterString
 
 
 
@@ -409,6 +412,16 @@ input SapSidFilter {
     search: FilterStringWithRegex
 }
 
+"""
+Per-reporter staleness filter.
+"""
+input FilterPerReporterStaleness {
+    reporter: FilterString
+    stale_timestamp: FilterTimestamp
+    last_check_in: FilterTimestamp
+    check_in_succeeded: FilterBoolean
+}
+
 #
 # Generated system_profile input types
 #
@@ -492,6 +505,25 @@ input FilterRpmOstreeDeployments {
 
     "Filter by 'pinned' field of rpm_ostree_deployments"
     pinned: FilterBoolean
+
+}
+
+"""
+Filter by 'sap' field of system profile
+"""
+input FilterSap {
+
+    "Filter by 'sap_system' field of sap"
+    sap_system: FilterBoolean
+
+    "Filter by 'sids' field of sap"
+    sids: FilterString
+
+    "Filter by 'instance_number' field of sap"
+    instance_number: FilterString
+
+    "Filter by 'version' field of sap"
+    version: FilterString
 
 }
 
@@ -587,15 +619,7 @@ input FilterNetworkInterfaces {
 
 }
 
-"""
-Per-reporter staleness filter.
-"""
-input FilterPerReporterStaleness {
-    reporter: FilterString
-    stale_timestamp: FilterTimestamp
-    last_check_in: FilterTimestamp
-    check_in_succeeded: FilterBoolean
-}
+
 
 #
 # Output types

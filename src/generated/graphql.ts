@@ -171,6 +171,18 @@ export type FilterRpmOstreeDeployments = {
   version?: InputMaybe<FilterString>;
 };
 
+/** Filter by 'sap' field of system profile */
+export type FilterSap = {
+  /** Filter by 'instance_number' field of sap */
+  instance_number?: InputMaybe<FilterString>;
+  /** Filter by 'sap_system' field of sap */
+  sap_system?: InputMaybe<FilterBoolean>;
+  /** Filter by 'sids' field of sap */
+  sids?: InputMaybe<FilterString>;
+  /** Filter by 'version' field of sap */
+  version?: InputMaybe<FilterString>;
+};
+
 /** Basic filter for string fields that allows filtering based on exact match. */
 export type FilterString = {
   /**
@@ -439,6 +451,8 @@ export type HostFilter = {
   spf_rhsm?: InputMaybe<FilterRhsm>;
   /** Filter by 'rpm_ostree_deployments' field of system profile */
   spf_rpm_ostree_deployments?: InputMaybe<FilterRpmOstreeDeployments>;
+  /** Filter by 'sap' field of system profile */
+  spf_sap?: InputMaybe<FilterSap>;
   /** Filter by 'sap_instance_number' field of system profile */
   spf_sap_instance_number?: InputMaybe<FilterString>;
   /** Filter by 'sap_sids' field of system profile */
@@ -737,6 +751,7 @@ export type ResolversTypes = {
   FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
+  FilterSap: FilterSap;
   FilterString: FilterString;
   FilterStringWithRegex: FilterStringWithRegex;
   FilterStringWithWildcard: FilterStringWithWildcard;
@@ -790,6 +805,7 @@ export type ResolversParentTypes = {
   FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
+  FilterSap: FilterSap;
   FilterString: FilterString;
   FilterStringWithRegex: FilterStringWithRegex;
   FilterStringWithWildcard: FilterStringWithWildcard;

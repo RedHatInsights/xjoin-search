@@ -19,7 +19,7 @@ $defs:
     type: object
     properties:
       device:
-        example: "/dev/fdd0, /dev/fdd1, /dev/fdd2"
+        example: "/dev/fdd0, /dev/sda1, /dev/nvme2"
         type: string
         maxLength: 2048
       label:
@@ -65,6 +65,13 @@ $defs:
         format: uri
         maxLength: 2048
         example: "abc, dfg, pop"
+      mirrorlist:
+        description: URL of a mirrorlist for the repository
+        type: string
+        format: uri
+        maxLength: 2048
+        example:
+          https://rhui.redhat.com/pulp/mirror/content/dist/rhel8/rhui/$releasever/$basearch/baseos/os
   DnfModule:
     description: Representation of one DNF module
     type: object
@@ -103,14 +110,14 @@ $defs:
         type: array
         items:
           description: The ipv4 address of the system
-          example: "123.456.789.012 123.456.789.012 123.456.789.012, 123.456.789.012 123.456.789.012, 123.456.789.012"
+          example: "227.161.169.210 30.143.76.153 233.87.178.7, 60.209.47.155 40.124.217.134, 67.77.119.70"
           type: string
           format: ipv4
       ipv6_addresses:
         type: array
         items:
           description: The ipv6 address of the system
-          example: "0123:4567:89ab:cdef:0123:4567:89ab:cdef , abcd:4567:89ab:cdef:0123:4567:89ab:cdef , qwer:4567:89ab:cdef:0123:4567:89ab:cdef"
+          example: "8886:2565:f753:1bbb:1d08:4239:c470:a889, dd2e:879f:afff:7845:b346:bb88:bcf2:4b1b, e979:3081:7218:4c98:fd19:5777:309a:957b"
           type: string
           format: ipv6
       mtu:
@@ -121,9 +128,9 @@ $defs:
         maximum: 2147483647
       mac_address:
         description: MAC address (with or without colons)
-        example: "00:00:00:00:00:00, 10:00:00:00:00:00, 20:00:00:00:00:00"
+        example: "00:00:00:00:00:00, 100000000000, 20:00:00:00:00:00"
         type: string
-        pattern: "^([A-Fa-f0-9]{2}[:-]){5}[A-Fa-f0-9]{2}$,^([A-Fa-f0-9]{4}[.]){2}[A-Fa-f0-9]{4}$,^[A-Fa-f0-9]{12}$,^([A-Fa-f0-9]{2}[:-]){19}[A-Fa-f0-9]{2}$,^[A-Fa-f0-9]{40}$"
+        pattern: "^([A-Fa-f0-9]{2}[:-]){5}[A-Fa-f0-9]{2}$|^([A-Fa-f0-9]{4}[.]){2}[A-Fa-f0-9]{4}$|^[A-Fa-f0-9]{12}$|^([A-Fa-f0-9]{2}[:-]){19}[A-Fa-f0-9]{2}$|^[A-Fa-f0-9]{40}$"
         maxLength: 59
       name:
         description: Name of interface
@@ -179,9 +186,11 @@ $defs:
       booted:
         description: Whether the deployment is currently booted
         type: boolean
+        example: true
       pinned:
         description: Whether the deployment is currently pinned
         type: boolean
+        example: false
   SystemProfile:
     title: SystemProfile
     description: Representation of the system profile fields
@@ -192,7 +201,7 @@ $defs:
         type: string
         pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
         maxLength: 36
-        example: 22cd8e39-13bb-4d02-8316-84b850dc5136, 2c68e8ec-10e2-11ec-82a8-0242ac130003, it8i99u1-48ut-1rdf-bc10-84opf904lbop
+        example: 22cd8e39-13bb-4d02-8316-84b850dc5136, ffdfd200-f5b9-4e57-b080-f5e257349df0, e2357169-f5e2-4afa-b509-ab1be3f30807
       rhc_client_id:
         description: A UUID associated with a cloud_connector
         type: string
@@ -270,6 +279,10 @@ $defs:
       operating_system:
         description: Object for OS details. Supports range operations
         type: object
+        required:
+          - major
+          - minor
+          - name
         properties:
           major:
             description: Major release of OS (aka the x version)
@@ -286,9 +299,9 @@ $defs:
           name:
             description: Name of the distro/os
             type: string
-            maxLength: 4
-            enum: [RHEL]
-            example: "RHEL, FED, RHEL"
+            maxLength: 6
+            enum: [RHEL, CentOS]
+            example: "RHEL, CentOS, RHEL"
       os_release:
         type: string
         maxLength: 100
@@ -304,7 +317,7 @@ $defs:
       arch:
         type: string
         maxLength: 50
-        example: "ARM, x86_64, null"
+        example: "ARM, x86_64, RISC-V"
       kernel_modules:
         type: array
         items:
@@ -325,7 +338,7 @@ $defs:
           example: "ex1, ex2, ex3"
       subscription_status:
         type: string
-        maxLength: 100  
+        maxLength: 100
         example: "ex1, ex2, ex3"
       subscription_auto_attach:
         type: string
@@ -361,7 +374,7 @@ $defs:
       insights_egg_version:
         type: string
         maxLength: 50
-        example: "ex1, ex2, ex3"
+        example: "2.3, 4.4, 5.1"
       captured_date:
         type: string
         maxLength: 32
@@ -400,6 +413,34 @@ $defs:
           type: string
           maxLength: 512
           example: "ex1, ex2, ex3"
+      sap:
+        description: Object containing data specific to the SAP workload
+        type: object
+        properties:
+          sap_system:
+            type: boolean
+            description: Indicates if SAP is installed on the system
+          sids:
+            type: array
+            uniqueItems: true
+            items:
+              description: The SAP system ID (SID)
+              type: string
+              example: "H2O, ABC, XYZ"
+              maxLength: 3
+              pattern: '^[A-Z][A-Z0-9]{2}$'
+          instance_number:
+            type: string
+            description: The instance number of the SAP HANA system (a two-digit number between 00 and 99)
+            example: '03, 05, 99'
+            maxLength: 2
+            pattern: '^[0-9]{2}$'
+          version:
+            type: string
+            description: The version of the SAP HANA lifecycle management program
+            example:  '1.00.122.04.1478575636, 2.00.122.04.1478575636, 3.00.122.04.1478575636'
+            maxLength: 22
+            pattern: '^[0-9]\.[0-9]{2}\.[0-9]{3}\.[0-9]{2}\.[0-9]{10}$'
       sap_system:
         type: boolean
         description: Indicates if SAP is installed on the system
@@ -448,13 +489,13 @@ $defs:
         enum: [edge]
         maxLength: 4
         description: Indicates the type of host.
-        example: 'edge, not_edge, edge'
+        example: 'edge, None'
       greenboot_status:
         type: string
         enum: [red, green]
         maxLength: 5
         description: Indicates the greenboot status of an edge device.
-        example: 'green, red, green'
+        example: 'green, red, purple'
       greenboot_fallback_detected:
         type: boolean
         description: Indicates whether greenboot detected a rolled back update on an edge device.
@@ -531,8 +572,14 @@ $defs:
         type: object
         properties:
           version:
-            description: MSSQL version number 
+            description: MSSQL version number
             type: string
             example: '15.2.0, 12.5.3, 10.1.0'
             maxLength: 30
             x-wildcard: true
+      system_update_method:
+        description: System update method
+        type: string
+        maxLength: 10
+        enum: [dnf, rpm-ostree, yum]
+        example: "dnf, rpm-ostree, yum"
