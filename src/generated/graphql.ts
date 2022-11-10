@@ -377,6 +377,8 @@ export type HostFilter = {
   spf_ansible?: InputMaybe<FilterAnsible>;
   /** Filter by 'arch' field of system profile */
   spf_arch?: InputMaybe<FilterString>;
+  /** Filter by 'basearch' field of system profile */
+  spf_basearch?: InputMaybe<FilterString>;
   /** Filter by 'bios_vendor' field of system profile */
   spf_bios_vendor?: InputMaybe<FilterString>;
   /** Filter by 'bios_version' field of system profile */
@@ -443,6 +445,8 @@ export type HostFilter = {
   spf_os_release?: InputMaybe<FilterStringWithWildcard>;
   /** Filter by 'owner_id' field of system profile */
   spf_owner_id?: InputMaybe<FilterString>;
+  /** Filter by 'releasever' field of system profile */
+  spf_releasever?: InputMaybe<FilterString>;
   /** Filter by 'rhc_client_id' field of system profile */
   spf_rhc_client_id?: InputMaybe<FilterString>;
   /** Filter by 'rhc_config_state' field of system profile */

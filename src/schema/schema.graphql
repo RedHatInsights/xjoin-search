@@ -167,8 +167,14 @@ input HostFilter {
     "Filter by 'kernel_modules' field of system profile"
     spf_kernel_modules: FilterString
 
+    "Filter by 'basearch' field of system profile"
+    spf_basearch: FilterString
+
     "Filter by 'arch' field of system profile"
     spf_arch: FilterString
+
+    "Filter by 'releasever' field of system profile"
+    spf_releasever: FilterString
 
     "Filter by 'os_kernel_version' field of system profile"
     spf_os_kernel_version: FilterStringWithWildcard

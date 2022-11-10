@@ -120,7 +120,9 @@
                 "sids": "H2O",
                 "instance_number": "03",
                 "version": "1.00.122.04.1478575636"
-            }
+            },
+            "releasever": "7",
+            "basearch": "x86_64"
         },
         "tags_structured": [
             {
@@ -303,7 +305,9 @@
                 "version": "2.00.122.04.1478575636"
             },
             "system_update_method": "rpm-ostree",
-            "host_type": "None"
+            "host_type": "None",
+            "releasever": "7.0",
+            "basearch": "arm"
         },
         "tags_structured": [
             {
@@ -475,7 +479,9 @@
                 "instance_number": "99",
                 "version": "3.00.122.04.1478575636"
             },
-            "system_update_method": "yum"
+            "system_update_method": "yum",
+            "releasever": "7Server",
+            "basearch": "ppc64"
         },
         "tags_structured": [
             {
