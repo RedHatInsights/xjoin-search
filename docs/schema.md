@@ -33,6 +33,7 @@
     * [FilterPerReporterStaleness](#filterperreporterstaleness)
     * [FilterRhsm](#filterrhsm)
     * [FilterRpmOstreeDeployments](#filterrpmostreedeployments)
+    * [FilterSap](#filtersap)
     * [FilterString](#filterstring)
     * [FilterStringWithRegex](#filterstringwithregex)
     * [FilterStringWithWildcard](#filterstringwithwildcard)
@@ -1324,6 +1325,58 @@ Filter by 'pinned' field of rpm_ostree_deployments
 </tbody>
 </table>
 
+### FilterSap
+
+Filter by 'sap' field of system profile
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>sap_system</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
+<td>
+
+Filter by 'sap_system' field of sap
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>sids</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'sids' field of sap
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>instance_number</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'instance_number' field of sap
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>version</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'version' field of sap
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### FilterString
 
 Basic filter for string fields that allows filtering based on exact match.
@@ -1729,6 +1782,15 @@ Filter by provider_id
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>spf_system_update_method</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'system_update_method' field of system profile
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>spf_mssql</strong></td>
 <td valign="top"><a href="#filtermssql">FilterMssql</a></td>
 <td>
@@ -1869,6 +1931,15 @@ Filter by 'sap_sids' field of system profile
 <td>
 
 Filter by 'sap_system' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_sap</strong></td>
+<td valign="top"><a href="#filtersap">FilterSap</a></td>
+<td>
+
+Filter by 'sap' field of system profile
 
 </td>
 </tr>
@@ -2017,11 +2088,29 @@ Filter by 'kernel_modules' field of system profile
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>spf_basearch</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'basearch' field of system profile
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>spf_arch</strong></td>
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
 
 Filter by 'arch' field of system profile
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>spf_releasever</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td>
+
+Filter by 'releasever' field of system profile
 
 </td>
 </tr>
@@ -2184,15 +2273,6 @@ Filter by 'rhc_client_id' field of system profile
 <td>
 
 Filter by 'owner_id' field of system profile
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>spf_system_update_method</strong></td>
-<td valign="top"><a href="#filterstring">FilterString</a></td>
-<td>
-
-Filter by 'system_update_method' field of system profile
 
 </td>
 </tr>
