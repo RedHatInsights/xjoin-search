@@ -158,7 +158,13 @@
         "os_kernel_version": {
           "type": "keyword"
         },
+        "releasever": {
+          "type": "keyword"
+        },
         "arch": {
+          "type": "keyword"
+        },
+        "basearch": {
           "type": "keyword"
         },
         "kernel_modules": {

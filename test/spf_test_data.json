@@ -283,10 +283,26 @@
     }
   },
   {
+    "field_name": "releasever",
+    "field_query": {
+      "spf_releasever": {
+        "eq": "7.0"
+      }
+    }
+  },
+  {
     "field_name": "arch",
     "field_query": {
       "spf_arch": {
         "eq": "x86_64"
+      }
+    }
+  },
+  {
+    "field_name": "basearch",
+    "field_query": {
+      "spf_basearch": {
+        "eq": "arm"
       }
     }
   },
