@@ -651,7 +651,7 @@ objects:
                         "type": "boolean"
                       }
                     }
-                  },
+                  }
                 }
               },
               "tags_structured": {
