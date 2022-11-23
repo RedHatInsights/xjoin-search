@@ -462,6 +462,9 @@ objects:
                   "arch": {
                     "type": "keyword"
                   },
+                  "basearch": {
+                    "type": "keyword"
+                  },
                   "kernel_modules": {
                     "type": "keyword"
                   },
@@ -562,6 +565,9 @@ objects:
                   "greenboot_status": {
                     "type": "keyword"
                   },
+                  "releasever": {
+                    "type": "keyword"
+                  },
                   "greenboot_fallback_detected": {
                     "type": "boolean"
                   },
@@ -637,7 +643,15 @@ objects:
                         "type": "keyword"
                       }
                     }
-                  }
+                  },
+                  "sap": {
+                    "type": "object",
+                    "properties": {
+                      "sap_system": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
                 }
               },
               "tags_structured": {
