@@ -390,7 +390,7 @@ function updateEphemeralMapping(schema: JSONSchema) {
     let mapping = getFullMapping(schema);
     let filePath = '../deploy/ephemeral.yaml'
     let fileContent = fs.readFileSync(filePath, 'utf8');
-    let loaded: any = YAML.parseDocument(fileContent);
+    let loaded: any = YAML.parse(fileContent);
     let objects: any[] = [{}];
 
     if(typeof(loaded) == "object") {
