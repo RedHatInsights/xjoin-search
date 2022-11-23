@@ -649,6 +649,15 @@ objects:
                     "properties": {
                       "sap_system": {
                         "type": "boolean"
+                      },
+                      "sids": {
+                        "type": "keyword"
+                      },
+                      "instance_number": {
+                        "type": "keyword"
+                      },
+                      "version": {
+                        "type": "keyword"
                       }
                     }
                   }
