@@ -176,7 +176,7 @@ npm run verify
 
 `xjoin-search` automatically creates filters for most* fields in the system profile based on the schema defined in
 the [inventory-schemas](https://github.com/RedHatInsights/inventory-schemas) repo. Specifically [this file](https://github.com/RedHatInsights/inventory-schemas/blob/master/schemas/system_profile/v1.yaml).
-When a new field is added to the schema a GitHub action should be triggered running the command `npm updateFromSchema`.
+When a new field is added to the schema a GitHub action should be triggered running the command `npm run updateFromSchema`.
 That script will automatically update the following files to accommodate the new field:
 
 * `/test/mapping.json`
@@ -190,10 +190,21 @@ That script will automatically update the following files to accommodate the new
   The script uses the example fields in the schema to populate the file with example values for testing.
 * `/test/spf_test_data.json`
   * This file contains the queries used to test that the automatically added field filters work as expected.
+* `/deploy/ephemeral.yaml`
+  * This file contains configuration specific to ephemeral environments.
+  The script updates the index mapping template used by elasticsearch.
 
 If you want to update things manually you can update the schema file `inventory-schemas/system_profile_schema.yaml` and run `npm run updateFromSchema`. If you intend to commit the change remember to update `inventory-schemas/system_profile_schema_sha.txt` as well with the SHA of the associated `inventory-schemas` commit. This should not be done unless the automated action is not working. Any change out of sync with the `inventory-schemas` repo will be removed the next time the action is run, but they should ideally never be out of sync.
 
 Changes to the mapping, graphql schema or hosts file that are unrelated to system profile fields should be unaffected.
+
+After running `updateFromSchema`, you will likely need to update the unit test baselines to account for the field changes.
+You should still review the baseline changes to make sure they're expected before committing.
+You can update the baselines by running:
+
+```bash
+npm run coverage -- -u
+```
 
 \* Some fields are intentionally ignored for performance reasons, or because the data is not useful to filter on.
 Fields in the schema with `x-indexed: false` will not be indexed by ElasticSearch and are ignored during the update.

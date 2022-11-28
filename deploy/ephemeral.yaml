@@ -1,8 +1,3 @@
-# A separate Clowder deployment file is required for the project in order to
-# define the Elasticsearch and XJoinPipieline resources. Clowder has not yet
-# integrated these resources, so their deployment to the ephemeral cluster
-# is defined as separate resources in this file. Elasticsearch and XJoinPipeline
-# are defined in app-interface for stage/prod.
 apiVersion: v1
 kind: Template
 metadata:
@@ -160,15 +155,15 @@ objects:
     metadata:
       name: xjoin
     data:
-      init.validation.attempts.threshold: '30'
-      init.validation.interval: '30'
-      init.validation.percentage.threshold: '5'
-      standard.interval: '60'
-      validation.attempts.threshold: '5'
-      validation.interval: '30'
-      validation.percentage.threshold: '5'
-      kafka.topic.replicas: '1'
-      elasticsearch.connector.config: |-
+      init.validation.attempts.threshold: "30"
+      init.validation.interval: "30"
+      init.validation.percentage.threshold: "5"
+      standard.interval: "60"
+      validation.attempts.threshold: "5"
+      validation.interval: "30"
+      validation.percentage.threshold: "5"
+      kafka.topic.replicas: "1"
+      elasticsearch.connector.config: >-
         {
             "tasks.max": "{{.ElasticSearchTasksMax}}",
             "topics": "{{.Topic}}",
@@ -221,8 +216,7 @@ objects:
             "max.buffered.records": {{.ElasticSearchMaxBufferedRecords}},
             "linger.ms": {{.ElasticSearchLingerMS}}
         }
-
-      debezium.connector.config: |-
+      debezium.connector.config: >-
         {
           "tasks.max": "{{.DebeziumTasksMax}}",
           "database.hostname": "{{.HBIDBHost}}",
@@ -245,7 +239,7 @@ objects:
           "max.batch.size": {{.DebeziumMaxBatchSize}},
           "poll.interval.ms": {{.DebeziumPollIntervalMS}}
         }
-      elasticsearch.pipeline.template: |-
+      elasticsearch.pipeline.template: >-
         {
             "description" : "Ingest pipeline for {{.ResourceNamePrefix}}",
             "processors" : [{
@@ -275,7 +269,6 @@ objects:
                 }
             }]
         }
-
       elasticsearch.index.template: |-
         {
           "settings": {
@@ -459,7 +452,13 @@ objects:
                   "os_kernel_version": {
                     "type": "keyword"
                   },
+                  "releasever": {
+                    "type": "keyword"
+                  },
                   "arch": {
+                    "type": "keyword"
+                  },
+                  "basearch": {
                     "type": "keyword"
                   },
                   "kernel_modules": {
@@ -529,6 +528,23 @@ objects:
                   "enabled_services": {
                     "type": "keyword"
                   },
+                  "sap": {
+                    "type": "object",
+                    "properties": {
+                      "sap_system": {
+                        "type": "boolean"
+                      },
+                      "sids": {
+                        "type": "keyword"
+                      },
+                      "instance_number": {
+                        "type": "keyword"
+                      },
+                      "version": {
+                        "type": "keyword"
+                      }
+                    }
+                  },
                   "sap_system": {
                     "type": "boolean"
                   },
@@ -554,9 +570,6 @@ objects:
                     "type": "boolean"
                   },
                   "host_type": {
-                    "type": "keyword"
-                  },
-                  "system_update_method": {
                     "type": "keyword"
                   },
                   "greenboot_status": {
@@ -637,6 +650,9 @@ objects:
                         "type": "keyword"
                       }
                     }
+                  },
+                  "system_update_method": {
+                    "type": "keyword"
                   }
                 }
               },
@@ -695,7 +711,7 @@ parameters:
   - name: LOG_LEVEL
     value: debug
   - name: LOG_PRETTY
-    value: 'false'
+    value: "false"
   - description: Can be "production", "development", "test"
     name: NODE_ENV
     value: production
@@ -710,15 +726,15 @@ parameters:
   - name: MEMORY_LIMITS
     value: 512Mi
   - name: NUM_REPLICAS
-    value: '1'
+    value: "1"
   - name: ES_USERNAME
-    value: ''
+    value: ""
   - name: ES_PASSWORD
-    value: ''
+    value: ""
   - name: INGRESS_HOST
     value: ingress-service
   - name: INGRESS_PORT
-    value: '8000'
+    value: "8000"
   - name: INGRESS_PROTOCOL
     value: http
   - name: HEARTBEAT_IMAGE
@@ -726,9 +742,9 @@ parameters:
   - name: HEARTBEAT_IMAGE_TAG
     value: latest
   - name: HEARTBEAT_SUSPEND
-    value: 'true'
+    value: "true"
   - name: HEARTBEAT_SCHEDULE
-    value: '@hourly'
+    value: "@hourly"
   - name: IMAGE_TAG
     required: true
   - name: IMAGE
