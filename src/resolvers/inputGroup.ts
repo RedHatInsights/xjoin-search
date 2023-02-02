@@ -1,7 +1,8 @@
-import {FilterBoolean, FilterGroup, FilterString} from '../generated/graphql';
+import {FilterBoolean, FilterGroup, FilterStringWithWildcardWithLowercase} from '../generated/graphql';
 import {isEmpty} from 'lodash';
+import {filterStringWithWildcardWithLowercase} from './inputString';
 
-function getFilterStringValue (value: FilterString | undefined | null): any {
+function getFilterStringValue (value: FilterStringWithWildcardWithLowercase | undefined | null): any {
     if (!value || !value.eq) {
         return null;
     }
@@ -39,10 +40,8 @@ export function filterGroup (value: FilterGroup): Record<string, any>[] {
         }
     }
 
-    if (!isEmpty(value.name)) {
-        filter.push({
-            term: {'groups.name': getFilterStringValue(value.name)}
-        });
+    if (!isEmpty(value.name) && value.name !== undefined) {
+        filter.push(...filterStringWithWildcardWithLowercase('groups.name', value.name));
     }
 
     if (!isEmpty(value.id)) {
