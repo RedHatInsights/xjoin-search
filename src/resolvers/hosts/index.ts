@@ -60,6 +60,7 @@ function getPredefinedResolvers() {
         optional((filter: HostFilter) => filter.provider_type, _.partial(filterString, 'canonical_facts.provider_type')),
         optional((filter: HostFilter) => filter.provider_id, _.partial(filterString, 'canonical_facts.provider_id')),
         optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
+        optional((filter: HostFilter) => filter.modified_on, _.partial(filterTimestamp, 'modified_on')),
         optional((filter: HostFilter) => filter.tag, filterTag),
         optional((filter: HostFilter) => filter.OR, common.or(resolveFilters)),
         optional((filter: HostFilter) => filter.AND, common.and(resolveFilters)),
