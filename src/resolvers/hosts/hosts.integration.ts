@@ -399,10 +399,30 @@ describe('hosts query', function () {
                 data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[0]);
             });
 
+            test('lt', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { modified_on: {
+                        lt: '2019-01-10T09:10:03.354312Z'
+                    }}}
+                );
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[0]);
+            });
+
             test('gte', async () => {
                 const { data } = await runQuery(BASIC_QUERY,
                     { filter: { modified_on: {
-                        gte: '2020-03-10T08:07:00.000000Z'
+                        gte: '2020-03-10T08:07:03.354312Z'
+                    }}}
+                );
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[4]);
+            });
+
+            test('gt', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { modified_on: {
+                        gt: '2020-03-10T08:07:00.000000Z'
                     }}}
                 );
                 data.hosts.data.should.have.length(1);
