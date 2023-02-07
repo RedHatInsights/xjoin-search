@@ -61,6 +61,9 @@ input HostFilter {
     provider_type: FilterString,
     "Filter by provider_id"
     provider_id: FilterString,
+    "Filter by modified_on"
+    modified_on: FilterTimestamp,
+
 
     # DO NOT REMOVE. Used to automatically update this schema
     # based on the system_profile JSONschema

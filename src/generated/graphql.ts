@@ -367,6 +367,8 @@ export type HostFilter = {
   id?: InputMaybe<FilterStringWithWildcard>;
   /** Filter by insights id */
   insights_id?: InputMaybe<FilterStringWithWildcard>;
+  /** Filter by modified_on */
+  modified_on?: InputMaybe<FilterTimestamp>;
   /** Filter by per_reporter_staleness sub-fields */
   per_reporter_staleness?: InputMaybe<FilterPerReporterStaleness>;
   /** Filter by provider_id */

@@ -91,7 +91,8 @@ const TEST_ORG_ID_HOST_IDS: string[] = [
     '22cd8e39-13bb-4d02-8316-84b850dc5136',
     '6e7b6317-0a2d-4552-a2f2-b7da0aece49d',
     'f5ac67e1-ad65-4b62-bc27-845cc6d4bcee',
-    'f5ac67e1-ad65-4b62-bc27-845cc6d4bc01'
+    'f5ac67e1-ad65-4b62-bc27-845cc6d4bc01',
+    'f5ac67e1-ad65-4b62-bc27-845cc6d4bc04'
 ];
 
 const PRS_QUERY = `
@@ -384,6 +385,59 @@ describe('hosts query', function () {
                 const { data } = await runQuery(BASIC_QUERY, { filter: { insights_id: { matches: '*a3c7fae507*' }}});
                 data.hosts.data.should.have.length(1);
                 data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[0]);
+            });
+        });
+
+        describe('modified_on', function () {
+            test('lte', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { modified_on: {
+                        lte: '2019-01-10T08:07:03.354312Z'
+                    }}}
+                );
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[0]);
+            });
+
+            test('lt', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { modified_on: {
+                        lt: '2019-01-10T09:10:03.354312Z'
+                    }}}
+                );
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[0]);
+            });
+
+            test('gte', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { modified_on: {
+                        gte: '2020-03-10T08:07:03.354312Z'
+                    }}}
+                );
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[4]);
+            });
+
+            test('gt', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { modified_on: {
+                        gt: '2020-03-10T08:07:00.000000Z'
+                    }}}
+                );
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[4]);
+            });
+
+            test('lt and gt', async () => {
+                const { data } = await runQuery(BASIC_QUERY,
+                    { filter: { modified_on: {
+                        lt: '2019-03-01T08:07:03.354312Z',
+                        gt: '2019-01-20T08:07:03.354312Z'
+                    }}}
+                );
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].id.should.equal(TEST_ORG_ID_HOST_IDS[1]);
             });
         });
 
