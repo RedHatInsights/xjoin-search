@@ -13,6 +13,8 @@ objects:
         iqePlugin: xjoin
       dependencies:
         - host-inventory
+      optionalDependencies:
+        - xjoin-api-gateway
       deployments:
         - name: api
           minReplicas: ${{NUM_REPLICAS}}
