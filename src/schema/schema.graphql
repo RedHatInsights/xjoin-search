@@ -246,6 +246,8 @@ input HostFilter {
 
     "Filter by per_reporter_staleness sub-fields"
     per_reporter_staleness: FilterPerReporterStaleness
+
+    groups: FilterGroups
 }
 
 """
@@ -429,6 +431,13 @@ input FilterPerReporterStaleness {
     stale_timestamp: FilterTimestamp
     last_check_in: FilterTimestamp
     check_in_succeeded: FilterBoolean
+}
+
+"""
+Groups filter
+"""
+input FilterGroups {
+    name: FilterString
 }
 
 #
@@ -662,6 +671,8 @@ type Host {
 
     "The host's per-reporter staleness, flattened into an array."
     per_reporter_staleness_flat (filter: [String!]): [JSONObject]
+
+    groups (filter: [String!]): [JSONObject]
 }
 
 type Hosts {

@@ -81,6 +81,11 @@ export type FilterDnfModules = {
   stream?: InputMaybe<FilterString>;
 };
 
+/** Groups filter */
+export type FilterGroups = {
+  name?: InputMaybe<FilterString>;
+};
+
 /** Filter by 'installed_products' field of system profile */
 export type FilterInstalledProducts = {
   /** Filter by 'id' field of installed_products */
@@ -307,6 +312,7 @@ export type Host = {
   display_name?: Maybe<Scalars['String']>;
   /** Facts of a host. The subset of keys can be requested using `filter`. */
   facts?: Maybe<Scalars['JSONObject']>;
+  groups?: Maybe<Array<Maybe<Scalars['JSONObject']>>>;
   id: Scalars['ID'];
   modified_on?: Maybe<Scalars['String']>;
   org_id: Scalars['String'];
@@ -330,6 +336,12 @@ export type HostCanonical_FactsArgs = {
 
 /** Inventory host */
 export type HostFactsArgs = {
+  filter?: InputMaybe<Array<Scalars['String']>>;
+};
+
+
+/** Inventory host */
+export type HostGroupsArgs = {
   filter?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -363,6 +375,7 @@ export type HostFilter = {
   display_name?: InputMaybe<FilterStringWithWildcardWithLowercase>;
   /** Filter by fqdn */
   fqdn?: InputMaybe<FilterStringWithWildcardWithLowercase>;
+  groups?: InputMaybe<FilterGroups>;
   /** Filter by host id */
   id?: InputMaybe<FilterStringWithWildcard>;
   /** Filter by insights id */
@@ -749,6 +762,7 @@ export type ResolversTypes = {
   FilterBoolean: FilterBoolean;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
+  FilterGroups: FilterGroups;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
   FilterMssql: FilterMssql;
@@ -803,6 +817,7 @@ export type ResolversParentTypes = {
   FilterBoolean: FilterBoolean;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
+  FilterGroups: FilterGroups;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
   FilterMssql: FilterMssql;
@@ -871,6 +886,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   created_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   display_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, Partial<HostFactsArgs>>;
+  groups?: Resolver<Maybe<Array<Maybe<ResolversTypes['JSONObject']>>>, ParentType, ContextType, Partial<HostGroupsArgs>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   org_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

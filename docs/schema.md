@@ -25,6 +25,7 @@
     * [FilterBoolean](#filterboolean)
     * [FilterDiskDevices](#filterdiskdevices)
     * [FilterDnfModules](#filterdnfmodules)
+    * [FilterGroups](#filtergroups)
     * [FilterInstalledProducts](#filterinstalledproducts)
     * [FilterInt](#filterint)
     * [FilterMssql](#filtermssql)
@@ -388,6 +389,16 @@ The host's per-reporter staleness data in object format.
 The host's per-reporter staleness, flattened into an array.
 
 </td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">filter</td>
+<td valign="top">[<a href="#string">String</a>!]</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>groups</strong></td>
+<td valign="top">[<a href="#jsonobject">JSONObject</a>]</td>
+<td></td>
 </tr>
 <tr>
 <td colspan="2" align="right" valign="top">filter</td>
@@ -930,6 +941,27 @@ Filter by 'name' field of dnf_modules
 Filter by 'stream' field of dnf_modules
 
 </td>
+</tr>
+</tbody>
+</table>
+
+### FilterGroups
+
+Groups filter
+
+<table>
+<thead>
+<tr>
+<th colspan="2" align="left">Field</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>name</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -2311,6 +2343,11 @@ Filter by host tag. The tag namespace/key/value must match exactly what the host
 Filter by per_reporter_staleness sub-fields
 
 </td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>groups</strong></td>
+<td valign="top"><a href="#filtergroups">FilterGroups</a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
