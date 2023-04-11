@@ -13,7 +13,7 @@ import {
 import { FilterResolver } from '../common';
 import { filterTimestamp } from '../inputTimestamp';
 import { filterTag } from '../inputTag';
-import { formatTags } from './format';
+import {formatGroups, formatTags} from './format';
 import { filterString } from '../inputString';
 import { getSchema, getFieldType, getResolver } from '../../util/systemProfile';
 import { filterPerReporterStaleness } from '../inputPerReporterStaleness';
@@ -236,6 +236,14 @@ export default async function hosts(
                 total: structuredTags.length
             },
             data: structuredTags
+        };
+        const groups = formatGroups(item.groups);
+        item.groups = {
+            meta: {
+                count: groups.length,
+                total: groups.length
+            },
+            data: groups
         };
 
         return item;
