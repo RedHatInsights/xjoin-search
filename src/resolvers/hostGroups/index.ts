@@ -44,9 +44,16 @@ export default async function hostGroups(parent: any, args: QueryHostGroupsArgs,
 
                         aggs: {
                             'groups-doc': {
-                                'top_hits': {
-                                    '_source': {
-                                        includes: ['groups.id', 'groups.name', 'groups.created_on', 'groups.modified_on', 'groups.account', 'groups.org_id']
+                                top_hits: {
+                                    _source: {
+                                        includes: [
+                                            'groups.id',
+                                            'groups.name',
+                                            'groups.created_on',
+                                            'groups.modified_on',
+                                            'groups.account',
+                                            'groups.org_id'
+                                        ]
                                     },
                                     size: 1
                                 }
@@ -63,8 +70,6 @@ export default async function hostGroups(parent: any, args: QueryHostGroupsArgs,
         body
     }, 'hostGroups');
 
-    result.body.aggregations.hosts.groups.buckets
-
     const page = extractPage(
         result.body.aggregations.hosts.groups.buckets,
         limit,
@@ -73,7 +78,7 @@ export default async function hostGroups(parent: any, args: QueryHostGroupsArgs,
 
     const data = _.map(page, bucket => {
         return {
-            group: bucket['groups-doc'].hits.hits[0]['_source'],
+            group: bucket['groups-doc'].hits.hits[0]._source,
             count: bucket.doc_count
         };
     });
