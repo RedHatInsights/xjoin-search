@@ -302,16 +302,6 @@ export type Group = {
   org_id?: Maybe<Scalars['String']>;
 };
 
-/** Defines the criteria by which groups are filtered in the `hostGroups` query. */
-export type GroupAggregationFilter = {
-  account?: InputMaybe<FilterString>;
-  created_on?: InputMaybe<FilterTimestamp>;
-  id?: InputMaybe<FilterString>;
-  modified_on?: InputMaybe<FilterTimestamp>;
-  name?: InputMaybe<FilterStringWithRegex>;
-  org_id?: InputMaybe<FilterString>;
-};
-
 export type GroupInfo = {
   __typename?: 'GroupInfo';
   count: Scalars['Int'];
@@ -630,7 +620,6 @@ export type Query = {
 
 
 export type QueryHostGroupsArgs = {
-  filter?: InputMaybe<GroupAggregationFilter>;
   hostFilter?: InputMaybe<HostFilter>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -830,7 +819,6 @@ export type ResolversTypes = {
   FilterTag: FilterTag;
   FilterTimestamp: FilterTimestamp;
   Group: ResolverTypeWrapper<Group>;
-  GroupAggregationFilter: GroupAggregationFilter;
   GroupInfo: ResolverTypeWrapper<GroupInfo>;
   Groups: ResolverTypeWrapper<Groups>;
   HOSTS_ORDER_BY: Hosts_Order_By;
@@ -891,7 +879,6 @@ export type ResolversParentTypes = {
   FilterTag: FilterTag;
   FilterTimestamp: FilterTimestamp;
   Group: Group;
-  GroupAggregationFilter: GroupAggregationFilter;
   GroupInfo: GroupInfo;
   Groups: Groups;
   Host: Host;

@@ -1,6 +1,5 @@
 import {FilterBoolean, FilterGroup, FilterString} from '../generated/graphql';
-import {ES_NULL_VALUE} from '../constants';
-import {isEmpty} from "lodash";
+import {isEmpty} from 'lodash';
 
 function getFilterStringValue (value: FilterString | undefined | null): any {
     if (!value || !value.eq) {
@@ -16,12 +15,12 @@ function getFilterBooleanValue (value: FilterBoolean | undefined | null): any {
 
 export function filterGroup (value: FilterGroup): Record<string, any>[] {
 
-    const bool: Record<string, any> = {}
+    const bool: Record<string, any> = {};
     const query: Record<string, any> = {
-        bool: bool
-    }
+        bool
+    };
 
-    const filter: Record<string, any>[] = []
+    const filter: Record<string, any>[] = [];
 
     if (!isEmpty(value.hasSome)) {
         const hasSomeValue = getFilterBooleanValue(value.hasSome);
@@ -30,13 +29,13 @@ export function filterGroup (value: FilterGroup): Record<string, any>[] {
                 exists: {
                     field: 'groups'
                 }
-            })
+            });
         } else {
-            bool['must_not'] = {
+            bool.must_not = {
                 exists: {
                     field: 'groups'
                 }
-            }
+            };
         }
     }
 
@@ -52,12 +51,12 @@ export function filterGroup (value: FilterGroup): Record<string, any>[] {
         });
     }
 
-    bool['filter'] = filter;
+    bool.filter = filter;
 
     return [{
         nested: {
             path: 'groups',
-            query: query
+            query
         }
     }];
 }

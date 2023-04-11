@@ -17,7 +17,7 @@ import {formatGroups, formatTags} from './format';
 import { filterString } from '../inputString';
 import { getSchema, getFieldType, getResolver } from '../../util/systemProfile';
 import { filterPerReporterStaleness } from '../inputPerReporterStaleness';
-import {filterGroup} from "../inputGroup";
+import {filterGroup} from '../inputGroup';
 
 export type HostFilterResolver = FilterResolver<HostFilter>;
 

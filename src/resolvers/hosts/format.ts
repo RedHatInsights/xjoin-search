@@ -14,9 +14,9 @@ export function formatTags (tags = []): Record<string, unknown>[] {
 }
 
 export function formatGroups (groups: any): Record<string, unknown>[] {
-    if (Array.isArray(groups)) {
-        return groups;
-    } else {
-        return [];
+    if (!Array.isArray(groups)) {
+        groups = [];
     }
+
+    return groups;
 }
