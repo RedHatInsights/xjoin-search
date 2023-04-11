@@ -83,6 +83,8 @@ export type FilterDnfModules = {
 
 /** Groups filter */
 export type FilterGroup = {
+  hasSome?: InputMaybe<FilterBoolean>;
+  id?: InputMaybe<FilterString>;
   name?: InputMaybe<FilterString>;
 };
 
@@ -405,7 +407,7 @@ export type HostFilter = {
   display_name?: InputMaybe<FilterStringWithWildcardWithLowercase>;
   /** Filter by fqdn */
   fqdn?: InputMaybe<FilterStringWithWildcardWithLowercase>;
-  groups?: InputMaybe<FilterGroup>;
+  group?: InputMaybe<FilterGroup>;
   /** Filter by host id */
   id?: InputMaybe<FilterStringWithWildcard>;
   /** Filter by insights id */
