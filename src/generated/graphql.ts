@@ -81,7 +81,7 @@ export type FilterDnfModules = {
   stream?: InputMaybe<FilterString>;
 };
 
-/** Groups filter */
+/** Groups filter on a host */
 export type FilterGroup = {
   hasSome?: InputMaybe<FilterBoolean>;
   id?: InputMaybe<FilterString>;
@@ -304,17 +304,18 @@ export type Group = {
 
 /** Defines the criteria by which groups are filtered in the `hostGroups` query. */
 export type GroupAggregationFilter = {
-  /**
-   * Limits the aggregation to groups that match the given search term.
-   * The search term is a regular exression that operates on a string representation of a group.
-   */
-  search?: InputMaybe<FilterStringWithRegex>;
+  account?: InputMaybe<FilterString>;
+  created_on?: InputMaybe<FilterTimestamp>;
+  id?: InputMaybe<FilterString>;
+  modified_on?: InputMaybe<FilterTimestamp>;
+  name?: InputMaybe<FilterStringWithRegex>;
+  org_id?: InputMaybe<FilterString>;
 };
 
 export type GroupInfo = {
   __typename?: 'GroupInfo';
   count: Scalars['Int'];
-  group: Scalars['String'];
+  group: Group;
 };
 
 export type Groups = {
@@ -951,7 +952,7 @@ export type GroupResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type GroupInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['GroupInfo'] = ResolversParentTypes['GroupInfo']> = {
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  group?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  group?: Resolver<ResolversTypes['Group'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
