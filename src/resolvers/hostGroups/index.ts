@@ -25,46 +25,55 @@ export default async function hostGroups(parent: any, args: QueryHostGroupsArgs,
         query: buildFilterQuery(args.hostFilter, context.org_id),
         size: 0,
         aggs: {
-            groups: {
-                terms: {
-                    field: 'groups_search',
-                    size: config.queries.maxBuckets,
-                    order: [{
-                        [GROUP_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
-                    }, {
-                        _key: 'ASC' // for deterministic sort order
-                    }],
-                    show_term_doc_count_error: true
+            hosts: {
+                nested: {
+                    path: 'groups'
+                },
+                aggs: {
+                    groups: {
+                        terms: {
+                            field: 'groups.id',
+                            order: [{
+                                [GROUP_ORDER_BY_MAPPING[String(args.order_by)]]: String(args.order_how)
+                            }, {
+                                _key: 'ASC' // for deterministic sort order
+                            }],
+                            show_term_doc_count_error: true,
+                            missing: 'null'
+                        },
+
+                        aggs: {
+                            'groups-doc': {
+                                'top_hits': {
+                                    '_source': {
+                                        includes: ['groups.id', 'groups.name', 'groups.created_on', 'groups.modified_on', 'groups.account', 'groups.org_id']
+                                    },
+                                    size: 1
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     };
-
-    if (args.filter && args.filter.search) {
-        const search = args.filter.search;
-        if (search.eq) {
-            body.aggs.groups.terms.field = 'groups';
-            body.aggs.groups.terms.include = [search.eq];
-        } else if (search.regex) {
-            body.aggs.groups.terms.field = 'groups';
-            body.aggs.groups.terms.include = '.*' + search.regex.toLowerCase() + '.*'
-        }
-    }
 
     const result = await runQuery({
         index: config.queries.hosts.index,
         body
     }, 'hostGroups');
 
+    result.body.aggregations.hosts.groups.buckets
+
     const page = extractPage(
-        result.body.aggregations.groups.buckets,
+        result.body.aggregations.hosts.groups.buckets,
         limit,
         offset
     );
 
     const data = _.map(page, bucket => {
         return {
-            group: bucket.key,
+            group: bucket['groups-doc'].hits.hits[0]['_source'],
             count: bucket.doc_count
         };
     });
@@ -73,7 +82,7 @@ export default async function hostGroups(parent: any, args: QueryHostGroupsArgs,
         data,
         meta: {
             count: data.length,
-            total: result.body.aggregations.groups.buckets.length
+            total: result.body.aggregations.hosts.groups.buckets.length
         }
     };
 }
