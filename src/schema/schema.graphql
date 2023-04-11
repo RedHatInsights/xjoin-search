@@ -252,7 +252,7 @@ input HostFilter {
     "Filter by per_reporter_staleness sub-fields"
     per_reporter_staleness: FilterPerReporterStaleness
 
-    groups: FilterGroup
+    group: FilterGroup
 }
 
 """
@@ -453,7 +453,9 @@ input FilterPerReporterStaleness {
 Groups filter
 """
 input FilterGroup {
+    id: FilterString
     name: FilterString
+    hasSome: FilterBoolean
 }
 
 #

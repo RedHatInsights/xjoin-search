@@ -17,6 +17,7 @@ import {formatGroups, formatTags} from './format';
 import { filterString } from '../inputString';
 import { getSchema, getFieldType, getResolver } from '../../util/systemProfile';
 import { filterPerReporterStaleness } from '../inputPerReporterStaleness';
+import {filterGroup} from "../inputGroup";
 
 export type HostFilterResolver = FilterResolver<HostFilter>;
 
@@ -62,6 +63,7 @@ function getPredefinedResolvers() {
         optional((filter: HostFilter) => filter.stale_timestamp, _.partial(filterTimestamp, 'stale_timestamp')),
         optional((filter: HostFilter) => filter.modified_on, _.partial(filterTimestamp, 'modified_on')),
         optional((filter: HostFilter) => filter.tag, filterTag),
+        optional((filter: HostFilter) => filter.group, filterGroup),
         optional((filter: HostFilter) => filter.OR, common.or(resolveFilters)),
         optional((filter: HostFilter) => filter.AND, common.and(resolveFilters)),
         optional((filter: HostFilter) => filter.NOT, common.not(resolveFilter)),
