@@ -182,6 +182,16 @@
                 "stale_timestamp": "2030-01-10T08:07:03.354307Z",
                 "check_in_succeeded": true
             }
+        ],
+        "groups": [
+            {
+                "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+                "name": "group1",
+                "created_on": "2023-04-12T11:11:00.000000Z",
+                "modified_on": "2023-04-12T12:34:56.789000Z",
+                "account": "test",
+                "org_id": "test"
+            }
         ]
     },
     {
@@ -1468,5 +1478,149 @@
                 "check_in_succeeded": true
             }
         ]
+    },
+    {
+        "id": "d36bd5c3-fb39-4826-8d82-152bedfd1ecd",
+        "account": "hostGroupsTest",
+        "org_id": "hostGroupsTest",
+        "display_name": "groups-test-1",
+        "created_on": "2023-04-12T11:11:00.000000Z",
+        "modified_on": "2023-04-12T12:34:56.789000Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "foo.local",
+        "canonical_facts": {
+            "fqdn": "foo.local",
+            "insights_id": "dc88db78-75f6-4815-9401-7a30df6a35ea"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [],
+        "tags_string": [],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ],
+        "groups": [
+            {
+                "id": "54ef7a4d-47fd-47f9-85e3-d60259e2d8f2",
+                "name": "prod",
+                "created_on": "2023-04-12T11:11:00.000000Z",
+                "modified_on": "2023-04-12T12:34:56.789000Z",
+                "account": "hostGroupsTest",
+                "org_id": "hostGroupsTest"
+            },
+            {
+                "id": "7f14c1df-2e42-4b12-99f6-d538b51e079c",
+                "name": "foo",
+                "created_on": "2021-01-12T11:11:00.000000Z",
+                "modified_on": "2021-01-12T12:34:56.789000Z",
+                "account": "hostGroupsTest",
+                "org_id": "hostGroupsTest"
+            },
+            {
+                "id": "911c454f-0dc8-4e0b-97fd-c78decbd9299",
+                "name": "bar",
+                "created_on": "2022-02-12T11:11:00.000000Z",
+                "modified_on": "2022-02-12T12:34:56.789000Z",
+                "account": "hostGroupsTest",
+                "org_id": "hostGroupsTest"
+            }
+        ]
+    },
+    {
+        "id": "c8bdc235-9f60-413f-bf02-6781946ebd27",
+        "account": "hostGroupsTest",
+        "org_id": "hostGroupsTest",
+        "display_name": "groups-test-2",
+        "created_on": "2022-02-12T11:11:00.000000Z",
+        "modified_on": "2022-02-12T12:34:56.789000Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "foo.local",
+        "canonical_facts": {
+            "fqdn": "foo.local",
+            "insights_id": "dc88db78-75f6-4815-9401-7a30df6a35ea"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [],
+        "tags_string": [],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ],
+        "groups": [
+            {
+                "id": "54ef7a4d-47fd-47f9-85e3-d60259e2d8f2",
+                "name": "prod",
+                "created_on": "2023-04-12T11:11:00.000000Z",
+                "modified_on": "2023-04-12T12:34:56.789000Z",
+                "account": "hostGroupsTest",
+                "org_id": "hostGroupsTest"
+            },
+            {
+                "id": "7c004532-13ff-4741-ab19-53bcb610490e",
+                "name": "baz",
+                "created_on": "2023-04-12T11:11:00.000000Z",
+                "modified_on": "2023-04-12T12:34:56.789000Z",
+                "account": "hostGroupsTest",
+                "org_id": "hostGroupsTest"
+            }
+        ]
+    },
+    {
+        "id": "fa48a4c8-6c4c-4be9-949f-c659ef9bfdd7",
+        "account": "hostGroupsTest",
+        "org_id": "hostGroupsTest",
+        "display_name": "groups-test-3",
+        "created_on": "2022-02-12T11:11:00.000000Z",
+        "modified_on": "2022-02-12T12:34:56.789000Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "foo.local",
+        "canonical_facts": {
+            "fqdn": "foo.local",
+            "insights_id": "dc88db78-75f6-4815-9401-7a30df6a35ea"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [],
+        "tags_string": [],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ],
+        "groups": {}
     }
 ]
