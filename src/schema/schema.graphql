@@ -33,6 +33,11 @@ enum HOST_TAGS_ORDER_BY {
     count
 }
 
+enum HOST_GROUPS_ORDER_BY {
+    group,
+    count
+}
+
 enum VALUES_ORDER_BY {
     value,
     count
@@ -247,7 +252,7 @@ input HostFilter {
     "Filter by per_reporter_staleness sub-fields"
     per_reporter_staleness: FilterPerReporterStaleness
 
-    groups: FilterGroups
+    group: FilterGroup
 }
 
 """
@@ -434,10 +439,12 @@ input FilterPerReporterStaleness {
 }
 
 """
-Groups filter
+Groups filter on a host
 """
-input FilterGroups {
+input FilterGroup {
+    id: FilterString
     name: FilterString
+    hasSome: FilterBoolean
 }
 
 #
@@ -672,7 +679,7 @@ type Host {
     "The host's per-reporter staleness, flattened into an array."
     per_reporter_staleness_flat (filter: [String!]): [JSONObject]
 
-    groups (filter: [String!]): [JSONObject]
+    groups: Groups,
 }
 
 type Hosts {
@@ -699,6 +706,30 @@ type TagInfo {
 
 type HostTags {
     data: [TagInfo]!
+    meta: CollectionMeta!
+}
+
+type Groups {
+    data: [Group]!
+    meta: CollectionMeta!
+}
+
+type Group {
+    id: String,
+    name: String,
+    account: String,
+    org_id: String,
+    created_on: String,
+    modified_on: String
+}
+
+type GroupInfo {
+    group: Group!
+    count: Int!
+}
+
+type HostGroups {
+    data: [GroupInfo]!
     meta: CollectionMeta!
 }
 
@@ -812,4 +843,12 @@ type Query {
     hostSystemProfile (
         hostFilter: HostFilter,
     ): HostSystemProfile
+
+    hostGroups (
+        hostFilter: HostFilter,
+        limit: Int = 10,
+        offset: Int = 0,
+        order_by: HOST_GROUPS_ORDER_BY = count,
+        order_how: ORDER_DIR = DESC
+    ): HostGroups
 }

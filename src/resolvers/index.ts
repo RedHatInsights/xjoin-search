@@ -3,6 +3,7 @@ import { SafeIntResolver } from 'graphql-scalars';
 import hosts from './hosts';
 import hostTags from './hostTags';
 import hostSystemProfile from './hostSystemProfile';
+import hostGroups from './hostGroups';
 import { enumerationResolver, OSResolver }  from './hostSystemProfile';
 import { jsonObjectFilter } from './common';
 
@@ -10,7 +11,8 @@ const resolvers = {
     Query: {
         hosts,
         hostTags,
-        hostSystemProfile
+        hostSystemProfile,
+        hostGroups
     },
 
     Host: {

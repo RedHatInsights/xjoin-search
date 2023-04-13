@@ -12,3 +12,11 @@ export function formatTags (tags = []): Record<string, unknown>[] {
         return tag;
     });
 }
+
+export function formatGroups (groups: any): Record<string, unknown>[] {
+    if (!Array.isArray(groups)) {
+        groups = [];
+    }
+
+    return groups;
+}

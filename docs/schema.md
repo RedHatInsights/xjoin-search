@@ -8,7 +8,11 @@
     * [BooleanValueInfo](#booleanvalueinfo)
     * [BooleanValues](#booleanvalues)
     * [CollectionMeta](#collectionmeta)
+    * [Group](#group)
+    * [GroupInfo](#groupinfo)
+    * [Groups](#groups)
     * [Host](#host)
+    * [HostGroups](#hostgroups)
     * [HostSystemProfile](#hostsystemprofile)
     * [HostTags](#hosttags)
     * [Hosts](#hosts)
@@ -25,7 +29,7 @@
     * [FilterBoolean](#filterboolean)
     * [FilterDiskDevices](#filterdiskdevices)
     * [FilterDnfModules](#filterdnfmodules)
-    * [FilterGroups](#filtergroups)
+    * [FilterGroup](#filtergroup)
     * [FilterInstalledProducts](#filterinstalledproducts)
     * [FilterInt](#filterint)
     * [FilterMssql](#filtermssql)
@@ -47,6 +51,7 @@
     * [TagAggregationFilter](#tagaggregationfilter)
   * [Enums](#enums)
     * [HOSTS_ORDER_BY](#hosts_order_by)
+    * [HOST_GROUPS_ORDER_BY](#host_groups_order_by)
     * [HOST_TAGS_ORDER_BY](#host_tags_order_by)
     * [ORDER_DIR](#order_dir)
     * [VALUES_ORDER_BY](#values_order_by)
@@ -167,6 +172,36 @@ This can be altered using `hostFilter` parameter.
 <td valign="top"><a href="#hostfilter">HostFilter</a></td>
 <td></td>
 </tr>
+<tr>
+<td colspan="2" valign="top"><strong>hostGroups</strong></td>
+<td valign="top"><a href="#hostgroups">HostGroups</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">hostFilter</td>
+<td valign="top"><a href="#hostfilter">HostFilter</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">limit</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">offset</td>
+<td valign="top"><a href="#int">Int</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_by</td>
+<td valign="top"><a href="#host_groups_order_by">HOST_GROUPS_ORDER_BY</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">order_how</td>
+<td valign="top"><a href="#order_dir">ORDER_DIR</a></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 
@@ -257,6 +292,101 @@ number of returned results
 total number of entities matching the query
 
 </td>
+</tr>
+</tbody>
+</table>
+
+### Group
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>id</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>name</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>account</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>org_id</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>created_on</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>modified_on</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### GroupInfo
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>group</strong></td>
+<td valign="top"><a href="#group">Group</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>count</strong></td>
+<td valign="top"><a href="#int">Int</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### Groups
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>data</strong></td>
+<td valign="top">[<a href="#group">Group</a>]!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>meta</strong></td>
+<td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -397,12 +527,32 @@ The host's per-reporter staleness, flattened into an array.
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>groups</strong></td>
-<td valign="top">[<a href="#jsonobject">JSONObject</a>]</td>
+<td valign="top"><a href="#groups">Groups</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### HostGroups
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>data</strong></td>
+<td valign="top">[<a href="#groupinfo">GroupInfo</a>]!</td>
 <td></td>
 </tr>
 <tr>
-<td colspan="2" align="right" valign="top">filter</td>
-<td valign="top">[<a href="#string">String</a>!]</td>
+<td colspan="2" valign="top"><strong>meta</strong></td>
+<td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
 <td></td>
 </tr>
 </tbody>
@@ -945,9 +1095,9 @@ Filter by 'stream' field of dnf_modules
 </tbody>
 </table>
 
-### FilterGroups
+### FilterGroup
 
-Groups filter
+Groups filter on a host
 
 <table>
 <thead>
@@ -959,8 +1109,18 @@ Groups filter
 </thead>
 <tbody>
 <tr>
+<td colspan="2" valign="top"><strong>id</strong></td>
+<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
 <td valign="top"><a href="#filterstring">FilterString</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>hasSome</strong></td>
+<td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -2345,8 +2505,8 @@ Filter by per_reporter_staleness sub-fields
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>groups</strong></td>
-<td valign="top"><a href="#filtergroups">FilterGroups</a></td>
+<td colspan="2" valign="top"><strong>group</strong></td>
+<td valign="top"><a href="#filtergroup">FilterGroup</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -2427,6 +2587,25 @@ As a result, "=" and "/" appear in every tag.
 </tr>
 <tr>
 <td valign="top"><strong>operating_system</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### HOST_GROUPS_ORDER_BY
+
+<table>
+<thead>
+<th align="left">Value</th>
+<th align="left">Description</th>
+</thead>
+<tbody>
+<tr>
+<td valign="top"><strong>group</strong></td>
+<td></td>
+</tr>
+<tr>
+<td valign="top"><strong>count</strong></td>
 <td></td>
 </tr>
 </tbody>

@@ -61,6 +61,33 @@ const TAG_QUERY = `
     }
 `;
 
+const GROUP_QUERY = `
+    query hosts ($filter: HostFilter) {
+        hosts (
+            filter: $filter
+        )
+        {
+            data {
+                id,
+                display_name,
+                groups {
+                    meta {
+                        total
+                    },
+                    data {
+                        id,
+                        name,
+                        account,
+                        org_id,
+                        created_on,
+                        modified_on
+                    }
+                }
+            }
+        }
+    }
+`;
+
 const SP_QUERY = `
     query hosts (
         $filter: HostFilter,
@@ -1139,6 +1166,86 @@ describe('hosts query', function () {
                         }]
                     }
                 });
+                expect(data).toMatchSnapshot();
+            });
+        });
+
+        describe('groups', function () {
+            test('simple output', async () => {
+                const { data } = await runQuery(GROUP_QUERY, {});
+                expect(data).toMatchSnapshot();
+            });
+
+            test('null groups', async () => {
+                const headers = createHeaders('customer', '12345', false);
+                const { data, status } = await runQuery(GROUP_QUERY, {}, headers);
+                expect(status).toEqual(200);
+                data.hosts.data.should.have.length(1);
+                data.hosts.data[0].groups.meta.total.should.eql(0);
+                data.hosts.data[0].groups.data.should.eql([]);
+            });
+
+            test('group filter name equals', async () => {
+                const headers = createHeaders('customer', 'hostGroupsTest', false);
+                const { data } = await runQuery(GROUP_QUERY, {
+                    filter: {
+                        group: {
+                            name: {eq: 'prod'}
+                        }
+                    }
+                }, headers);
+                data.hosts.data.should.have.length(2);
+                expect(data).toMatchSnapshot();
+            });
+
+            test('group filter for hosts without a group', async () => {
+                const headers = createHeaders('customer', 'hostGroupsTest', false);
+                const { data } = await runQuery(GROUP_QUERY, {
+                    filter: {
+                        group: {
+                            hasSome: {is: false}
+                        }
+                    }
+                }, headers);
+                data.hosts.data.should.have.length(1);
+                expect(data).toMatchSnapshot();
+            });
+
+            test('group filter union', async () => {
+                const headers = createHeaders('customer', 'hostGroupsTest', false);
+                const { data } = await runQuery(GROUP_QUERY, {
+                    filter: {
+                        OR: [{
+                            group: {
+                                name: {eq: 'baz'}
+                            }
+                        }, {
+                            group: {
+                                hasSome: {is: false}
+                            }
+                        }]
+                    }
+                }, headers);
+                data.hosts.data.should.have.length(2);
+                expect(data).toMatchSnapshot();
+            });
+
+            test('group filter intersection', async () => {
+                const headers = createHeaders('customer', 'hostGroupsTest', false);
+                const { data } = await runQuery(GROUP_QUERY, {
+                    filter: {
+                        AND: [{
+                            group: {
+                                name: {eq: 'foo'}
+                            }
+                        }, {
+                            group: {
+                                name: {eq: 'prod'}
+                            }
+                        }]
+                    }
+                }, headers);
+                data.hosts.data.should.have.length(1);
                 expect(data).toMatchSnapshot();
             });
         });

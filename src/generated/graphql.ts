@@ -81,8 +81,10 @@ export type FilterDnfModules = {
   stream?: InputMaybe<FilterString>;
 };
 
-/** Groups filter */
-export type FilterGroups = {
+/** Groups filter on a host */
+export type FilterGroup = {
+  hasSome?: InputMaybe<FilterBoolean>;
+  id?: InputMaybe<FilterString>;
   name?: InputMaybe<FilterString>;
 };
 
@@ -290,10 +292,37 @@ export type FilterTimestamp = {
   lte?: InputMaybe<Scalars['String']>;
 };
 
+export type Group = {
+  __typename?: 'Group';
+  account?: Maybe<Scalars['String']>;
+  created_on?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  modified_on?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  org_id?: Maybe<Scalars['String']>;
+};
+
+export type GroupInfo = {
+  __typename?: 'GroupInfo';
+  count: Scalars['Int'];
+  group: Group;
+};
+
+export type Groups = {
+  __typename?: 'Groups';
+  data: Array<Maybe<Group>>;
+  meta: CollectionMeta;
+};
+
 export enum Hosts_Order_By {
   DisplayName = 'display_name',
   ModifiedOn = 'modified_on',
   OperatingSystem = 'operating_system'
+}
+
+export enum Host_Groups_Order_By {
+  Count = 'count',
+  Group = 'group'
 }
 
 export enum Host_Tags_Order_By {
@@ -312,7 +341,7 @@ export type Host = {
   display_name?: Maybe<Scalars['String']>;
   /** Facts of a host. The subset of keys can be requested using `filter`. */
   facts?: Maybe<Scalars['JSONObject']>;
-  groups?: Maybe<Array<Maybe<Scalars['JSONObject']>>>;
+  groups?: Maybe<Groups>;
   id: Scalars['ID'];
   modified_on?: Maybe<Scalars['String']>;
   org_id: Scalars['String'];
@@ -336,12 +365,6 @@ export type HostCanonical_FactsArgs = {
 
 /** Inventory host */
 export type HostFactsArgs = {
-  filter?: InputMaybe<Array<Scalars['String']>>;
-};
-
-
-/** Inventory host */
-export type HostGroupsArgs = {
   filter?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -375,7 +398,7 @@ export type HostFilter = {
   display_name?: InputMaybe<FilterStringWithWildcardWithLowercase>;
   /** Filter by fqdn */
   fqdn?: InputMaybe<FilterStringWithWildcardWithLowercase>;
-  groups?: InputMaybe<FilterGroups>;
+  group?: InputMaybe<FilterGroup>;
   /** Filter by host id */
   id?: InputMaybe<FilterStringWithWildcard>;
   /** Filter by insights id */
@@ -504,6 +527,12 @@ export type HostFilter = {
   tag?: InputMaybe<FilterTag>;
 };
 
+export type HostGroups = {
+  __typename?: 'HostGroups';
+  data: Array<Maybe<GroupInfo>>;
+  meta: CollectionMeta;
+};
+
 /** Lists unique system profile values. */
 export type HostSystemProfile = {
   __typename?: 'HostSystemProfile';
@@ -568,6 +597,7 @@ export type OperatingSystem = {
 
 export type Query = {
   __typename?: 'Query';
+  hostGroups?: Maybe<HostGroups>;
   /**
    * Fetches a list of unique values for a given system profile field.
    *
@@ -586,6 +616,15 @@ export type Query = {
   hostTags?: Maybe<HostTags>;
   /** Fetches a list of hosts based on the given filtering, ordering and pagination criteria. */
   hosts: Hosts;
+};
+
+
+export type QueryHostGroupsArgs = {
+  hostFilter?: InputMaybe<HostFilter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Host_Groups_Order_By>;
+  order_how?: InputMaybe<Order_Dir>;
 };
 
 
@@ -762,7 +801,7 @@ export type ResolversTypes = {
   FilterBoolean: FilterBoolean;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
-  FilterGroups: FilterGroups;
+  FilterGroup: FilterGroup;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
   FilterMssql: FilterMssql;
@@ -779,10 +818,15 @@ export type ResolversTypes = {
   FilterSystemPurpose: FilterSystemPurpose;
   FilterTag: FilterTag;
   FilterTimestamp: FilterTimestamp;
+  Group: ResolverTypeWrapper<Group>;
+  GroupInfo: ResolverTypeWrapper<GroupInfo>;
+  Groups: ResolverTypeWrapper<Groups>;
   HOSTS_ORDER_BY: Hosts_Order_By;
+  HOST_GROUPS_ORDER_BY: Host_Groups_Order_By;
   HOST_TAGS_ORDER_BY: Host_Tags_Order_By;
   Host: ResolverTypeWrapper<Host>;
   HostFilter: HostFilter;
+  HostGroups: ResolverTypeWrapper<HostGroups>;
   HostSystemProfile: ResolverTypeWrapper<HostSystemProfile>;
   HostTags: ResolverTypeWrapper<HostTags>;
   Hosts: ResolverTypeWrapper<Hosts>;
@@ -817,7 +861,7 @@ export type ResolversParentTypes = {
   FilterBoolean: FilterBoolean;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
-  FilterGroups: FilterGroups;
+  FilterGroup: FilterGroup;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
   FilterMssql: FilterMssql;
@@ -834,8 +878,12 @@ export type ResolversParentTypes = {
   FilterSystemPurpose: FilterSystemPurpose;
   FilterTag: FilterTag;
   FilterTimestamp: FilterTimestamp;
+  Group: Group;
+  GroupInfo: GroupInfo;
+  Groups: Groups;
   Host: Host;
   HostFilter: HostFilter;
+  HostGroups: HostGroups;
   HostSystemProfile: HostSystemProfile;
   HostTags: HostTags;
   Hosts: Hosts;
@@ -879,6 +927,28 @@ export type CollectionMetaResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type GroupResolvers<ContextType = any, ParentType extends ResolversParentTypes['Group'] = ResolversParentTypes['Group']> = {
+  account?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  created_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  org_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GroupInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['GroupInfo'] = ResolversParentTypes['GroupInfo']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  group?: Resolver<ResolversTypes['Group'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GroupsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Groups'] = ResolversParentTypes['Groups']> = {
+  data?: Resolver<Array<Maybe<ResolversTypes['Group']>>, ParentType, ContextType>;
+  meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type HostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Host'] = ResolversParentTypes['Host']> = {
   account?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   ansible_host?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -886,7 +956,7 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   created_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   display_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, Partial<HostFactsArgs>>;
-  groups?: Resolver<Maybe<Array<Maybe<ResolversTypes['JSONObject']>>>, ParentType, ContextType, Partial<HostGroupsArgs>>;
+  groups?: Resolver<Maybe<ResolversTypes['Groups']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   org_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -896,6 +966,12 @@ export type HostResolvers<ContextType = any, ParentType extends ResolversParentT
   stale_timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   system_profile_facts?: Resolver<Maybe<ResolversTypes['JSONObject']>, ParentType, ContextType, Partial<HostSystem_Profile_FactsArgs>>;
   tags?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HostGroupsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostGroups'] = ResolversParentTypes['HostGroups']> = {
+  data?: Resolver<Array<Maybe<ResolversTypes['GroupInfo']>>, ParentType, ContextType>;
+  meta?: Resolver<ResolversTypes['CollectionMeta'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -934,6 +1010,7 @@ export type OperatingSystemResolvers<ContextType = any, ParentType extends Resol
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  hostGroups?: Resolver<Maybe<ResolversTypes['HostGroups']>, ParentType, ContextType, RequireFields<QueryHostGroupsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   hostSystemProfile?: Resolver<Maybe<ResolversTypes['HostSystemProfile']>, ParentType, ContextType, Partial<QueryHostSystemProfileArgs>>;
   hostTags?: Resolver<Maybe<ResolversTypes['HostTags']>, ParentType, ContextType, RequireFields<QueryHostTagsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   hosts?: Resolver<ResolversTypes['Hosts'], ParentType, ContextType, RequireFields<QueryHostsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
@@ -987,7 +1064,11 @@ export type Resolvers<ContextType = any> = {
   BooleanValueInfo?: BooleanValueInfoResolvers<ContextType>;
   BooleanValues?: BooleanValuesResolvers<ContextType>;
   CollectionMeta?: CollectionMetaResolvers<ContextType>;
+  Group?: GroupResolvers<ContextType>;
+  GroupInfo?: GroupInfoResolvers<ContextType>;
+  Groups?: GroupsResolvers<ContextType>;
   Host?: HostResolvers<ContextType>;
+  HostGroups?: HostGroupsResolvers<ContextType>;
   HostSystemProfile?: HostSystemProfileResolvers<ContextType>;
   HostTags?: HostTagsResolvers<ContextType>;
   Hosts?: HostsResolvers<ContextType>;
