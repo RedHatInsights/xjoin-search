@@ -678,8 +678,8 @@ describe('hosts query', function () {
 
             describe('timestamps', function () {
                 const hosts = [
-                    {system_profile_facts: {last_boot_time: '2021-01-10T15:10:10.000Z'}},
-                    {system_profile_facts: {last_boot_time: '2021-01-11T15:10:10.000Z'}},
+                    {system_profile_facts: {last_boot_time: '2021-01-10T10:10:10.000Z'}},
+                    {system_profile_facts: {last_boot_time: '2021-01-11T10:10:10.000Z'}},
                     {system_profile_facts: {}}
                 ];
 
