@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: RedHatInsights/inventory-schemas
-          path: ./inventory-schemas
+          path: ./inventory-schemas-upstream
       - name: Set vars
         id: vars
         run: |
@@ -30,8 +30,9 @@ jobs:
           echo "schema_sha=$(git ls-remote https://github.com/RedHatInsights/inventory-schemas.git master | cut -c -7)" >> $GITHUB_OUTPUT
       - name: update schema file
         run: |
-          cp inventory-schemas/schemas/system_profile/v1.yaml inventory-schemas/system_profile_schema.yaml
-          echo "${{ steps.vars.outputs.schema_sha }}" >> inventory-schemas/system_profile_schema_sha.txt
+          cp inventory-schemas-upstream/schemas/system_profile/v1.yaml inventory-schemas/system_profile_schema.yaml
+          echo "${{ steps.vars.outputs.schema_sha }}" > inventory-schemas/system_profile_schema_sha.txt
+          git diff
       - name: update mapping from schema
         run: |
           cd scripts
@@ -41,7 +42,7 @@ jobs:
           git add -u
           git commit -m "updated xjoin-search to support schema changes. SHA: ${{ steps.vars.outputs.schema_sha }}" || echo "No new changes"
       - name: remove schema submodule
-        run: rm -r inventory-schemas
+        run: rm -r inventory-schemas-upstream
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
