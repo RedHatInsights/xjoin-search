@@ -377,7 +377,7 @@ objects:
                     "type": "date_nanos"
                   }
                 }
-              }, 
+              },
               "system_profile_facts": {
                 "properties": {
                   "owner_id": {
