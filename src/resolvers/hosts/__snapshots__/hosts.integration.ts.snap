@@ -469,7 +469,7 @@ Object {
           "is_marketplace": false,
           "katello_agent_running": false,
           "kernel_modules": "ex2",
-          "last_boot_time": "2021-01-11T15:10:10.000Z",
+          "last_boot_time": "2021-01-11T09:10:10.000Z",
           "mssql": Object {
             "version": "12.5.3",
           },
@@ -595,7 +595,7 @@ Object {
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex1",
-          "last_boot_time": "2021-01-10T15:10:10.000Z",
+          "last_boot_time": "2021-01-10T09:10:10.000Z",
           "mssql": Object {
             "version": "15.2.0",
           },
@@ -693,7 +693,6 @@ Object {
           "enabled_services": "ex3",
           "gpg_pubkeys": "gpg-pubkey-22222222-33333333",
           "greenboot_fallback_detected": true,
-          "greenboot_status": "purple",
           "infrastructure_type": "imaginary",
           "infrastructure_vendor": "baremetal",
           "insights_client_version": "6.0.6-2.el8_4",
@@ -708,7 +707,7 @@ Object {
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex3",
-          "last_boot_time": "2021-01-12T15:10:10.000Z",
+          "last_boot_time": "2021-01-12T09:10:10.000Z",
           "mssql": Object {
             "version": "10.1.0",
           },
@@ -815,7 +814,6 @@ Object {
           "enabled_services": "ex3",
           "gpg_pubkeys": "gpg-pubkey-22222222-33333333",
           "greenboot_fallback_detected": true,
-          "greenboot_status": "purple",
           "infrastructure_type": "imaginary",
           "infrastructure_vendor": "baremetal",
           "insights_client_version": "6.0.6-2.el8_4",
@@ -830,7 +828,7 @@ Object {
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex3",
-          "last_boot_time": "2021-01-12T15:10:10.000Z",
+          "last_boot_time": "2021-01-12T09:10:10.000Z",
           "mssql": Object {
             "version": "10.1.0",
           },
@@ -944,7 +942,7 @@ Object {
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex1",
-          "last_boot_time": "2021-01-10T15:10:10.000Z",
+          "last_boot_time": "2021-01-10T09:10:10.000Z",
           "mssql": Object {
             "version": "15.2.0",
           },
@@ -1070,7 +1068,7 @@ Object {
           "is_marketplace": false,
           "katello_agent_running": false,
           "kernel_modules": "ex2",
-          "last_boot_time": "2021-01-11T15:10:10.000Z",
+          "last_boot_time": "2021-01-11T09:10:10.000Z",
           "mssql": Object {
             "version": "12.5.3",
           },
