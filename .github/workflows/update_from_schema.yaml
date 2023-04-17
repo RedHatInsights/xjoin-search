@@ -30,15 +30,24 @@ jobs:
       - name: Set vars
         id: vars
         run: |
-          git config user.name 'GitHub Actions' 
-          git config user.email 'actions@github.com'
-          echo "schema_sha=$(git ls-remote https://github.com/RedHatInsights/inventory-schemas.git master | cut -c -7)" >> $GITHUB_OUTPUT
+          git config user.name 'Update-a-Bot'
+          git config user.email 'insights@github.com'
+          echo "upstream_schema_latest_sha=$(git ls-remote https://github.com/RedHatInsights/inventory-schemas.git master | cut -c -7)" >> $GITHUB_OUTPUT
+          echo "system_profile_schema_sha=$(cat inventory-schemas/system_profile_schema_sha.txt)" >> $GITHUB_OUTPUT
       - name: update schema file
+        id: update_schema
         run: |
           cp inventory-schemas-upstream/schemas/system_profile/v1.yaml inventory-schemas/system_profile_schema.yaml
-          echo "${{ steps.vars.outputs.schema_sha }}" > inventory-schemas/system_profile_schema_sha.txt
-          git diff
+          if [[ "${{ steps.vars.outputs.upstream_schema_latest_sha }}" != "${{steps.vars.outputs.system_profile_schema_sha }}" ]]; then
+              echo "${{ steps.vars.outputs.upstream_schema_latest_sha }}" > inventory-schemas/system_profile_schema_sha.txt
+              git diff
+              echo "update_schema=yes" >> $GITHUB_OUTPUT
+          else
+              echo "update_schema=no" >> $GITHUB_OUTPUT
+              echo "No New Changes in RedHatInsights/inventory-schemas"
+          fi
       - name: update mapping from schema
+        if: steps.update_schema.outputs.update_schema == 'yes'
         run: |
           cd scripts
           npm ci
@@ -46,16 +55,15 @@ jobs:
           npm run coverage -- -u
           git diff
           git add -u
-          git commit -m "updated xjoin-search to support schema changes. SHA: ${{ steps.vars.outputs.schema_sha }}" || echo "No new changes"
+          git commit -m "updated xjoin-search to support schema changes. SHA: ${{ steps.vars.outputs.upstream_schema_latest_sha }}" || echo "No new changes"
       - name: remove schema submodule
         run: rm -r inventory-schemas-upstream
       - name: Create Pull Request
+        if: steps.update_schema.outputs.update_schema == 'yes'
         uses: peter-evans/create-pull-request@v5
         with:
           base: master
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
           branch: system_profile_schema_update
           branch-suffix: short-commit-hash
