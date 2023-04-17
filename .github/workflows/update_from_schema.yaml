@@ -17,6 +17,11 @@ jobs:
     steps:
       - name: Check out xjoin-config
         uses: actions/checkout@v3
+      - name: Run docker-compose up elasticsearch
+        uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: "./docker-compose.yml"
+          services: elasticsearch
       - name: Check out schema repo to copy current schema from
         uses: actions/checkout@v3
         with:
@@ -38,6 +43,7 @@ jobs:
           cd scripts
           npm ci
           npm run updateFromSchema
+          npm run coverage -- -u
           git diff
           git add -u
           git commit -m "updated xjoin-search to support schema changes. SHA: ${{ steps.vars.outputs.schema_sha }}" || echo "No new changes"
