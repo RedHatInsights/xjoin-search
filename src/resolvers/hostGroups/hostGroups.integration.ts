@@ -62,7 +62,7 @@ describe('host groups', function () {
             expect(status).toEqual(200);
             data.hostGroups.data.should.have.length(2);
             data.hostGroups.meta.count.should.equal(2);
-            data.hostGroups.meta.total.should.equal(5);
+            data.hostGroups.meta.total.should.equal(6);
             expect(data).toMatchSnapshot();
         });
 
@@ -74,7 +74,7 @@ describe('host groups', function () {
 
             data.hostGroups.data.should.have.length(1);
             data.hostGroups.meta.should.have.property('count', 1);
-            data.hostGroups.meta.should.have.property('total', 5);
+            data.hostGroups.meta.should.have.property('total', 6);
 
             expect(status).toEqual(200);
             expect(data).toMatchSnapshot();

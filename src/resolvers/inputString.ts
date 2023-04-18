@@ -1,10 +1,11 @@
 import {
     FilterString,
     FilterStringWithWildcard,
-    FilterStringWithWildcardWithLowercase
+    FilterStringWithWildcardWithLowercase, InputMaybe
 } from '../generated/graphql';
 import { negate, exists, wildcard, term } from './es';
 import { checkNotNull } from './validation';
+import {UserInputError} from 'apollo-server-express';
 
 type Resolved = Record<string, any>[];
 
@@ -15,7 +16,11 @@ function lowercaseField (field: string) {
 /*
  * Resolver for FilterString
  */
-export function filterString (field: string, filter: FilterString): Resolved {
+export function filterString (field: string, filter: InputMaybe<FilterString>): Resolved {
+    if (!filter) {
+        throw new UserInputError('filter may not be null');
+    }
+
     if (filter.eq === null) {
         return [negate(exists(field))];
     } else if (filter.eq !== undefined) {
@@ -28,7 +33,11 @@ export function filterString (field: string, filter: FilterString): Resolved {
 /*
  * Resolver for FilterStringWithWildcard
  */
-export function filterStringWithWildcard (field: string, filter: FilterStringWithWildcard): Resolved {
+export function filterStringWithWildcard (field: string, filter: InputMaybe<FilterStringWithWildcard>): Resolved {
+    if (!filter) {
+        throw new UserInputError('filter may not be null');
+    }
+
     const result = filterString(field, filter);
 
     checkNotNull(filter.matches);
@@ -39,7 +48,14 @@ export function filterStringWithWildcard (field: string, filter: FilterStringWit
     return result;
 }
 
-export function filterStringWithWildcardWithLowercase (field: string, filter: FilterStringWithWildcardWithLowercase): Resolved {
+export function filterStringWithWildcardWithLowercase (
+    field: string,
+    filter: InputMaybe<FilterStringWithWildcardWithLowercase>): Resolved {
+
+    if (!filter) {
+        throw new UserInputError('filter may not be null');
+    }
+
     const result = filterStringWithWildcard(field, filter);
 
     checkNotNull(filter.eq_lc);

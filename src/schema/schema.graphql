@@ -443,7 +443,7 @@ Groups filter on a host
 """
 input FilterGroup {
     id: FilterString
-    name: FilterString
+    name: FilterStringWithWildcardWithLowercase
     hasSome: FilterBoolean
 }
 
