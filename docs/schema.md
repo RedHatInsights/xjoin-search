@@ -1115,7 +1115,7 @@ Groups filter on a host
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>name</strong></td>
-<td valign="top"><a href="#filterstring">FilterString</a></td>
+<td valign="top"><a href="#filterstringwithwildcardwithlowercase">FilterStringWithWildcardWithLowercase</a></td>
 <td></td>
 </tr>
 <tr>

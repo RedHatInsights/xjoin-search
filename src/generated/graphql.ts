@@ -85,7 +85,7 @@ export type FilterDnfModules = {
 export type FilterGroup = {
   hasSome?: InputMaybe<FilterBoolean>;
   id?: InputMaybe<FilterString>;
-  name?: InputMaybe<FilterString>;
+  name?: InputMaybe<FilterStringWithWildcardWithLowercase>;
 };
 
 /** Filter by 'installed_products' field of system profile */

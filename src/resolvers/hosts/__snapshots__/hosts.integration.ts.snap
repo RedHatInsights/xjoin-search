@@ -1266,6 +1266,42 @@ Object {
 }
 `;
 
+exports[`hosts query queries groups group filter eq honors case 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [],
+  },
+}
+`;
+
+exports[`hosts query queries groups group filter eq_lc ignores case 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "display_name": "groups-test-case-sensitive",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "account": "hostGroupsTest",
+              "created_on": "2023-04-12T11:11:00.000000Z",
+              "id": "c32835f4-922d-4a0e-97e0-cdd429cf7007",
+              "modified_on": "2023-04-12T12:34:56.789000Z",
+              "name": "MiXeDCaSe",
+              "org_id": "hostGroupsTest",
+            },
+          ],
+          "meta": Object {
+            "total": 1,
+          },
+        },
+        "id": "fb653397-a6bf-4a06-85b3-ead2a1ca48bf",
+      },
+    ],
+  },
+}
+`;
+
 exports[`hosts query queries groups group filter for hosts without a group 1`] = `
 Object {
   "hosts": Object {
@@ -1323,6 +1359,42 @@ Object {
           },
         },
         "id": "d36bd5c3-fb39-4826-8d82-152bedfd1ecd",
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query queries groups group filter matches honors case 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [],
+  },
+}
+`;
+
+exports[`hosts query queries groups group filter matches_lc ignores case 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "display_name": "groups-test-case-sensitive",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "account": "hostGroupsTest",
+              "created_on": "2023-04-12T11:11:00.000000Z",
+              "id": "c32835f4-922d-4a0e-97e0-cdd429cf7007",
+              "modified_on": "2023-04-12T12:34:56.789000Z",
+              "name": "MiXeDCaSe",
+              "org_id": "hostGroupsTest",
+            },
+          ],
+          "meta": Object {
+            "total": 1,
+          },
+        },
+        "id": "fb653397-a6bf-4a06-85b3-ead2a1ca48bf",
       },
     ],
   },

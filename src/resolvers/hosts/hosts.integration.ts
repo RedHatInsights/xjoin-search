@@ -1248,6 +1248,58 @@ describe('hosts query', function () {
                 data.hosts.data.should.have.length(1);
                 expect(data).toMatchSnapshot();
             });
+
+            test('group filter eq_lc ignores case', async () => {
+                const headers = createHeaders('customer', 'hostGroupsTest', false);
+                const { data } = await runQuery(GROUP_QUERY, {
+                    filter: {
+                        group: {
+                            name: {eq_lc: 'mixedcase'}
+                        }
+                    }
+                }, headers);
+                data.hosts.data.should.have.length(1);
+                expect(data).toMatchSnapshot();
+            });
+
+            test('group filter eq honors case', async () => {
+                const headers = createHeaders('customer', 'hostGroupsTest', false);
+                const { data } = await runQuery(GROUP_QUERY, {
+                    filter: {
+                        group: {
+                            name: {eq: 'mixedcase'}
+                        }
+                    }
+                }, headers);
+                data.hosts.data.should.have.length(0);
+                expect(data).toMatchSnapshot();
+            });
+
+            test('group filter matches_lc ignores case', async () => {
+                const headers = createHeaders('customer', 'hostGroupsTest', false);
+                const { data } = await runQuery(GROUP_QUERY, {
+                    filter: {
+                        group: {
+                            name: {matches_lc: '*ixedca*'}
+                        }
+                    }
+                }, headers);
+                data.hosts.data.should.have.length(1);
+                expect(data).toMatchSnapshot();
+            });
+
+            test('group filter matches honors case', async () => {
+                const headers = createHeaders('customer', 'hostGroupsTest', false);
+                const { data } = await runQuery(GROUP_QUERY, {
+                    filter: {
+                        group: {
+                            name: {matches: '*ixedca*'}
+                        }
+                    }
+                }, headers);
+                data.hosts.data.should.have.length(0);
+                expect(data).toMatchSnapshot();
+            });
         });
 
         describe('facts', function () {
