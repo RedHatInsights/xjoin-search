@@ -469,7 +469,7 @@ Object {
           "is_marketplace": false,
           "katello_agent_running": false,
           "kernel_modules": "ex2",
-          "last_boot_time": "2021-01-11T09:10:10.000Z",
+          "last_boot_time": "2021-01-11T10:10:10.000Z",
           "mssql": Object {
             "version": "12.5.3",
           },
@@ -595,7 +595,7 @@ Object {
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex1",
-          "last_boot_time": "2021-01-10T09:10:10.000Z",
+          "last_boot_time": "2021-01-10T10:10:10.000Z",
           "mssql": Object {
             "version": "15.2.0",
           },
@@ -707,7 +707,7 @@ Object {
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex3",
-          "last_boot_time": "2021-01-12T09:10:10.000Z",
+          "last_boot_time": "2021-01-12T10:10:10.000Z",
           "mssql": Object {
             "version": "10.1.0",
           },
@@ -828,7 +828,7 @@ Object {
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex3",
-          "last_boot_time": "2021-01-12T09:10:10.000Z",
+          "last_boot_time": "2021-01-12T10:10:10.000Z",
           "mssql": Object {
             "version": "10.1.0",
           },
@@ -942,7 +942,7 @@ Object {
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex1",
-          "last_boot_time": "2021-01-10T09:10:10.000Z",
+          "last_boot_time": "2021-01-10T10:10:10.000Z",
           "mssql": Object {
             "version": "15.2.0",
           },
@@ -1068,7 +1068,7 @@ Object {
           "is_marketplace": false,
           "katello_agent_running": false,
           "kernel_modules": "ex2",
-          "last_boot_time": "2021-01-11T09:10:10.000Z",
+          "last_boot_time": "2021-01-11T10:10:10.000Z",
           "mssql": Object {
             "version": "12.5.3",
           },
