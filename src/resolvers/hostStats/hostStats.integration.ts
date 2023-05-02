@@ -22,26 +22,22 @@ function add_days_to_date(d: Date, s: number): Date {
 
 function make_host(name: string, staleness: string) {
     const now = new Date();
-    const tomorrow: Date = add_days_to_date(now, 1.1);
-    const yesterday: Date = add_days_to_date(now, -1.1);
+    const soon: Date = add_days_to_date(now, 0.1);
+    const tomorrow: Date = add_days_to_date(soon, 1);
+    const yesterday: Date = add_days_to_date(soon, -1);
+    const weeksago: Date = add_days_to_date(now, -22);
     let checkin: Date = now;
     let stale: Date = tomorrow;
     switch (staleness) {
-        case 'fresh': {
-            checkin = now;
-            stale = tomorrow;
-            break;
-        }
-
-        case 'warn': {
+        case 'stale': {
             checkin = yesterday;
             stale = now;
             break;
         }
 
-        case 'stale': {
-            checkin = yesterday;
-            stale = yesterday;
+        case 'warn': {
+            checkin = weeksago;
+            stale = weeksago;
             break;
         }
 
@@ -80,9 +76,9 @@ const hosts = [
     make_host('foo01', 'fresh'),
     make_host('foo02', 'fresh'),
     make_host('foo03', 'fresh'),
-    make_host('foo04', 'warn'),
-    make_host('bar01', 'warn'),
-    make_host('bar02', 'stale')
+    make_host('foo04', 'stale'),
+    make_host('bar01', 'stale'),
+    make_host('bar02', 'warn')
 ];
 
 describe('host stats', function () {
@@ -94,8 +90,8 @@ describe('host stats', function () {
         data.hostStats.should.eql({
             total_hosts: 6,
             fresh_hosts: 3,
-            warn_hosts: 2,
-            stale_hosts: 1
+            stale_hosts: 2,
+            warn_hosts: 1
         });
     });
 
@@ -103,7 +99,10 @@ describe('host stats', function () {
         await createHosts(...hosts);
 
         const { data, status } = await runQuery(QUERY, {
-            hostFilter: {display_name: {matches: 'bar'}}
+            hostFilter: {OR: [
+                {display_name: {matches: 'bar01'}},
+                {display_name: {matches: 'bar02'}}
+            ]}
         }, getContext().headers);
         expect(status).toEqual(200);
         data.hostStats.should.eql({
