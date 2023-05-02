@@ -17,32 +17,36 @@ const QUERY = `
 function add_days_to_date(d: Date, s: number): Date {
     // Date.UTC returns millisecond representation of date
     // new Date(number) takes milliseconds date.  Time zone cannot be set?!
-    return new Date(d.valueOf() + (s*86400000))
+    return new Date(d.valueOf() + (s * 86400000));
 }
 
 function make_host(name: string, staleness: string) {
     const now = new Date();
     const tomorrow: Date = add_days_to_date(now, 1.1);
     const yesterday: Date = add_days_to_date(now, -1.1);
-    var checkin: Date = now;
-    var stale: Date = tomorrow;
+    let checkin: Date = now;
+    let stale: Date = tomorrow;
     switch (staleness) {
         case 'fresh': {
             checkin = now;
             stale = tomorrow;
             break;
         }
+
         case 'warn': {
             checkin = yesterday;
             stale = now;
             break;
         }
+
         case 'stale': {
             checkin = yesterday;
             stale = yesterday;
             break;
         }
+
     }
+
     return {
         display_name: name,
         stale_timestamp: stale,
@@ -68,8 +72,8 @@ function make_host(name: string, staleness: string) {
             last_check_in: checkin,
             stale_timestamp: stale,
             check_in_succeeded: true
-        }],
-    }
+        }]
+    };
 }
 
 const hosts = [
@@ -78,7 +82,7 @@ const hosts = [
     make_host('foo03', 'fresh'),
     make_host('foo04', 'warn'),
     make_host('bar01', 'warn'),
-    make_host('bar02', 'stale'),
+    make_host('bar02', 'stale')
 ];
 
 describe('host stats', function () {
