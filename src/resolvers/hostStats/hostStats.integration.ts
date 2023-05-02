@@ -13,14 +13,72 @@ const QUERY = `
         }
     }
 `;
+
+function add_days_to_date(d: Date, s: number): Date {
+    // Date.UTC returns millisecond representation of date
+    // new Date(number) takes milliseconds date.  Time zone cannot be set?!
+    return new Date(d.valueOf() + (s*86400000))
+}
+
+function make_host(name: string, staleness: string) {
+    const now = new Date();
+    const tomorrow: Date = add_days_to_date(now, 1.1);
+    const yesterday: Date = add_days_to_date(now, -1.1);
+    var checkin: Date = now;
+    var stale: Date = tomorrow;
+    switch (staleness) {
+        case 'fresh': {
+            checkin = now;
+            stale = tomorrow;
+            break;
+        }
+        case 'warn': {
+            checkin = yesterday;
+            stale = now;
+            break;
+        }
+        case 'stale': {
+            checkin = yesterday;
+            stale = yesterday;
+            break;
+        }
+    }
+    return {
+        display_name: name,
+        stale_timestamp: stale,
+        per_reporter_staleness: {
+            puptoo: {
+                last_check_in: checkin,
+                stale_timestamp: stale,
+                check_in_succeeded: true
+            },
+            yupana: {
+                last_check_in: checkin,
+                stale_timestamp: stale,
+                check_in_succeeded: true
+            }
+        },
+        per_reporter_staleness_flat: [{
+            reporter: 'puptoo',
+            last_check_in: checkin,
+            stale_timestamp: stale,
+            check_in_succeeded: true
+        }, {
+            reporter: 'yupana',
+            last_check_in: checkin,
+            stale_timestamp: stale,
+            check_in_succeeded: true
+        }],
+    }
+}
+
 const hosts = [
-    {display_name: 'foo01', system_profile_facts: {sap_system: true}},
-    {display_name: 'foo02', system_profile_facts: {sap_system: true}},
-    {display_name: 'foo03', system_profile_facts: {sap_system: true}},
-    {display_name: 'foo04', system_profile_facts: {sap_system: true}},
-    {display_name: 'bar01', system_profile_facts: {sap_system: false}},
-    {display_name: 'bar02', system_profile_facts: {sap_system: false}},
-    {display_name: 'bar03', system_profile_facts: {}}
+    make_host('foo01', 'fresh'),
+    make_host('foo02', 'fresh'),
+    make_host('foo03', 'fresh'),
+    make_host('foo04', 'warn'),
+    make_host('bar01', 'warn'),
+    make_host('bar02', 'stale'),
 ];
 
 describe('host stats', function () {
@@ -30,10 +88,10 @@ describe('host stats', function () {
         const { data, status } = await runQuery(QUERY, {}, getContext().headers);
         expect(status).toEqual(200);
         data.hostStats.should.eql({
-            total_hosts: 7,
-            fresh_hosts: 7,
-            warn_hosts: 0,
-            stale_hosts: 0
+            total_hosts: 6,
+            fresh_hosts: 3,
+            warn_hosts: 2,
+            stale_hosts: 1
         });
     });
 
@@ -41,14 +99,14 @@ describe('host stats', function () {
         await createHosts(...hosts);
 
         const { data, status } = await runQuery(QUERY, {
-            hostFilter: {display_name: {matches: 'bar01'}}
+            hostFilter: {display_name: {matches: 'bar'}}
         }, getContext().headers);
         expect(status).toEqual(200);
         data.hostStats.should.eql({
-            total_hosts: 1,
-            fresh_hosts: 1,
-            warn_hosts: 0,
-            stale_hosts: 0
+            total_hosts: 2,
+            fresh_hosts: 0,
+            warn_hosts: 1,
+            stale_hosts: 1
         });
     });
 });
