@@ -24,6 +24,17 @@ const playground = {
   }
 }`
     }, {
+        // basic hostStats query
+        endpoint: '',
+        name: 'hostStats',
+        query: `{
+  hostStats (
+    hostFilter: {}
+  ) {
+    total_hosts, fresh_hosts, stale_hosts, warn_hosts
+  }
+}`
+    }, {
         // this tab demostrates host filtering capabilities
         endpoint: '',
         name: 'filter',

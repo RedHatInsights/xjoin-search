@@ -533,6 +533,14 @@ export type HostGroups = {
   meta: CollectionMeta;
 };
 
+export type HostStats = {
+  __typename?: 'HostStats';
+  fresh_hosts: Scalars['Int'];
+  stale_hosts: Scalars['Int'];
+  total_hosts: Scalars['Int'];
+  warn_hosts: Scalars['Int'];
+};
+
 /** Lists unique system profile values. */
 export type HostSystemProfile = {
   __typename?: 'HostSystemProfile';
@@ -599,6 +607,13 @@ export type Query = {
   __typename?: 'Query';
   hostGroups?: Maybe<HostGroups>;
   /**
+   * Fetches the counts of current, stale and stale-warning hosts, optionally
+   * filtering by the `hostFilter` parameter.
+   *
+   * I haven't yet found a way of making the host filter optional.
+   */
+  hostStats: HostStats;
+  /**
    * Fetches a list of unique values for a given system profile field.
    *
    * By default the query operates on all known systems that are registered with the given org_id.
@@ -606,7 +621,7 @@ export type Query = {
    */
   hostSystemProfile?: Maybe<HostSystemProfile>;
   /**
-   * Fetches a list of unique tags and the number of their occurenes in the given set of systems.
+   * Fetches a list of unique tags and the number of their occurences in the given set of systems.
    *
    * By default the query operates on all known systems that are registered with the given org_id.
    * This can be altered using the `hostFilter` parameter.
@@ -625,6 +640,11 @@ export type QueryHostGroupsArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Host_Groups_Order_By>;
   order_how?: InputMaybe<Order_Dir>;
+};
+
+
+export type QueryHostStatsArgs = {
+  hostFilter?: InputMaybe<HostFilter>;
 };
 
 
@@ -827,6 +847,7 @@ export type ResolversTypes = {
   Host: ResolverTypeWrapper<Host>;
   HostFilter: HostFilter;
   HostGroups: ResolverTypeWrapper<HostGroups>;
+  HostStats: ResolverTypeWrapper<HostStats>;
   HostSystemProfile: ResolverTypeWrapper<HostSystemProfile>;
   HostTags: ResolverTypeWrapper<HostTags>;
   Hosts: ResolverTypeWrapper<Hosts>;
@@ -884,6 +905,7 @@ export type ResolversParentTypes = {
   Host: Host;
   HostFilter: HostFilter;
   HostGroups: HostGroups;
+  HostStats: HostStats;
   HostSystemProfile: HostSystemProfile;
   HostTags: HostTags;
   Hosts: Hosts;
@@ -975,6 +997,14 @@ export type HostGroupsResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type HostStatsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostStats'] = ResolversParentTypes['HostStats']> = {
+  fresh_hosts?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  stale_hosts?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  total_hosts?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  warn_hosts?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type HostSystemProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['HostSystemProfile'] = ResolversParentTypes['HostSystemProfile']> = {
   operating_system?: Resolver<ResolversTypes['operatingSystemValues'], ParentType, ContextType, RequireFields<HostSystemProfileOperating_SystemArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   sap_sids?: Resolver<ResolversTypes['StringValues'], ParentType, ContextType, RequireFields<HostSystemProfileSap_SidsArgs, 'filter' | 'limit' | 'offset' | 'order_by' | 'order_how'>>;
@@ -1011,6 +1041,7 @@ export type OperatingSystemResolvers<ContextType = any, ParentType extends Resol
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   hostGroups?: Resolver<Maybe<ResolversTypes['HostGroups']>, ParentType, ContextType, RequireFields<QueryHostGroupsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
+  hostStats?: Resolver<ResolversTypes['HostStats'], ParentType, ContextType, Partial<QueryHostStatsArgs>>;
   hostSystemProfile?: Resolver<Maybe<ResolversTypes['HostSystemProfile']>, ParentType, ContextType, Partial<QueryHostSystemProfileArgs>>;
   hostTags?: Resolver<Maybe<ResolversTypes['HostTags']>, ParentType, ContextType, RequireFields<QueryHostTagsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
   hosts?: Resolver<ResolversTypes['Hosts'], ParentType, ContextType, RequireFields<QueryHostsArgs, 'limit' | 'offset' | 'order_by' | 'order_how'>>;
@@ -1069,6 +1100,7 @@ export type Resolvers<ContextType = any> = {
   Groups?: GroupsResolvers<ContextType>;
   Host?: HostResolvers<ContextType>;
   HostGroups?: HostGroupsResolvers<ContextType>;
+  HostStats?: HostStatsResolvers<ContextType>;
   HostSystemProfile?: HostSystemProfileResolvers<ContextType>;
   HostTags?: HostTagsResolvers<ContextType>;
   Hosts?: HostsResolvers<ContextType>;

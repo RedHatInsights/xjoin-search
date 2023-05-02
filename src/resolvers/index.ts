@@ -1,6 +1,7 @@
 import GraphQLJSON, { GraphQLJSONObject } from 'graphql-type-json';
 import { SafeIntResolver } from 'graphql-scalars';
 import hosts from './hosts';
+import hostStats from './hostStats';
 import hostTags from './hostTags';
 import hostSystemProfile from './hostSystemProfile';
 import hostGroups from './hostGroups';
@@ -10,15 +11,19 @@ import { jsonObjectFilter } from './common';
 const resolvers = {
     Query: {
         hosts,
-        hostTags,
+        hostGroups,
+        hostStats,
         hostSystemProfile,
-        hostGroups
+        hostTags
     },
 
     Host: {
         system_profile_facts: jsonObjectFilter('system_profile_facts'),
         canonical_facts: jsonObjectFilter('canonical_facts'),
         facts: jsonObjectFilter('facts')
+    },
+
+    HostStats: {
     },
 
     HostSystemProfile: {

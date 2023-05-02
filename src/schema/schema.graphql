@@ -733,6 +733,13 @@ type HostGroups {
     meta: CollectionMeta!
 }
 
+type HostStats {
+    total_hosts: Int!
+    fresh_hosts: Int!
+    stale_hosts: Int!
+    warn_hosts: Int!
+}
+
 """
 Lists unique system profile values.
 """
@@ -818,7 +825,7 @@ type Query {
     ): Hosts!
 
     """
-    Fetches a list of unique tags and the number of their occurenes in the given set of systems.
+    Fetches a list of unique tags and the number of their occurences in the given set of systems.
 
     By default the query operates on all known systems that are registered with the given org_id.
     This can be altered using the `hostFilter` parameter.
@@ -851,4 +858,14 @@ type Query {
         order_by: HOST_GROUPS_ORDER_BY = count,
         order_how: ORDER_DIR = DESC
     ): HostGroups
+
+    """
+    Fetches the counts of current, stale and stale-warning hosts, optionally
+    filtering by the `hostFilter` parameter.
+
+    I haven't yet found a way of making the host filter optional.
+    """
+    hostStats (
+        hostFilter: HostFilter,
+    ): HostStats!
 }
