@@ -297,9 +297,9 @@ export type Group = {
   account?: Maybe<Scalars['String']>;
   created?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
-  modified?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   org_id?: Maybe<Scalars['String']>;
+  updated?: Maybe<Scalars['String']>;
 };
 
 export type GroupInfo = {
@@ -953,9 +953,9 @@ export type GroupResolvers<ContextType = any, ParentType extends ResolversParent
   account?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   created?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  modified?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   org_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updated?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

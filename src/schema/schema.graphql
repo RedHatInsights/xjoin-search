@@ -720,7 +720,7 @@ type Group {
     account: String,
     org_id: String,
     created: String,
-    modified: String
+    updated: String
 }
 
 type GroupInfo {
