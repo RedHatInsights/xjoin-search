@@ -295,9 +295,9 @@ export type FilterTimestamp = {
 export type Group = {
   __typename?: 'Group';
   account?: Maybe<Scalars['String']>;
-  created_on?: Maybe<Scalars['String']>;
+  created?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
-  modified_on?: Maybe<Scalars['String']>;
+  modified?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   org_id?: Maybe<Scalars['String']>;
 };
@@ -951,9 +951,9 @@ export type CollectionMetaResolvers<ContextType = any, ParentType extends Resolv
 
 export type GroupResolvers<ContextType = any, ParentType extends ResolversParentTypes['Group'] = ResolversParentTypes['Group']> = {
   account?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  created_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  created?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  modified_on?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  modified?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   org_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

@@ -719,8 +719,8 @@ type Group {
     name: String,
     account: String,
     org_id: String,
-    created_on: String,
-    modified_on: String
+    created: String,
+    modified: String
 }
 
 type GroupInfo {
