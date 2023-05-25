@@ -8,7 +8,7 @@ import { filterObject } from '../resolvers/inputObject';
 import { filterInt } from '../resolvers/inputInt';
 import { HostFilterResolver } from '../resolvers/hosts';
 
-export type PrimativeTypeString = 'string' | 'integer' | 'array' | 'wildcard' | 'object' | 'boolean' | 'date-time'
+export type PrimativeTypeString = string
 export type PossiblyNestedJSONschema = JSONSchema | {JSONSchema: JSONSchema}
 
 function removeBlockedFields(schema:JSONSchema) {

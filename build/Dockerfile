@@ -10,7 +10,7 @@ RUN FULL_RHEL=$(microdnf repolist --enabled | grep rhel-8) ; \
         sed -i 's/^\(enabled.*\)/\1\npriority=200/;' /etc/yum.repos.d/CentOS*.repo ; \
     fi
 
-RUN microdnf module enable nodejs:14 && \
+RUN microdnf module enable nodejs:16 && \
     microdnf install --setopt=tsflags=nodocs -y nodejs git && \
     microdnf install -y rsync tar procps-ng && \
     microdnf upgrade -y && \
