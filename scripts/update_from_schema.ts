@@ -276,12 +276,12 @@ function getExampleValues(field_name: string, field_value: JSONSchema, host_numb
         throw `ERROR: string field ${field_name} missing example values`;
     }
 
-    let values = example.split(",");
+    let values = _.split(example, ",");
     values = values.map((s:string) => s.trim());
 
     let value = values[host_number]
     if (value == "null") {
-        value = null
+        value = ""
     }
 
     return value;

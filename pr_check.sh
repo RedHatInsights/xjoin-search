@@ -33,9 +33,16 @@ curl -s $CICD_URL/bootstrap.sh > .cicd_bootstrap.sh && source .cicd_bootstrap.sh
 source $CICD_ROOT/build.sh
 
 # Run the unit tests
+echo "RUNNING UNIT TEST"
 source $APP_ROOT/unit_test.sh
 
 # Run IQE tests
+echo "RUNNING DEPLOY_EPHEMERAL_ENV"
+export BONFIRE_NS_REQUESTER="${JOB_NAME}-${BUILD_NUMBER}-cji"
 source $CICD_ROOT/deploy_ephemeral_env.sh
+
+echo "RUNNING CJI_SMOKE_TEST"
 source $CICD_ROOT/cji_smoke_test.sh
+
+echo "RUNNING POST_TEST_RESULTS"
 source $CICD_ROOT/post_test_results.sh

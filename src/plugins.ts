@@ -1,7 +1,7 @@
 import { ValidationError, UserInputError } from 'apollo-server-express';
 import log from './util/log';
 import * as probes from './probes';
-import {GraphQLRequestContext} from 'apollo-server-types';
+import {GraphQLRequestContext, BaseContext} from 'apollo-server-types';
 import {GraphQLRequestListener} from 'apollo-server-plugin-base';
 
 function errorHandler (e: any) {
@@ -16,7 +16,8 @@ function errorHandler (e: any) {
 }
 
 export const observabilityPlugin = {
-    async requestDidStart<T>(requestContext: GraphQLRequestContext<T>): Promise<GraphQLRequestListener<T> | void> {
+    async requestDidStart<T>(
+        requestContext: GraphQLRequestContext<BaseContext>): Promise<GraphQLRequestListener | void> {
         log.debug({query: requestContext.request.query, variables: requestContext.request.variables}, 'incoming GraphQL query');
 
         return {

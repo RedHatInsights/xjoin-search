@@ -13,6 +13,7 @@
     * [Groups](#groups)
     * [Host](#host)
     * [HostGroups](#hostgroups)
+    * [HostStats](#hoststats)
     * [HostSystemProfile](#hostsystemprofile)
     * [HostTags](#hosttags)
     * [Hosts](#hosts)
@@ -116,7 +117,7 @@ Fetches a list of hosts based on the given filtering, ordering and pagination cr
 <td valign="top"><a href="#hosttags">HostTags</a></td>
 <td>
 
-Fetches a list of unique tags and the number of their occurenes in the given set of systems.
+Fetches a list of unique tags and the number of their occurences in the given set of systems.
 
 By default the query operates on all known systems that are registered with the given org_id.
 This can be altered using the `hostFilter` parameter.
@@ -200,6 +201,23 @@ This can be altered using `hostFilter` parameter.
 <tr>
 <td colspan="2" align="right" valign="top">order_how</td>
 <td valign="top"><a href="#order_dir">ORDER_DIR</a></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>hostStats</strong></td>
+<td valign="top"><a href="#hoststats">HostStats</a>!</td>
+<td>
+
+Fetches the counts of current, stale and stale-warning hosts, optionally
+filtering by the `hostFilter` parameter.
+
+I haven't yet found a way of making the host filter optional.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">hostFilter</td>
+<td valign="top"><a href="#hostfilter">HostFilter</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -553,6 +571,41 @@ The host's per-reporter staleness, flattened into an array.
 <tr>
 <td colspan="2" valign="top"><strong>meta</strong></td>
 <td valign="top"><a href="#collectionmeta">CollectionMeta</a>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+### HostStats
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>total_hosts</strong></td>
+<td valign="top"><a href="#int">Int</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>fresh_hosts</strong></td>
+<td valign="top"><a href="#int">Int</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>stale_hosts</strong></td>
+<td valign="top"><a href="#int">Int</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>warn_hosts</strong></td>
+<td valign="top"><a href="#int">Int</a>!</td>
 <td></td>
 </tr>
 </tbody>
