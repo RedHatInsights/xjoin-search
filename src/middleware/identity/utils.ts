@@ -22,7 +22,7 @@ function encode(data: any) {
 export default function createIdentityHeader(
     modify_data = (d: any) => d,
     username = DEFAULTS.user.username,
-    org_id = DEFAULTS.org_id,
+    org_id: string = DEFAULTS.org_id,
     is_internal = true): string {
 
     const data = {
