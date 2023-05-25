@@ -492,7 +492,7 @@ describe('hosts query', function () {
             }
 
             function _checkTestDataExists(test_data: TEST_QUERY[]) {
-                if (test_data === []) {
+                if (test_data.length === 0) {
                     throw 'No test data';
                 }
             }

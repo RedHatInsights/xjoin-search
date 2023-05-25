@@ -7,7 +7,7 @@ function wait_for_pod_to_be_created() {
 source ${CICD_ROOT}/_common_deploy_logic.sh
 
 # Deploy k8s resources for app without its dependencies
-export BONFIRE_NS_REQUESTER="${JOB_NAME}-${BUILD_NUMBER}-db"
+export BONFIRE_NS_REQUESTER="${JOB_NAME}-${BUILD_NUMBER}-unit"
 NAMESPACE=$(bonfire namespace reserve)
 DB_NAMESPACE=$NAMESPACE
 
