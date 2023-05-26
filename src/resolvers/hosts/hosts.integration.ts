@@ -79,8 +79,8 @@ const GROUP_QUERY = `
                         name,
                         account,
                         org_id,
-                        created_on,
-                        modified_on
+                        created,
+                        updated
                     }
                 }
             }

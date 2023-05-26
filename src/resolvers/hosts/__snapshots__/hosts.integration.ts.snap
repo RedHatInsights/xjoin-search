@@ -1284,11 +1284,11 @@ Object {
           "data": Array [
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2023-04-12T11:11:00.000000Z",
+              "created": "2023-04-12T11:11:00.000000Z",
               "id": "c32835f4-922d-4a0e-97e0-cdd429cf7007",
-              "modified_on": "2023-04-12T12:34:56.789000Z",
               "name": "MiXeDCaSe",
               "org_id": "hostGroupsTest",
+              "updated": "2023-04-12T12:34:56.789000Z",
             },
           ],
           "meta": Object {
@@ -1331,27 +1331,27 @@ Object {
           "data": Array [
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2023-04-12T11:11:00.000000Z",
+              "created": "2023-04-12T11:11:00.000000Z",
               "id": "54ef7a4d-47fd-47f9-85e3-d60259e2d8f2",
-              "modified_on": "2023-04-12T12:34:56.789000Z",
               "name": "prod",
               "org_id": "hostGroupsTest",
+              "updated": "2023-04-12T12:34:56.789000Z",
             },
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2021-01-12T11:11:00.000000Z",
+              "created": null,
               "id": "7f14c1df-2e42-4b12-99f6-d538b51e079c",
-              "modified_on": "2021-01-12T12:34:56.789000Z",
               "name": "foo",
               "org_id": "hostGroupsTest",
+              "updated": null,
             },
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2022-02-12T11:11:00.000000Z",
+              "created": null,
               "id": "911c454f-0dc8-4e0b-97fd-c78decbd9299",
-              "modified_on": "2022-02-12T12:34:56.789000Z",
               "name": "bar",
               "org_id": "hostGroupsTest",
+              "updated": null,
             },
           ],
           "meta": Object {
@@ -1383,11 +1383,11 @@ Object {
           "data": Array [
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2023-04-12T11:11:00.000000Z",
+              "created": "2023-04-12T11:11:00.000000Z",
               "id": "c32835f4-922d-4a0e-97e0-cdd429cf7007",
-              "modified_on": "2023-04-12T12:34:56.789000Z",
               "name": "MiXeDCaSe",
               "org_id": "hostGroupsTest",
+              "updated": "2023-04-12T12:34:56.789000Z",
             },
           ],
           "meta": Object {
@@ -1411,27 +1411,27 @@ Object {
           "data": Array [
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2023-04-12T11:11:00.000000Z",
+              "created": "2023-04-12T11:11:00.000000Z",
               "id": "54ef7a4d-47fd-47f9-85e3-d60259e2d8f2",
-              "modified_on": "2023-04-12T12:34:56.789000Z",
               "name": "prod",
               "org_id": "hostGroupsTest",
+              "updated": "2023-04-12T12:34:56.789000Z",
             },
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2021-01-12T11:11:00.000000Z",
+              "created": null,
               "id": "7f14c1df-2e42-4b12-99f6-d538b51e079c",
-              "modified_on": "2021-01-12T12:34:56.789000Z",
               "name": "foo",
               "org_id": "hostGroupsTest",
+              "updated": null,
             },
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2022-02-12T11:11:00.000000Z",
+              "created": null,
               "id": "911c454f-0dc8-4e0b-97fd-c78decbd9299",
-              "modified_on": "2022-02-12T12:34:56.789000Z",
               "name": "bar",
               "org_id": "hostGroupsTest",
+              "updated": null,
             },
           ],
           "meta": Object {
@@ -1446,19 +1446,19 @@ Object {
           "data": Array [
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2023-04-12T11:11:00.000000Z",
+              "created": "2023-04-12T11:11:00.000000Z",
               "id": "54ef7a4d-47fd-47f9-85e3-d60259e2d8f2",
-              "modified_on": "2023-04-12T12:34:56.789000Z",
               "name": "prod",
               "org_id": "hostGroupsTest",
+              "updated": "2023-04-12T12:34:56.789000Z",
             },
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2023-04-12T11:11:00.000000Z",
+              "created": "2023-04-12T11:11:00.000000Z",
               "id": "7c004532-13ff-4741-ab19-53bcb610490e",
-              "modified_on": "2023-04-12T12:34:56.789000Z",
               "name": "baz",
               "org_id": "hostGroupsTest",
+              "updated": "2023-04-12T12:34:56.789000Z",
             },
           ],
           "meta": Object {
@@ -1482,19 +1482,19 @@ Object {
           "data": Array [
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2023-04-12T11:11:00.000000Z",
+              "created": "2023-04-12T11:11:00.000000Z",
               "id": "54ef7a4d-47fd-47f9-85e3-d60259e2d8f2",
-              "modified_on": "2023-04-12T12:34:56.789000Z",
               "name": "prod",
               "org_id": "hostGroupsTest",
+              "updated": "2023-04-12T12:34:56.789000Z",
             },
             Object {
               "account": "hostGroupsTest",
-              "created_on": "2023-04-12T11:11:00.000000Z",
+              "created": "2023-04-12T11:11:00.000000Z",
               "id": "7c004532-13ff-4741-ab19-53bcb610490e",
-              "modified_on": "2023-04-12T12:34:56.789000Z",
               "name": "baz",
               "org_id": "hostGroupsTest",
+              "updated": "2023-04-12T12:34:56.789000Z",
             },
           ],
           "meta": Object {
@@ -1538,11 +1538,11 @@ Object {
           "data": Array [
             Object {
               "account": "test",
-              "created_on": "2023-04-12T11:11:00.000000Z",
+              "created": "2023-04-12T11:11:00.000000Z",
               "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
-              "modified_on": "2023-04-12T12:34:56.789000Z",
               "name": "group1",
               "org_id": "test",
+              "updated": "2023-04-12T12:34:56.789000Z",
             },
           ],
           "meta": Object {

@@ -187,8 +187,8 @@
             {
                 "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
                 "name": "group1",
-                "created_on": "2023-04-12T11:11:00.000000Z",
-                "modified_on": "2023-04-12T12:34:56.789000Z",
+                "created": "2023-04-12T11:11:00.000000Z",
+                "updated": "2023-04-12T12:34:56.789000Z",
                 "account": "test",
                 "org_id": "test"
             }
@@ -1514,8 +1514,8 @@
             {
                 "id": "54ef7a4d-47fd-47f9-85e3-d60259e2d8f2",
                 "name": "prod",
-                "created_on": "2023-04-12T11:11:00.000000Z",
-                "modified_on": "2023-04-12T12:34:56.789000Z",
+                "created": "2023-04-12T11:11:00.000000Z",
+                "updated": "2023-04-12T12:34:56.789000Z",
                 "account": "hostGroupsTest",
                 "org_id": "hostGroupsTest"
             },
@@ -1573,16 +1573,16 @@
             {
                 "id": "54ef7a4d-47fd-47f9-85e3-d60259e2d8f2",
                 "name": "prod",
-                "created_on": "2023-04-12T11:11:00.000000Z",
-                "modified_on": "2023-04-12T12:34:56.789000Z",
+                "created": "2023-04-12T11:11:00.000000Z",
+                "updated": "2023-04-12T12:34:56.789000Z",
                 "account": "hostGroupsTest",
                 "org_id": "hostGroupsTest"
             },
             {
                 "id": "7c004532-13ff-4741-ab19-53bcb610490e",
                 "name": "baz",
-                "created_on": "2023-04-12T11:11:00.000000Z",
-                "modified_on": "2023-04-12T12:34:56.789000Z",
+                "created": "2023-04-12T11:11:00.000000Z",
+                "updated": "2023-04-12T12:34:56.789000Z",
                 "account": "hostGroupsTest",
                 "org_id": "hostGroupsTest"
             }
@@ -1658,8 +1658,8 @@
             {
                 "id": "c32835f4-922d-4a0e-97e0-cdd429cf7007",
                 "name": "MiXeDCaSe",
-                "created_on": "2023-04-12T11:11:00.000000Z",
-                "modified_on": "2023-04-12T12:34:56.789000Z",
+                "created": "2023-04-12T11:11:00.000000Z",
+                "updated": "2023-04-12T12:34:56.789000Z",
                 "account": "hostGroupsTest",
                 "org_id": "hostGroupsTest"
             }

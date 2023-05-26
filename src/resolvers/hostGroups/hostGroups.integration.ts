@@ -23,7 +23,7 @@ const GROUP_FILTERS_QUERY = `
             }
             data {
                 group {
-                    id, name, account, org_id, created_on, modified_on
+                    id, name, account, org_id, created, updated
                 },
                 count
             }
