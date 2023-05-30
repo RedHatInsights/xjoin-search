@@ -347,12 +347,12 @@ total number of entities matching the query
 <td></td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>created_on</strong></td>
+<td colspan="2" valign="top"><strong>created</strong></td>
 <td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>modified_on</strong></td>
+<td colspan="2" valign="top"><strong>updated</strong></td>
 <td valign="top"><a href="#string">String</a></td>
 <td></td>
 </tr>

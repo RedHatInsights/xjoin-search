@@ -1522,16 +1522,16 @@
             {
                 "id": "7f14c1df-2e42-4b12-99f6-d538b51e079c",
                 "name": "foo",
-                "created_on": "2021-01-12T11:11:00.000000Z",
-                "modified_on": "2021-01-12T12:34:56.789000Z",
+                "created": "2021-01-12T11:11:00.000000Z",
+                "updated": "2021-01-12T12:34:56.789000Z",
                 "account": "hostGroupsTest",
                 "org_id": "hostGroupsTest"
             },
             {
                 "id": "911c454f-0dc8-4e0b-97fd-c78decbd9299",
                 "name": "bar",
-                "created_on": "2022-02-12T11:11:00.000000Z",
-                "modified_on": "2022-02-12T12:34:56.789000Z",
+                "created": "2022-02-12T11:11:00.000000Z",
+                "updated": "2022-02-12T12:34:56.789000Z",
                 "account": "hostGroupsTest",
                 "org_id": "hostGroupsTest"
             }
