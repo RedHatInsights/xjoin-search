@@ -49,8 +49,8 @@ export default async function hostGroups(parent: any, args: QueryHostGroupsArgs,
                                         includes: [
                                             'groups.id',
                                             'groups.name',
-                                            'groups.created_on',
-                                            'groups.modified_on',
+                                            'groups.created',
+                                            'groups.updated',
                                             'groups.account',
                                             'groups.org_id'
                                         ]
