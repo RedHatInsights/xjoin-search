@@ -1316,6 +1316,16 @@ Object {
         },
         "id": "fa48a4c8-6c4c-4be9-949f-c659ef9bfdd7",
       },
+      Object {
+        "display_name": "groups-test-missing-groups",
+        "groups": Object {
+          "data": Array [],
+          "meta": Object {
+            "total": 0,
+          },
+        },
+        "id": "384e2453-18ce-4e9e-89d6-2fc57b6aa6c9",
+      },
     ],
   },
 }
@@ -1512,6 +1522,45 @@ Object {
           },
         },
         "id": "fa48a4c8-6c4c-4be9-949f-c659ef9bfdd7",
+      },
+      Object {
+        "display_name": "groups-test-missing-groups",
+        "groups": Object {
+          "data": Array [],
+          "meta": Object {
+            "total": 0,
+          },
+        },
+        "id": "384e2453-18ce-4e9e-89d6-2fc57b6aa6c9",
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query queries groups group hasSome false 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "display_name": "groups-test-3",
+        "groups": Object {
+          "data": Array [],
+          "meta": Object {
+            "total": 0,
+          },
+        },
+        "id": "fa48a4c8-6c4c-4be9-949f-c659ef9bfdd7",
+      },
+      Object {
+        "display_name": "groups-test-missing-groups",
+        "groups": Object {
+          "data": Array [],
+          "meta": Object {
+            "total": 0,
+          },
+        },
+        "id": "384e2453-18ce-4e9e-89d6-2fc57b6aa6c9",
       },
     ],
   },

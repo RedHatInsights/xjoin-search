@@ -1207,13 +1207,13 @@ describe('hosts query', function () {
                         }
                     }
                 }, headers);
-                data.hosts.data.should.have.length(1);
+                data.hosts.data.should.have.length(2);
                 expect(data).toMatchSnapshot();
             });
 
             test('group filter union', async () => {
                 const headers = createHeaders('customer', 'hostGroupsTest', false);
-                const { data } = await runQuery(GROUP_QUERY, {
+                const {data} = await runQuery(GROUP_QUERY, {
                     filter: {
                         OR: [{
                             group: {
@@ -1224,6 +1224,19 @@ describe('hosts query', function () {
                                 hasSome: {is: false}
                             }
                         }]
+                    }
+                }, headers);
+                data.hosts.data.should.have.length(3);
+                expect(data).toMatchSnapshot();
+            });
+
+            test('group hasSome false', async () => {
+                const headers = createHeaders('customer', 'hostGroupsTest', false);
+                const {data} = await runQuery(GROUP_QUERY, {
+                    filter: {
+                        group: {
+                            hasSome: {is: false}
+                        }
                     }
                 }, headers);
                 data.hosts.data.should.have.length(2);
