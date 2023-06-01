@@ -2,7 +2,7 @@ import {FilterBoolean, FilterGroup, FilterStringWithWildcardWithLowercase} from 
 import {isEmpty} from 'lodash';
 import {filterStringWithWildcardWithLowercase} from './inputString';
 
-function getFilterStringValue (value: FilterStringWithWildcardWithLowercase | undefined | null): any {
+function getFilterStringValue(value: FilterStringWithWildcardWithLowercase | undefined | null): any {
     if (!value || !value.eq) {
         return null;
     }
@@ -10,11 +10,46 @@ function getFilterStringValue (value: FilterStringWithWildcardWithLowercase | un
     return value.eq;
 }
 
-function getFilterBooleanValue (value: FilterBoolean | undefined | null): any {
+function getFilterBooleanValue(value: FilterBoolean | undefined | null): any {
     return !(!value || !value.is);
 }
 
-export function filterGroup (value: FilterGroup): Record<string, any>[] {
+function buildHasSomeFilter(hasSome: FilterBoolean): Record<string, any> {
+    let response: Record<string, any>;
+
+    const hasSomeValue = getFilterBooleanValue(hasSome);
+    const nested = [{
+        nested: {
+            path: 'groups',
+            query: {
+                bool: {
+                    filter: [{
+                        exists: {
+                            field: 'groups'
+                        }
+                    }]
+                }
+            }
+        }
+    }];
+    if (hasSomeValue) {
+        response = {
+            bool: {
+                must: nested
+            }
+        };
+    } else {
+        response = {
+            bool: {
+                must_not: nested
+            }
+        };
+    }
+
+    return response;
+}
+
+function buildTermFilter(value: FilterGroup): Record<any, any> {
 
     const bool: Record<string, any> = {};
     const query: Record<string, any> = {
@@ -22,23 +57,6 @@ export function filterGroup (value: FilterGroup): Record<string, any>[] {
     };
 
     const filter: Record<string, any>[] = [];
-
-    if (!isEmpty(value.hasSome)) {
-        const hasSomeValue = getFilterBooleanValue(value.hasSome);
-        if (hasSomeValue) {
-            filter.push({
-                exists: {
-                    field: 'groups'
-                }
-            });
-        } else {
-            bool.must_not = {
-                exists: {
-                    field: 'groups'
-                }
-            };
-        }
-    }
 
     if (!isEmpty(value.name) && value.name !== undefined) {
         filter.push(...filterStringWithWildcardWithLowercase('groups.name', value.name));
@@ -52,10 +70,28 @@ export function filterGroup (value: FilterGroup): Record<string, any>[] {
 
     bool.filter = filter;
 
-    return [{
-        nested: {
-            path: 'groups',
-            query
+    return {
+        bool: {
+            must: {
+                nested: {
+                    path: 'groups',
+                    query
+                }
+            }
         }
-    }];
+    };
+}
+
+export function filterGroup(value: FilterGroup): Record<string, any>[] {
+    const response: any = [];
+
+    if ((!isEmpty(value.name) && value.name !== undefined) || !isEmpty(value.id)) {
+        response.push(buildTermFilter(value));
+    }
+
+    if (!isEmpty(value.hasSome)) {
+        response.push(buildHasSomeFilter(value.hasSome));
+    }
+
+    return response;
 }
