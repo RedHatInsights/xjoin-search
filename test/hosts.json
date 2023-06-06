@@ -1664,5 +1664,38 @@
                 "org_id": "hostGroupsTest"
             }
         ]
+    },
+    {
+        "id": "384e2453-18ce-4e9e-89d6-2fc57b6aa6c9",
+        "account": "hostGroupsTest",
+        "org_id": "hostGroupsTest",
+        "display_name": "groups-test-missing-groups",
+        "created_on": "2023-04-12T11:11:00.000000Z",
+        "modified_on": "2023-04-12T12:34:56.789000Z",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+        "reporter": "puptoo",
+        "ansible_host": "foo.local",
+        "canonical_facts": {
+            "fqdn": "foo.local",
+            "insights_id": "dc88db78-75f6-4815-9401-7a30df6a35ea"
+        },
+        "system_profile_facts": {},
+        "tags_structured": [],
+        "tags_string": [],
+        "per_reporter_staleness": {
+            "puptoo": {
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        },
+        "per_reporter_staleness_flat": [
+            {
+                "reporter": "puptoo",
+                "last_check_in": "2019-01-10T08:07:03.354312Z",
+                "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+                "check_in_succeeded": true
+            }
+        ]
     }
 ]
