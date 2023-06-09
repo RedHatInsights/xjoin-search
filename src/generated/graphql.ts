@@ -268,6 +268,16 @@ export type FilterSystemPurpose = {
   usage?: InputMaybe<FilterString>;
 };
 
+/** Filter by 'systemd' field of system profile */
+export type FilterSystemd = {
+  /** Filter by 'failed' field of systemd */
+  failed?: InputMaybe<FilterInt>;
+  /** Filter by 'jobs_queued' field of systemd */
+  jobs_queued?: InputMaybe<FilterInt>;
+  /** Filter by 'state' field of systemd */
+  state?: InputMaybe<FilterString>;
+};
+
 /** Filters hosts by the presence of a host tag */
 export type FilterTag = {
   /** Tag key */
@@ -519,6 +529,8 @@ export type HostFilter = {
   spf_system_purpose?: InputMaybe<FilterSystemPurpose>;
   /** Filter by 'system_update_method' field of system profile */
   spf_system_update_method?: InputMaybe<FilterString>;
+  /** Filter by 'systemd' field of system profile */
+  spf_systemd?: InputMaybe<FilterSystemd>;
   /** Filter by 'tuned_profile' field of system profile */
   spf_tuned_profile?: InputMaybe<FilterString>;
   /** Filter by the stale_timestamp value */
@@ -836,6 +848,7 @@ export type ResolversTypes = {
   FilterStringWithWildcard: FilterStringWithWildcard;
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
   FilterSystemPurpose: FilterSystemPurpose;
+  FilterSystemd: FilterSystemd;
   FilterTag: FilterTag;
   FilterTimestamp: FilterTimestamp;
   Group: ResolverTypeWrapper<Group>;
@@ -897,6 +910,7 @@ export type ResolversParentTypes = {
   FilterStringWithWildcard: FilterStringWithWildcard;
   FilterStringWithWildcardWithLowercase: FilterStringWithWildcardWithLowercase;
   FilterSystemPurpose: FilterSystemPurpose;
+  FilterSystemd: FilterSystemd;
   FilterTag: FilterTag;
   FilterTimestamp: FilterTimestamp;
   Group: Group;
