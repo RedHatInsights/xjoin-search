@@ -122,7 +122,12 @@
                 "version": "1.00.122.04.1478575636"
             },
             "releasever": "7",
-            "basearch": "x86_64"
+            "basearch": "x86_64",
+            "systemd": {
+                "state": "initializing",
+                "jobs_queued": 0,
+                "failed": 0
+            }
         },
         "tags_structured": [
             {
@@ -317,7 +322,12 @@
             "system_update_method": "rpm-ostree",
             "host_type": "None",
             "releasever": "7.0",
-            "basearch": "arm"
+            "basearch": "arm",
+            "systemd": {
+                "state": "starting",
+                "jobs_queued": 1,
+                "failed": 1
+            }
         },
         "tags_structured": [
             {
@@ -490,7 +500,12 @@
             },
             "system_update_method": "yum",
             "releasever": "7Server",
-            "basearch": "ppc64"
+            "basearch": "ppc64",
+            "systemd": {
+                "state": "running",
+                "jobs_queued": 2,
+                "failed": 2
+            }
         },
         "tags_structured": [
             {
