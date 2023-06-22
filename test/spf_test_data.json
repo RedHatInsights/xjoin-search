@@ -219,6 +219,38 @@
     }
   },
   {
+    "field_name": "systemd state",
+    "field_query": {
+      "spf_systemd": {
+        "state": {
+          "eq": "starting"
+        }
+      }
+    }
+  },
+  {
+    "field_name": "systemd jobs_queued",
+    "field_query": {
+      "spf_systemd": {
+        "jobs_queued": {
+          "gt": 0,
+          "lte": 1
+        }
+      }
+    }
+  },
+  {
+    "field_name": "systemd failed",
+    "field_query": {
+      "spf_systemd": {
+        "failed": {
+          "gt": 0,
+          "lte": 1
+        }
+      }
+    }
+  },
+  {
     "field_name": "operating_system major",
     "field_query": {
       "spf_operating_system": {

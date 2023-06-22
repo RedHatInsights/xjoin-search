@@ -468,6 +468,20 @@ objects:
                   "cpu_flags": {
                     "type": "keyword"
                   },
+                  "systemd": {
+                    "type": "object",
+                    "properties": {
+                      "state": {
+                        "type": "keyword"
+                      },
+                      "jobs_queued": {
+                        "type": "integer"
+                      },
+                      "failed": {
+                        "type": "integer"
+                      }
+                    }
+                  },
                   "operating_system": {
                     "type": "object",
                     "properties": {
