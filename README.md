@@ -6,7 +6,7 @@ Search server that exposes Elasticsearch indexes via GraphQL API.
 
 ### Prerequisities
 
-* node.js 10
+* node.js 16
 * docker-compose
 
 ### Running the application
