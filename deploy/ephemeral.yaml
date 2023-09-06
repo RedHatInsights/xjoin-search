@@ -122,6 +122,9 @@ objects:
             spec:
               containers:
                 - name: elasticsearch
+                  env:
+                  - name: ES_JAVA_OPTS
+                    value: ${ES_JAVA_OPTS}
                   resources:
                     limits:
                       cpu: ${ES_CPU_LIMITS}
@@ -780,9 +783,11 @@ parameters:
   - name: ES_CPU_LIMITS
     value: "1"
   - name: ES_MEMORY_REQUESTS
-    value: 16Mi
+    value: 1Gi
   - name: ES_MEMORY_LIMITS
     value: 2Gi
+  - name: ES_JAVA_OPTS
+    value: -Xms500m -Xmx500m
   - name: NUM_REPLICAS
     value: "1"
   - name: ES_USERNAME
