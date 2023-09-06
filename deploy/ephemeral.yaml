@@ -124,11 +124,11 @@ objects:
                 - name: elasticsearch
                   resources:
                     limits:
-                      cpu: 1
-                      memory: 2Gi
+                      cpu: ${ES_CPU_LIMITS}
+                      memory: ${ES_MEM_LIMITS}
                     requests:
-                      cpu: 250m
-                      memory: 1Gi
+                      cpu: ${ES_CPU_REQUESTS}
+                      memory: ${ES_MEM_REQUESTS}
           count: 1
           config:
             node.store.allow_mmap: false
@@ -775,6 +775,14 @@ parameters:
     value: 256Mi
   - name: MEMORY_LIMITS
     value: 512Mi
+  - name: ES_CPU_REQUESTS
+    value: 50m
+  - name: ES_CPU_LIMITS
+    value: "1"
+  - name: ES_MEMORY_REQUESTS
+    value: 16Mi
+  - name: ES_MEMORY_LIMITS
+    value: 2Gi
   - name: NUM_REPLICAS
     value: "1"
   - name: ES_USERNAME
