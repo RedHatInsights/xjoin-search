@@ -122,13 +122,16 @@ objects:
             spec:
               containers:
                 - name: elasticsearch
+                  env:
+                  - name: ES_JAVA_OPTS
+                    value: ${ES_JAVA_OPTS}
                   resources:
                     limits:
-                      cpu: 1
-                      memory: 2Gi
+                      cpu: ${ES_CPU_LIMITS}
+                      memory: ${ES_MEMORY_LIMITS}
                     requests:
-                      cpu: 250m
-                      memory: 1Gi
+                      cpu: ${ES_CPU_REQUESTS}
+                      memory: ${ES_MEMORY_REQUESTS}
           count: 1
           config:
             node.store.allow_mmap: false
@@ -775,6 +778,16 @@ parameters:
     value: 256Mi
   - name: MEMORY_LIMITS
     value: 512Mi
+  - name: ES_CPU_REQUESTS
+    value: 250m
+  - name: ES_CPU_LIMITS
+    value: "1"
+  - name: ES_MEMORY_REQUESTS
+    value: 1Gi
+  - name: ES_MEMORY_LIMITS
+    value: 2Gi
+  - name: ES_JAVA_OPTS
+    value: -Xms500m -Xmx500m
   - name: NUM_REPLICAS
     value: "1"
   - name: ES_USERNAME
