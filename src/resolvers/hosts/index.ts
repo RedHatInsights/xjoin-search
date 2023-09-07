@@ -162,6 +162,26 @@ function customOperatingSystemSort(order_how: any) {
     };
 }
 
+function customGroupNameSort(order_how: any) {
+    // Custom script sort using script
+    return {
+        _script: {
+            type: 'string',
+            script: {
+                lang: 'painless',
+                source: `
+                    if (params._source.groups == null )
+                        { return ''; }
+                    if (params._source.groups.length > 0)
+                        { return params._source.groups[0].name; }
+                    else 
+                        { return ''; }`
+            },
+            order: String(order_how)
+        }
+    };
+}
+
 function processOrderBy(order_by: any) {
     let string_order_by = String(order_by);
 
@@ -178,6 +198,8 @@ function processSort(order_by: any, order_how: any) {
 
     if (string_order_by === 'operating_system') {
         processedSort = customOperatingSystemSort(order_how);
+    } else if (string_order_by === 'group_name') {
+        processedSort = customGroupNameSort(order_how)
     } else {
         // Return the standard sort
         processedSort = [{

@@ -68,6 +68,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
         "display_name": "test01.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
         "modified_on": "2019-02-10T08:07:03.354312Z",
         "org_id": "test",
@@ -78,6 +81,13 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
         "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
         "modified_on": "2019-01-10T08:07:03.354312Z",
         "org_id": "test",
@@ -88,6 +98,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -98,6 +111,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.aprice.local",
         "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -108,6 +124,9 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.aprice.local",
         "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -118,6 +137,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel8.aprice.local",
         "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -128,6 +150,9 @@ Object {
         "account": "test",
         "ansible_host": "test04.rhel.aprice.local",
         "display_name": "test4.rhel.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
         "modified_on": "2020-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -147,6 +172,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
         "display_name": "test01.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
         "modified_on": "2019-02-10T08:07:03.354312Z",
         "org_id": "test",
@@ -157,6 +185,13 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
         "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
         "modified_on": "2019-01-10T08:07:03.354312Z",
         "org_id": "test",
@@ -167,6 +202,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -177,6 +215,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.aprice.local",
         "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -187,6 +228,9 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.aprice.local",
         "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -197,6 +241,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel8.aprice.local",
         "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -207,6 +254,9 @@ Object {
         "account": "test",
         "ansible_host": "test04.rhel.aprice.local",
         "display_name": "test4.rhel.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
         "modified_on": "2020-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -226,6 +276,9 @@ Object {
         "account": "test",
         "ansible_host": "test04.rhel.aprice.local",
         "display_name": "test4.rhel.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
         "modified_on": "2020-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -236,6 +289,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel8.aprice.local",
         "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -246,6 +302,9 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.aprice.local",
         "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -256,6 +315,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.aprice.local",
         "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -266,6 +328,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -276,6 +341,13 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
         "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
         "modified_on": "2019-01-10T08:07:03.354312Z",
         "org_id": "test",
@@ -286,6 +358,217 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
         "display_name": "test01.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
+        "modified_on": "2019-02-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-02-10T08:07:03.354307Z",
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query ordering group_name ASC 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "display_name": "test03.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test04.rhel.aprice.local",
+        "display_name": "test4.rhel.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "modified_on": "2020-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.jharting.local",
+        "display_name": "test01.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
+        "modified_on": "2019-02-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-02-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.jharting.local",
+        "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
+        "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+        "modified_on": "2019-01-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+      },
+    ],
+  },
+}
+`;
+
+exports[`hosts query ordering group_name DESC 1`] = `
+Object {
+  "hosts": Object {
+    "data": Array [
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.jharting.local",
+        "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
+        "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+        "modified_on": "2019-01-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-01-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "display_name": "test03.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test04.rhel.aprice.local",
+        "display_name": "test4.rhel.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
+        "modified_on": "2020-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.jharting.local",
+        "display_name": "test01.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
         "modified_on": "2019-02-10T08:07:03.354312Z",
         "org_id": "test",
@@ -305,6 +588,9 @@ Object {
         "account": "test",
         "ansible_host": "test04.rhel.aprice.local",
         "display_name": "test4.rhel.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
         "modified_on": "2020-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -315,6 +601,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.aprice.local",
         "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -325,6 +614,9 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.aprice.local",
         "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -335,6 +627,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel8.aprice.local",
         "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -345,6 +640,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -355,6 +653,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
         "display_name": "test01.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
         "modified_on": "2019-02-10T08:07:03.354312Z",
         "org_id": "test",
@@ -365,6 +666,13 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
         "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
         "modified_on": "2019-01-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1212,6 +1520,13 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
         "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
         "modified_on": "2019-01-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1222,6 +1537,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1693,6 +2011,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
         "display_name": "test01.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
         "modified_on": "2019-02-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1703,6 +2024,13 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
         "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
         "modified_on": "2019-01-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1722,6 +2050,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1732,6 +2063,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.aprice.local",
         "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1742,6 +2076,9 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.aprice.local",
         "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1752,6 +2089,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel8.aprice.local",
         "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1762,6 +2102,9 @@ Object {
         "account": "test",
         "ansible_host": "test04.rhel.aprice.local",
         "display_name": "test4.rhel.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
         "modified_on": "2020-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1781,6 +2124,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
         "display_name": "test01.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
         "modified_on": "2019-02-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1791,6 +2137,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1801,6 +2150,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.aprice.local",
         "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1811,6 +2163,9 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.aprice.local",
         "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1821,6 +2176,9 @@ Object {
         "account": "test",
         "ansible_host": "test03.rhel8.aprice.local",
         "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1831,6 +2189,9 @@ Object {
         "account": "test",
         "ansible_host": "test04.rhel.aprice.local",
         "display_name": "test4.rhel.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc04",
         "modified_on": "2020-03-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1850,6 +2211,13 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
         "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
         "modified_on": "2019-01-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1869,6 +2237,9 @@ Object {
         "account": "test",
         "ansible_host": "test01.rhel7.jharting.local",
         "display_name": "test01.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [],
+        },
         "id": "6e7b6317-0a2d-4552-a2f2-b7da0aece49d",
         "modified_on": "2019-02-10T08:07:03.354312Z",
         "org_id": "test",
@@ -1879,6 +2250,13 @@ Object {
         "account": "test",
         "ansible_host": "test02.rhel7.jharting.local",
         "display_name": "test02.rhel7.jharting.local",
+        "groups": Object {
+          "data": Array [
+            Object {
+              "name": "group1",
+            },
+          ],
+        },
         "id": "22cd8e39-13bb-4d02-8316-84b850dc5136",
         "modified_on": "2019-01-10T08:07:03.354312Z",
         "org_id": "test",

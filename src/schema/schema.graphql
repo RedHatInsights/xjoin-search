@@ -24,8 +24,9 @@ type CollectionMeta {
 
 enum HOSTS_ORDER_BY {
     display_name,
+    group_name
     modified_on,
-    operating_system
+    operating_system,
 }
 
 enum HOST_TAGS_ORDER_BY {

@@ -326,6 +326,7 @@ export type Groups = {
 
 export enum Hosts_Order_By {
   DisplayName = 'display_name',
+  GroupName = 'group_name',
   ModifiedOn = 'modified_on',
   OperatingSystem = 'operating_system'
 }
