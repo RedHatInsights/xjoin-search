@@ -239,7 +239,7 @@ describe('hosts query', function () {
             expect(status).toEqual(200);
             expect(data).toMatchSnapshot();
             // the first host is not expected to have any groups, i.e. null
-            data.hosts.data[0].groups.length == null;
+            data.hosts.data[0].groups.length === null;
         });
 
         test('group_name DESC', async () => {
