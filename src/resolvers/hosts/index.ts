@@ -199,7 +199,7 @@ function processSort(order_by: any, order_how: any) {
     if (string_order_by === 'operating_system') {
         processedSort = customOperatingSystemSort(order_how);
     } else if (string_order_by === 'group_name') {
-        processedSort = customGroupNameSort(order_how)
+        processedSort = customGroupNameSort(order_how);
     } else {
         // Return the standard sort
         processedSort = [{

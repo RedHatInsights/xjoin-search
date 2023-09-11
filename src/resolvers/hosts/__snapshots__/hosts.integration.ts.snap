@@ -430,12 +430,12 @@ Object {
       },
       Object {
         "account": "test",
-        "ansible_host": "test03.rhel8.aprice.local",
-        "display_name": "test3.rhel8.aprice.local",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "display_name": "test03.rhel7.jharting.local",
         "groups": Object {
           "data": Array [],
         },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
         "reporter": "puptoo",
@@ -443,12 +443,12 @@ Object {
       },
       Object {
         "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "test03.rhel7.jharting.local",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
         "groups": Object {
           "data": Array [],
         },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
         "reporter": "puptoo",
@@ -551,12 +551,12 @@ Object {
       },
       Object {
         "account": "test",
-        "ansible_host": "test03.rhel8.aprice.local",
-        "display_name": "test3.rhel8.aprice.local",
+        "ansible_host": "test03.rhel7.jharting.local",
+        "display_name": "test03.rhel7.jharting.local",
         "groups": Object {
           "data": Array [],
         },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
         "reporter": "puptoo",
@@ -564,12 +564,12 @@ Object {
       },
       Object {
         "account": "test",
-        "ansible_host": "test03.rhel7.jharting.local",
-        "display_name": "test03.rhel7.jharting.local",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
         "groups": Object {
           "data": Array [],
         },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
         "reporter": "puptoo",
