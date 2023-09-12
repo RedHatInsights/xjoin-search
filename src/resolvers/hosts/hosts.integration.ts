@@ -239,7 +239,7 @@ describe('hosts query', function () {
             expect(status).toEqual(200);
             expect(data).toMatchSnapshot();
             // the first host is not expected to have any groups, i.e. null
-            data.hosts.data[0].groups.data.length === 0;
+            expect(data.hosts.data[0].groups.data.length).toEqual(0);
         });
 
         test('group_name DESC', async () => {
@@ -250,7 +250,7 @@ describe('hosts query', function () {
 
             expect(status).toEqual(200);
             expect(data).toMatchSnapshot();
-            data.hosts.data[0].groups.data[0].name.should.equal('group1');
+            expect(data.hosts.data[0].groups.data[0].name).toEqual('group1');
         });
 
         test('operating_system ASC', async () => {
