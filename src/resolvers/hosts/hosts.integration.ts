@@ -31,7 +31,10 @@ const BASIC_QUERY = `
                 modified_on,
                 stale_timestamp,
                 reporter,
-                ansible_host
+                ansible_host,
+                groups {
+                    data { name }
+                }
             }
         }
     }
@@ -225,6 +228,29 @@ describe('hosts query', function () {
 
             expect(status).toEqual(200);
             expect(data).toMatchSnapshot();
+        });
+
+        test('group_name ASC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'group_name',
+                order_how: 'ASC'
+            });
+
+            expect(status).toEqual(200);
+            expect(data).toMatchSnapshot();
+            // the first host is not expected to have any groups, i.e. null
+            expect(data.hosts.data[0].groups.data.length).toEqual(0);
+        });
+
+        test('group_name DESC', async () => {
+            const { data, status } = await runQuery(BASIC_QUERY, {
+                order_by: 'group_name',
+                order_how: 'DESC'
+            });
+
+            expect(status).toEqual(200);
+            expect(data).toMatchSnapshot();
+            expect(data.hosts.data[0].groups.data[0].name).toEqual('group1');
         });
 
         test('operating_system ASC', async () => {
