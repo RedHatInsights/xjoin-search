@@ -173,7 +173,7 @@ function customGroupNameSort(order_how: any) {
                     if (params._source.groups == null )
                         { return ''; }
                     if (params._source.groups.length > 0)
-                        { return params._source.groups[0].name; }
+                        { return params._source.groups[0].name.toLowerCase(); }
                     else 
                         { return ''; }`
             },
