@@ -77,6 +77,9 @@
         "cores_per_socket": {
           "type": "integer"
         },
+        "threads_per_core": {
+          "type": "integer"
+        },
         "system_memory_bytes": {
           "type": "long"
         },
@@ -149,6 +152,9 @@
             },
             "failed": {
               "type": "integer"
+            },
+            "failed_services": {
+              "type": "keyword"
             }
           }
         },
