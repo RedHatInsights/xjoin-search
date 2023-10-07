@@ -221,6 +221,9 @@ input HostFilter {
     "Filter by 'system_memory_bytes' field of system profile"
     spf_system_memory_bytes: FilterInt
 
+    "Filter by 'threads_per_core' field of system profile"
+    spf_threads_per_core: FilterInt
+
     "Filter by 'cores_per_socket' field of system profile"
     spf_cores_per_socket: FilterInt
 
@@ -614,6 +617,9 @@ input FilterSystemd {
 
     "Filter by 'failed' field of systemd"
     failed: FilterInt
+
+    "Filter by 'failed_services' field of systemd"
+    failed_services: FilterString
 
 }
 
