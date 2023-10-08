@@ -22,7 +22,7 @@
             "os_kernel_version": "4.18.2",
             "infrastructure_type": "physical",
             "infrastructure_vendor": "ex1",
-            "last_boot_time": "2021-01-10T15:10:10.000Z",
+            "last_boot_time": "2021-01-10T10:10:10.000Z",
             "number_of_sockets": 0,
             "insights_egg_version": "2.3",
             "bios_release_date": "12/01/2006",
@@ -126,8 +126,10 @@
             "systemd": {
                 "state": "initializing",
                 "jobs_queued": 0,
-                "failed": 0
-            }
+                "failed": 0,
+                "failed_services": "ex1"
+            },
+            "threads_per_core": 0
         },
         "tags_structured": [
             {
@@ -222,7 +224,7 @@
             "os_kernel_version": "4.5.0",
             "infrastructure_type": "virtual",
             "infrastructure_vendor": "ex2",
-            "last_boot_time": "2021-01-11T15:10:10.000Z",
+            "last_boot_time": "2021-01-11T10:10:10.000Z",
             "number_of_sockets": 1,
             "insights_egg_version": "4.4",
             "bios_release_date": "12/01/2006",
@@ -326,8 +328,10 @@
             "systemd": {
                 "state": "starting",
                 "jobs_queued": 1,
-                "failed": 1
-            }
+                "failed": 1,
+                "failed_services": "ex2"
+            },
+            "threads_per_core": 1
         },
         "tags_structured": [
             {
@@ -402,7 +406,7 @@
             "os_kernel_version": "5.1.0",
             "infrastructure_type": "imaginary",
             "infrastructure_vendor": "baremetal",
-            "last_boot_time": "2021-01-12T15:10:10.000Z",
+            "last_boot_time": "2021-01-12T10:10:10.000Z",
             "number_of_sockets": 2,
             "insights_egg_version": "5.1",
             "bios_release_date": "12/01/2006",
@@ -504,8 +508,10 @@
             "systemd": {
                 "state": "running",
                 "jobs_queued": 2,
-                "failed": 2
-            }
+                "failed": 2,
+                "failed_services": "ex3"
+            },
+            "threads_per_core": 2
         },
         "tags_structured": [
             {
