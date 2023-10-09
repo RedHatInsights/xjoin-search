@@ -272,6 +272,8 @@ export type FilterSystemPurpose = {
 export type FilterSystemd = {
   /** Filter by 'failed' field of systemd */
   failed?: InputMaybe<FilterInt>;
+  /** Filter by 'failed_services' field of systemd */
+  failed_services?: InputMaybe<FilterString>;
   /** Filter by 'jobs_queued' field of systemd */
   jobs_queued?: InputMaybe<FilterInt>;
   /** Filter by 'state' field of systemd */
@@ -532,6 +534,8 @@ export type HostFilter = {
   spf_system_update_method?: InputMaybe<FilterString>;
   /** Filter by 'systemd' field of system profile */
   spf_systemd?: InputMaybe<FilterSystemd>;
+  /** Filter by 'threads_per_core' field of system profile */
+  spf_threads_per_core?: InputMaybe<FilterInt>;
   /** Filter by 'tuned_profile' field of system profile */
   spf_tuned_profile?: InputMaybe<FilterString>;
   /** Filter by the stale_timestamp value */
