@@ -59,6 +59,15 @@
     }
   },
   {
+    "field_name": "threads_per_core",
+    "field_query": {
+      "spf_threads_per_core": {
+        "gt": 0,
+        "lte": 1
+      }
+    }
+  },
+  {
     "field_name": "system_memory_bytes",
     "field_query": {
       "spf_system_memory_bytes": {
@@ -251,6 +260,16 @@
     }
   },
   {
+    "field_name": "systemd failed_services",
+    "field_query": {
+      "spf_systemd": {
+        "failed_services": {
+          "eq": "ex2"
+        }
+      }
+    }
+  },
+  {
     "field_name": "operating_system major",
     "field_query": {
       "spf_operating_system": {
@@ -350,8 +369,8 @@
     "field_name": "last_boot_time",
     "field_query": {
       "spf_last_boot_time": {
-        "gt": "2021-01-10T15:10:10.000Z",
-        "lte": "2021-01-11T15:10:10.000Z"
+        "gt": "2021-01-10T10:10:10.000Z",
+        "lte": "2021-01-11T10:10:10.000Z"
       }
     }
   },

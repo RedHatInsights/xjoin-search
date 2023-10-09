@@ -123,8 +123,8 @@ objects:
               containers:
                 - name: elasticsearch
                   env:
-                  - name: ES_JAVA_OPTS
-                    value: ${ES_JAVA_OPTS}
+                    - name: ES_JAVA_OPTS
+                      value: ${ES_JAVA_OPTS}
                   resources:
                     limits:
                       cpu: ${ES_CPU_LIMITS}
@@ -410,6 +410,9 @@ objects:
                   "cores_per_socket": {
                     "type": "integer"
                   },
+                  "threads_per_core": {
+                    "type": "integer"
+                  },
                   "system_memory_bytes": {
                     "type": "long"
                   },
@@ -482,6 +485,9 @@ objects:
                       },
                       "failed": {
                         "type": "integer"
+                      },
+                      "failed_services": {
+                        "type": "keyword"
                       }
                     }
                   },
