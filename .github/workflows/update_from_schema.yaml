@@ -62,12 +62,8 @@ jobs:
         if: steps.update_schema.outputs.update_schema == 'yes'
         uses: peter-evans/create-pull-request@v5
         with:
-          base: master
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          signoff: false
-          branch: system_profile_schema_update
-          branch-suffix: short-commit-hash
+          branch: create_pull_request/update_mapping
           delete-branch: true
-          title: '[Automated] Update mapping'
+          title: 'chore(update_mapping) Update mapping'
           body: |
             Updated xjoin-search to support the latest inventory-schemas changes
