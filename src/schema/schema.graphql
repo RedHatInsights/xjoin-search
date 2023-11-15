@@ -74,6 +74,9 @@ input HostFilter {
     # DO NOT REMOVE. Used to automatically update this schema
     # based on the system_profile JSONschema
     # START: system_profile schema filters
+    "Filter by 'virtual_host_uuid' field of system profile"
+    spf_virtual_host_uuid: FilterString
+
     "Filter by 'system_update_method' field of system profile"
     spf_system_update_method: FilterString
 

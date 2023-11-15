@@ -129,7 +129,8 @@
                 "failed": 0,
                 "failed_services": "ex1"
             },
-            "threads_per_core": 0
+            "threads_per_core": 0,
+            "virtual_host_uuid": "0ddf52cb-94e3-4ada-bdf7-d424a547b671"
         },
         "tags_structured": [
             {
@@ -331,7 +332,8 @@
                 "failed": 1,
                 "failed_services": "ex2"
             },
-            "threads_per_core": 1
+            "threads_per_core": 1,
+            "virtual_host_uuid": "6996463b-c9d4-402b-ad37-8ab5556ddf88"
         },
         "tags_structured": [
             {
@@ -511,7 +513,8 @@
                 "failed": 2,
                 "failed_services": "ex3"
             },
-            "threads_per_core": 2
+            "threads_per_core": 2,
+            "virtual_host_uuid": "0c352918-fa05-4f05-996c-6c43ec0b3c5e"
         },
         "tags_structured": [
             {
