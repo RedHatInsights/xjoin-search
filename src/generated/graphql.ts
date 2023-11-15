@@ -538,6 +538,8 @@ export type HostFilter = {
   spf_threads_per_core?: InputMaybe<FilterInt>;
   /** Filter by 'tuned_profile' field of system profile */
   spf_tuned_profile?: InputMaybe<FilterString>;
+  /** Filter by 'virtual_host_uuid' field of system profile */
+  spf_virtual_host_uuid?: InputMaybe<FilterString>;
   /** Filter by the stale_timestamp value */
   stale_timestamp?: InputMaybe<FilterTimestamp>;
   /** Filter by host tag. The tag namespace/key/value must match exactly what the host is tagged with */

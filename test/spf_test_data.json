@@ -873,5 +873,13 @@
         "eq": "rpm-ostree"
       }
     }
+  },
+  {
+    "field_name": "virtual_host_uuid",
+    "field_query": {
+      "spf_virtual_host_uuid": {
+        "eq": "6996463b-c9d4-402b-ad37-8ab5556ddf88"
+      }
+    }
   }
 ]
