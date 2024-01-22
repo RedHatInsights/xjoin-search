@@ -148,7 +148,14 @@ export type FilterOperatingSystem = {
 
 /** Per-reporter staleness filter. */
 export type FilterPerReporterStaleness = {
+  /** Apply logical conjunction on the given filtering criteria */
+  AND?: InputMaybe<Array<FilterPerReporterStaleness>>;
+  /** Negate the given filtering criteria */
+  NOT?: InputMaybe<FilterPerReporterStaleness>;
+  /** Apply logical disjunction on the given filtering criteria */
+  OR?: InputMaybe<Array<FilterPerReporterStaleness>>;
   check_in_succeeded?: InputMaybe<FilterBoolean>;
+  hostFilter?: InputMaybe<HostFilter>;
   last_check_in?: InputMaybe<FilterTimestamp>;
   reporter?: InputMaybe<FilterString>;
   stale_timestamp?: InputMaybe<FilterTimestamp>;
