@@ -457,6 +457,38 @@ input FilterGroup {
     hasSome: FilterBoolean
 }
 
+"""
+bootc_status.booted filter
+"""
+input FilterBooted {
+    image: FilterStringWithWildcardWithLowercase
+    image_digest: FilterString
+}
+
+"""
+bootc_status.cachedUpdate filter
+"""
+input FilterCachedupdate {
+    image: FilterStringWithWildcardWithLowercase
+    image_digest: FilterString
+}
+
+"""
+bootc_status.rollback filter
+"""
+input FilterRollback {
+    image: FilterStringWithWildcardWithLowercase
+    image_digest: FilterString
+}
+
+"""
+bootc_status.staged filter
+"""
+input FilterStaged {
+    image: FilterStringWithWildcardWithLowercase
+    image_digest: FilterString
+}
+
 #
 # Generated system_profile input types
 #
