@@ -61,18 +61,6 @@ export type FilterBoolean = {
   is?: InputMaybe<Scalars['Boolean']>;
 };
 
-/** bootc_status.booted filter */
-export type FilterBooted = {
-  image?: InputMaybe<FilterStringWithWildcardWithLowercase>;
-  image_digest?: InputMaybe<FilterString>;
-};
-
-/** bootc_status.cachedUpdate filter */
-export type FilterCachedupdate = {
-  image?: InputMaybe<FilterStringWithWildcardWithLowercase>;
-  image_digest?: InputMaybe<FilterString>;
-};
-
 /** Filter by 'disk_devices' field of system profile */
 export type FilterDiskDevices = {
   /** Filter by 'device' field of disk_devices */
@@ -172,12 +160,6 @@ export type FilterRhsm = {
   version?: InputMaybe<FilterString>;
 };
 
-/** bootc_status.rollback filter */
-export type FilterRollback = {
-  image?: InputMaybe<FilterStringWithWildcardWithLowercase>;
-  image_digest?: InputMaybe<FilterString>;
-};
-
 /** Filter by 'rpm_ostree_deployments' field of system profile */
 export type FilterRpmOstreeDeployments = {
   /** Filter by 'booted' field of rpm_ostree_deployments */
@@ -206,12 +188,6 @@ export type FilterSap = {
   sids?: InputMaybe<FilterString>;
   /** Filter by 'version' field of sap */
   version?: InputMaybe<FilterString>;
-};
-
-/** bootc_status.staged filter */
-export type FilterStaged = {
-  image?: InputMaybe<FilterStringWithWildcardWithLowercase>;
-  image_digest?: InputMaybe<FilterString>;
 };
 
 /** Basic filter for string fields that allows filtering based on exact match. */
@@ -862,8 +838,6 @@ export type ResolversTypes = {
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>;
   FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
-  FilterBooted: FilterBooted;
-  FilterCachedupdate: FilterCachedupdate;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
   FilterGroup: FilterGroup;
@@ -874,10 +848,8 @@ export type ResolversTypes = {
   FilterOperatingSystem: FilterOperatingSystem;
   FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
-  FilterRollback: FilterRollback;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
   FilterSap: FilterSap;
-  FilterStaged: FilterStaged;
   FilterString: FilterString;
   FilterStringWithRegex: FilterStringWithRegex;
   FilterStringWithWildcard: FilterStringWithWildcard;
@@ -928,8 +900,6 @@ export type ResolversParentTypes = {
   CollectionMeta: CollectionMeta;
   FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
-  FilterBooted: FilterBooted;
-  FilterCachedupdate: FilterCachedupdate;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
   FilterGroup: FilterGroup;
@@ -940,10 +910,8 @@ export type ResolversParentTypes = {
   FilterOperatingSystem: FilterOperatingSystem;
   FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
-  FilterRollback: FilterRollback;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
   FilterSap: FilterSap;
-  FilterStaged: FilterStaged;
   FilterString: FilterString;
   FilterStringWithRegex: FilterStringWithRegex;
   FilterStringWithWildcard: FilterStringWithWildcard;
