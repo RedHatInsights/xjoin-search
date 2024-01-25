@@ -45,7 +45,6 @@
     * [FilterStringWithWildcard](#filterstringwithwildcard)
     * [FilterStringWithWildcardWithLowercase](#filterstringwithwildcardwithlowercase)
     * [FilterSystemPurpose](#filtersystempurpose)
-    * [FilterSystemd](#filtersystemd)
     * [FilterTag](#filtertag)
     * [FilterTimestamp](#filtertimestamp)
     * [HostFilter](#hostfilter)
@@ -1445,33 +1444,6 @@ Per-reporter staleness filter.
 </thead>
 <tbody>
 <tr>
-<td colspan="2" valign="top"><strong>AND</strong></td>
-<td valign="top">[<a href="#filterperreporterstaleness">FilterPerReporterStaleness</a>!]</td>
-<td>
-
-Apply logical conjunction on the given filtering criteria
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>OR</strong></td>
-<td valign="top">[<a href="#filterperreporterstaleness">FilterPerReporterStaleness</a>!]</td>
-<td>
-
-Apply logical disjunction on the given filtering criteria
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>NOT</strong></td>
-<td valign="top"><a href="#filterperreporterstaleness">FilterPerReporterStaleness</a></td>
-<td>
-
-Negate the given filtering criteria
-
-</td>
-</tr>
-<tr>
 <td colspan="2" valign="top"><strong>reporter</strong></td>
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td></td>
@@ -1489,11 +1461,6 @@ Negate the given filtering criteria
 <tr>
 <td colspan="2" valign="top"><strong>check_in_succeeded</strong></td>
 <td valign="top"><a href="#filterboolean">FilterBoolean</a></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>hostFilter</strong></td>
-<td valign="top"><a href="#hostfilter">HostFilter</a></td>
 <td></td>
 </tr>
 </tbody>
@@ -1861,58 +1828,6 @@ Filter by 'sla' field of system_purpose
 </tbody>
 </table>
 
-### FilterSystemd
-
-Filter by 'systemd' field of system profile
-
-<table>
-<thead>
-<tr>
-<th colspan="2" align="left">Field</th>
-<th align="left">Type</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="2" valign="top"><strong>state</strong></td>
-<td valign="top"><a href="#filterstring">FilterString</a></td>
-<td>
-
-Filter by 'state' field of systemd
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>jobs_queued</strong></td>
-<td valign="top"><a href="#filterint">FilterInt</a></td>
-<td>
-
-Filter by 'jobs_queued' field of systemd
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>failed</strong></td>
-<td valign="top"><a href="#filterint">FilterInt</a></td>
-<td>
-
-Filter by 'failed' field of systemd
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>failed_services</strong></td>
-<td valign="top"><a href="#filterstring">FilterString</a></td>
-<td>
-
-Filter by 'failed_services' field of systemd
-
-</td>
-</tr>
-</tbody>
-</table>
-
 ### FilterTag
 
 Filters hosts by the presence of a host tag
@@ -2117,15 +2032,6 @@ Filter by provider_id
 <td>
 
 Filter by modified_on
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>spf_virtual_host_uuid</strong></td>
-<td valign="top"><a href="#filterstring">FilterString</a></td>
-<td>
-
-Filter by 'virtual_host_uuid' field of system profile
 
 </td>
 </tr>
@@ -2490,15 +2396,6 @@ Filter by 'operating_system' field of system profile
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>spf_systemd</strong></td>
-<td valign="top"><a href="#filtersystemd">FilterSystemd</a></td>
-<td>
-
-Filter by 'systemd' field of system profile
-
-</td>
-</tr>
-<tr>
 <td colspan="2" valign="top"><strong>spf_cpu_flags</strong></td>
 <td valign="top"><a href="#filterstring">FilterString</a></td>
 <td>
@@ -2567,15 +2464,6 @@ Filter by 'infrastructure_type' field of system profile
 <td>
 
 Filter by 'system_memory_bytes' field of system profile
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>spf_threads_per_core</strong></td>
-<td valign="top"><a href="#filterint">FilterInt</a></td>
-<td>
-
-Filter by 'threads_per_core' field of system profile
 
 </td>
 </tr>
@@ -2744,10 +2632,6 @@ As a result, "=" and "/" appear in every tag.
 <tbody>
 <tr>
 <td valign="top"><strong>display_name</strong></td>
-<td></td>
-</tr>
-<tr>
-<td valign="top"><strong>group_name</strong></td>
 <td></td>
 </tr>
 <tr>
