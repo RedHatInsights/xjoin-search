@@ -5,6 +5,7 @@ import {HttpErrorBadRequest, HttpErrorForbidden, HttpErrorUnauthorized} from '..
 
 export default function identity(req: express.Request, res: express.Response, next: express.NextFunction): void {
     const raw = req.header(constants.IDENTITY_HEADER);
+    const allowed_identity_types = ['User', 'System', 'ServiceAccount'];
 
     if (raw === undefined) {
         log.info('rejecting request due to missing identity header');
@@ -21,7 +22,7 @@ export default function identity(req: express.Request, res: express.Response, ne
             return next(new HttpErrorBadRequest());
         }
 
-        if (identity.type !== 'User' && identity.type !== 'System') {
+        if (!allowed_identity_types.includes(identity.type)) {
             log.info('rejecting request for identity.type: ' + identity.type);
             return next(new HttpErrorForbidden());
         }
