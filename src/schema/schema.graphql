@@ -442,18 +442,10 @@ input SapSidFilter {
 Per-reporter staleness filter.
 """
 input FilterPerReporterStaleness {
-    "Apply logical conjunction on the given filtering criteria"
-    AND: [FilterPerReporterStaleness!]
-    "Apply logical disjunction on the given filtering criteria"
-    OR: [FilterPerReporterStaleness!]
-    "Negate the given filtering criteria"
-    NOT: FilterPerReporterStaleness
-
     reporter: FilterString
     stale_timestamp: FilterTimestamp
     last_check_in: FilterTimestamp
     check_in_succeeded: FilterBoolean
-    hostFilter: HostFilter
 }
 
 """
