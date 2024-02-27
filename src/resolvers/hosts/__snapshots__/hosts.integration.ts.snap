@@ -378,45 +378,6 @@ Object {
     "data": Array [
       Object {
         "account": "test",
-        "ansible_host": "test03.rhel8.aprice.local",
-        "display_name": "test3.rhel8.aprice.local",
-        "groups": Object {
-          "data": Array [],
-        },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "org_id": "test",
-        "reporter": "puptoo",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test01.rhel7.aprice.local",
-        "display_name": "test1.rhel7.aprice.local",
-        "groups": Object {
-          "data": Array [],
-        },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "org_id": "test",
-        "reporter": "puptoo",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test02.rhel7.aprice.local",
-        "display_name": "test2.rhel7.aprice.local",
-        "groups": Object {
-          "data": Array [],
-        },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "org_id": "test",
-        "reporter": "puptoo",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
         "ansible_host": "test04.rhel.aprice.local",
         "display_name": "test4.rhel.aprice.local",
         "groups": Object {
@@ -443,12 +404,51 @@ Object {
       },
       Object {
         "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
         "groups": Object {
           "data": Array [],
         },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
         "reporter": "puptoo",
@@ -499,45 +499,6 @@ Object {
       },
       Object {
         "account": "test",
-        "ansible_host": "test03.rhel8.aprice.local",
-        "display_name": "test3.rhel8.aprice.local",
-        "groups": Object {
-          "data": Array [],
-        },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "org_id": "test",
-        "reporter": "puptoo",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test01.rhel7.aprice.local",
-        "display_name": "test1.rhel7.aprice.local",
-        "groups": Object {
-          "data": Array [],
-        },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "org_id": "test",
-        "reporter": "puptoo",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
-        "ansible_host": "test02.rhel7.aprice.local",
-        "display_name": "test2.rhel7.aprice.local",
-        "groups": Object {
-          "data": Array [],
-        },
-        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
-        "modified_on": "2019-03-10T08:07:03.354312Z",
-        "org_id": "test",
-        "reporter": "puptoo",
-        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
-      },
-      Object {
-        "account": "test",
         "ansible_host": "test04.rhel.aprice.local",
         "display_name": "test4.rhel.aprice.local",
         "groups": Object {
@@ -564,12 +525,51 @@ Object {
       },
       Object {
         "account": "test",
+        "ansible_host": "test02.rhel7.aprice.local",
+        "display_name": "test2.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc02",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
         "ansible_host": "test03.rhel7.jharting.local",
         "display_name": "test03.rhel7.jharting.local",
         "groups": Object {
           "data": Array [],
         },
         "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bcee",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test03.rhel8.aprice.local",
+        "display_name": "test3.rhel8.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc03",
+        "modified_on": "2019-03-10T08:07:03.354312Z",
+        "org_id": "test",
+        "reporter": "puptoo",
+        "stale_timestamp": "2030-03-10T08:07:03.354307Z",
+      },
+      Object {
+        "account": "test",
+        "ansible_host": "test01.rhel7.aprice.local",
+        "display_name": "test1.rhel7.aprice.local",
+        "groups": Object {
+          "data": Array [],
+        },
+        "id": "f5ac67e1-ad65-4b62-bc27-845cc6d4bc01",
         "modified_on": "2019-03-10T08:07:03.354312Z",
         "org_id": "test",
         "reporter": "puptoo",
@@ -743,6 +743,24 @@ Object {
           "bios_release_date": "12/01/2006",
           "bios_vendor": "ex2",
           "bios_version": "ex2",
+          "bootc_status": Object {
+            "booted": Object {
+              "image": "192.168.0.1:5000/foo/foo:latest",
+              "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0",
+            },
+            "cachedUpdate": Object {
+              "image": "192.168.0.1:5000/foo/foo:latest",
+              "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0",
+            },
+            "rollback": Object {
+              "image": "192.168.0.1:5000/foo/foo:latest",
+              "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0",
+            },
+            "staged": Object {
+              "image": "192.168.0.1:5000/foo/foo:latest",
+              "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0",
+            },
+          },
           "captured_date": "ex2",
           "cloud_provider": "ms",
           "cores_per_socket": 1,
@@ -774,10 +792,17 @@ Object {
             "status": "inactive",
           },
           "installed_services": "ex2",
+          "intersystems": Object {
+            "is_intersystems": false,
+            "running_instances": Object {
+              "instance_name": "PROD",
+              "version": "2023.2",
+            },
+          },
           "is_marketplace": false,
           "katello_agent_running": false,
           "kernel_modules": "ex2",
-          "last_boot_time": "2021-01-11T10:10:10.000Z",
+          "last_boot_time": "2021-01-11T09:10:10.000Z",
           "mssql": Object {
             "version": "12.5.3",
           },
@@ -865,6 +890,12 @@ Object {
           "bios_release_date": "12/01/2006",
           "bios_vendor": "ex3",
           "bios_version": "ex3",
+          "bootc_status": Object {
+            "booted": Object {},
+            "cachedUpdate": Object {},
+            "rollback": Object {},
+            "staged": Object {},
+          },
           "captured_date": "ex3",
           "cloud_provider": "ibm",
           "cores_per_socket": 2,
@@ -894,10 +925,14 @@ Object {
             "status": "canceled",
           },
           "installed_services": "ex3",
+          "intersystems": Object {
+            "is_intersystems": true,
+            "running_instances": Object {},
+          },
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex3",
-          "last_boot_time": "2021-01-12T10:10:10.000Z",
+          "last_boot_time": "2021-01-12T09:10:10.000Z",
           "mssql": Object {
             "version": "10.1.0",
           },
@@ -997,6 +1032,24 @@ Object {
           "bios_release_date": "12/01/2006",
           "bios_vendor": "ex1",
           "bios_version": "ex1",
+          "bootc_status": Object {
+            "booted": Object {
+              "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+              "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223",
+            },
+            "cachedUpdate": Object {
+              "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+              "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223",
+            },
+            "rollback": Object {
+              "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+              "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223",
+            },
+            "staged": Object {
+              "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+              "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223",
+            },
+          },
           "captured_date": "ex1",
           "cloud_provider": "aws",
           "cores_per_socket": 0,
@@ -1028,10 +1081,18 @@ Object {
             "status": "Subscribed",
           },
           "installed_services": "ex1",
+          "intersystems": Object {
+            "is_intersystems": true,
+            "running_instances": Object {
+              "instance_name": "IRIS3",
+              "product": "IRIS",
+              "version": "2023.1",
+            },
+          },
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex1",
-          "last_boot_time": "2021-01-10T10:10:10.000Z",
+          "last_boot_time": "2021-01-10T09:10:10.000Z",
           "mssql": Object {
             "version": "15.2.0",
           },
@@ -1128,6 +1189,24 @@ Object {
           "bios_release_date": "12/01/2006",
           "bios_vendor": "ex1",
           "bios_version": "ex1",
+          "bootc_status": Object {
+            "booted": Object {
+              "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+              "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223",
+            },
+            "cachedUpdate": Object {
+              "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+              "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223",
+            },
+            "rollback": Object {
+              "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+              "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223",
+            },
+            "staged": Object {
+              "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+              "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223",
+            },
+          },
           "captured_date": "ex1",
           "cloud_provider": "aws",
           "cores_per_socket": 0,
@@ -1159,10 +1238,18 @@ Object {
             "status": "Subscribed",
           },
           "installed_services": "ex1",
+          "intersystems": Object {
+            "is_intersystems": true,
+            "running_instances": Object {
+              "instance_name": "IRIS3",
+              "product": "IRIS",
+              "version": "2023.1",
+            },
+          },
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex1",
-          "last_boot_time": "2021-01-10T10:10:10.000Z",
+          "last_boot_time": "2021-01-10T09:10:10.000Z",
           "mssql": Object {
             "version": "15.2.0",
           },
@@ -1262,6 +1349,12 @@ Object {
           "bios_release_date": "12/01/2006",
           "bios_vendor": "ex3",
           "bios_version": "ex3",
+          "bootc_status": Object {
+            "booted": Object {},
+            "cachedUpdate": Object {},
+            "rollback": Object {},
+            "staged": Object {},
+          },
           "captured_date": "ex3",
           "cloud_provider": "ibm",
           "cores_per_socket": 2,
@@ -1291,10 +1384,14 @@ Object {
             "status": "canceled",
           },
           "installed_services": "ex3",
+          "intersystems": Object {
+            "is_intersystems": true,
+            "running_instances": Object {},
+          },
           "is_marketplace": true,
           "katello_agent_running": true,
           "kernel_modules": "ex3",
-          "last_boot_time": "2021-01-12T10:10:10.000Z",
+          "last_boot_time": "2021-01-12T09:10:10.000Z",
           "mssql": Object {
             "version": "10.1.0",
           },
@@ -1382,6 +1479,24 @@ Object {
           "bios_release_date": "12/01/2006",
           "bios_vendor": "ex2",
           "bios_version": "ex2",
+          "bootc_status": Object {
+            "booted": Object {
+              "image": "192.168.0.1:5000/foo/foo:latest",
+              "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0",
+            },
+            "cachedUpdate": Object {
+              "image": "192.168.0.1:5000/foo/foo:latest",
+              "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0",
+            },
+            "rollback": Object {
+              "image": "192.168.0.1:5000/foo/foo:latest",
+              "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0",
+            },
+            "staged": Object {
+              "image": "192.168.0.1:5000/foo/foo:latest",
+              "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0",
+            },
+          },
           "captured_date": "ex2",
           "cloud_provider": "ms",
           "cores_per_socket": 1,
@@ -1413,10 +1528,17 @@ Object {
             "status": "inactive",
           },
           "installed_services": "ex2",
+          "intersystems": Object {
+            "is_intersystems": false,
+            "running_instances": Object {
+              "instance_name": "PROD",
+              "version": "2023.2",
+            },
+          },
           "is_marketplace": false,
           "katello_agent_running": false,
           "kernel_modules": "ex2",
-          "last_boot_time": "2021-01-11T10:10:10.000Z",
+          "last_boot_time": "2021-01-11T09:10:10.000Z",
           "mssql": Object {
             "version": "12.5.3",
           },
