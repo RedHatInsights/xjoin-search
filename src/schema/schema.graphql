@@ -74,6 +74,9 @@ input HostFilter {
     # DO NOT REMOVE. Used to automatically update this schema
     # based on the system_profile JSONschema
     # START: system_profile schema filters
+    "Filter by 'bootc_status' field of system profile"
+    spf_bootc_status: FilterBootcStatus
+
     "Filter by 'virtual_host_uuid' field of system profile"
     spf_virtual_host_uuid: FilterString
 
@@ -82,6 +85,9 @@ input HostFilter {
 
     "Filter by 'mssql' field of system profile"
     spf_mssql: FilterMssql
+
+    "Filter by 'intersystems' field of system profile"
+    spf_intersystems: FilterIntersystems
 
     "Filter by 'ansible' field of system profile"
     spf_ansible: FilterAnsible
@@ -469,6 +475,57 @@ input FilterGroup {
 # Generated system_profile input types
 #
 """
+Filter by 'bootc_status' field of system profile
+"""
+input FilterBootcStatus {
+
+    "Filter by 'booted' field of bootc_status"
+    booted: FilterBooted
+
+    "Filter by 'cachedUpdate' field of bootc_status"
+    cachedUpdate: FilterCachedupdate
+
+    "Filter by 'rollback' field of bootc_status"
+    rollback: FilterRollback
+
+    "Filter by 'staged' field of bootc_status"
+    staged: FilterStaged
+
+}
+
+"""
+bootc_status.booter filter
+"""
+input FilterBooted {
+    image: FilterStringWithWildcardWithLowercase
+    image_digest: FilterString
+}
+
+"""
+bootc_status.cachedUpdate filter
+"""
+input FilterCachedupdate {
+    image: FilterStringWithWildcardWithLowercase
+    image_digest: FilterString
+}
+
+"""
+bootc_status.rollback filter
+"""
+input FilterRollback {
+    image: FilterStringWithWildcardWithLowercase
+    image_digest: FilterString
+}
+
+"""
+bootc_status.staged filter
+"""
+input FilterStaged {
+    image: FilterStringWithWildcardWithLowercase
+    image_digest: FilterString
+}
+
+"""
 Filter by 'mssql' field of system profile
 """
 input FilterMssql {
@@ -476,6 +533,28 @@ input FilterMssql {
     "Filter by 'version' field of mssql"
     version: FilterStringWithWildcard
 
+}
+
+"""
+Filter by 'intersystems' field of system profile
+"""
+input FilterIntersystems {
+
+    "Filter by 'is_intersystems' field of intersystems"
+    is_intersystems: FilterBoolean
+
+    "Filter by 'running_instances' field of intersystems"
+    running_instances: FilterRunningInstances
+
+}
+
+"""
+intersystems.running_instances filter
+"""
+input FilterRunningInstances {
+  instance_name: FilterString
+  product: FilterString
+  version: FilterString
 }
 
 """
