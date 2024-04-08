@@ -28,7 +28,7 @@ function job_cleanup() {
 
 trap_proxy job_cleanup EXIT ERR SIGINT SIGTERM
 
-DOCKER_CONF="$PWD/.docker"
+DOCKER_CONF="$TMP_JOB_DIR/.docker"
 mkdir -p "$DOCKER_CONF"
 
 docker --config="$DOCKER_CONF" login -u="$QUAY_USER" -p="$QUAY_TOKEN" quay.io
