@@ -22,7 +22,7 @@ export TMP_JOB_DIR=$(mktemp -d -p "$HOME" -t "jenkins-${JOB_NAME}-${BUILD_NUMBER
 echo "job tmp dir location: $TMP_JOB_DIR"
 
 function job_cleanup() {
-    echo "triggering job cleanup due to signal: $CAPTURED_SIGNAL"
+    echo "cleaning up tmp job dir: $TMP_JOB_DIR"
     rm -fr $TMP_JOB_DIR
 }
 
