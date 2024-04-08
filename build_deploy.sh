@@ -26,7 +26,7 @@ function job_cleanup() {
     rm -fr $TMP_JOB_DIR
 }
 
-trap_proxy job_cleanup EXIT ERR SIGINT SIGTERM
+trap job_cleanup EXIT ERR SIGINT SIGTERM
 
 DOCKER_CONF="$TMP_JOB_DIR/.docker"
 mkdir -p "$DOCKER_CONF"
