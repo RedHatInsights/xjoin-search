@@ -23,7 +23,6 @@ echo "job tmp dir location: $TMP_JOB_DIR"
 
 function job_cleanup() {
     echo "triggering job cleanup due to signal: $CAPTURED_SIGNAL"
-
     rm -fr $TMP_JOB_DIR
 }
 
