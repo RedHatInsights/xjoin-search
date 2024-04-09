@@ -63,7 +63,7 @@
     "apollo-server-plugin-base": "^3.6.3",
     "bluebird": "^3.7.2",
     "convict": "^6.2.3",
-    "express": "^4.17.1",
+    "express": "^4.19.2",
     "express-pino-logger": "^6.0.0",
     "express-prom-bundle": "^6.3.6",
     "graphql": "^15.5.1",
