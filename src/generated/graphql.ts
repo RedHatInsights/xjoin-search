@@ -61,6 +61,30 @@ export type FilterBoolean = {
   is?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** Filter by 'bootc_status' field of system profile */
+export type FilterBootcStatus = {
+  /** Filter by 'booted' field of bootc_status */
+  booted?: InputMaybe<FilterBooted>;
+  /** Filter by 'cachedUpdate' field of bootc_status */
+  cachedUpdate?: InputMaybe<FilterCachedupdate>;
+  /** Filter by 'rollback' field of bootc_status */
+  rollback?: InputMaybe<FilterRollback>;
+  /** Filter by 'staged' field of bootc_status */
+  staged?: InputMaybe<FilterStaged>;
+};
+
+/** bootc_status.booter filter */
+export type FilterBooted = {
+  image?: InputMaybe<FilterStringWithWildcardWithLowercase>;
+  image_digest?: InputMaybe<FilterString>;
+};
+
+/** bootc_status.cachedUpdate filter */
+export type FilterCachedupdate = {
+  image?: InputMaybe<FilterStringWithWildcardWithLowercase>;
+  image_digest?: InputMaybe<FilterString>;
+};
+
 /** Filter by 'disk_devices' field of system profile */
 export type FilterDiskDevices = {
   /** Filter by 'device' field of disk_devices */
@@ -110,6 +134,14 @@ export type FilterInt = {
   lt?: InputMaybe<Scalars['BigInt']>;
   /** Less than or equal to */
   lte?: InputMaybe<Scalars['BigInt']>;
+};
+
+/** Filter by 'intersystems' field of system profile */
+export type FilterIntersystems = {
+  /** Filter by 'is_intersystems' field of intersystems */
+  is_intersystems?: InputMaybe<FilterBoolean>;
+  /** Filter by 'running_instances' field of intersystems */
+  running_instances?: InputMaybe<FilterRunningInstances>;
 };
 
 /** Filter by 'mssql' field of system profile */
@@ -167,6 +199,12 @@ export type FilterRhsm = {
   version?: InputMaybe<FilterString>;
 };
 
+/** bootc_status.rollback filter */
+export type FilterRollback = {
+  image?: InputMaybe<FilterStringWithWildcardWithLowercase>;
+  image_digest?: InputMaybe<FilterString>;
+};
+
 /** Filter by 'rpm_ostree_deployments' field of system profile */
 export type FilterRpmOstreeDeployments = {
   /** Filter by 'booted' field of rpm_ostree_deployments */
@@ -185,6 +223,13 @@ export type FilterRpmOstreeDeployments = {
   version?: InputMaybe<FilterString>;
 };
 
+/** intersystems.running_instances filter */
+export type FilterRunningInstances = {
+  instance_name?: InputMaybe<FilterString>;
+  product?: InputMaybe<FilterString>;
+  version?: InputMaybe<FilterString>;
+};
+
 /** Filter by 'sap' field of system profile */
 export type FilterSap = {
   /** Filter by 'instance_number' field of sap */
@@ -195,6 +240,12 @@ export type FilterSap = {
   sids?: InputMaybe<FilterString>;
   /** Filter by 'version' field of sap */
   version?: InputMaybe<FilterString>;
+};
+
+/** bootc_status.staged filter */
+export type FilterStaged = {
+  image?: InputMaybe<FilterStringWithWildcardWithLowercase>;
+  image_digest?: InputMaybe<FilterString>;
 };
 
 /** Basic filter for string fields that allows filtering based on exact match. */
@@ -441,6 +492,8 @@ export type HostFilter = {
   spf_bios_vendor?: InputMaybe<FilterString>;
   /** Filter by 'bios_version' field of system profile */
   spf_bios_version?: InputMaybe<FilterString>;
+  /** Filter by 'bootc_status' field of system profile */
+  spf_bootc_status?: InputMaybe<FilterBootcStatus>;
   /** Filter by 'captured_date' field of system profile */
   spf_captured_date?: InputMaybe<FilterString>;
   /** Filter by 'cloud_provider' field of system profile */
@@ -479,6 +532,8 @@ export type HostFilter = {
   spf_installed_products?: InputMaybe<FilterInstalledProducts>;
   /** Filter by 'installed_services' field of system profile */
   spf_installed_services?: InputMaybe<FilterString>;
+  /** Filter by 'intersystems' field of system profile */
+  spf_intersystems?: InputMaybe<FilterIntersystems>;
   /** Filter by 'is_marketplace' field of system profile */
   spf_is_marketplace?: InputMaybe<FilterBoolean>;
   /** Filter by 'katello_agent_running' field of system profile */
@@ -845,18 +900,25 @@ export type ResolversTypes = {
   CollectionMeta: ResolverTypeWrapper<CollectionMeta>;
   FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
+  FilterBootcStatus: FilterBootcStatus;
+  FilterBooted: FilterBooted;
+  FilterCachedupdate: FilterCachedupdate;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
   FilterGroup: FilterGroup;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
+  FilterIntersystems: FilterIntersystems;
   FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
   FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
+  FilterRollback: FilterRollback;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
+  FilterRunningInstances: FilterRunningInstances;
   FilterSap: FilterSap;
+  FilterStaged: FilterStaged;
   FilterString: FilterString;
   FilterStringWithRegex: FilterStringWithRegex;
   FilterStringWithWildcard: FilterStringWithWildcard;
@@ -907,18 +969,25 @@ export type ResolversParentTypes = {
   CollectionMeta: CollectionMeta;
   FilterAnsible: FilterAnsible;
   FilterBoolean: FilterBoolean;
+  FilterBootcStatus: FilterBootcStatus;
+  FilterBooted: FilterBooted;
+  FilterCachedupdate: FilterCachedupdate;
   FilterDiskDevices: FilterDiskDevices;
   FilterDnfModules: FilterDnfModules;
   FilterGroup: FilterGroup;
   FilterInstalledProducts: FilterInstalledProducts;
   FilterInt: FilterInt;
+  FilterIntersystems: FilterIntersystems;
   FilterMssql: FilterMssql;
   FilterNetworkInterfaces: FilterNetworkInterfaces;
   FilterOperatingSystem: FilterOperatingSystem;
   FilterPerReporterStaleness: FilterPerReporterStaleness;
   FilterRhsm: FilterRhsm;
+  FilterRollback: FilterRollback;
   FilterRpmOstreeDeployments: FilterRpmOstreeDeployments;
+  FilterRunningInstances: FilterRunningInstances;
   FilterSap: FilterSap;
+  FilterStaged: FilterStaged;
   FilterString: FilterString;
   FilterStringWithRegex: FilterStringWithRegex;
   FilterStringWithWildcard: FilterStringWithWildcard;

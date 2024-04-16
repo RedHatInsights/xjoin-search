@@ -22,7 +22,7 @@
             "os_kernel_version": "4.18.2",
             "infrastructure_type": "physical",
             "infrastructure_vendor": "ex1",
-            "last_boot_time": "2021-01-10T10:10:10.000Z",
+            "last_boot_time": "2021-01-10T09:10:10.000Z",
             "number_of_sockets": 0,
             "insights_egg_version": "2.3",
             "bios_release_date": "12/01/2006",
@@ -130,7 +130,33 @@
                 "failed_services": "ex1"
             },
             "threads_per_core": 0,
-            "virtual_host_uuid": "0ddf52cb-94e3-4ada-bdf7-d424a547b671"
+            "virtual_host_uuid": "0ddf52cb-94e3-4ada-bdf7-d424a547b671",
+            "intersystems": {
+                "is_intersystems": true,
+                "running_instances": {
+                    "instance_name": "IRIS3",
+                    "product": "IRIS",
+                    "version": "2023.1"
+                }
+            },
+            "bootc_status": {
+                "booted": {
+                    "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+                    "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223"
+                },
+                "cachedUpdate": {
+                    "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+                    "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223"
+                },
+                "rollback": {
+                    "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+                    "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223"
+                },
+                "staged": {
+                    "image": "quay.io/centos-bootc/fedora-bootc-cloud:eln",
+                    "image_digest": "sha256:806d77394f96e47cf99b1233561ce970c94521244a2d8f2affa12c3261961223"
+                }
+            }
         },
         "tags_structured": [
             {
@@ -225,7 +251,7 @@
             "os_kernel_version": "4.5.0",
             "infrastructure_type": "virtual",
             "infrastructure_vendor": "ex2",
-            "last_boot_time": "2021-01-11T10:10:10.000Z",
+            "last_boot_time": "2021-01-11T09:10:10.000Z",
             "number_of_sockets": 1,
             "insights_egg_version": "4.4",
             "bios_release_date": "12/01/2006",
@@ -333,7 +359,32 @@
                 "failed_services": "ex2"
             },
             "threads_per_core": 1,
-            "virtual_host_uuid": "6996463b-c9d4-402b-ad37-8ab5556ddf88"
+            "virtual_host_uuid": "6996463b-c9d4-402b-ad37-8ab5556ddf88",
+            "intersystems": {
+                "is_intersystems": false,
+                "running_instances": {
+                    "instance_name": "PROD",
+                    "version": "2023.2"
+                }
+            },
+            "bootc_status": {
+                "booted": {
+                    "image": "192.168.0.1:5000/foo/foo:latest",
+                    "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0"
+                },
+                "cachedUpdate": {
+                    "image": "192.168.0.1:5000/foo/foo:latest",
+                    "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0"
+                },
+                "rollback": {
+                    "image": "192.168.0.1:5000/foo/foo:latest",
+                    "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0"
+                },
+                "staged": {
+                    "image": "192.168.0.1:5000/foo/foo:latest",
+                    "image_digest": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0"
+                }
+            }
         },
         "tags_structured": [
             {
@@ -408,7 +459,7 @@
             "os_kernel_version": "5.1.0",
             "infrastructure_type": "imaginary",
             "infrastructure_vendor": "baremetal",
-            "last_boot_time": "2021-01-12T10:10:10.000Z",
+            "last_boot_time": "2021-01-12T09:10:10.000Z",
             "number_of_sockets": 2,
             "insights_egg_version": "5.1",
             "bios_release_date": "12/01/2006",
@@ -514,7 +565,17 @@
                 "failed_services": "ex3"
             },
             "threads_per_core": 2,
-            "virtual_host_uuid": "0c352918-fa05-4f05-996c-6c43ec0b3c5e"
+            "virtual_host_uuid": "0c352918-fa05-4f05-996c-6c43ec0b3c5e",
+            "intersystems": {
+                "is_intersystems": true,
+                "running_instances": {}
+            },
+            "bootc_status": {
+                "booted": {},
+                "cachedUpdate": {},
+                "rollback": {},
+                "staged": {}
+            }
         },
         "tags_structured": [
             {
