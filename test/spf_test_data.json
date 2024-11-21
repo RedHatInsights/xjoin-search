@@ -369,8 +369,8 @@
     "field_name": "last_boot_time",
     "field_query": {
       "spf_last_boot_time": {
-        "gt": "2021-01-10T10:10:10.000Z",
-        "lte": "2021-01-11T10:10:10.000Z"
+        "gt": "2021-01-10T09:10:10.000Z",
+        "lte": "2021-01-11T09:10:10.000Z"
       }
     }
   },
@@ -847,6 +847,50 @@
     }
   },
   {
+    "field_name": "intersystems is_intersystems",
+    "field_query": {
+      "spf_intersystems": {
+        "is_intersystems": {
+          "is": false
+        }
+      }
+    }
+  },
+  {
+    "field_name": "intersystems running_instances instance_name",
+    "field_query": {
+      "spf_intersystems": {
+        "running_instances": {
+          "instance_name": {
+            "eq": "PROD"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "intersystems running_instances product",
+    "field_query": {
+      "spf_intersystems": {
+        "running_instances": {
+          "product": {}
+        }
+      }
+    }
+  },
+  {
+    "field_name": "intersystems running_instances version",
+    "field_query": {
+      "spf_intersystems": {
+        "running_instances": {
+          "version": {
+            "eq": "2023.2"
+          }
+        }
+      }
+    }
+  },
+  {
     "field_name": "mssql version",
     "field_query": {
       "spf_mssql": {
@@ -879,6 +923,150 @@
     "field_query": {
       "spf_virtual_host_uuid": {
         "eq": "6996463b-c9d4-402b-ad37-8ab5556ddf88"
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status booted image",
+    "field_query": {
+      "spf_bootc_status": {
+        "booted": {
+          "image": {
+            "eq": "192.168.0.1:5000/foo/foo:latest"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status booted image",
+    "field_query": {
+      "spf_bootc_status": {
+        "booted": {
+          "image": {
+            "matches": "192.168.0.1:5000/foo/foo:latest"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status booted image_digest",
+    "field_query": {
+      "spf_bootc_status": {
+        "booted": {
+          "image_digest": {
+            "eq": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status cachedUpdate image",
+    "field_query": {
+      "spf_bootc_status": {
+        "cachedUpdate": {
+          "image": {
+            "eq": "192.168.0.1:5000/foo/foo:latest"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status cachedUpdate image",
+    "field_query": {
+      "spf_bootc_status": {
+        "cachedUpdate": {
+          "image": {
+            "matches": "192.168.0.1:5000/foo/foo:latest"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status cachedUpdate image_digest",
+    "field_query": {
+      "spf_bootc_status": {
+        "cachedUpdate": {
+          "image_digest": {
+            "eq": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status rollback image",
+    "field_query": {
+      "spf_bootc_status": {
+        "rollback": {
+          "image": {
+            "eq": "192.168.0.1:5000/foo/foo:latest"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status rollback image",
+    "field_query": {
+      "spf_bootc_status": {
+        "rollback": {
+          "image": {
+            "matches": "192.168.0.1:5000/foo/foo:latest"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status rollback image_digest",
+    "field_query": {
+      "spf_bootc_status": {
+        "rollback": {
+          "image_digest": {
+            "eq": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status staged image",
+    "field_query": {
+      "spf_bootc_status": {
+        "staged": {
+          "image": {
+            "eq": "192.168.0.1:5000/foo/foo:latest"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status staged image",
+    "field_query": {
+      "spf_bootc_status": {
+        "staged": {
+          "image": {
+            "matches": "192.168.0.1:5000/foo/foo:latest"
+          }
+        }
+      }
+    }
+  },
+  {
+    "field_name": "bootc_status staged image_digest",
+    "field_query": {
+      "spf_bootc_status": {
+        "staged": {
+          "image_digest": {
+            "eq": "sha256:92e476435ced1c148350c660b09c744717defbd300a15d33deda5b50ad6b21a0"
+          }
+        }
       }
     }
   }
