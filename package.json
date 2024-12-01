@@ -21,7 +21,6 @@
   "author": "Jozef Hartinger",
   "devDependencies": {
     "@ckyrouac/json-schema-to-es-mapping": "^0.3.7",
-    "@digitak/esrun": "^1.2.8",
     "@graphql-codegen/cli": "^2.13.8",
     "@graphql-codegen/introspection": "^2.2.1",
     "@graphql-codegen/typescript": "^2.8.0",
